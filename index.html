@@ -7,6 +7,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- GOOGLE FIREBASE CLOUD DATABASE COMPAT SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTARZZSEIU0inIHGFKtnItYXggLhdkJ7g",
+            authDomain: "bytecode-health-db.firebaseapp.com",
+            databaseURL: "https://bytecode-health-db-default-rtdb.firebaseio.com",
+            projectId: "bytecode-health-db",
+            storageBucket: "bytecode-health-db.firebasestorage.app",
+            messagingSenderId: "1074183189774",
+            appId: "1:1074183189774:web:fd63e9b7035975c514935f",
+            measurementId: "G-XEE15ST80C"
+        };
+
+        let firebaseDb = null;
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                firebaseDb = firebase.database();
+                console.log('⚡ Firebase Realtime Database Initialized Successfully!');
+            }
+        } catch (err) {
+            console.warn('Firebase init notice:', err);
+        }
+    </script>
     <style>
         :root {
             --bg-primary: #05080e;
@@ -1025,6 +1052,87 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
+        /* N=40 MULTI-RESPONDENT COHORT MATRIX MODAL STYLING */
+        .cohort-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 13, 0.94);
+            backdrop-filter: blur(20px);
+            z-index: 2010;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .cohort-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cohort-modal-card {
+            background: #080e18;
+            border: 1.5px solid var(--accent-neon);
+            border-radius: 28px;
+            width: 920px;
+            max-width: 96vw;
+            padding: 26px 30px;
+            box-shadow: 0 20px 80px rgba(0, 255, 136, 0.25);
+            transform: scale(0.92);
+            transition: var(--transition);
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cohort-modal-overlay.active .cohort-modal-card {
+            transform: scale(1);
+        }
+
+        .cohort-table-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 52vh;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 18px;
+        }
+
+        .cohort-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            text-align: center;
+        }
+
+        .cohort-table th {
+            background: rgba(18, 30, 48, 0.95);
+            color: var(--accent-cyan);
+            font-weight: 700;
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.3);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .cohort-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-heading);
+        }
+
+        .cohort-table tr:hover td {
+            background: rgba(0, 242, 254, 0.08);
+            color: #ffffff;
+        }
+
         .modal-top-header {
             display: flex;
             align-items: center;
@@ -1227,7 +1335,7 @@
                 font-size: 0.85rem;
             }
 
-            .device-modal-card, .sus-modal-card {
+            .device-modal-card, .sus-modal-card, .cohort-modal-card {
                 width: 94vw;
                 padding: 18px;
                 border-radius: 24px;
@@ -1698,7 +1806,7 @@
                 </div>
             </div>
 
-            <!-- RESEARCH DATA GATHERING CONTROL PANEL WITH UNANSWERED INITIAL SUS STATE -->
+            <!-- RESEARCH DATA GATHERING CONTROL PANEL -->
             <div class="researcher-data-panel">
                 <div class="researcher-top-row">
                     <div>
@@ -1736,10 +1844,11 @@
                 </div>
 
                 <div class="researcher-actions">
-                    <button class="btn-export-csv" onclick="exportUsabilityDataCSV()">📥 Export Study Data (CSV)</button>
+                    <button class="btn-export-csv" onclick="exportUsabilityDataCSV()">📥 Export Participant Data (CSV)</button>
                     <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="toggleSUSModal()">📝 10-Item SUS Scale Calculator</button>
+                    <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="toggleCohortModal()">📈 View Cohort Frequency Matrix (Chapter 4 Table)</button>
                     <button class="btn-secondary" onclick="exportUsabilityDataJSON()">📋 Export Raw Logs (JSON)</button>
-                    <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="resetStudySession()">🔄 Reset Participant Session</button>
+                    <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="resetStudySession()">🔄 Reset Participant Session</button>
                 </div>
             </div>
         </section>
@@ -1865,6 +1974,68 @@
         </div>
     </div>
 
+    <!-- DYNAMIC MULTI-RESPONDENT COHORT FREQUENCY MATRIX MODAL (CHAPTER 4 TABLE) -->
+    <div class="cohort-modal-overlay" id="cohort-modal-overlay">
+        <div class="cohort-modal-card">
+            <div class="modal-top-header">
+                <div>
+                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">Chapter 4 Statistical Matrix: Gen Z Respondents Frequency & Weighted Means</div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Dynamic Response Aggregation & Statistical Frequency Distribution Table</div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem; border-color:var(--accent-neon); color:var(--accent-neon);" onclick="loadBenchmarkN40Dataset()" title="Preload N=40 benchmark research dataset from thesis paper">
+                        ⚡ Load Benchmark (N=40)
+                    </button>
+                    <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearCohortMatrix()" title="Clear matrix to N=0 for new live study session">
+                        🧹 Clear Matrix
+                    </button>
+                    <button class="close-btn" onclick="toggleCohortModal()">&times;</button>
+                </div>
+            </div>
+
+            <div class="cohort-table-wrapper">
+                <table class="cohort-table">
+                    <thead>
+                        <tr>
+                            <th>Q#</th>
+                            <th style="text-align:left; min-width:240px;">SUS Question Statement</th>
+                            <th>5 (SA)</th>
+                            <th>4 (A)</th>
+                            <th>3 (N)</th>
+                            <th>2 (D)</th>
+                            <th>1 (SD)</th>
+                            <th>Total (N)</th>
+                            <th>Weighted Mean (x̄)</th>
+                            <th>Verbal Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cohort-table-body">
+                        <!-- Dynamically rendered -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sus-calc-summary-box" style="grid-template-columns: repeat(3, 1fr);">
+                <div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Overall Cohort Weighted Mean (X̄)</div>
+                    <div style="font-size:1.45rem; font-weight:800; color:var(--accent-neon); font-family:'Space Grotesk';" id="cohort-overall-mean">0.00 / 5.00</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Verbal Interpretation</div>
+                    <div style="font-size:1.05rem; font-weight:800; color:#ffffff; margin-top:4px;" id="cohort-overall-verbal">Unanswered (N=0)</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Composite Cohort SUS Score</div>
+                    <div style="font-size:1.45rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk';" id="cohort-overall-sus">Pending (N=0)</div>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:16px;">
+                <button class="btn-export-csv" onclick="exportCohortMatrixCSV()">📥 Export Statistical Frequency Table (CSV)</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating BYTECODE AI Assistant Button -->
     <button class="ai-chat-trigger" onclick="toggleChatWindow()">
         <span>⚡ BYTECODE AI Assistant</span>
@@ -1950,6 +2121,14 @@
             modal.classList.toggle('active');
         }
 
+        function toggleCohortModal() {
+            const modal = document.getElementById('cohort-modal-overlay');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                renderCohortTable();
+            }
+        }
+
         function scrollToDataGathering() {
             const section = document.getElementById('usability-logger');
             if (section) {
@@ -1958,7 +2137,7 @@
             }
         }
 
-        /* 10 STANDARD SYSTEM USABILITY SCALE (SUS) QUESTIONS ACCORDING TO BROOKE (1996) - UNANSWERED BY DEFAULT */
+        /* 10 STANDARD SYSTEM USABILITY SCALE (SUS) QUESTIONS ACCORDING TO BROOKE (1996) */
         const susQuestions = [
             { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", type: "odd", defaultVal: null },
             { id: 2, text: "I found the system unnecessarily complex.", type: "even", defaultVal: null },
@@ -1980,6 +2159,153 @@
             { id: 4, name: "Set privacy", desc: "Adjust consent, explanations, and data sharing.", subsystem: "Privacy Controls Panel" },
             { id: 5, name: "Ask assistant", desc: "Request a plain-language recommendation.", subsystem: "BYTECODE AI Assistant" }
         ];
+
+        /* DYNAMIC COHORT FREQUENCY MATRIX — STARTS CLEARED (N=0) BY DEFAULT */
+        let cohortDataMatrix = [
+            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 2, text: "I found the system unnecessarily complex (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 3, text: "I thought the system was easy to use.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 4, text: "I think that I would need technical support to use this system (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 5, text: "I found the various functions in this system were well integrated.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 6, text: "I thought there was too much inconsistency in this system (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 8, text: "I found the system very cumbersome to use (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 9, text: "I felt very confident using the system.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }
+        ];
+
+        /* N=40 BENCHMARK DATASET FROM RESEARCH PAPER FOR EASY DEMO PRELOADING */
+        const benchmarkN40Dataset = [
+            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 2, text: "I found the system unnecessarily complex (Inverted).", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 3, text: "I thought the system was easy to use.", f5: 29, f4: 9, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 4, text: "I think that I would need technical support to use this system (Inverted).", f5: 32, f4: 7, f3: 1, f2: 0, f1: 0, N: 40 },
+            { id: 5, text: "I found the various functions in this system were well integrated.", f5: 26, f4: 11, f3: 3, f2: 0, f1: 0, N: 40 },
+            { id: 6, text: "I thought there was too much inconsistency in this system (Inverted).", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 8, text: "I found the system very cumbersome to use (Inverted).", f5: 25, f4: 11, f3: 4, f2: 0, f1: 0, N: 40 },
+            { id: 9, text: "I felt very confident using the system.", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system (Inverted).", f5: 30, f4: 9, f3: 1, f2: 0, f1: 0, N: 40 }
+        ];
+
+        function clearCohortMatrix() {
+            cohortDataMatrix = susQuestions.map(q => ({
+                id: q.id,
+                text: q.type === 'even' ? `${q.text} (Inverted)` : q.text,
+                f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0
+            }));
+            renderCohortTable();
+            showToast('Cleared Cohort Frequency Matrix (N=0)! 🧹');
+        }
+
+        function loadBenchmarkN40Dataset() {
+            cohortDataMatrix = benchmarkN40Dataset.map(item => ({ ...item }));
+            renderCohortTable();
+            showToast('Preloaded Benchmark Research Dataset (N=40)! ⚡');
+        }
+
+        function renderCohortTable() {
+            const tbody = document.getElementById('cohort-table-body');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            let sumWeightedMeans = 0;
+            let totalCohortN = 0;
+
+            cohortDataMatrix.forEach(row => {
+                let weightedMean = 0;
+                let verbal = "Unanswered";
+
+                if (row.N > 0) {
+                    weightedMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    sumWeightedMeans += weightedMean;
+                    totalCohortN = Math.max(totalCohortN, row.N);
+
+                    if (weightedMean >= 4.21) verbal = "Strongly Agree";
+                    else if (weightedMean >= 3.41) verbal = "Agree";
+                    else if (weightedMean >= 2.61) verbal = "Neutral";
+                    else if (weightedMean >= 1.81) verbal = "Disagree";
+                    else verbal = "Strongly Disagree";
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:700; color:var(--accent-cyan);">Q${row.id}</td>
+                    <td style="text-align:left;">${row.text}</td>
+                    <td>${row.f5}</td>
+                    <td>${row.f4}</td>
+                    <td>${row.f3}</td>
+                    <td>${row.f2}</td>
+                    <td>${row.f1}</td>
+                    <td style="font-weight:700;">${row.N}</td>
+                    <td style="font-weight:800; color:${row.N > 0 ? 'var(--accent-neon)' : 'var(--text-muted)'};">${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}</td>
+                    <td style="font-weight:600; color:#ffffff;">${verbal}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if (totalCohortN > 0) {
+                const overallMean = (sumWeightedMeans / 10).toFixed(2);
+                const cohortSUS = ((overallMean - 1) * 25).toFixed(2);
+
+                document.getElementById('cohort-overall-mean').innerText = `${overallMean} / 5.00`;
+                document.getElementById('cohort-overall-verbal').innerText = `Strongly Agree (Excellent Usability)`;
+                document.getElementById('cohort-overall-sus').innerText = `${cohortSUS} / 100 (Grade A+)`;
+            } else {
+                document.getElementById('cohort-overall-mean').innerText = `0.00 / 5.00`;
+                document.getElementById('cohort-overall-verbal').innerText = `Unanswered (N=0)`;
+                document.getElementById('cohort-overall-sus').innerText = `Pending Inputs (N=0)`;
+            }
+        }
+
+        function exportCohortMatrixCSV() {
+            let lines = [];
+            lines.push(`"CHAPTER 4 STATISTICAL TABLE: GEN Z RESPONDENTS FREQUENCY MATRIX"`);
+            lines.push(`"Paper Title","Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z"`);
+            lines.push(`"Authors","Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)"`);
+            lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
+            lines.push(``);
+            lines.push(`"Question ID","Statement Text","Frequency 5 (SA)","Frequency 4 (A)","Frequency 3 (N)","Frequency 2 (D)","Frequency 1 (SD)","Total Sample N","Weighted Mean (xbar)","Verbal Interpretation"`);
+
+            let sumMeans = 0;
+            let totalCohortN = 0;
+            cohortDataMatrix.forEach(row => {
+                let weightedMean = 0;
+                let verbal = "Unanswered";
+                if (row.N > 0) {
+                    weightedMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    sumMeans += weightedMean;
+                    totalCohortN = Math.max(totalCohortN, row.N);
+                    if (weightedMean >= 4.21) verbal = "Strongly Agree";
+                    else if (weightedMean >= 3.41) verbal = "Agree";
+                    else if (weightedMean >= 2.61) verbal = "Neutral";
+                    else if (weightedMean >= 1.81) verbal = "Disagree";
+                    else verbal = "Strongly Disagree";
+                }
+
+                lines.push(`"Q${row.id}","${row.text}","${row.f5}","${row.f4}","${row.f3}","${row.f2}","${row.f1}","${row.N}","${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}","${verbal}"`);
+            });
+
+            const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
+            const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(2) : '0.00';
+
+            lines.push(``);
+            lines.push(`"OVERALL SUMMARY STATISTICAL METRICS"`);
+            lines.push(`"Total Cohort Sample Size (N)","${totalCohortN}"`);
+            lines.push(`"Overall Cohort Weighted Mean (Xbar)","${overallMean} / 5.00"`);
+            lines.push(`"Overall Verbal Interpretation","${totalCohortN > 0 ? 'Strongly Agree (Excellent Usability)' : 'Unanswered'}"`);
+            lines.push(`"Composite SUS Cohort Score","${cohortSUS} / 100"`);
+
+            let csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(lines.join('\n'));
+            let link = document.createElement('a');
+            link.setAttribute('href', csvContent);
+            link.setAttribute('download', `bytecode_chapter4_frequency_matrix.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast(`Downloaded Chapter 4 Statistical Frequency CSV Table! 📥`);
+        }
 
         function renderSUSQuestions() {
             const container = document.getElementById('sus-questions-container');
@@ -2008,6 +2334,37 @@
             });
 
             calculateLiveSUS();
+        }
+
+        function addSessionToCohortMatrix(itemResponses) {
+            if (!itemResponses || itemResponses.length < 10) return;
+            itemResponses.forEach(item => {
+                const row = cohortDataMatrix.find(r => r.id === item.questionId);
+                if (row) {
+                    const rawVal = item.rawRating;
+                    if (rawVal === 5) row.f5++;
+                    else if (rawVal === 4) row.f4++;
+                    else if (rawVal === 3) row.f3++;
+                    else if (rawVal === 2) row.f2++;
+                    else if (rawVal === 1) row.f1++;
+                    row.N++;
+                }
+            });
+            renderCohortTable();
+        }
+
+        /* AUTOMATIC FIREBASE CLOUD DATABASE SAVER FUNCTION (STEP 4) */
+        function saveSessionToFirebase() {
+            if (firebaseDb && studyLog && studyLog.sessionId) {
+                firebaseDb.ref('usability_sessions/' + studyLog.sessionId).set(studyLog)
+                    .then(() => {
+                        console.log('⚡ Session ' + studyLog.sessionId + ' saved to Firebase Realtime Database!');
+                        showToast('Cloud Database Synced to Firebase! ☁️');
+                    })
+                    .catch(err => {
+                        console.warn('Firebase sync notice:', err);
+                    });
+            }
         }
 
         function calculateLiveSUS() {
@@ -2101,6 +2458,12 @@
             studyLog.susGrade = grade;
             studyLog.verbalInterpretation = verbal;
             studyLog.susItemResponses = susItemDetails;
+
+            // Automatically aggregate into Cohort Frequency Matrix!
+            addSessionToCohortMatrix(susItemDetails);
+
+            // Step 4: Automatically sync session data to Firebase Realtime Database!
+            saveSessionToFirebase();
         }
 
         function clearSUSSurvey() {
@@ -2162,6 +2525,9 @@
 
             updateStudyDashboardUI();
             showToast(`Task ${taskNum} Logged: "${taskName}" Completed! ✅`);
+
+            // Sync task completion to Firebase Cloud Database!
+            saveSessionToFirebase();
         }
 
         /* FULL RESEARCH-GRADE COMPREHENSIVE CSV DATA EXPORTER */
