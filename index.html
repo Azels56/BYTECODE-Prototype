@@ -1974,20 +1974,25 @@
         </div>
     </div>
 
-    <!-- DYNAMIC MULTI-RESPONDENT COHORT FREQUENCY MATRIX MODAL (CHAPTER 4 TABLE) -->
+    <!-- DYNAMIC MULTI-RESPONDENT COHORT FREQUENCY MATRIX MODAL WITH FIREBASE REALTIME SYNC -->
     <div class="cohort-modal-overlay" id="cohort-modal-overlay">
         <div class="cohort-modal-card">
             <div class="modal-top-header">
                 <div>
                     <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">Chapter 4 Statistical Matrix: Gen Z Respondents Frequency & Weighted Means</div>
-                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Dynamic Response Aggregation & Statistical Frequency Distribution Table</div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;" id="cohort-db-sync-status">
+                        ☁️ Firebase Realtime Database: Syncing automatically every 10s (Total Participations: N=0)
+                    </div>
                 </div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem; border-color:var(--accent-neon); color:var(--accent-neon);" onclick="loadBenchmarkN40Dataset()" title="Preload N=40 benchmark research dataset from thesis paper">
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="syncCohortMatrixFromFirebase()" title="Force instant re-sync with Firebase Cloud Database">
+                        🔄 Sync Firebase Now
+                    </button>
+                    <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-neon); color:var(--accent-neon);" onclick="loadBenchmarkN40Dataset()" title="Preload N=40 benchmark research dataset from thesis paper">
                         ⚡ Load Benchmark (N=40)
                     </button>
-                    <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearCohortMatrix()" title="Clear matrix to N=0 for new live study session">
-                        🧹 Clear Matrix
+                    <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearParticipationsAndDatabase()" title="Clear all participations from Firebase database & reset matrix to N=0">
+                        🧹 Clear Database Participations
                     </button>
                     <button class="close-btn" onclick="toggleCohortModal()">&times;</button>
                 </div>
@@ -2125,7 +2130,7 @@
             const modal = document.getElementById('cohort-modal-overlay');
             modal.classList.toggle('active');
             if (modal.classList.contains('active')) {
-                renderCohortTable();
+                syncCohortMatrixFromFirebase();
             }
         }
 
@@ -2188,6 +2193,92 @@
             { id: 10, text: "I needed to learn a lot of things before I could get going with this system (Inverted).", f5: 30, f4: 9, f3: 1, f2: 0, f1: 0, N: 40 }
         ];
 
+        /* FIREBASE CLOUD DATABASE SYNC ENGINE (AUTO-RUNS EVERY 10 SECONDS) */
+        function syncCohortMatrixFromFirebase() {
+            if (!firebaseDb) {
+                renderCohortTable();
+                return;
+            }
+
+            firebaseDb.ref('usability_sessions').once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (!data) {
+                        const statusEl = document.getElementById('cohort-db-sync-status');
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: No participations in database (N=0)`;
+                        renderCohortTable();
+                        return;
+                    }
+
+                    // Build frequency counts dynamically from all participant sessions in Firebase!
+                    let freqMap = {};
+                    for (let i = 1; i <= 10; i++) {
+                        freqMap[i] = { f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 };
+                    }
+
+                    let validSessionsCount = 0;
+                    Object.values(data).forEach(sess => {
+                        if (sess && sess.susItemResponses && sess.susItemResponses.length >= 10) {
+                            validSessionsCount++;
+                            sess.susItemResponses.forEach(item => {
+                                const qId = item.questionId;
+                                const val = item.rawRating;
+                                if (freqMap[qId]) {
+                                    freqMap[qId].N++;
+                                    if (val === 5) freqMap[qId].f5++;
+                                    else if (val === 4) freqMap[qId].f4++;
+                                    else if (val === 3) freqMap[qId].f3++;
+                                    else if (val === 2) freqMap[qId].f2++;
+                                    else if (val === 1) freqMap[qId].f1++;
+                                }
+                            });
+                        }
+                    });
+
+                    if (validSessionsCount > 0) {
+                        cohortDataMatrix = susQuestions.map(q => {
+                            const f = freqMap[q.id];
+                            return {
+                                id: q.id,
+                                text: q.type === 'even' ? `${q.text} (Inverted)` : q.text,
+                                f5: f.f5, f4: f.f4, f3: f.f3, f2: f.f2, f1: f.f1,
+                                N: f.N
+                            };
+                        });
+
+                        const statusEl = document.getElementById('cohort-db-sync-status');
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Synced! Total Active Participations: N=${validSessionsCount} (Auto-updating every 10s)`;
+                    } else {
+                        const statusEl = document.getElementById('cohort-db-sync-status');
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: Pending survey inputs (N=0)`;
+                    }
+
+                    renderCohortTable();
+                })
+                .catch(err => {
+                    console.warn('Firebase cohort sync error:', err);
+                    renderCohortTable();
+                });
+        }
+
+        function clearParticipationsAndDatabase() {
+            if (firebaseDb) {
+                firebaseDb.ref('usability_sessions').remove()
+                    .then(() => {
+                        clearCohortMatrix();
+                        const statusEl = document.getElementById('cohort-db-sync-status');
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Database Cleared! Participations Reset to N=0`;
+                        showToast('Cleared All Participations from Firebase Cloud Database! 🧹');
+                    })
+                    .catch(err => {
+                        console.warn('Firebase clear error:', err);
+                        clearCohortMatrix();
+                    });
+            } else {
+                clearCohortMatrix();
+            }
+        }
+
         function clearCohortMatrix() {
             cohortDataMatrix = susQuestions.map(q => ({
                 id: q.id,
@@ -2195,13 +2286,41 @@
                 f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0
             }));
             renderCohortTable();
-            showToast('Cleared Cohort Frequency Matrix (N=0)! 🧹');
         }
 
         function loadBenchmarkN40Dataset() {
             cohortDataMatrix = benchmarkN40Dataset.map(item => ({ ...item }));
             renderCohortTable();
-            showToast('Preloaded Benchmark Research Dataset (N=40)! ⚡');
+
+            // Push benchmark dataset to Firebase for demo
+            if (firebaseDb) {
+                for (let p = 1; p <= 40; p++) {
+                    const mockSessionId = `GENZ-BENCHMARK-P${String(p).padStart(2, '0')}`;
+                    const mockItems = benchmarkN40Dataset.map(item => {
+                        return {
+                            questionId: item.id,
+                            statement: item.text,
+                            type: item.id % 2 !== 0 ? "Odd (Positive)" : "Even (Negative)",
+                            rawRating: Math.random() < 0.72 ? 5 : 4,
+                            scoreContribution: 4,
+                            effectiveUsabilityRating: 5
+                        };
+                    });
+
+                    firebaseDb.ref('usability_sessions/' + mockSessionId).set({
+                        studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
+                        sessionId: mockSessionId,
+                        participantCohort: "Gen Z (18-27 years)",
+                        susScore: 88.5,
+                        weightedMean: 4.54,
+                        susGrade: "Grade A+ (Excellent Usability)",
+                        verbalInterpretation: "Excellent Usability",
+                        susItemResponses: mockItems
+                    });
+                }
+            }
+
+            showToast('Preloaded Benchmark Research Dataset (N=40) to View & Database! ⚡');
         }
 
         function renderCohortTable() {
@@ -2353,13 +2472,14 @@
             renderCohortTable();
         }
 
-        /* AUTOMATIC FIREBASE CLOUD DATABASE SAVER FUNCTION (STEP 4) */
+        /* AUTOMATIC FIREBASE CLOUD DATABASE SAVER FUNCTION */
         function saveSessionToFirebase() {
             if (firebaseDb && studyLog && studyLog.sessionId) {
                 firebaseDb.ref('usability_sessions/' + studyLog.sessionId).set(studyLog)
                     .then(() => {
                         console.log('⚡ Session ' + studyLog.sessionId + ' saved to Firebase Realtime Database!');
                         showToast('Cloud Database Synced to Firebase! ☁️');
+                        syncCohortMatrixFromFirebase();
                     })
                     .catch(err => {
                         console.warn('Firebase sync notice:', err);
@@ -2462,7 +2582,7 @@
             // Automatically aggregate into Cohort Frequency Matrix!
             addSessionToCohortMatrix(susItemDetails);
 
-            // Step 4: Automatically sync session data to Firebase Realtime Database!
+            // Sync session data to Firebase Realtime Database!
             saveSessionToFirebase();
         }
 
@@ -2946,7 +3066,16 @@
             renderDevicesList();
             renderSUSQuestions();
             updateStudyDashboardUI();
-            setInterval(updateStudyDashboardUI, 3000);
+            
+            // INITIALIZE FIREBASE COHORT MATRIX REALTIME SYNC & 10-SECOND AUTO POLLER
+            syncCohortMatrixFromFirebase();
+            setInterval(syncCohortMatrixFromFirebase, 10000);
+
+            if (firebaseDb) {
+                firebaseDb.ref('usability_sessions').on('value', () => {
+                    syncCohortMatrixFromFirebase();
+                });
+            }
 
             let isClickScrolling = false;
             let clickTimeout = null;
