@@ -105,20 +105,23 @@
             font-weight: 400;
         }
 
-        /* FULL-WIDTH NAVBAR WRAPPER */
+        /* FIXED ALWAYS-VISIBLE TOP NAVBAR WRAPPER */
         .navbar-wrapper {
             width: 100%;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            z-index: 10000;
             background: rgba(5, 8, 14, 0.96);
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.18);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
         }
 
         [data-theme="light"] .navbar-wrapper {
             background: rgba(255, 255, 255, 0.96);
-            border-bottom-color: rgba(16, 185, 129, 0.2);
+            border-bottom-color: rgba(16, 185, 129, 0.25);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.12);
         }
 
         .navbar {
@@ -165,6 +168,10 @@
             white-space: nowrap;
         }
 
+        .logo-brand-sub-text {
+            display: inline !important; /* ALWAYS DISPLAY FULL BRAND LOGO TEXT */
+        }
+
         .logo-sub {
             font-size: 0.6rem;
             color: var(--text-secondary);
@@ -182,10 +189,11 @@
             display: flex; align-items: center; gap: 4px;
             background: rgba(18, 28, 45, 0.6); border: 1px solid var(--border-card);
             padding: 4px; border-radius: 30px;
+            flex-shrink: 0;
         }
 
         .nav-pill {
-            padding: 8px 16px;
+            padding: 7px 14px;
             border-radius: 20px;
             color: var(--text-secondary);
             font-size: 0.82rem;
@@ -236,6 +244,11 @@
             flex-shrink: 0;
         }
 
+        #active-device-name {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
         .device-connect-btn:hover {
             background: rgba(0, 242, 254, 0.22);
             border-color: var(--accent-cyan);
@@ -247,8 +260,22 @@
         .btn-icon:hover { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 242, 254, 0.35); transform: translateY(-2px); }
         .btn-icon:active { transform: scale(0.95); }
         
-        .user-profile { display: flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--border-card); padding: 5px 14px 5px 6px; border-radius: 30px; height: 38px; }
-        .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--gradient-bytecode); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; color: #06090e; }
+        .user-profile { display: flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--border-card); padding: 4px; border-radius: 30px; height: 38px; flex-shrink: 0; }
+        .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--gradient-bytecode); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; color: #06090e; flex-shrink: 0; }
+
+        .user-profile-name {
+            display: none;
+        }
+
+        @media (min-width: 1440px) {
+            .user-profile-name {
+                display: inline-block;
+                font-size: 0.8rem;
+                font-weight: 600;
+                padding-right: 8px;
+                white-space: nowrap;
+            }
+        }
 
         /* DATA GATHERING MODE BADGE BUTTON */
         .data-gathering-btn {
@@ -277,26 +304,28 @@
         /* MOBILE & TABLET HAMBURGER TOGGLE BUTTON */
         .mobile-menu-toggle {
             display: none;
-            background: rgba(0, 242, 254, 0.12);
-            border: 1px solid rgba(0, 242, 254, 0.4);
+            background: rgba(0, 242, 254, 0.15);
+            border: 1px solid rgba(0, 242, 254, 0.5);
             color: #ffffff;
             width: 38px;
             height: 38px;
             border-radius: 12px;
             align-items: center;
             justify-content: center;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             cursor: pointer;
             transition: var(--transition);
             flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
         }
 
         .mobile-menu-toggle:hover {
-            background: rgba(0, 242, 254, 0.25);
-            border-color: var(--accent-cyan);
+            background: var(--gradient-btn);
+            color: #04090f;
+            border-color: var(--accent-neon);
         }
 
-        /* SLIDE-DOWN MOBILE & TABLET MENU DRAWER */
+        /* SLIDE-DOWN MOBILE & TABLET MENU DRAWER WITH FULL REMAINING ACTION ITEMS */
         .mobile-nav-drawer {
             display: none;
             flex-direction: column;
@@ -309,7 +338,7 @@
             left: 0;
             width: 100%;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95);
-            z-index: 999;
+            z-index: 10001;
         }
 
         .mobile-nav-drawer.active {
@@ -338,11 +367,62 @@
             box-shadow: 0 0 18px rgba(0, 242, 254, 0.45);
         }
 
-        /* Container & Hero */
-        .container { max-width: 1360px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; width: 100%; box-sizing: border-box; }
+        /* MOBILE DRAWER QUICK ACTION CARDS (Data Mode & Wearable Switcher) */
+        .mobile-drawer-actions-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 4px 0;
+            padding: 10px 0;
+            border-top: 1px solid rgba(0, 242, 254, 0.15);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .mobile-drawer-btn {
+            padding: 13px 18px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            background: rgba(18, 28, 45, 0.95);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-drawer-btn.green {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--accent-neon);
+        }
+
+        .mobile-drawer-btn.cyan {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: rgba(0, 242, 254, 0.4);
+            color: var(--accent-cyan);
+        }
+
+        .mobile-drawer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
+        }
+
+        /* CONTAINER WITH TOP OFFSET TO PREVENT FIXED HEADER OVERLAP */
+        .container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 110px 24px 40px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
         
         section[id] {
-            scroll-margin-top: 100px;
+            scroll-margin-top: 110px;
         }
 
         .hero-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px; }
@@ -557,7 +637,7 @@
             background: rgba(16, 185, 129, 0.2); border-color: var(--accent-green); color: var(--accent-neon);
         }
 
-        /* DATA GATHERING RESEARCH DASHBOARD CARD */
+        /* RESEARCHER DATA GATHERING CONTROL PANEL */
         .researcher-data-panel {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(0, 242, 254, 0.08) 100%);
             border: 1.5px solid rgba(16, 185, 129, 0.4);
@@ -920,13 +1000,14 @@
            100% PERFECT RESPONSIVE MEDIA QUERIES FOR ALL PHONES & TABLETS
            ========================================================================== */
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1280px) {
             .nav-pills { display: none; }
-            .mobile-menu-toggle { display: flex; }
+            .mobile-menu-toggle { display: flex !important; }
 
-            .container { padding: 24px 18px; }
+            .container { padding: 100px 20px 24px; }
+            .navbar { padding: 12px 20px; }
             .hero-section { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
-            .hero-title { font-size: 2.5rem; }
+            .hero-title { font-size: 2.7rem; }
             
             .metrics-4grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .two-col-section { grid-template-columns: 1fr; gap: 24px; }
@@ -937,41 +1018,25 @@
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 10px 12px; gap: 6px; }
+            .navbar { padding: 10px 14px; gap: 4px; }
             .logo-sub { display: none; }
-            .user-profile { display: none; }
-            #privacy-btn { display: none; }
+            #privacy-btn, .user-profile, .data-gathering-btn, .device-connect-btn { display: none !important; }
 
-            .nav-actions { gap: 6px; flex-shrink: 0; }
-
-            .device-connect-btn {
-                height: 36px;
-                padding: 0 8px;
-                font-size: 0.75rem;
-                max-width: 90px;
-            }
-
-            .data-gathering-btn {
-                height: 36px;
-                padding: 0 8px;
-                font-size: 0.75rem;
-            }
-
-            #active-device-name {
-                display: inline-block;
-                max-width: 55px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
+            .nav-actions { gap: 8px; flex-shrink: 0; }
 
             .btn-icon, .mobile-menu-toggle {
-                width: 36px;
-                height: 36px;
+                width: 38px;
+                height: 38px;
+                flex-shrink: 0;
             }
 
-            .hero-title { font-size: 1.95rem; line-height: 1.2; letter-spacing: -0.5px; }
-            .hero-desc { font-size: 0.92rem; line-height: 1.55; }
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .container { padding: 90px 14px 20px; }
+            .hero-title { font-size: 2rem; line-height: 1.2; letter-spacing: -0.5px; }
+            .hero-desc { font-size: 0.94rem; line-height: 1.55; }
             .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 30px; }
             .btn-ai-action, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
 
@@ -1019,14 +1084,11 @@
             }
         }
 
-        /* EXTRA NARROW MOBILE SMARTPHONES (< 600px) */
-        @media (max-width: 600px) {
-            .logo-brand-sub-text { display: none; }
+        /* EXTRA NARROW MOBILE SMARTPHONES (< 520px) */
+        @media (max-width: 520px) {
             .logo-brand { font-size: 1.05rem; }
-            .device-connect-btn { max-width: 75px; padding: 0 5px; }
-            #active-device-name { max-width: 45px; }
-            .navbar { padding: 8px 10px; }
-            .container { padding: 20px 12px; }
+            .navbar { padding: 8px 10px; gap: 4px; }
+            .container { padding: 85px 12px 20px; }
             .hero-title { font-size: 1.65rem; }
             .hero-card-preview { padding: 14px; border-radius: 20px; }
             .preview-big-val { font-size: 1.8rem; }
@@ -1034,13 +1096,6 @@
 
             .cmd-top-header { flex-wrap: nowrap; gap: 6px; }
             .cmd-title-text { font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis; }
-        }
-
-        @media (max-width: 360px) {
-            .logo-brand { font-size: 0.95rem; }
-            .device-connect-btn { max-width: 65px; }
-            #active-device-name { max-width: 38px; }
-            .navbar { padding: 6px 8px; }
         }
     </style>
 </head>
@@ -1059,7 +1114,7 @@
         </div>
     </div>
 
-    <!-- FULL 100% COVERAGE NAVBAR WRAPPER HEADER -->
+    <!-- FIXED ALWAYS-VISIBLE TOP NAVBAR WRAPPER (position: fixed; z-index: 10000) -->
     <header class="navbar-wrapper">
         <nav class="navbar">
             <a href="#" class="logo">
@@ -1087,7 +1142,7 @@
                 <!-- DATA GATHERING MODE BUTTON -->
                 <button class="data-gathering-btn" onclick="scrollToDataGathering()" title="Study Data Gathering Console">
                     <div class="dot-glow"></div>
-                    <span>📊 Data Mode</span>
+                    <span class="data-gathering-btn-text">📊 Data Mode</span>
                 </button>
 
                 <!-- INTERACTIVE WEARABLE DEVICE CONNECTIVITY BUTTON -->
@@ -1103,7 +1158,7 @@
                 </button>
                 <div class="user-profile">
                     <div class="avatar">BC</div>
-                    <span style="font-size:0.85rem; font-weight:600;">Gen Z Participant</span>
+                    <span class="user-profile-name">Gen Z Participant</span>
                 </div>
 
                 <!-- MOBILE & TABLET HAMBURGER MENU BUTTON -->
@@ -1113,7 +1168,7 @@
             </div>
         </nav>
 
-        <!-- SLIDE-DOWN MOBILE & TABLET NAVIGATION DRAWER -->
+        <!-- SLIDE-DOWN MOBILE & TABLET MENU DRAWER WITH FULL REMAINING ACTION ITEMS -->
         <div class="mobile-nav-drawer" id="mobile-nav-drawer">
             <a href="#overview" class="mobile-nav-link active" onclick="closeMobileDrawer()">
                 <span>🚀 Overview</span> <span>➔</span>
@@ -1130,6 +1185,17 @@
             <a href="#usability-logger" class="mobile-nav-link" onclick="closeMobileDrawer()">
                 <span>📋 Data Gathering Tasks</span> <span>➔</span>
             </a>
+            
+            <!-- MOBILE DRAWER QUICK ACTIONS FOR REMAINING HEADER ITEMS -->
+            <div class="mobile-drawer-actions-box">
+                <button class="mobile-drawer-btn green" onclick="scrollToDataGathering(); closeMobileDrawer();">
+                    <span>📊 Data Gathering Mode & Console</span> <span>➔</span>
+                </button>
+                <button class="mobile-drawer-btn cyan" onclick="toggleDeviceModal(); closeMobileDrawer();">
+                    <span>📱 Active Device: <b id="mobile-drawer-device-name" style="color:#ffffff;">Samsung Watch 6</b></span> <span>➔</span>
+                </button>
+            </div>
+
             <a href="#assistant" class="mobile-nav-link" onclick="closeMobileDrawer()">
                 <span>🤖 AI Assistant Engine</span> <span>➔</span>
             </a>
@@ -1178,7 +1244,7 @@
             <!-- Hero Mission Control Preview Card -->
             <div class="hero-card-preview">
                 <div class="preview-top-bar">
-                    <div class="pill-tag-sync" onclick="syncActiveDevice()"><div class="dot-glow"></div> <span id="sync-status-text">Synced 12 sec ago (Galaxy Watch)</span> <span class="binary-tag" style="margin-left:4px; opacity:0.5;">0101</span></div>
+                    <div class="pill-tag-sync" onclick="syncActiveDevice()"><div class="dot-glow"></div> <span id="sync-status-text">Synced 12 sec ago (Samsung Galaxy Watch 6 )</span> <span class="binary-tag" style="margin-left:4px; opacity:0.5;">0101</span></div>
                     <div class="pill-tag-ai">AI Ready</div>
                 </div>
 
@@ -1797,15 +1863,15 @@
         }
 
         const devicesList = [
-            { id: 'samsung', name: 'Samsung Galaxy Watch 6 / FE', icon: '📱', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%' },
-            { id: 'xiaomi', name: 'Xiaomi Watch S3 / Mi Band 8', icon: '🟠', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%' },
-            { id: 'infinix', name: 'Infinix XWatch 3 / Smart Band', icon: '⚡', sub: 'Infinix Health Link', hrv: 71, sleep: 86, move: 72, stress: 19, hr: 64, steps: '8,640', hrvLift: '+15%' },
-            { id: 'huawei', name: 'Huawei Watch GT 4 / Band 8', icon: '🔴', sub: 'Huawei Health Engine', hrv: 74, sleep: 91, move: 79, stress: 18, hr: 62, steps: '9,480', hrvLift: '+18%' },
-            { id: 'amazfit', name: 'Amazfit GTS 4 / Bip 5', icon: '🔶', sub: 'Zepp OS Telemetry', hrv: 66, sleep: 85, move: 74, stress: 24, hr: 67, steps: '8,880', hrvLift: '+10%' },
-            { id: 'apple', name: 'Apple Watch Series 9 / Ultra', icon: '🍎', sub: 'Apple HealthKit Sync', hrv: 72, sleep: 90, move: 84, stress: 20, hr: 63, steps: '10,080', hrvLift: '+16%' },
-            { id: 'garmin', name: 'Garmin Fēnix 7 / Venu 3', icon: '🔺', sub: 'Garmin Connect API', hrv: 78, sleep: 92, move: 91, stress: 15, hr: 59, steps: '10,920', hrvLift: '+22%' },
+            { id: 'samsung', name: 'Samsung Galaxy Watch 6', icon: '📱', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%' },
+            { id: 'xiaomi', name: 'Xiaomi Watch S3', icon: '🟠', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%' },
+            { id: 'infinix', name: 'Infinix XWatch 3', icon: '⚡', sub: 'Infinix Health Link', hrv: 71, sleep: 86, move: 72, stress: 19, hr: 64, steps: '8,640', hrvLift: '+15%' },
+            { id: 'huawei', name: 'Huawei Watch GT 4', icon: '🔴', sub: 'Huawei Health Engine', hrv: 74, sleep: 91, move: 79, stress: 18, hr: 62, steps: '9,480', hrvLift: '+18%' },
+            { id: 'amazfit', name: 'Amazfit GTS 4', icon: '🔶', sub: 'Zepp OS Telemetry', hrv: 66, sleep: 85, move: 74, stress: 24, hr: 67, steps: '8,880', hrvLift: '+10%' },
+            { id: 'apple', name: 'Apple Watch Series 9', icon: '🍎', sub: 'Apple HealthKit Sync', hrv: 72, sleep: 90, move: 84, stress: 20, hr: 63, steps: '10,080', hrvLift: '+16%' },
+            { id: 'garmin', name: 'Garmin Fēnix 7', icon: '🔺', sub: 'Garmin Connect API', hrv: 78, sleep: 92, move: 91, stress: 15, hr: 59, steps: '10,920', hrvLift: '+22%' },
             { id: 'whoop', name: 'Whoop 4.0 Strap', icon: '⚡', sub: 'Recovery & Strain Engine', hrv: 82, sleep: 94, move: 88, stress: 14, hr: 57, steps: '10,560', hrvLift: '+25%' },
-            { id: 'fitbit', name: 'Fitbit Sense 2 / Charge 6', icon: '👟', sub: 'Google Health Connect', hrv: 69, sleep: 87, move: 78, stress: 21, hr: 65, steps: '9,360', hrvLift: '+13%' },
+            { id: 'fitbit', name: 'Fitbit Sense 2', icon: '👟', sub: 'Google Health Connect', hrv: 69, sleep: 87, move: 78, stress: 21, hr: 65, steps: '9,360', hrvLift: '+13%' },
             { id: 'oura', name: 'Oura Ring Gen 3', icon: '💍', sub: 'Oura Readiness & PPG', hrv: 76, sleep: 95, move: 70, stress: 16, hr: 58, steps: '8,400', hrvLift: '+20%' }
         ];
 
@@ -1866,12 +1932,15 @@
                 ringCircle.setAttribute('stroke-dashoffset', dashoffset);
             }
 
-            const shortName = dev.name.split('/')[0];
+            const shortName = dev.name;
             document.getElementById('ai-insight-title').innerText = `Optimal recovery reached — HRV up ${dev.hrvLift.replace('+','')}`;
             document.getElementById('ai-insight-desc').innerText = `Your sleep score was ${dev.sleep}% last night via ${shortName}. BYTECODE AI predicts peak energy between 10:30 AM and 1:00 PM. Recommended action: 30-minute moderate cardio session and one mindful cool-down block.`;
 
             document.getElementById('cmd-ai-bubble').innerHTML = `Connected to <b>${shortName}</b>. Your HRV is currently <b>${dev.hrv}ms</b> (${dev.hrvLift} lift), sleep quality reached <b>${dev.sleep}/100</b>, and stress remains low (${dev.stress}/100).`;
             studyLog.deviceUsed = dev.name;
+
+            const drawerDevEl = document.getElementById('mobile-drawer-device-name');
+            if (drawerDevEl) drawerDevEl.innerText = dev.name;
         }
 
         function selectDevice(id) {
@@ -1881,7 +1950,7 @@
             selectedDeviceId = id;
             renderDevicesList();
 
-            const shortName = dev.name.split('/')[0];
+            const shortName = dev.name;
             document.getElementById('active-device-name').innerText = `${dev.icon} ${shortName}`;
             document.getElementById('sync-status-text').innerText = `Synced 2 sec ago (${shortName})`;
 
@@ -1893,7 +1962,7 @@
 
         function syncActiveDevice() {
             const dev = devicesList.find(d => d.id === selectedDeviceId);
-            const devName = dev ? dev.name.split('/')[0] : 'Wearable';
+            const devName = dev ? dev.name : 'Wearable';
             
             if (dev) {
                 const syncedDev = { ...dev };
@@ -1911,7 +1980,7 @@
             const lower = userText.toLowerCase();
             const { hrv, sleep, move, stress, hr } = currentBiometrics;
             const activeDevObj = devicesList.find(d => d.id === selectedDeviceId);
-            const activeDevName = activeDevObj ? activeDevObj.name.split('/')[0] : 'Wearable';
+            const activeDevName = activeDevObj ? activeDevObj.name : 'Wearable';
 
             if (lower.includes('dinner') || lower.includes('night meal') || lower.includes('supper')) {
                 const dinners = [
@@ -1968,7 +2037,7 @@
             }
 
             if (lower.includes('trend') || lower.includes('weekly')) {
-                return `📊 <b>BYTECODE AI Weekly Summary:</b> 7-day biometric trend: HRV average is <b>66.4 ms</b>, Sleep average is <b>86.2%</b>, and overall recovery index is <b>+14% optimal</b>.`;
+                return `📊 <b>BYTECODE AI Weekly Summary:</b> 7-day trend: HRV average is <b>66.4 ms</b>, Sleep average is <b>86.2%</b>, and overall recovery index is <b>+14% optimal</b>.`;
             }
 
             const defaults = [
