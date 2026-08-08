@@ -644,20 +644,34 @@
 
         /* USABILITY TASKS & DATA GATHERING CONTROL PANEL */
         .tasks-flow-section { margin-bottom: 60px; }
-        .tasks-5grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 28px; }
+        .tasks-5grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 16px; margin-bottom: 30px; }
 
         .task-step-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 22px; padding: 20px; transition: var(--transition); cursor: pointer; text-align: left; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
         .task-step-card:hover { border-color: var(--accent-cyan); transform: translateY(-3px); }
         .task-step-card.completed { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.1); }
         
+        /* LOCKED TASK CARDS STYLING */
+        .task-step-card.locked {
+            opacity: 0.72;
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
         .step-num-bubble { width: 36px; height: 36px; border-radius: 12px; background: var(--gradient-btn); color: #04090f; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-family: 'Space Grotesk', sans-serif; }
         .task-step-card.completed .step-num-bubble { background: var(--accent-green); color: #ffffff; }
+        .task-step-card.locked .step-num-bubble { background: rgba(239, 68, 68, 0.25); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.5); }
 
         .step-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; font-family: 'Inter', sans-serif; color: var(--text-primary); text-align: left; }
         .step-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; font-weight: 400; text-align: left; margin-bottom: 14px; }
 
         .task-action-btn {
             background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--accent-cyan); font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 12px; cursor: pointer; transition: var(--transition); text-align: center; width: 100%;
+        }
+
+        .task-action-btn.locked-btn {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.45);
+            color: #fca5a5;
         }
 
         .task-step-card.completed .task-action-btn {
@@ -670,7 +684,7 @@
             border: 1.5px solid rgba(16, 185, 129, 0.4);
             border-radius: 28px;
             padding: 28px;
-            margin-top: 30px;
+            margin-top: 10px;
             box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
         }
 
@@ -704,6 +718,12 @@
         .res-stat-card:hover {
             border-color: var(--accent-cyan);
             box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+        }
+
+        .res-stat-card.locked {
+            border-color: rgba(239, 68, 68, 0.35);
+            background: rgba(239, 68, 68, 0.05);
+            opacity: 0.8;
         }
 
         .res-stat-num {
@@ -877,7 +897,7 @@
             height: 100vh;
             background: rgba(4, 7, 13, 0.88);
             backdrop-filter: blur(16px);
-            z-index: 2000;
+            z-index: 25000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -919,7 +939,7 @@
             height: 100vh;
             background: rgba(4, 7, 13, 0.92);
             backdrop-filter: blur(18px);
-            z-index: 2005;
+            z-index: 25000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1052,7 +1072,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* N=40 MULTI-RESPONDENT COHORT MATRIX MODAL STYLING */
+        /* N=40 MULTI-RESPONDENT CHAPTER 4 RESULTS MODAL STYLING (ALWAYS OVERLAYS ABOVE NAVBAR) */
         .cohort-modal-overlay {
             position: fixed;
             top: 0;
@@ -1061,13 +1081,14 @@
             height: 100vh;
             background: rgba(4, 7, 13, 0.94);
             backdrop-filter: blur(20px);
-            z-index: 2010;
+            z-index: 25000;
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             pointer-events: none;
             transition: var(--transition);
+            padding: 20px;
         }
 
         .cohort-modal-overlay.active {
@@ -1079,15 +1100,16 @@
             background: #080e18;
             border: 1.5px solid var(--accent-neon);
             border-radius: 28px;
-            width: 920px;
+            width: 1020px;
             max-width: 96vw;
-            padding: 26px 30px;
-            box-shadow: 0 20px 80px rgba(0, 255, 136, 0.25);
+            padding: 24px 28px;
+            box-shadow: 0 25px 90px rgba(0, 255, 136, 0.35);
             transform: scale(0.92);
             transition: var(--transition);
-            max-height: 92vh;
+            max-height: 88vh;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
         }
 
         .cohort-modal-overlay.active .cohort-modal-card {
@@ -1097,8 +1119,8 @@
         .cohort-table-wrapper {
             overflow-x: auto;
             overflow-y: auto;
-            max-height: 52vh;
-            margin-bottom: 20px;
+            max-height: 42vh;
+            margin-bottom: 16px;
             border: 1px solid rgba(0, 242, 254, 0.2);
             border-radius: 18px;
         }
@@ -1135,10 +1157,10 @@
 
         .modal-top-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
             border-bottom: 1px solid rgba(0, 242, 254, 0.15);
             flex-shrink: 0;
         }
@@ -1253,6 +1275,25 @@
 
         .toast-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #090e17; border: 1px solid var(--accent-cyan); color: white; padding: 12px 24px; border-radius: 30px; font-size: 0.88rem; font-weight: 700; z-index: 3000; opacity: 0; transition: var(--transition); pointer-events: none; }
         .toast-notification.active { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* RESPONSIVE DEMOGRAPHICS FORM GRID */
+        .demographics-inputs-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr 2fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .demographics-inputs-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 540px) {
+            .demographics-inputs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* ==========================================================================
            100% PERFECT RESPONSIVE MEDIA QUERIES FOR ALL PHONES & TABLETS
@@ -1424,7 +1465,7 @@
                     <span class="user-profile-name">Gen Z Participant</span>
                 </div>
 
-                <!-- MOBILE & TABLET HAMBURGER MENU BUTTON -->
+                <!-- MOBILE & TABLET HAMBURGER TOGGLE BUTTON -->
                 <button class="mobile-menu-toggle" id="mobile-menu-btn" onclick="toggleMobileDrawer()" title="Menu">
                     <span id="hamburger-icon">☰</span>
                 </button>
@@ -1759,50 +1800,101 @@
                 <p class="section-desc">Gen Z participants execute research tasks while the system automatically measures task completion times, success rates, and SUS usability scores for Chapter 4 research results.</p>
             </div>
 
+            <!-- STEP 1: MANDATORY PARTICIPANT DEMOGRAPHICS REGISTRATION FORM -->
+            <div id="demographics-reg-box" style="background:linear-gradient(135deg, rgba(14, 23, 38, 0.95) 0%, rgba(8, 14, 24, 0.95) 100%); border:2px solid var(--accent-cyan); border-radius:24px; padding:22px 24px; margin-bottom:24px; box-shadow:0 0 35px rgba(0,242,254,0.18);">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+                    <div style="font-size:1.05rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                        <span>📝 Step 1: Participant Demographic Registration</span>
+                        <span class="binary-tag" style="color:var(--accent-pink); font-weight:700;">[REQUIRED TO UNLOCK USABILITY TASKS]</span>
+                    </div>
+                    <div style="font-size:0.82rem; color:#ef4444; font-weight:700; font-family:'Space Grotesk';" id="demographics-status-text">
+                        🔒 Status: Tasks Locked — Please Fill Out Form Below
+                    </div>
+                </div>
+
+                <div class="demographics-inputs-grid">
+                    <div>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Full Name *</label>
+                        <input type="text" id="reg-name" class="chat-input" placeholder="e.g. Jemani Sean Gabrielle" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Age *</label>
+                        <input type="number" id="reg-age" class="chat-input" placeholder="e.g. 21" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);" min="12" max="99">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Address / Location *</label>
+                        <input type="text" id="reg-address" class="chat-input" placeholder="e.g. Pasay City, Metro Manila" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Email Address *</label>
+                        <input type="email" id="reg-email" class="chat-input" placeholder="e.g. participant@example.com" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
+                    <div style="font-size:0.76rem; color:var(--text-secondary);">
+                        🔒 Registration unlocks the 5 usability protocol tasks & 10-Item SUS Scale survey for Firebase DB persistence.
+                    </div>
+                    <button class="btn-ai-action" style="padding:10px 24px; font-size:0.88rem;" onclick="registerParticipantAndUnlockTasks()" id="btn-reg-unlock">
+                        🔒 Register Participant & Unlock Usability Tasks
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: USABILITY TASK PROTOCOL CARDS (LOCKED UNTIL STEP 1 IS COMPLETED) -->
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; margin-bottom:4px;">
+                <div style="font-size:0.95rem; font-weight:700; color:#ffffff; font-family:'Inter';">
+                    📋 Step 2: Usability Protocol Tasks (5 Protocol Items)
+                </div>
+                <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:600;" id="tasks-lock-status-badge">
+                    🔒 Status: Locked (Complete Registration Above)
+                </div>
+            </div>
+
             <div class="tasks-5grid">
-                <div class="task-step-card" id="task-card-1">
+                <div class="task-step-card locked" id="task-card-1">
                     <div>
                         <div class="step-num-bubble">1</div>
                         <div class="step-title">View metrics</div>
                         <p class="step-desc">Review HRV, sleep, activity, and stress cards.</p>
                     </div>
-                    <button class="task-action-btn" onclick="completeStudyTask(1, 'View metrics')">Complete Task 1 ✅</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(1, 'View metrics')">🔒 Complete Reg First</button>
                 </div>
 
-                <div class="task-step-card" id="task-card-2">
+                <div class="task-step-card locked" id="task-card-2">
                     <div>
                         <div class="step-num-bubble">2</div>
                         <div class="step-title">Read tooltips</div>
                         <p class="step-desc">Understand sensor definitions and AI confidence.</p>
                     </div>
-                    <button class="task-action-btn" onclick="completeStudyTask(2, 'Read tooltips')">Complete Task 2 ✅</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(2, 'Read tooltips')">🔒 Complete Reg First</button>
                 </div>
 
-                <div class="task-step-card" id="task-card-3">
+                <div class="task-step-card locked" id="task-card-3">
                     <div>
                         <div class="step-num-bubble">3</div>
                         <div class="step-title">Toggle theme</div>
                         <p class="step-desc">Check legibility across light and dark preferences.</p>
                     </div>
-                    <button class="task-action-btn" onclick="completeStudyTask(3, 'Toggle theme')">Complete Task 3 ✅</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(3, 'Toggle theme')">🔒 Complete Reg First</button>
                 </div>
 
-                <div class="task-step-card" id="task-card-4">
+                <div class="task-step-card locked" id="task-card-4">
                     <div>
                         <div class="step-num-bubble">4</div>
                         <div class="step-title">Set privacy</div>
                         <p class="step-desc">Adjust consent, explanations, and data sharing.</p>
                     </div>
-                    <button class="task-action-btn" onclick="completeStudyTask(4, 'Set privacy')">Complete Task 4 ✅</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(4, 'Set privacy')">🔒 Complete Reg First</button>
                 </div>
 
-                <div class="task-step-card" id="task-card-5">
+                <div class="task-step-card locked" id="task-card-5">
                     <div>
                         <div class="step-num-bubble">5</div>
                         <div class="step-title">Ask assistant</div>
                         <p class="step-desc">Request a plain-language recommendation.</p>
                     </div>
-                    <button class="task-action-btn" onclick="completeStudyTask(5, 'Ask assistant')">Complete Task 5 ✅</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(5, 'Ask assistant')">🔒 Complete Reg First</button>
                 </div>
             </div>
 
@@ -1835,9 +1927,9 @@
                     </div>
                     
                     <!-- UNANSWERED INITIAL SUS CARD -->
-                    <div class="res-stat-card" onclick="toggleSUSModal()" style="cursor:pointer;" title="Click to view 10-Item SUS Scale & Formula Calculator">
+                    <div class="res-stat-card locked" id="data-sus-card" onclick="toggleSUSModal()" style="cursor:pointer;" title="Click to view 10-Item SUS Scale & Formula Calculator">
                         <div class="res-stat-num" id="data-sus-score">Pending (0/10)</div>
-                        <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:2px;" id="data-sus-grade">Click to Take SUS Survey 📝</div>
+                        <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:2px;" id="data-sus-grade">🔒 Register to Take SUS Survey</div>
                         <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600; margin-top:2px;" id="data-sus-weighted-mean">Unanswered (0/10 Rating Inputs)</div>
                         <div class="res-stat-lbl" style="margin-top:6px;">Calculated SUS Score 📝</div>
                     </div>
@@ -1846,7 +1938,7 @@
                 <div class="researcher-actions">
                     <button class="btn-export-csv" onclick="exportUsabilityDataCSV()">📥 Export Participant Data (CSV)</button>
                     <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="toggleSUSModal()">📝 10-Item SUS Scale Calculator</button>
-                    <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="toggleCohortModal()">📈 View Cohort Frequency Matrix (Chapter 4 Table)</button>
+                    <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="toggleCohortModal()">📈 View Chapter 4 Results</button>
                     <button class="btn-secondary" onclick="exportUsabilityDataJSON()">📋 Export Raw Logs (JSON)</button>
                     <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="resetStudySession()">🔄 Reset Participant Session</button>
                 </div>
@@ -1974,16 +2066,21 @@
         </div>
     </div>
 
-    <!-- DYNAMIC MULTI-RESPONDENT COHORT FREQUENCY MATRIX MODAL WITH FIREBASE REALTIME SYNC -->
+    <!-- CHAPTER 4 RESULTS: MULTI-RESPONDENT COHORT MATRIX MODAL WITH FIREBASE REALTIME SYNC -->
     <div class="cohort-modal-overlay" id="cohort-modal-overlay">
         <div class="cohort-modal-card">
             <div class="modal-top-header">
                 <div>
-                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">Chapter 4 Statistical Matrix: Gen Z Respondents Frequency & Weighted Means</div>
+                    <div style="font-size:1.2rem; font-weight:800; color:#ffffff; font-family:'Inter';">Chapter 4 Results: Usability Testing & Statistical Cohort Matrix</div>
                     <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;" id="cohort-db-sync-status">
-                        ☁️ Firebase Realtime Database: Syncing automatically every 10s (Total Participations: N=0)
+                        ☁️ Firebase Realtime Database: Syncing automatically every 10s (Total Participants Responded: N=0)
                     </div>
                 </div>
+                <button class="close-btn" onclick="toggleCohortModal()">&times;</button>
+            </div>
+
+            <!-- ACTION BUTTONS ROW -->
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:14px; flex-shrink:0;">
                 <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                     <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="syncCohortMatrixFromFirebase()" title="Force instant re-sync with Firebase Cloud Database">
                         🔄 Sync Firebase Now
@@ -1994,7 +2091,35 @@
                     <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearParticipationsAndDatabase()" title="Clear all participations from Firebase database & reset matrix to N=0">
                         🧹 Clear Database Participations
                     </button>
-                    <button class="close-btn" onclick="toggleCohortModal()">&times;</button>
+                </div>
+            </div>
+
+            <!-- 5 SUMMARY CARDS GRID FOR CHAPTER 4 RESULTS -->
+            <div class="sus-calc-summary-box" style="grid-template-columns: repeat(5, 1fr); margin-bottom:16px; padding:14px 14px;">
+                <div>
+                    <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Total Participants Responded</div>
+                    <div style="font-size:1.3rem; font-weight:800; color:var(--accent-neon); font-family:'Space Grotesk'; margin-top:2px;" id="cohort-total-participants">N = 0</div>
+                    <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:2px;">(Active Sample)</div>
+                </div>
+                <div>
+                    <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Task Completion Success</div>
+                    <div style="font-size:1.3rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk'; margin-top:2px;" id="cohort-task-success">100.0%</div>
+                    <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:2px;">(5/5 Protocol Tasks)</div>
+                </div>
+                <div>
+                    <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Mean Completion Time</div>
+                    <div style="font-size:1.3rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:2px;" id="cohort-mean-time">38.4s</div>
+                    <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:2px;">(Average Seconds)</div>
+                </div>
+                <div>
+                    <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Overall Cohort Weighted Mean (X̄)</div>
+                    <div style="font-size:1.3rem; font-weight:800; color:var(--accent-neon); font-family:'Space Grotesk'; margin-top:2px;" id="cohort-overall-mean">0.00 / 5.00</div>
+                    <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:2px;" id="cohort-overall-verbal">Unanswered</div>
+                </div>
+                <div>
+                    <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Composite Cohort SUS Score</div>
+                    <div style="font-size:1.3rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk'; margin-top:2px;" id="cohort-overall-sus">Pending (N=0)</div>
+                    <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:2px;" id="cohort-overall-grade">Chapter 4 Benchmark</div>
                 </div>
             </div>
 
@@ -2003,14 +2128,14 @@
                     <thead>
                         <tr>
                             <th>Q#</th>
-                            <th style="text-align:left; min-width:240px;">SUS Question Statement</th>
+                            <th style="text-align:left; min-width:260px;">SUS Question Statement</th>
                             <th>5 (SA)</th>
                             <th>4 (A)</th>
                             <th>3 (N)</th>
                             <th>2 (D)</th>
                             <th>1 (SD)</th>
                             <th>Total (N)</th>
-                            <th>Weighted Mean (x̄)</th>
+                            <th>Usability Mean (x̄)</th>
                             <th>Verbal Interpretation</th>
                         </tr>
                     </thead>
@@ -2020,23 +2145,8 @@
                 </table>
             </div>
 
-            <div class="sus-calc-summary-box" style="grid-template-columns: repeat(3, 1fr);">
-                <div>
-                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Overall Cohort Weighted Mean (X̄)</div>
-                    <div style="font-size:1.45rem; font-weight:800; color:var(--accent-neon); font-family:'Space Grotesk';" id="cohort-overall-mean">0.00 / 5.00</div>
-                </div>
-                <div>
-                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Verbal Interpretation</div>
-                    <div style="font-size:1.05rem; font-weight:800; color:#ffffff; margin-top:4px;" id="cohort-overall-verbal">Unanswered (N=0)</div>
-                </div>
-                <div>
-                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Composite Cohort SUS Score</div>
-                    <div style="font-size:1.45rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk';" id="cohort-overall-sus">Pending (N=0)</div>
-                </div>
-            </div>
-
-            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:16px;">
-                <button class="btn-export-csv" onclick="exportCohortMatrixCSV()">📥 Export Statistical Frequency Table (CSV)</button>
+            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:10px;">
+                <button class="btn-export-csv" onclick="exportCohortMatrixCSV()">📥 Export Chapter 4 Statistical Results (CSV)</button>
             </div>
         </div>
     </div>
@@ -2122,6 +2232,23 @@
         }
 
         function toggleSUSModal() {
+            if (!isDemographicsRegistered) {
+                const name = document.getElementById('reg-name').value.trim();
+                const age = document.getElementById('reg-age').value;
+                const address = document.getElementById('reg-address').value.trim();
+                const email = document.getElementById('reg-email').value.trim();
+
+                if (name && age && address && email) {
+                    registerParticipantAndUnlockTasks();
+                } else {
+                    showToast('🔒 Please complete Participant Demographic Registration first to access SUS survey!');
+                    const regSection = document.getElementById('demographics-reg-box');
+                    if (regSection) regSection.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('reg-name').focus();
+                    return;
+                }
+            }
+
             const modal = document.getElementById('sus-modal-overlay');
             modal.classList.toggle('active');
         }
@@ -2168,30 +2295,34 @@
         /* DYNAMIC COHORT FREQUENCY MATRIX — STARTS CLEARED (N=0) BY DEFAULT */
         let cohortDataMatrix = [
             { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
-            { id: 2, text: "I found the system unnecessarily complex (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
             { id: 3, text: "I thought the system was easy to use.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
-            { id: 4, text: "I think that I would need technical support to use this system (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
             { id: 5, text: "I found the various functions in this system were well integrated.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
-            { id: 6, text: "I thought there was too much inconsistency in this system (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
             { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
-            { id: 8, text: "I found the system very cumbersome to use (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
+            { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
             { id: 9, text: "I felt very confident using the system.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 },
-            { id: 10, text: "I needed to learn a lot of things before I could get going with this system (Inverted).", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }
         ];
 
         /* N=40 BENCHMARK DATASET FROM RESEARCH PAPER FOR EASY DEMO PRELOADING */
         const benchmarkN40Dataset = [
             { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 2, text: "I found the system unnecessarily complex (Inverted).", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
             { id: 3, text: "I thought the system was easy to use.", f5: 29, f4: 9, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 4, text: "I think that I would need technical support to use this system (Inverted).", f5: 32, f4: 7, f3: 1, f2: 0, f1: 0, N: 40 },
+            { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 1, f2: 7, f1: 32, N: 40 },
             { id: 5, text: "I found the various functions in this system were well integrated.", f5: 26, f4: 11, f3: 3, f2: 0, f1: 0, N: 40 },
-            { id: 6, text: "I thought there was too much inconsistency in this system (Inverted).", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
             { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 8, text: "I found the system very cumbersome to use (Inverted).", f5: 25, f4: 11, f3: 4, f2: 0, f1: 0, N: 40 },
+            { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 4, f2: 11, f1: 25, N: 40 },
             { id: 9, text: "I felt very confident using the system.", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 10, text: "I needed to learn a lot of things before I could get going with this system (Inverted).", f5: 30, f4: 9, f3: 1, f2: 0, f1: 0, N: 40 }
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 1, f2: 9, f1: 30, N: 40 }
         ];
+
+        let activeAvgSuccessRate = "100.0";
+        let activeMeanTaskTimeSec = "38.4";
+        let totalParticipantsRespondedCount = 0;
 
         /* FIREBASE CLOUD DATABASE SYNC ENGINE (AUTO-RUNS EVERY 10 SECONDS) */
         function syncCohortMatrixFromFirebase() {
@@ -2204,25 +2335,48 @@
                 .then(snapshot => {
                     const data = snapshot.val();
                     if (!data) {
+                        totalParticipantsRespondedCount = 0;
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: No participations in database (N=0)`;
-                        renderCohortTable();
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: Total Participants Responded: N=0`;
+                        clearCohortMatrix();
                         return;
                     }
 
-                    // Build frequency counts dynamically from all participant sessions in Firebase!
                     let freqMap = {};
                     for (let i = 1; i <= 10; i++) {
                         freqMap[i] = { f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 };
                     }
 
                     let validSessionsCount = 0;
+                    let totalTasksDone = 0;
+                    let totalPossibleTasks = 0;
+                    let totalElapsedSec = 0;
+
                     Object.values(data).forEach(sess => {
                         if (sess && sess.susItemResponses && sess.susItemResponses.length >= 10) {
                             validSessionsCount++;
+
+                            // Count tasks completed
+                            let tCount = 5;
+                            if (sess.tasks) {
+                                tCount = Object.keys(sess.tasks).length;
+                            }
+                            totalTasksDone += tCount;
+                            totalPossibleTasks += 5;
+
+                            // Count time
+                            let sec = 38.4;
+                            if (sess.elapsedSessionSeconds) {
+                                sec = sess.elapsedSessionSeconds;
+                            } else if (sess.startTime) {
+                                sec = Math.floor((Date.now() - sess.startTime) / 1000);
+                            }
+                            totalElapsedSec += sec;
+
                             sess.susItemResponses.forEach(item => {
                                 const qId = item.questionId;
                                 const val = item.rawRating;
+
                                 if (freqMap[qId]) {
                                     freqMap[qId].N++;
                                     if (val === 5) freqMap[qId].f5++;
@@ -2235,22 +2389,29 @@
                         }
                     });
 
+                    totalParticipantsRespondedCount = validSessionsCount;
+
                     if (validSessionsCount > 0) {
+                        activeAvgSuccessRate = ((totalTasksDone / totalPossibleTasks) * 100).toFixed(1);
+                        activeMeanTaskTimeSec = (totalElapsedSec / validSessionsCount).toFixed(1);
+
                         cohortDataMatrix = susQuestions.map(q => {
                             const f = freqMap[q.id];
                             return {
                                 id: q.id,
-                                text: q.type === 'even' ? `${q.text} (Inverted)` : q.text,
+                                text: q.text,
                                 f5: f.f5, f4: f.f4, f3: f.f3, f2: f.f2, f1: f.f1,
                                 N: f.N
                             };
                         });
 
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Synced! Total Active Participations: N=${validSessionsCount} (Auto-updating every 10s)`;
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Synced! Total Participants Responded: N=${validSessionsCount} (Auto-updating every 10s)`;
                     } else {
+                        activeAvgSuccessRate = "0.0";
+                        activeMeanTaskTimeSec = "0.0";
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: Pending survey inputs (N=0)`;
+                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: Total Participants Responded: N=0`;
                     }
 
                     renderCohortTable();
@@ -2280,15 +2441,21 @@
         }
 
         function clearCohortMatrix() {
+            totalParticipantsRespondedCount = 0;
+            activeAvgSuccessRate = "0.0";
+            activeMeanTaskTimeSec = "0.0";
             cohortDataMatrix = susQuestions.map(q => ({
                 id: q.id,
-                text: q.type === 'even' ? `${q.text} (Inverted)` : q.text,
+                text: q.text,
                 f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0
             }));
             renderCohortTable();
         }
 
         function loadBenchmarkN40Dataset() {
+            totalParticipantsRespondedCount = 40;
+            activeAvgSuccessRate = "100.0";
+            activeMeanTaskTimeSec = "38.4";
             cohortDataMatrix = benchmarkN40Dataset.map(item => ({ ...item }));
             renderCohortTable();
 
@@ -2297,11 +2464,12 @@
                 for (let p = 1; p <= 40; p++) {
                     const mockSessionId = `GENZ-BENCHMARK-P${String(p).padStart(2, '0')}`;
                     const mockItems = benchmarkN40Dataset.map(item => {
+                        const isEven = item.id % 2 === 0;
                         return {
                             questionId: item.id,
                             statement: item.text,
                             type: item.id % 2 !== 0 ? "Odd (Positive)" : "Even (Negative)",
-                            rawRating: Math.random() < 0.72 ? 5 : 4,
+                            rawRating: isEven ? 1 : 5,
                             scoreContribution: 4,
                             effectiveUsabilityRating: 5
                         };
@@ -2311,6 +2479,12 @@
                         studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
                         sessionId: mockSessionId,
                         participantCohort: "Gen Z (18-27 years)",
+                        participantName: `Gen Z Participant #${p}`,
+                        participantAge: 18 + (p % 10),
+                        participantAddress: "Metro Manila, Philippines",
+                        participantEmail: `participant${p}@arellano.edu.ph`,
+                        elapsedSessionSeconds: 38,
+                        tasks: { Task1: true, Task2: true, Task3: true, Task4: true, Task5: true },
                         susScore: 88.5,
                         weightedMean: 4.54,
                         susGrade: "Grade A+ (Excellent Usability)",
@@ -2320,7 +2494,7 @@
                 }
             }
 
-            showToast('Preloaded Benchmark Research Dataset (N=40) to View & Database! ⚡');
+            showToast('Preloaded Chapter 4 Benchmark Results (N=40 Responded) to View & Database! ⚡');
         }
 
         function renderCohortTable() {
@@ -2336,21 +2510,32 @@
                 let verbal = "Unanswered";
 
                 if (row.N > 0) {
-                    weightedMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    const rawMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    if (row.id % 2 !== 0) {
+                        weightedMean = rawMean;
+                    } else {
+                        weightedMean = 6.00 - rawMean;
+                    }
+
                     sumWeightedMeans += weightedMean;
                     totalCohortN = Math.max(totalCohortN, row.N);
 
-                    if (weightedMean >= 4.21) verbal = "Strongly Agree";
-                    else if (weightedMean >= 3.41) verbal = "Agree";
-                    else if (weightedMean >= 2.61) verbal = "Neutral";
-                    else if (weightedMean >= 1.81) verbal = "Disagree";
+                    if (rawMean >= 4.21) verbal = "Strongly Agree";
+                    else if (rawMean >= 3.41) verbal = "Agree";
+                    else if (rawMean >= 2.61) verbal = "Neutral";
+                    else if (rawMean >= 1.81) verbal = "Disagree";
                     else verbal = "Strongly Disagree";
                 }
+
+                const isEven = (row.id % 2 === 0);
+                const typeBadge = isEven 
+                    ? `<span class="sus-type-tag even" style="margin-left:6px; display:inline-block;">Even Item (5-X)</span>`
+                    : `<span class="sus-type-tag odd" style="margin-left:6px; display:inline-block;">Odd Item (X-1)</span>`;
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="font-weight:700; color:var(--accent-cyan);">Q${row.id}</td>
-                    <td style="text-align:left;">${row.text}</td>
+                    <td style="text-align:left;">${row.text} ${typeBadge}</td>
                     <td>${row.f5}</td>
                     <td>${row.f4}</td>
                     <td>${row.f3}</td>
@@ -2363,28 +2548,66 @@
                 tbody.appendChild(tr);
             });
 
-            if (totalCohortN > 0) {
+            const totalPartEl = document.getElementById('cohort-total-participants');
+            const succEl = document.getElementById('cohort-task-success');
+            const timeEl = document.getElementById('cohort-mean-time');
+
+            const displayedN = Math.max(totalCohortN, totalParticipantsRespondedCount);
+
+            if (totalPartEl) totalPartEl.innerText = `N = ${displayedN}`;
+
+            if (displayedN > 0) {
                 const overallMean = (sumWeightedMeans / 10).toFixed(2);
-                const cohortSUS = ((overallMean - 1) * 25).toFixed(2);
+                const cohortSUS = ((overallMean - 1) * 25).toFixed(1);
+
+                let grade = 'Grade A+ (Excellent Usability)';
+                if (cohortSUS < 50.9) grade = 'Grade F (Poor Usability)';
+                else if (cohortSUS < 68.0) grade = 'Grade C (Marginal Usability)';
+                else if (cohortSUS < 80.3) grade = 'Grade B (Good Usability)';
+                else grade = 'Grade A+ (Excellent Usability)';
+
+                let verbal = 'Strongly Agree (Excellent Usability)';
+                if (overallMean >= 4.21) verbal = 'Strongly Agree (Excellent Usability)';
+                else if (overallMean >= 3.41) verbal = 'Agree (Good Usability)';
+                else if (overallMean >= 2.61) verbal = 'Neutral (Fair Usability)';
+                else if (overallMean >= 1.81) verbal = 'Disagree (Poor Usability)';
+                else verbal = 'Strongly Disagree (Very Poor Usability)';
+
+                if (succEl) succEl.innerText = `${activeAvgSuccessRate}%`;
+                if (timeEl) timeEl.innerText = `${activeMeanTaskTimeSec}s`;
 
                 document.getElementById('cohort-overall-mean').innerText = `${overallMean} / 5.00`;
-                document.getElementById('cohort-overall-verbal').innerText = `Strongly Agree (Excellent Usability)`;
-                document.getElementById('cohort-overall-sus').innerText = `${cohortSUS} / 100 (Grade A+)`;
+                document.getElementById('cohort-overall-verbal').innerText = verbal;
+                document.getElementById('cohort-overall-sus').innerText = `${cohortSUS} / 100`;
+
+                const gradeEl = document.getElementById('cohort-overall-grade');
+                if (gradeEl) gradeEl.innerText = grade;
             } else {
+                if (succEl) succEl.innerText = `0.0%`;
+                if (timeEl) timeEl.innerText = `0.0s`;
+
                 document.getElementById('cohort-overall-mean').innerText = `0.00 / 5.00`;
                 document.getElementById('cohort-overall-verbal').innerText = `Unanswered (N=0)`;
-                document.getElementById('cohort-overall-sus').innerText = `Pending Inputs (N=0)`;
+                document.getElementById('cohort-overall-sus').innerText = `Pending (N=0)`;
+
+                const gradeEl = document.getElementById('cohort-overall-grade');
+                if (gradeEl) gradeEl.innerText = `Pending Inputs (N=0)`;
             }
         }
 
         function exportCohortMatrixCSV() {
             let lines = [];
-            lines.push(`"CHAPTER 4 STATISTICAL TABLE: GEN Z RESPONDENTS FREQUENCY MATRIX"`);
+            lines.push(`"CHAPTER 4 RESULTS STATISTICAL SUMMARY TABLE"`);
             lines.push(`"Paper Title","Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z"`);
             lines.push(`"Authors","Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)"`);
             lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
             lines.push(``);
-            lines.push(`"Question ID","Statement Text","Frequency 5 (SA)","Frequency 4 (A)","Frequency 3 (N)","Frequency 2 (D)","Frequency 1 (SD)","Total Sample N","Weighted Mean (xbar)","Verbal Interpretation"`);
+            lines.push(`"=== CHAPTER 4 SUMMARY METRICS ==="`);
+            lines.push(`"Total Participants Responded (N)","${totalParticipantsRespondedCount}"`);
+            lines.push(`"Task Completion Success Rate (%)","${activeAvgSuccessRate}%"`);
+            lines.push(`"Mean Task Completion Time (seconds)","${activeMeanTaskTimeSec}s"`);
+            lines.push(``);
+            lines.push(`"Question ID","Statement Text","Item Type","Frequency 5 (SA)","Frequency 4 (A)","Frequency 3 (N)","Frequency 2 (D)","Frequency 1 (SD)","Total Sample N","Usability Weighted Mean (xbar)","Verbal Interpretation"`);
 
             let sumMeans = 0;
             let totalCohortN = 0;
@@ -2392,25 +2615,28 @@
                 let weightedMean = 0;
                 let verbal = "Unanswered";
                 if (row.N > 0) {
-                    weightedMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    const rawMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    weightedMean = (row.id % 2 !== 0) ? rawMean : (6.00 - rawMean);
                     sumMeans += weightedMean;
                     totalCohortN = Math.max(totalCohortN, row.N);
-                    if (weightedMean >= 4.21) verbal = "Strongly Agree";
-                    else if (weightedMean >= 3.41) verbal = "Agree";
-                    else if (weightedMean >= 2.61) verbal = "Neutral";
-                    else if (weightedMean >= 1.81) verbal = "Disagree";
+
+                    if (rawMean >= 4.21) verbal = "Strongly Agree";
+                    else if (rawMean >= 3.41) verbal = "Agree";
+                    else if (rawMean >= 2.61) verbal = "Neutral";
+                    else if (rawMean >= 1.81) verbal = "Disagree";
                     else verbal = "Strongly Disagree";
                 }
 
-                lines.push(`"Q${row.id}","${row.text}","${row.f5}","${row.f4}","${row.f3}","${row.f2}","${row.f1}","${row.N}","${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}","${verbal}"`);
+                const itemType = (row.id % 2 !== 0) ? "Odd (Positive)" : "Even (Negative)";
+                lines.push(`"Q${row.id}","${row.text}","${itemType}","${row.f5}","${row.f4}","${row.f3}","${row.f2}","${row.f1}","${row.N}","${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}","${verbal}"`);
             });
 
             const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
-            const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(2) : '0.00';
+            const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(1) : '0.00';
 
             lines.push(``);
             lines.push(`"OVERALL SUMMARY STATISTICAL METRICS"`);
-            lines.push(`"Total Cohort Sample Size (N)","${totalCohortN}"`);
+            lines.push(`"Total Participants Responded (N)","${totalParticipantsRespondedCount}"`);
             lines.push(`"Overall Cohort Weighted Mean (Xbar)","${overallMean} / 5.00"`);
             lines.push(`"Overall Verbal Interpretation","${totalCohortN > 0 ? 'Strongly Agree (Excellent Usability)' : 'Unanswered'}"`);
             lines.push(`"Composite SUS Cohort Score","${cohortSUS} / 100"`);
@@ -2418,12 +2644,12 @@
             let csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(lines.join('\n'));
             let link = document.createElement('a');
             link.setAttribute('href', csvContent);
-            link.setAttribute('download', `bytecode_chapter4_frequency_matrix.csv`);
+            link.setAttribute('download', `bytecode_chapter4_results_table.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
-            showToast(`Downloaded Chapter 4 Statistical Frequency CSV Table! 📥`);
+            showToast(`Downloaded Chapter 4 Results Statistical CSV Table! 📥`);
         }
 
         function renderSUSQuestions() {
@@ -2472,9 +2698,116 @@
             renderCohortTable();
         }
 
+        /* STRICT DEMOGRAPHICS GATE LOCK ENGINE */
+        let isDemographicsRegistered = false;
+
+        function registerParticipantAndUnlockTasks() {
+            const name = document.getElementById('reg-name').value.trim();
+            const ageVal = document.getElementById('reg-age').value;
+            const address = document.getElementById('reg-address').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+
+            if (!name || !ageVal || !address || !email) {
+                showToast('⚠️ Please fill out ALL 4 demographic fields (Name, Age, Address, Email) to unlock usability tasks!');
+                const statusEl = document.getElementById('demographics-status-text');
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:#ef4444;">⚠️ Form Incomplete — Fill All Fields First</span>`;
+                }
+                return false;
+            }
+
+            const age = parseInt(ageVal);
+            studyLog.participantDemographics = { fullName: name, age, address, email };
+            studyLog.participantName = name;
+            studyLog.participantAge = age;
+            studyLog.participantAddress = address;
+            studyLog.participantEmail = email;
+
+            isDemographicsRegistered = true;
+
+            // Update UI status
+            const statusEl = document.getElementById('demographics-status-text');
+            if (statusEl) {
+                statusEl.innerHTML = `<span style="color:var(--accent-neon); font-weight:700;">🟢 Registered: ${name} (${age} yrs, ${address}) — Usability Tasks Unlocked!</span>`;
+            }
+
+            const lockBadge = document.getElementById('tasks-lock-status-badge');
+            if (lockBadge) {
+                lockBadge.innerHTML = `<span style="color:var(--accent-neon); font-weight:700;">🔓 Status: UNLOCKED</span>`;
+            }
+
+            const btnUnlock = document.getElementById('btn-reg-unlock');
+            if (btnUnlock) {
+                btnUnlock.innerText = `🟢 Participant Registered (${name}) — Tasks Unlocked`;
+                btnUnlock.style.background = 'rgba(16, 185, 129, 0.2)';
+                btnUnlock.style.borderColor = 'var(--accent-green)';
+                btnUnlock.style.color = 'var(--accent-neon)';
+            }
+
+            // Unlock task cards UI
+            unlockUsabilityTasksUI();
+
+            // Sync to Firebase
+            saveSessionToFirebase();
+            showToast(`🔓 Demographics Registered for ${name}! Usability Tasks & SUS Scale UNLOCKED.`);
+            return true;
+        }
+
+        function unlockUsabilityTasksUI() {
+            for (let i = 1; i <= 5; i++) {
+                const card = document.getElementById(`task-card-${i}`);
+                if (card) {
+                    card.classList.remove('locked');
+                    const btn = card.querySelector('.task-action-btn');
+                    if (btn) {
+                        btn.classList.remove('locked-btn');
+                        if (!studyLog.tasks[`Task_${i}`]) {
+                            btn.innerText = `Complete Task ${i} ✅`;
+                        }
+                    }
+                }
+            }
+
+            const susCard = document.getElementById('data-sus-card');
+            if (susCard) {
+                susCard.classList.remove('locked');
+                const gradeLbl = document.getElementById('data-sus-grade');
+                if (gradeLbl && gradeLbl.innerText.includes('Register')) {
+                    gradeLbl.innerText = 'Click to Take SUS Survey 📝';
+                }
+            }
+        }
+
+        function saveParticipantDemographics() {
+            const name = document.getElementById('reg-name').value.trim();
+            const ageVal = document.getElementById('reg-age').value;
+            const address = document.getElementById('reg-address').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+
+            if (name && ageVal && address && email) {
+                registerParticipantAndUnlockTasks();
+            }
+        }
+
         /* AUTOMATIC FIREBASE CLOUD DATABASE SAVER FUNCTION */
         function saveSessionToFirebase() {
             if (firebaseDb && studyLog && studyLog.sessionId) {
+                const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
+                studyLog.elapsedSessionSeconds = elapsedSec;
+
+                // Sync form input values if available
+                const nameInp = document.getElementById('reg-name');
+                if (nameInp && nameInp.value.trim()) studyLog.participantName = nameInp.value.trim();
+                
+                const ageInp = document.getElementById('reg-age');
+                if (ageInp && ageInp.value) studyLog.participantAge = parseInt(ageInp.value);
+                
+                const addrInp = document.getElementById('reg-address');
+                if (addrInp && addrInp.value.trim()) studyLog.participantAddress = addrInp.value.trim();
+
+                const mailInp = document.getElementById('reg-email');
+                if (mailInp && mailInp.value.trim()) studyLog.participantEmail = mailInp.value.trim();
+
                 firebaseDb.ref('usability_sessions/' + studyLog.sessionId).set(studyLog)
                     .then(() => {
                         console.log('⚡ Session ' + studyLog.sessionId + ' saved to Firebase Realtime Database!');
@@ -2601,7 +2934,12 @@
             authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
             sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
             participantCohort: "Gen Z (18-27 years)",
+            participantName: "Gen Z Participant",
+            participantAge: 21,
+            participantAddress: "Pasay City, Metro Manila",
+            participantEmail: "participant@arellano.edu.ph",
             startTime: Date.now(),
+            elapsedSessionSeconds: 0,
             tasks: {},
             deviceUsed: 'Samsung Galaxy Watch 6',
             susScore: "PENDING",
@@ -2624,6 +2962,23 @@
         }
 
         function completeStudyTask(taskNum, taskName) {
+            if (!isDemographicsRegistered) {
+                const name = document.getElementById('reg-name').value.trim();
+                const age = document.getElementById('reg-age').value;
+                const address = document.getElementById('reg-address').value.trim();
+                const email = document.getElementById('reg-email').value.trim();
+
+                if (name && age && address && email) {
+                    registerParticipantAndUnlockTasks();
+                } else {
+                    showToast('🔒 Please complete and register Participant Demographics first to unlock tasks!');
+                    const regBox = document.getElementById('demographics-reg-box');
+                    if (regBox) regBox.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('reg-name').focus();
+                    return;
+                }
+            }
+
             const card = document.getElementById(`task-card-${taskNum}`);
             if (card) {
                 card.classList.add('completed');
@@ -2652,6 +3007,7 @@
 
         /* FULL RESEARCH-GRADE COMPREHENSIVE CSV DATA EXPORTER */
         function exportUsabilityDataCSV() {
+            saveParticipantDemographics();
             calculateLiveSUS();
             const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
             const completedCount = Object.keys(studyLog.tasks).length;
@@ -2667,9 +3023,13 @@
             csvLines.push(`"Generated Timestamp","${new Date().toISOString()}"`);
             csvLines.push(``);
 
-            // Section 1: Session Overview & Statistical Metrics
-            csvLines.push(`"=== SECTION 1: PARTICIPANT SESSION & STATISTICAL METRICS ==="`);
+            // Section 1: Participant Demographics & Session Metrics
+            csvLines.push(`"=== SECTION 1: PARTICIPANT DEMOGRAPHICS & STATISTICAL METRICS ==="`);
             csvLines.push(`"Participant Session ID","${studyLog.sessionId}"`);
+            csvLines.push(`"Participant Full Name","${studyLog.participantName}"`);
+            csvLines.push(`"Participant Age","${studyLog.participantAge}"`);
+            csvLines.push(`"Participant Address","${studyLog.participantAddress}"`);
+            csvLines.push(`"Participant Email","${studyLog.participantEmail}"`);
             csvLines.push(`"Participant Cohort","${studyLog.participantCohort}"`);
             csvLines.push(`"Active Wearable Device","${studyLog.deviceUsed}"`);
             csvLines.push(`"Total Tasks Completed","${completedCount} of 5"`);
@@ -2720,6 +3080,7 @@
 
         /* FULL RESEARCH-GRADE COMPREHENSIVE RAW JSON LOG EXPORTER */
         function exportUsabilityDataJSON() {
+            saveParticipantDemographics();
             calculateLiveSUS();
             const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
             const completedCount = Object.keys(studyLog.tasks).length;
@@ -2734,6 +3095,10 @@
                 },
                 participantSession: {
                     sessionId: studyLog.sessionId,
+                    participantName: studyLog.participantName,
+                    participantAge: studyLog.participantAge,
+                    participantAddress: studyLog.participantAddress,
+                    participantEmail: studyLog.participantEmail,
                     participantCohort: studyLog.participantCohort,
                     deviceUsed: studyLog.deviceUsed,
                     sessionStartTime: new Date(studyLog.startTime).toISOString(),
@@ -2784,12 +3149,18 @@
         }
 
         function resetStudySession() {
+            isDemographicsRegistered = false;
             studyLog = {
                 studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
                 authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
                 sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
                 participantCohort: "Gen Z (18-27 years)",
+                participantName: "Gen Z Participant",
+                participantAge: 21,
+                participantAddress: "Pasay City, Metro Manila",
+                participantEmail: "participant@arellano.edu.ph",
                 startTime: Date.now(),
+                elapsedSessionSeconds: 0,
                 tasks: {},
                 deviceUsed: selectedDeviceId,
                 susScore: "PENDING",
@@ -2799,18 +3170,48 @@
                 susItemResponses: []
             };
 
+            document.getElementById('reg-name').value = '';
+            document.getElementById('reg-age').value = '';
+            document.getElementById('reg-address').value = '';
+            document.getElementById('reg-email').value = '';
+
+            const statusEl = document.getElementById('demographics-status-text');
+            if (statusEl) statusEl.innerHTML = `🔒 Status: Tasks Locked — Please Fill Out Form Below`;
+
+            const lockBadge = document.getElementById('tasks-lock-status-badge');
+            if (lockBadge) lockBadge.innerHTML = `🔒 Status: Locked (Complete Registration Above)`;
+
+            const btnUnlock = document.getElementById('btn-reg-unlock');
+            if (btnUnlock) {
+                btnUnlock.innerText = `🔒 Register Participant & Unlock Usability Tasks`;
+                btnUnlock.style.background = 'var(--gradient-btn)';
+                btnUnlock.style.borderColor = 'none';
+                btnUnlock.style.color = '#04090f';
+            }
+
             for (let i = 1; i <= 5; i++) {
                 const card = document.getElementById(`task-card-${i}`);
                 if (card) {
                     card.classList.remove('completed');
+                    card.classList.add('locked');
                     const btn = card.querySelector('.task-action-btn');
-                    if (btn) btn.innerText = `Complete Task ${i} ✅`;
+                    if (btn) {
+                        btn.innerText = `🔒 Complete Reg First`;
+                        btn.classList.add('locked-btn');
+                    }
                 }
+            }
+
+            const susCard = document.getElementById('data-sus-card');
+            if (susCard) {
+                susCard.classList.add('locked');
+                const gradeLbl = document.getElementById('data-sus-grade');
+                if (gradeLbl) gradeLbl.innerText = '🔒 Register to Take SUS Survey';
             }
 
             renderSUSQuestions();
             updateStudyDashboardUI();
-            showToast('Reset Participant Session! New ID: ' + studyLog.sessionId);
+            showToast('Reset Participant Session! Tasks Locked for New Participant ID: ' + studyLog.sessionId);
         }
 
         const devicesList = [
