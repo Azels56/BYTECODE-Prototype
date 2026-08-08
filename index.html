@@ -354,7 +354,6 @@
             position: relative;
         }
 
-        /* PERFECT SIDE-BY-SIDE (LEFT TITLE & RIGHT DESCRIPTION) BASELINE ALIGNMENT */
         .section-header-row {
             display: flex;
             align-items: flex-start;
@@ -449,9 +448,9 @@
         .big-feature-panel { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 28px; padding: 32px; position: relative; }
         .panel-heading { font-size: 1.8rem; font-weight: 300; font-family: 'Inter', sans-serif; margin-bottom: 24px; line-height: 1.28; color: var(--text-heading); letter-spacing: -0.5px; }
         .panel-list { display: flex; flex-direction: column; gap: 16px; }
-        .panel-list-item { background: rgba(18, 28, 45, 0.8); border: 1px solid var(--border-card); padding: 20px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+        .panel-list-item { background: rgba(18, 28, 45, 0.8); border: 1px solid var(--border-card); padding: 18px 22px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
-        .mini-toggle-btn { width: 44px; height: 22px; background: rgba(0, 242, 254, 0.2); border: 1px solid var(--accent-cyan); border-radius: 20px; position: relative; cursor: pointer; transition: var(--transition); }
+        .mini-toggle-btn { width: 44px; height: 22px; background: rgba(0, 242, 254, 0.2); border: 1px solid var(--accent-cyan); border-radius: 20px; position: relative; cursor: pointer; transition: var(--transition); flex-shrink: 0; }
         .mini-toggle-btn::after { content: ''; position: absolute; top: 2px; right: 3px; width: 16px; height: 16px; background: #00f2fe; border-radius: 50%; box-shadow: 0 0 8px #00f2fe; transition: var(--transition); }
         .mini-toggle-btn.off { background: rgba(100, 116, 139, 0.3); border-color: rgba(100, 116, 139, 0.5); }
         .mini-toggle-btn.off::after { right: 23px; background: #94a3b8; box-shadow: none; }
@@ -1029,7 +1028,7 @@
             </div>
         </section>
 
-        <!-- PRIVACY SECTION -->
+        <!-- PRIVACY SECTION WITH EXACT SCREENSHOT CONTROLS -->
         <section id="privacy" class="two-col-section">
             <div class="big-feature-panel">
                 <div class="badge-pill"><div class="dot-glow"></div> NAVIGATION STRUCTURE <span class="binary-tag" style="margin-left:6px;">1010</span></div>
@@ -1054,21 +1053,40 @@
                 <div class="badge-pill"><div class="dot-glow"></div> PRIVACY CONTROLS <span class="binary-tag" style="margin-left:6px;">0110</span></div>
                 <h2 class="panel-heading">Participant-safe by default.</h2>
                 <div class="panel-list">
+                    <!-- Item 1: Share anonymized testing data -->
                     <div class="panel-list-item">
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">Allows study-level pattern analysis.</div>
-                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Study Analysis Data');"></div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Allows study-level pattern analysis.</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">Share anonymized testing data</div>
+                        </div>
+                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Share anonymized testing data');"></div>
                     </div>
+
+                    <!-- Item 2: AI explanation mode -->
                     <div class="panel-list-item">
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">Show why each recommendation appears.</div>
-                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'AI Explanations');"></div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Show why each recommendation appears.</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">AI explanation mode</div>
+                        </div>
+                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'AI explanation mode');"></div>
                     </div>
+
+                    <!-- Item 3: Sensor access -->
                     <div class="panel-list-item">
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">PPG, sleep, and activity data enabled.</div>
-                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Biometric Sync');"></div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">PPG, sleep, and activity data enabled.</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">Sensor access</div>
+                        </div>
+                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Sensor access');"></div>
                     </div>
+
+                    <!-- Item 4: Export consent report -->
                     <div class="panel-list-item">
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">Downloadable participant permissions summary.</div>
-                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Permissions Summary');"></div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Downloadable participant permissions summary.</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">Export consent report</div>
+                        </div>
+                        <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Export consent report');"></div>
                     </div>
                 </div>
             </div>
