@@ -169,7 +169,7 @@
         }
 
         .logo-brand-sub-text {
-            display: inline !important; /* ALWAYS DISPLAY FULL BRAND LOGO TEXT */
+            display: inline !important;
         }
 
         .logo-sub {
@@ -325,7 +325,7 @@
             border-color: var(--accent-neon);
         }
 
-        /* SLIDE-DOWN MOBILE & TABLET MENU DRAWER WITH FULL REMAINING ACTION ITEMS */
+        /* SLIDE-DOWN MOBILE & TABLET MENU DRAWER */
         .mobile-nav-drawer {
             display: none;
             flex-direction: column;
@@ -367,7 +367,7 @@
             box-shadow: 0 0 18px rgba(0, 242, 254, 0.45);
         }
 
-        /* MOBILE DRAWER QUICK ACTION CARDS (Data Mode & Wearable Switcher) */
+        /* MOBILE DRAWER QUICK ACTION CARDS */
         .mobile-drawer-actions-box {
             display: flex;
             flex-direction: column;
@@ -667,23 +667,31 @@
 
         .res-stat-card {
             background: rgba(10, 18, 30, 0.85);
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            padding: 16px;
-            border-radius: 18px;
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            padding: 18px 14px;
+            border-radius: 20px;
             text-align: center;
+            transition: var(--transition);
+        }
+
+        .res-stat-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
         }
 
         .res-stat-num {
-            font-size: 1.6rem;
+            font-size: 1.65rem;
             font-weight: 800;
             color: var(--accent-neon);
             font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
         }
 
         .res-stat-lbl {
-            font-size: 0.75rem;
+            font-size: 0.76rem;
             color: var(--text-secondary);
-            margin-top: 4px;
+            margin-top: 6px;
+            font-weight: 500;
         }
 
         .researcher-actions {
@@ -873,6 +881,148 @@
 
         .device-modal-overlay.active .device-modal-card {
             transform: scale(1);
+        }
+
+        /* 10-ITEM SYSTEM USABILITY SCALE (SUS) MODAL STYLING - PERFECTLY ALIGNED */
+        .sus-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 13, 0.92);
+            backdrop-filter: blur(18px);
+            z-index: 2005;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .sus-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sus-modal-card {
+            background: #080e18;
+            border: 1.5px solid rgba(0, 242, 254, 0.45);
+            border-radius: 28px;
+            width: 760px;
+            max-width: 95vw;
+            padding: 26px 28px 28px;
+            box-shadow: 0 20px 70px rgba(0, 242, 254, 0.3);
+            transform: scale(0.92);
+            transition: var(--transition);
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sus-modal-overlay.active .sus-modal-card {
+            transform: scale(1);
+        }
+
+        .sus-questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow-y: auto;
+            max-height: 48vh;
+            padding-right: 10px;
+            margin-bottom: 22px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 242, 254, 0.5) rgba(15, 23, 42, 0.8);
+        }
+
+        .sus-questions-list::-webkit-scrollbar { width: 6px; }
+        .sus-questions-list::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.8); border-radius: 10px; }
+        .sus-questions-list::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00f2fe, #10b981); border-radius: 10px; }
+
+        .sus-item-box {
+            background: rgba(16, 26, 42, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 18px;
+            padding: 16px 20px;
+            transition: var(--transition);
+        }
+
+        .sus-item-box:hover {
+            border-color: rgba(0, 242, 254, 0.45);
+            background: rgba(20, 32, 52, 0.95);
+        }
+
+        .sus-item-header {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            line-height: 1.4;
+        }
+
+        .sus-type-tag {
+            font-size: 0.68rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .sus-type-tag.odd { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.4); }
+        .sus-type-tag.even { background: rgba(236, 72, 153, 0.15); color: var(--accent-pink); border: 1px solid rgba(236, 72, 153, 0.4); }
+
+        .sus-rating-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .sus-opt-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            padding: 4px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sus-opt-label:hover {
+            background: rgba(0, 242, 254, 0.1);
+            color: #ffffff;
+        }
+
+        .sus-opt-label input[type="radio"] {
+            accent-color: #00f2fe;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .sus-calc-summary-box {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%);
+            border: 1.5px solid rgba(0, 242, 254, 0.4);
+            border-radius: 24px;
+            padding: 18px 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .modal-top-header {
@@ -1077,10 +1227,15 @@
                 font-size: 0.85rem;
             }
 
-            .device-modal-card {
-                width: 92vw;
-                padding: 20px;
+            .device-modal-card, .sus-modal-card {
+                width: 94vw;
+                padding: 18px;
                 border-radius: 24px;
+            }
+
+            .sus-calc-summary-box {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
         }
 
@@ -1114,7 +1269,7 @@
         </div>
     </div>
 
-    <!-- FIXED ALWAYS-VISIBLE TOP NAVBAR WRAPPER (position: fixed; z-index: 10000) -->
+    <!-- FIXED ALWAYS-VISIBLE TOP NAVBAR WRAPPER -->
     <header class="navbar-wrapper">
         <nav class="navbar">
             <a href="#" class="logo">
@@ -1168,7 +1323,7 @@
             </div>
         </nav>
 
-        <!-- SLIDE-DOWN MOBILE & TABLET MENU DRAWER WITH FULL REMAINING ACTION ITEMS -->
+        <!-- SLIDE-DOWN MOBILE & TABLET MENU DRAWER -->
         <div class="mobile-nav-drawer" id="mobile-nav-drawer">
             <a href="#overview" class="mobile-nav-link active" onclick="closeMobileDrawer()">
                 <span>🚀 Overview</span> <span>➔</span>
@@ -1186,7 +1341,6 @@
                 <span>📋 Data Gathering Tasks</span> <span>➔</span>
             </a>
             
-            <!-- MOBILE DRAWER QUICK ACTIONS FOR REMAINING HEADER ITEMS -->
             <div class="mobile-drawer-actions-box">
                 <button class="mobile-drawer-btn green" onclick="scrollToDataGathering(); closeMobileDrawer();">
                     <span>📊 Data Gathering Mode & Console</span> <span>➔</span>
@@ -1455,7 +1609,6 @@
                 <div class="badge-pill"><div class="dot-glow"></div> PRIVACY CONTROLS <span class="binary-tag" style="margin-left:6px;">0110</span></div>
                 <h2 class="panel-heading">Participant-safe by default.</h2>
                 <div class="panel-list">
-                    <!-- Item 1: Share anonymized testing data -->
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Allows study-level pattern analysis.</div>
@@ -1464,7 +1617,6 @@
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Share anonymized testing data');"></div>
                     </div>
 
-                    <!-- Item 2: AI explanation mode -->
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Show why each recommendation appears.</div>
@@ -1473,7 +1625,6 @@
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'AI explanation mode');"></div>
                     </div>
 
-                    <!-- Item 3: Sensor access -->
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">PPG, sleep, and activity data enabled.</div>
@@ -1482,7 +1633,6 @@
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Sensor access');"></div>
                     </div>
 
-                    <!-- Item 4: Export consent report -->
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Downloadable participant permissions summary.</div>
@@ -1548,7 +1698,7 @@
                 </div>
             </div>
 
-            <!-- RESEARCH DATA GATHERING CONTROL PANEL -->
+            <!-- RESEARCH DATA GATHERING CONTROL PANEL WITH UNANSWERED INITIAL SUS STATE -->
             <div class="researcher-data-panel">
                 <div class="researcher-top-row">
                     <div>
@@ -1575,14 +1725,19 @@
                         <div class="res-stat-num" id="data-avg-time">0s</div>
                         <div class="res-stat-lbl">Elapsed Study Time</div>
                     </div>
-                    <div class="res-stat-card">
-                        <div class="res-stat-num" id="data-sus-score">88.5 / 100</div>
-                        <div class="res-stat-lbl">Calculated SUS Score</div>
+                    
+                    <!-- UNANSWERED INITIAL SUS CARD -->
+                    <div class="res-stat-card" onclick="toggleSUSModal()" style="cursor:pointer;" title="Click to view 10-Item SUS Scale & Formula Calculator">
+                        <div class="res-stat-num" id="data-sus-score">Pending (0/10)</div>
+                        <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:2px;" id="data-sus-grade">Click to Take SUS Survey 📝</div>
+                        <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600; margin-top:2px;" id="data-sus-weighted-mean">Unanswered (0/10 Rating Inputs)</div>
+                        <div class="res-stat-lbl" style="margin-top:6px;">Calculated SUS Score 📝</div>
                     </div>
                 </div>
 
                 <div class="researcher-actions">
                     <button class="btn-export-csv" onclick="exportUsabilityDataCSV()">📥 Export Study Data (CSV)</button>
+                    <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="toggleSUSModal()">📝 10-Item SUS Scale Calculator</button>
                     <button class="btn-secondary" onclick="exportUsabilityDataJSON()">📋 Export Raw Logs (JSON)</button>
                     <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="resetStudySession()">🔄 Reset Participant Session</button>
                 </div>
@@ -1673,6 +1828,43 @@
         </div>
     </div>
 
+    <!-- 10-ITEM SYSTEM USABILITY SCALE (SUS) INTERACTIVE CALCULATOR MODAL WITH CLEAR BUTTON -->
+    <div class="sus-modal-overlay" id="sus-modal-overlay">
+        <div class="sus-modal-card">
+            <div class="modal-top-header">
+                <div>
+                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">10-Item System Usability Scale (SUS) Calculator</div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Based on Brooke (1996) SUS Formula & Chapter 3 Methodology</div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearSUSSurvey()" title="Clear all radio selections">
+                        🧹 Clear Survey
+                    </button>
+                    <button class="close-btn" onclick="toggleSUSModal()">&times;</button>
+                </div>
+            </div>
+
+            <div class="sus-questions-list" id="sus-questions-container">
+                <!-- 10 SUS Survey Questions Dynamically Rendered -->
+            </div>
+
+            <div class="sus-calc-summary-box">
+                <div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Brooke (1996) SUS Score</div>
+                    <div style="font-size:1.45rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk'; margin-top:2px;" id="modal-sus-val">Pending (0/10)</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Usability Benchmark</div>
+                    <div style="font-size:1.05rem; font-weight:800; color:var(--accent-neon); margin-top:4px;" id="modal-sus-grade">Select Ratings (1-5)</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Likert Weighted Mean (X̄)</div>
+                    <div style="font-size:1.02rem; font-weight:800; color:#ffffff; margin-top:4px;" id="modal-sus-weighted-mean">Unanswered (0/10)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating BYTECODE AI Assistant Button -->
     <button class="ai-chat-trigger" onclick="toggleChatWindow()">
         <span>⚡ BYTECODE AI Assistant</span>
@@ -1753,6 +1945,11 @@
             modal.classList.toggle('active');
         }
 
+        function toggleSUSModal() {
+            const modal = document.getElementById('sus-modal-overlay');
+            modal.classList.toggle('active');
+        }
+
         function scrollToDataGathering() {
             const section = document.getElementById('usability-logger');
             if (section) {
@@ -1761,13 +1958,174 @@
             }
         }
 
+        /* 10 STANDARD SYSTEM USABILITY SCALE (SUS) QUESTIONS ACCORDING TO BROOKE (1996) - UNANSWERED BY DEFAULT */
+        const susQuestions = [
+            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", type: "odd", defaultVal: null },
+            { id: 2, text: "I found the system unnecessarily complex.", type: "even", defaultVal: null },
+            { id: 3, text: "I thought the system was easy to use.", type: "odd", defaultVal: null },
+            { id: 4, text: "I think that I would need technical support to use this system.", type: "even", defaultVal: null },
+            { id: 5, text: "I found the various functions in this system were well integrated.", type: "odd", defaultVal: null },
+            { id: 6, text: "I thought there was too much inconsistency in this system.", type: "even", defaultVal: null },
+            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", type: "odd", defaultVal: null },
+            { id: 8, text: "I found the system very cumbersome to use.", type: "even", defaultVal: null },
+            { id: 9, text: "I felt very confident using the system.", type: "odd", defaultVal: null },
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", type: "even", defaultVal: null }
+        ];
+
+        /* ALL 5 USABILITY TASK PROTOCOLS ACCORDING TO METHODOLOGY TABLE 3.2 */
+        const studyTaskProtocols = [
+            { id: 1, name: "View metrics", desc: "Review HRV, sleep, activity, and stress cards.", subsystem: "Biometric Dashboard" },
+            { id: 2, name: "Read tooltips", desc: "Understand sensor definitions and AI confidence.", subsystem: "Explanatory UI" },
+            { id: 3, name: "Toggle theme", desc: "Check legibility across light and dark preferences.", subsystem: "Accessibility Engine" },
+            { id: 4, name: "Set privacy", desc: "Adjust consent, explanations, and data sharing.", subsystem: "Privacy Controls Panel" },
+            { id: 5, name: "Ask assistant", desc: "Request a plain-language recommendation.", subsystem: "BYTECODE AI Assistant" }
+        ];
+
+        function renderSUSQuestions() {
+            const container = document.getElementById('sus-questions-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            susQuestions.forEach(q => {
+                const box = document.createElement('div');
+                box.className = 'sus-item-box';
+
+                box.innerHTML = `
+                    <div class="sus-item-header">
+                        <span>Q${q.id}. ${q.text}</span>
+                        <span class="sus-type-tag ${q.type}">${q.type === 'odd' ? 'Odd Item (X-1)' : 'Even Item (5-X)'}</span>
+                    </div>
+                    <div class="sus-rating-options">
+                        ${[1,2,3,4,5].map(val => `
+                            <label class="sus-opt-label">
+                                <input type="radio" name="sus-q${q.id}" value="${val}" ${q.defaultVal === val ? 'checked' : ''} onchange="calculateLiveSUS()">
+                                <span>${val === 1 ? '1 (SD)' : val === 5 ? '5 (SA)' : val}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(box);
+            });
+
+            calculateLiveSUS();
+        }
+
+        function calculateLiveSUS() {
+            let totalContribution = 0;
+            let totalEffectiveSum = 0;
+            let answeredCount = 0;
+            let susItemDetails = [];
+
+            for (let i = 1; i <= 10; i++) {
+                const checkedRadio = document.querySelector(`input[name="sus-q${i}"]:checked`);
+                if (checkedRadio) {
+                    answeredCount++;
+                    const val = parseInt(checkedRadio.value);
+                    const questionObj = susQuestions.find(q => q.id === i);
+                    
+                    let contrib;
+                    let effectiveVal;
+                    if (i % 2 !== 0) {
+                        contrib = val - 1;
+                        effectiveVal = val;
+                    } else {
+                        contrib = 5 - val;
+                        effectiveVal = 6 - val;
+                    }
+                    
+                    totalContribution += contrib;
+                    totalEffectiveSum += effectiveVal;
+
+                    susItemDetails.push({
+                        questionId: i,
+                        statement: questionObj ? questionObj.text : `Q${i}`,
+                        type: i % 2 !== 0 ? "Odd (Positive)" : "Even (Negative)",
+                        rawRating: val,
+                        scoreContribution: contrib,
+                        effectiveUsabilityRating: effectiveVal
+                    });
+                }
+            }
+
+            if (answeredCount < 10) {
+                document.getElementById('modal-sus-val').innerText = `Pending (${answeredCount}/10)`;
+                document.getElementById('modal-sus-grade').innerText = `Answer All 10 Items`;
+                document.getElementById('modal-sus-weighted-mean').innerText = `Select ratings 1 to 5`;
+
+                document.getElementById('data-sus-score').innerText = `Pending (${answeredCount}/10)`;
+                document.getElementById('data-sus-grade').innerText = `Click to Take SUS Survey 📝`;
+                document.getElementById('data-sus-weighted-mean').innerText = `Unanswered (${answeredCount}/10 Rating Inputs)`;
+
+                studyLog.susScore = "PENDING";
+                studyLog.weightedMean = "PENDING";
+                studyLog.susGrade = 'Pending Survey Inputs';
+                studyLog.verbalInterpretation = 'Unanswered';
+                studyLog.susItemResponses = susItemDetails;
+                return;
+            }
+
+            const susScore = (totalContribution * 2.5).toFixed(1);
+            const weightedMean = (totalEffectiveSum / 10).toFixed(2);
+
+            let grade = 'Grade A+ (Excellent Usability)';
+            let verbal = 'Excellent Usability';
+
+            if (weightedMean >= 4.21) {
+                verbal = 'Excellent Usability';
+            } else if (weightedMean >= 3.41) {
+                verbal = 'Good Usability';
+            } else if (weightedMean >= 2.61) {
+                verbal = 'Fair Usability';
+            } else if (weightedMean >= 1.81) {
+                verbal = 'Poor Usability';
+            } else {
+                verbal = 'Very Poor Usability';
+            }
+
+            if (susScore < 50.9) { grade = 'Grade F (Poor Usability)'; }
+            else if (susScore < 68.0) { grade = 'Grade C (Marginal Usability)'; }
+            else if (susScore < 80.3) { grade = 'Grade B (Good Usability)'; }
+            else { grade = 'Grade A+ (Excellent Usability)'; }
+
+            document.getElementById('modal-sus-val').innerText = `${susScore} / 100`;
+            document.getElementById('modal-sus-grade').innerText = grade;
+            document.getElementById('modal-sus-weighted-mean').innerText = `${weightedMean} / 5.00 (${verbal})`;
+
+            // Synchronize with Usability Console on main page
+            document.getElementById('data-sus-score').innerText = `${susScore} / 100`;
+            document.getElementById('data-sus-grade').innerText = grade;
+            document.getElementById('data-sus-weighted-mean').innerText = `Weighted Mean X̄ = ${weightedMean} (${verbal})`;
+
+            studyLog.susScore = parseFloat(susScore);
+            studyLog.weightedMean = parseFloat(weightedMean);
+            studyLog.susGrade = grade;
+            studyLog.verbalInterpretation = verbal;
+            studyLog.susItemResponses = susItemDetails;
+        }
+
+        function clearSUSSurvey() {
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.querySelectorAll(`input[name="sus-q${i}"]`);
+                radios.forEach(r => r.checked = false);
+            }
+            calculateLiveSUS();
+            showToast('Cleared SUS Scale Survey Answers! 🧹');
+        }
+
         /* DATA GATHERING & USABILITY LOGGING SYSTEM */
         let studyLog = {
+            studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
+            authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
             sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
+            participantCohort: "Gen Z (18-27 years)",
             startTime: Date.now(),
             tasks: {},
             deviceUsed: 'Samsung Galaxy Watch 6',
-            susScore: 88.5
+            susScore: "PENDING",
+            weightedMean: "PENDING",
+            susGrade: 'Pending Survey Inputs',
+            verbalInterpretation: 'Unanswered',
+            susItemResponses: []
         };
 
         function updateStudyDashboardUI() {
@@ -1790,46 +2148,145 @@
                 if (btn) btn.innerText = 'Task Completed ✓';
             }
 
+            const protocol = studyTaskProtocols.find(p => p.id === taskNum);
+
             studyLog.tasks[`Task_${taskNum}`] = {
+                taskId: taskNum,
                 name: taskName,
+                subsystem: protocol ? protocol.subsystem : 'Dashboard Component',
+                description: protocol ? protocol.desc : '',
                 completedAt: new Date().toISOString(),
                 elapsedSeconds: Math.floor((Date.now() - studyLog.startTime) / 1000),
-                status: 'SUCCESS'
+                status: 'COMPLETED'
             };
 
             updateStudyDashboardUI();
             showToast(`Task ${taskNum} Logged: "${taskName}" Completed! ✅`);
         }
 
+        /* FULL RESEARCH-GRADE COMPREHENSIVE CSV DATA EXPORTER */
         function exportUsabilityDataCSV() {
-            const rows = [
-                ['Session ID', 'Device', 'Task Number', 'Task Name', 'Elapsed Seconds', 'Status', 'Timestamp'],
-            ];
+            calculateLiveSUS();
+            const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
+            const completedCount = Object.keys(studyLog.tasks).length;
+            const successRate = Math.round((completedCount / 5) * 100);
 
-            const taskKeys = Object.keys(studyLog.tasks);
-            if (taskKeys.length === 0) {
-                rows.push([studyLog.sessionId, studyLog.deviceUsed, 'N/A', 'Session Initialized', '0', 'IN_PROGRESS', new Date().toISOString()]);
-            } else {
-                taskKeys.forEach(key => {
-                    const t = studyLog.tasks[key];
-                    rows.push([studyLog.sessionId, studyLog.deviceUsed, key, t.name, t.elapsedSeconds, t.status, t.completedAt]);
+            let csvLines = [];
+
+            // Header Banner
+            csvLines.push(`"RESEARCH STUDY USABILITY GATHERING LOG DATA"`);
+            csvLines.push(`"Paper Title","${studyLog.studyTitle}"`);
+            csvLines.push(`"Authors","${studyLog.authors}"`);
+            csvLines.push(`"Institution","Arellano University - Jose Abad Santos Campus, Pasay City, Philippines"`);
+            csvLines.push(`"Generated Timestamp","${new Date().toISOString()}"`);
+            csvLines.push(``);
+
+            // Section 1: Session Overview & Statistical Metrics
+            csvLines.push(`"=== SECTION 1: PARTICIPANT SESSION & STATISTICAL METRICS ==="`);
+            csvLines.push(`"Participant Session ID","${studyLog.sessionId}"`);
+            csvLines.push(`"Participant Cohort","${studyLog.participantCohort}"`);
+            csvLines.push(`"Active Wearable Device","${studyLog.deviceUsed}"`);
+            csvLines.push(`"Total Tasks Completed","${completedCount} of 5"`);
+            csvLines.push(`"Task Success Rate (%)","${successRate}%"`);
+            csvLines.push(`"Elapsed Study Session Time (s)","${elapsedSec} seconds"`);
+            csvLines.push(`"Composite SUS Score (0-100)","${studyLog.susScore}"`);
+            csvLines.push(`"SUS Usability Grade Benchmark","${studyLog.susGrade}"`);
+            csvLines.push(`"Likert Weighted Mean (Xbar 1-5)","${studyLog.weightedMean}"`);
+            csvLines.push(`"Likert Verbal Interpretation","${studyLog.verbalInterpretation}"`);
+            csvLines.push(``);
+
+            // Section 2: Task Completion Protocol Log
+            csvLines.push(`"=== SECTION 2: TASK COMPLETION PROTOCOL LOG ==="`);
+            csvLines.push(`"Task ID","Task Name","Target Subsystem","Status","Elapsed Seconds (s)","Completed Timestamp"`);
+
+            studyTaskProtocols.forEach(proto => {
+                const loggedTask = studyLog.tasks[`Task_${proto.id}`];
+                if (loggedTask) {
+                    csvLines.push(`"Task ${proto.id}","${proto.name}","${proto.subsystem}","COMPLETED","${loggedTask.elapsedSeconds}","${loggedTask.completedAt}"`);
+                } else {
+                    csvLines.push(`"Task ${proto.id}","${proto.name}","${proto.subsystem}","PENDING / IN_PROGRESS","0","N/A"`);
+                }
+            });
+            csvLines.push(``);
+
+            // Section 3: 10-Item System Usability Scale (SUS) Item Breakdown
+            csvLines.push(`"=== SECTION 3: SYSTEM USABILITY SCALE (SUS) 10-ITEM RAW RESPONSES ==="`);
+            csvLines.push(`"Item ID","Statement Text","Question Type","Raw Rating (1-5)","Score Contribution (0-4)","Effective Usability Rating (1-5)"`);
+
+            if (studyLog.susItemResponses && studyLog.susItemResponses.length > 0) {
+                studyLog.susItemResponses.forEach(item => {
+                    csvLines.push(`"Q${item.questionId}","${item.statement}","${item.type}","${item.rawRating}","${item.scoreContribution}","${item.effectiveUsabilityRating}"`);
                 });
+            } else {
+                csvLines.push(`"N/A","No SUS Survey items answered yet","N/A","0","0","0"`);
             }
 
-            let csvContent = 'data:text/csv;charset=utf-8,' + rows.map(e => e.join(',')).join('\n');
-            let encodedUri = encodeURI(csvContent);
+            let csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvLines.join('\n'));
             let link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
+            link.setAttribute('href', csvContent);
             link.setAttribute('download', `bytecode_usability_study_${studyLog.sessionId}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
-            showToast(`Downloaded Usability CSV Data for ${studyLog.sessionId}! 📥`);
+            showToast(`Downloaded Usability CSV Research Data for ${studyLog.sessionId}! 📥`);
         }
 
+        /* FULL RESEARCH-GRADE COMPREHENSIVE RAW JSON LOG EXPORTER */
         function exportUsabilityDataJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(studyLog, null, 2));
+            calculateLiveSUS();
+            const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
+            const completedCount = Object.keys(studyLog.tasks).length;
+            const successRate = Math.round((completedCount / 5) * 100);
+
+            const exportPayload = {
+                metadata: {
+                    studyTitle: studyLog.studyTitle,
+                    authors: studyLog.authors,
+                    institution: "Arellano University - Jose Abad Santos Campus, Pasay City, Philippines",
+                    exportedTimestamp: new Date().toISOString()
+                },
+                participantSession: {
+                    sessionId: studyLog.sessionId,
+                    participantCohort: studyLog.participantCohort,
+                    deviceUsed: studyLog.deviceUsed,
+                    sessionStartTime: new Date(studyLog.startTime).toISOString(),
+                    elapsedSessionSeconds: elapsedSec
+                },
+                summaryStatistics: {
+                    tasksCompleted: completedCount,
+                    totalTasks: 5,
+                    taskSuccessRatePercent: successRate,
+                    compositeSUSScore: studyLog.susScore,
+                    susGradeBenchmark: studyLog.susGrade,
+                    likertWeightedMean: studyLog.weightedMean,
+                    verbalInterpretation: studyLog.verbalInterpretation
+                },
+                taskProtocols: studyTaskProtocols.map(proto => {
+                    const t = studyLog.tasks[`Task_${proto.id}`];
+                    return {
+                        taskId: proto.id,
+                        taskName: proto.name,
+                        targetSubsystem: proto.subsystem,
+                        description: proto.desc,
+                        status: t ? "COMPLETED" : "PENDING",
+                        elapsedSeconds: t ? t.elapsedSeconds : 0,
+                        completedAt: t ? t.completedAt : null
+                    };
+                }),
+                susSurvey: {
+                    formula: "Brooke (1996) SUS Transformation Algorithm",
+                    totalItems: 10,
+                    answeredItems: studyLog.susItemResponses.length,
+                    compositeSUSScore: studyLog.susScore,
+                    susGrade: studyLog.susGrade,
+                    weightedMean: studyLog.weightedMean,
+                    verbalInterpretation: studyLog.verbalInterpretation,
+                    itemResponses: studyLog.susItemResponses
+                }
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
             downloadAnchor.setAttribute("download", `bytecode_usability_log_${studyLog.sessionId}.json`);
@@ -1837,16 +2294,23 @@
             downloadAnchor.click();
             downloadAnchor.remove();
 
-            showToast(`Downloaded Raw Log JSON for ${studyLog.sessionId}! 📋`);
+            showToast(`Downloaded Comprehensive JSON Log for ${studyLog.sessionId}! 📋`);
         }
 
         function resetStudySession() {
             studyLog = {
+                studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
+                authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
                 sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
+                participantCohort: "Gen Z (18-27 years)",
                 startTime: Date.now(),
                 tasks: {},
                 deviceUsed: selectedDeviceId,
-                susScore: 88.5
+                susScore: "PENDING",
+                weightedMean: "PENDING",
+                susGrade: 'Pending Survey Inputs',
+                verbalInterpretation: 'Unanswered',
+                susItemResponses: []
             };
 
             for (let i = 1; i <= 5; i++) {
@@ -1858,6 +2322,7 @@
                 }
             }
 
+            renderSUSQuestions();
             updateStudyDashboardUI();
             showToast('Reset Participant Session! New ID: ' + studyLog.sessionId);
         }
@@ -2113,6 +2578,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderDevicesList();
+            renderSUSQuestions();
             updateStudyDashboardUI();
             setInterval(updateStudyDashboardUI, 3000);
 
