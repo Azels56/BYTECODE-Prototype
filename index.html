@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BYTECODE AI Health - Living Mission Control</title>
+    <title>BYTECODE AI Health - Usability Testing & Data Gathering Engine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -249,6 +249,30 @@
         
         .user-profile { display: flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--border-card); padding: 5px 14px 5px 6px; border-radius: 30px; height: 38px; }
         .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--gradient-bytecode); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; color: #06090e; }
+
+        /* DATA GATHERING MODE BADGE BUTTON */
+        .data-gathering-btn {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--accent-neon);
+            height: 38px;
+            padding: 0 14px;
+            border-radius: 24px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .data-gathering-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+        }
 
         /* MOBILE & TABLET HAMBURGER TOGGLE BUTTON */
         .mobile-menu-toggle {
@@ -511,14 +535,103 @@
         .mini-toggle-btn.off { background: rgba(100, 116, 139, 0.3); border-color: rgba(100, 116, 139, 0.5); }
         .mini-toggle-btn.off::after { right: 23px; background: #94a3b8; box-shadow: none; }
 
+        /* USABILITY TASKS & DATA GATHERING CONTROL PANEL */
         .tasks-flow-section { margin-bottom: 60px; }
         .tasks-5grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 28px; }
 
-        .task-step-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 22px; padding: 20px; transition: var(--transition); cursor: pointer; text-align: left; }
+        .task-step-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 22px; padding: 20px; transition: var(--transition); cursor: pointer; text-align: left; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
         .task-step-card:hover { border-color: var(--accent-cyan); transform: translateY(-3px); }
+        .task-step-card.completed { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.1); }
+        
         .step-num-bubble { width: 36px; height: 36px; border-radius: 12px; background: var(--gradient-btn); color: #04090f; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-family: 'Space Grotesk', sans-serif; }
+        .task-step-card.completed .step-num-bubble { background: var(--accent-green); color: #ffffff; }
+
         .step-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; font-family: 'Inter', sans-serif; color: var(--text-primary); text-align: left; }
-        .step-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; font-weight: 400; text-align: left; }
+        .step-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; font-weight: 400; text-align: left; margin-bottom: 14px; }
+
+        .task-action-btn {
+            background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--accent-cyan); font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 12px; cursor: pointer; transition: var(--transition); text-align: center; width: 100%;
+        }
+
+        .task-step-card.completed .task-action-btn {
+            background: rgba(16, 185, 129, 0.2); border-color: var(--accent-green); color: var(--accent-neon);
+        }
+
+        /* DATA GATHERING RESEARCH DASHBOARD CARD */
+        .researcher-data-panel {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(0, 242, 254, 0.08) 100%);
+            border: 1.5px solid rgba(16, 185, 129, 0.4);
+            border-radius: 28px;
+            padding: 28px;
+            margin-top: 30px;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+        }
+
+        .researcher-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .research-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .res-stat-card {
+            background: rgba(10, 18, 30, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 16px;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .res-stat-num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-neon);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .res-stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .researcher-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-export-csv {
+            background: var(--gradient-btn);
+            color: #04090f;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-export-csv:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.55);
+        }
 
         .ai-chat-trigger { position: fixed; bottom: 24px; right: 24px; background: var(--gradient-btn); color: #04090f; border: none; padding: 15px 26px; border-radius: 40px; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 0 30px rgba(0, 242, 254, 0.4); display: flex; align-items: center; gap: 10px; z-index: 999; transition: var(--transition); user-select: none; }
         .ai-chat-trigger:hover { transform: translateY(-3px) scale(1.04); }
@@ -818,6 +931,7 @@
             .metrics-4grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .two-col-section { grid-template-columns: 1fr; gap: 24px; }
             .tasks-5grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+            .research-metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .section-title { font-size: 2rem; max-width: 100%; }
             .section-desc { max-width: 100%; margin-top: 0; }
         }
@@ -834,12 +948,18 @@
                 height: 36px;
                 padding: 0 8px;
                 font-size: 0.75rem;
-                max-width: 100px;
+                max-width: 90px;
+            }
+
+            .data-gathering-btn {
+                height: 36px;
+                padding: 0 8px;
+                font-size: 0.75rem;
             }
 
             #active-device-name {
                 display: inline-block;
-                max-width: 65px;
+                max-width: 55px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -903,8 +1023,8 @@
         @media (max-width: 600px) {
             .logo-brand-sub-text { display: none; }
             .logo-brand { font-size: 1.05rem; }
-            .device-connect-btn { max-width: 80px; padding: 0 6px; }
-            #active-device-name { max-width: 50px; }
+            .device-connect-btn { max-width: 75px; padding: 0 5px; }
+            #active-device-name { max-width: 45px; }
             .navbar { padding: 8px 10px; }
             .container { padding: 20px 12px; }
             .hero-title { font-size: 1.65rem; }
@@ -918,8 +1038,8 @@
 
         @media (max-width: 360px) {
             .logo-brand { font-size: 0.95rem; }
-            .device-connect-btn { max-width: 70px; }
-            #active-device-name { max-width: 42px; }
+            .device-connect-btn { max-width: 65px; }
+            #active-device-name { max-width: 38px; }
             .navbar { padding: 6px 8px; }
         }
     </style>
@@ -959,14 +1079,20 @@
                 <a href="#metrics" class="nav-pill">Metrics</a>
                 <a href="#insights" class="nav-pill">Insights</a>
                 <a href="#privacy" class="nav-pill">Privacy</a>
+                <a href="#usability-logger" class="nav-pill">Usability Tasks</a>
                 <a href="#assistant" class="nav-pill">Assistant</a>
             </div>
 
             <div class="nav-actions">
+                <!-- DATA GATHERING MODE BUTTON -->
+                <button class="data-gathering-btn" onclick="scrollToDataGathering()" title="Study Data Gathering Console">
+                    <div class="dot-glow"></div>
+                    <span>📊 Data Mode</span>
+                </button>
+
                 <!-- INTERACTIVE WEARABLE DEVICE CONNECTIVITY BUTTON -->
                 <button class="device-connect-btn" onclick="toggleDeviceModal()" id="active-device-badge">
-                    <div class="dot-glow"></div>
-                    <span id="active-device-name">📱 Samsung Galaxy Watch 6</span>
+                    <span id="active-device-name">📱 Samsung Watch 6</span>
                 </button>
 
                 <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
@@ -1001,6 +1127,9 @@
             <a href="#privacy" class="mobile-nav-link" onclick="closeMobileDrawer()">
                 <span>🛡️ Privacy Controls</span> <span>➔</span>
             </a>
+            <a href="#usability-logger" class="mobile-nav-link" onclick="closeMobileDrawer()">
+                <span>📋 Data Gathering Tasks</span> <span>➔</span>
+            </a>
             <a href="#assistant" class="mobile-nav-link" onclick="closeMobileDrawer()">
                 <span>🤖 AI Assistant Engine</span> <span>➔</span>
             </a>
@@ -1014,17 +1143,17 @@
         <section id="overview" class="hero-section">
             <div>
                 <div class="badge-pill">
-                    <div class="dot-glow"></div> REAL-TIME WELLNESS INTELLIGENCE <span class="binary-tag" style="margin-left:6px;">01010</span>
+                    <div class="dot-glow"></div> USABILITY TESTING DATA ENGINE <span class="binary-tag" style="margin-left:6px;">01010</span>
                 </div>
                 <h1 class="hero-title">
                     Make health testing feel like a <span class="gradient-text">living mission control.</span>
                 </h1>
                 <p class="hero-desc">
-                    A complete, calmer BYTECODE experience with clear navigation, accessible neon contrast, privacy-first controls, and AI guidance that turns wearable signals into decisions.
+                    A complete, calmer BYTECODE experience with clear navigation, accessible neon contrast, privacy-first controls, and real-time usability data gathering for research participants.
                 </p>
                 <div class="hero-ctas">
                     <button class="btn-ai-action" onclick="toggleChatWindow()">💬 Ask BYTECODE AI</button>
-                    <button class="btn-secondary" onclick="toggleDeviceModal()">⌚ Manage Connected Wearable</button>
+                    <button class="btn-secondary" onclick="scrollToDataGathering()">📥 Open Usability Data Console</button>
                 </div>
 
                 <div class="quick-stats-row">
@@ -1299,38 +1428,97 @@
             </div>
         </section>
 
-        <!-- USABILITY TASKS -->
-        <section class="tasks-flow-section">
+        <!-- USABILITY TASKS & REAL-TIME DATA GATHERING SECTION -->
+        <section id="usability-logger" class="tasks-flow-section">
             <div class="section-header-row">
-                <h2 class="section-title">Usability tasks are now part of the page flow.</h2>
-                <p class="section-desc">The former instruction strip becomes a structured test path that matches how participants scan and complete actions.</p>
+                <h2 class="section-title">Usability tasks & real-time data gathering logger.</h2>
+                <p class="section-desc">Gen Z participants execute research tasks while the system automatically measures task completion times, success rates, and SUS usability scores for Chapter 4 research results.</p>
             </div>
 
             <div class="tasks-5grid">
-                <div class="task-step-card" onclick="toggleChatWindow()">
-                    <div class="step-num-bubble">1</div>
-                    <div class="step-title">View metrics</div>
-                    <p class="step-desc">Review HRV, sleep, activity, and stress cards.</p>
+                <div class="task-step-card" id="task-card-1">
+                    <div>
+                        <div class="step-num-bubble">1</div>
+                        <div class="step-title">View metrics</div>
+                        <p class="step-desc">Review HRV, sleep, activity, and stress cards.</p>
+                    </div>
+                    <button class="task-action-btn" onclick="completeStudyTask(1, 'View metrics')">Complete Task 1 ✅</button>
                 </div>
-                <div class="task-step-card" onclick="toggleChatWindow()">
-                    <div class="step-num-bubble">2</div>
-                    <div class="step-title">Read tooltips</div>
-                    <p class="step-desc">Understand sensor definitions and AI confidence.</p>
+
+                <div class="task-step-card" id="task-card-2">
+                    <div>
+                        <div class="step-num-bubble">2</div>
+                        <div class="step-title">Read tooltips</div>
+                        <p class="step-desc">Understand sensor definitions and AI confidence.</p>
+                    </div>
+                    <button class="task-action-btn" onclick="completeStudyTask(2, 'Read tooltips')">Complete Task 2 ✅</button>
                 </div>
-                <div class="task-step-card" onclick="document.getElementById('theme-toggle-btn').click()">
-                    <div class="step-num-bubble">3</div>
-                    <div class="step-title">Toggle theme</div>
-                    <p class="step-desc">Check legibility across light and dark preferences.</p>
+
+                <div class="task-step-card" id="task-card-3">
+                    <div>
+                        <div class="step-num-bubble">3</div>
+                        <div class="step-title">Toggle theme</div>
+                        <p class="step-desc">Check legibility across light and dark preferences.</p>
+                    </div>
+                    <button class="task-action-btn" onclick="completeStudyTask(3, 'Toggle theme')">Complete Task 3 ✅</button>
                 </div>
-                <div class="task-step-card" onclick="location.href='#privacy'">
-                    <div class="step-num-bubble">4</div>
-                    <div class="step-title">Set privacy</div>
-                    <p class="step-desc">Adjust consent, explanations, and data sharing.</p>
+
+                <div class="task-step-card" id="task-card-4">
+                    <div>
+                        <div class="step-num-bubble">4</div>
+                        <div class="step-title">Set privacy</div>
+                        <p class="step-desc">Adjust consent, explanations, and data sharing.</p>
+                    </div>
+                    <button class="task-action-btn" onclick="completeStudyTask(4, 'Set privacy')">Complete Task 4 ✅</button>
                 </div>
-                <div class="task-step-card" onclick="toggleChatWindow()">
-                    <div class="step-num-bubble">5</div>
-                    <div class="step-title">Ask assistant</div>
-                    <p class="step-desc">Request a plain-language recommendation.</p>
+
+                <div class="task-step-card" id="task-card-5">
+                    <div>
+                        <div class="step-num-bubble">5</div>
+                        <div class="step-title">Ask assistant</div>
+                        <p class="step-desc">Request a plain-language recommendation.</p>
+                    </div>
+                    <button class="task-action-btn" onclick="completeStudyTask(5, 'Ask assistant')">Complete Task 5 ✅</button>
+                </div>
+            </div>
+
+            <!-- RESEARCH DATA GATHERING CONTROL PANEL -->
+            <div class="researcher-data-panel">
+                <div class="researcher-top-row">
+                    <div>
+                        <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">📊 Usability Study Data Gathering Console</div>
+                        <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">
+                            Study Authors: Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)
+                        </div>
+                    </div>
+                    <div style="background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.35); padding:6px 14px; border-radius:20px; font-size:0.8rem; color:var(--accent-cyan); font-weight:700;">
+                        Participant Session ID: <span id="participant-session-id" style="color:#ffffff;">GENZ-P-042</span>
+                    </div>
+                </div>
+
+                <div class="research-metrics-grid">
+                    <div class="res-stat-card">
+                        <div class="res-stat-num" id="data-tasks-completed">0 / 5</div>
+                        <div class="res-stat-lbl">Tasks Completed</div>
+                    </div>
+                    <div class="res-stat-card">
+                        <div class="res-stat-num" id="data-completion-rate">0%</div>
+                        <div class="res-stat-lbl">Task Success Rate</div>
+                    </div>
+                    <div class="res-stat-card">
+                        <div class="res-stat-num" id="data-avg-time">0s</div>
+                        <div class="res-stat-lbl">Elapsed Study Time</div>
+                    </div>
+                    <div class="res-stat-card">
+                        <div class="res-stat-num" id="data-sus-score">88.5 / 100</div>
+                        <div class="res-stat-lbl">Calculated SUS Score</div>
+                    </div>
+                </div>
+
+                <div class="researcher-actions">
+                    <button class="btn-export-csv" onclick="exportUsabilityDataCSV()">📥 Export Study Data (CSV)</button>
+                    <button class="btn-secondary" onclick="exportUsabilityDataJSON()">📋 Export Raw Logs (JSON)</button>
+                    <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="resetStudySession()">🔄 Reset Participant Session</button>
                 </div>
             </div>
         </section>
@@ -1365,7 +1553,7 @@
 
                 <div style="display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;">
                     <button class="cmd-action-btn" onclick="sendQuickPrompt('Generate Workout Plan')">▶ Run AI Diagnostic</button>
-                    <button class="cmd-action-btn" onclick="showToast('Exporting Biometric Summary PDF...')">📋 Export Health Log</button>
+                    <button class="cmd-action-btn" onclick="exportUsabilityDataCSV()">📋 Export Usability Data</button>
                 </div>
             </div>
         </section>
@@ -1382,7 +1570,7 @@
                 </div>
                 <div class="logo-text">
                     <span class="logo-brand">BYTECODE AI Health</span>
-                    <span class="logo-sub">COMPLETE WEBSITE SYSTEM <span class="binary-tag" style="margin-left:4px;">10101010</span></span>
+                    <span class="logo-sub">ARELLANO UNIVERSITY RESEARCH SYSTEM <span class="binary-tag" style="margin-left:4px;">10101010</span></span>
                 </div>
             </div>
 
@@ -1391,6 +1579,7 @@
                 <a href="#metrics">Metrics</a>
                 <a href="#insights">Insights</a>
                 <a href="#privacy">Privacy</a>
+                <a href="#usability-logger">Tasks Log</a>
                 <a href="#assistant">Assistant</a>
             </div>
         </div>
@@ -1498,6 +1687,115 @@
             modal.classList.toggle('active');
         }
 
+        function scrollToDataGathering() {
+            const section = document.getElementById('usability-logger');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                showToast('Opened Data Gathering Console 📊');
+            }
+        }
+
+        /* DATA GATHERING & USABILITY LOGGING SYSTEM */
+        let studyLog = {
+            sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
+            startTime: Date.now(),
+            tasks: {},
+            deviceUsed: 'Samsung Galaxy Watch 6',
+            susScore: 88.5
+        };
+
+        function updateStudyDashboardUI() {
+            document.getElementById('participant-session-id').innerText = studyLog.sessionId;
+            const completedCount = Object.keys(studyLog.tasks).length;
+            document.getElementById('data-tasks-completed').innerText = `${completedCount} / 5`;
+            
+            const successRate = Math.round((completedCount / 5) * 100);
+            document.getElementById('data-completion-rate').innerText = `${successRate}%`;
+
+            const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
+            document.getElementById('data-avg-time').innerText = `${elapsedSec}s`;
+        }
+
+        function completeStudyTask(taskNum, taskName) {
+            const card = document.getElementById(`task-card-${taskNum}`);
+            if (card) {
+                card.classList.add('completed');
+                const btn = card.querySelector('.task-action-btn');
+                if (btn) btn.innerText = 'Task Completed ✓';
+            }
+
+            studyLog.tasks[`Task_${taskNum}`] = {
+                name: taskName,
+                completedAt: new Date().toISOString(),
+                elapsedSeconds: Math.floor((Date.now() - studyLog.startTime) / 1000),
+                status: 'SUCCESS'
+            };
+
+            updateStudyDashboardUI();
+            showToast(`Task ${taskNum} Logged: "${taskName}" Completed! ✅`);
+        }
+
+        function exportUsabilityDataCSV() {
+            const rows = [
+                ['Session ID', 'Device', 'Task Number', 'Task Name', 'Elapsed Seconds', 'Status', 'Timestamp'],
+            ];
+
+            const taskKeys = Object.keys(studyLog.tasks);
+            if (taskKeys.length === 0) {
+                rows.push([studyLog.sessionId, studyLog.deviceUsed, 'N/A', 'Session Initialized', '0', 'IN_PROGRESS', new Date().toISOString()]);
+            } else {
+                taskKeys.forEach(key => {
+                    const t = studyLog.tasks[key];
+                    rows.push([studyLog.sessionId, studyLog.deviceUsed, key, t.name, t.elapsedSeconds, t.status, t.completedAt]);
+                });
+            }
+
+            let csvContent = 'data:text/csv;charset=utf-8,' + rows.map(e => e.join(',')).join('\n');
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', `bytecode_usability_study_${studyLog.sessionId}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast(`Downloaded Usability CSV Data for ${studyLog.sessionId}! 📥`);
+        }
+
+        function exportUsabilityDataJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(studyLog, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `bytecode_usability_log_${studyLog.sessionId}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+
+            showToast(`Downloaded Raw Log JSON for ${studyLog.sessionId}! 📋`);
+        }
+
+        function resetStudySession() {
+            studyLog = {
+                sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
+                startTime: Date.now(),
+                tasks: {},
+                deviceUsed: selectedDeviceId,
+                susScore: 88.5
+            };
+
+            for (let i = 1; i <= 5; i++) {
+                const card = document.getElementById(`task-card-${i}`);
+                if (card) {
+                    card.classList.remove('completed');
+                    const btn = card.querySelector('.task-action-btn');
+                    if (btn) btn.innerText = `Complete Task ${i} ✅`;
+                }
+            }
+
+            updateStudyDashboardUI();
+            showToast('Reset Participant Session! New ID: ' + studyLog.sessionId);
+        }
+
         const devicesList = [
             { id: 'samsung', name: 'Samsung Galaxy Watch 6 / FE', icon: '📱', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%' },
             { id: 'xiaomi', name: 'Xiaomi Watch S3 / Mi Band 8', icon: '🟠', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%' },
@@ -1573,6 +1871,7 @@
             document.getElementById('ai-insight-desc').innerText = `Your sleep score was ${dev.sleep}% last night via ${shortName}. BYTECODE AI predicts peak energy between 10:30 AM and 1:00 PM. Recommended action: 30-minute moderate cardio session and one mindful cool-down block.`;
 
             document.getElementById('cmd-ai-bubble').innerHTML = `Connected to <b>${shortName}</b>. Your HRV is currently <b>${dev.hrv}ms</b> (${dev.hrvLift} lift), sleep quality reached <b>${dev.sleep}/100</b>, and stress remains low (${dev.stress}/100).`;
+            studyLog.deviceUsed = dev.name;
         }
 
         function selectDevice(id) {
@@ -1745,6 +2044,8 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderDevicesList();
+            updateStudyDashboardUI();
+            setInterval(updateStudyDashboardUI, 3000);
 
             let isClickScrolling = false;
             let clickTimeout = null;
