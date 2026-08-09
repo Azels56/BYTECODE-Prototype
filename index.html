@@ -557,7 +557,7 @@
         .dot-m { width: 9px; height: 9px; border-radius: 50%; background: #ec4899; box-shadow: 0 0 8px #ec4899; }
         .dot-g { width: 9px; height: 9px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; }
 
-        .ai-banner-section { margin-bottom: 60px; }
+        .ai-banner-section { margin-top: 48px; margin-bottom: 60px; }
         .ai-banner-card {
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
             border: 1px solid rgba(0, 242, 254, 0.35); border-radius: 28px; padding: 32px 40px;
@@ -907,8 +907,8 @@
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes dotPulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* WEARABLE CONNECTIVITY MODAL STYLING */
-        .device-modal-overlay {
+        /* WEARABLE CONNECTIVITY & BOX BREATHING MODAL STYLING */
+        .modal-overlay, .device-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -916,7 +916,7 @@
             height: 100vh;
             background: rgba(4, 7, 13, 0.88);
             backdrop-filter: blur(16px);
-            z-index: 25000;
+            z-index: 50000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -925,7 +925,7 @@
             transition: var(--transition);
         }
 
-        .device-modal-overlay.active {
+        .modal-overlay.active, .device-modal-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
@@ -1296,24 +1296,105 @@
         .toast-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #090e17; border: 1px solid var(--accent-cyan); color: white; padding: 12px 24px; border-radius: 30px; font-size: 0.88rem; font-weight: 700; z-index: 3000; opacity: 0; transition: var(--transition); pointer-events: none; display: flex; align-items: center; gap: 8px; }
         .toast-notification.active { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* RESPONSIVE DEMOGRAPHICS FORM GRID */
+        /* RESPONSIVE DEMOGRAPHICS FORM GRID STYLES */
         .demographics-inputs-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 2fr 2fr;
-            gap: 12px;
-            margin-bottom: 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 28px;
+            margin-top: 20px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 768px) {
+            .demographics-inputs-grid { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 900px) {
-            .demographics-inputs-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        .demographic-input-field {
+            width: 100%;
+            font-size: 0.92rem;
+            background: rgba(6, 12, 20, 0.75);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 14px;
+            padding: 13px 18px;
+            color: #ffffff;
+            transition: var(--transition);
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-family: 'Inter', sans-serif;
         }
-        @media (max-width: 540px) {
-            .demographics-inputs-grid {
-                grid-template-columns: 1fr;
-            }
+        .demographic-input-field:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 18px rgba(0, 242, 254, 0.35), inset 0 2px 5px rgba(0, 0, 0, 0.5);
         }
+
+        /* RADAR CHART & CIRCADIAN ENERGY CLOCK PANEL STYLES */
+        .analytics-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; margin-bottom: 48px; width: 100%; align-items: stretch; }
+        @media (max-width: 992px) { .analytics-two-col { grid-template-columns: 1fr; } }
+        
+        .radar-card-container, .circadian-card-container {
+            background: rgba(8, 14, 24, 0.7);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 24px;
+            padding: 26px;
+            position: relative;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 380px;
+        }
+        .radar-card-container:hover, .circadian-card-container:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+        }
+
+        .card-inner-centered {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 12px 0;
+        }
+
+        /* ACHIEVEMENT STREAK BADGES STYLES */
+        .vitality-badges-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 900px) { .vitality-badges-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .vitality-badges-grid { grid-template-columns: 1fr; } }
+
+        .badge-streak-card {
+            background: rgba(10, 18, 30, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        .badge-streak-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+        }
+
+        /* BOX BREATHING COACH MODAL STYLES */
+        .breathing-ring-wrapper {
+            width: 180px; height: 180px; margin: 24px auto;
+            border-radius: 50%; border: 3px dashed var(--accent-cyan);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; transition: all 1s ease-in-out;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.3);
+        }
+        .breathing-ring-wrapper.expand { transform: scale(1.3); border-color: var(--accent-neon); box-shadow: 0 0 50px rgba(16, 185, 129, 0.5); }
+        .breathing-ring-wrapper.hold { transform: scale(1.3); border-color: var(--accent-purple); box-shadow: 0 0 50px rgba(168, 85, 247, 0.5); }
+        .breathing-ring-wrapper.contract { transform: scale(0.85); border-color: var(--accent-pink); box-shadow: 0 0 25px rgba(244, 63, 94, 0.3); }
 
         /* ==========================================================================
            100% PERFECT RESPONSIVE MEDIA QUERIES FOR ALL PHONES & TABLETS
@@ -1740,6 +1821,114 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 5-AXIS AI HEALTH RADAR CHART & 24-HOUR CIRCADIAN ENERGY CLOCK PANEL -->
+            <div class="analytics-two-col">
+                <!-- RADAR CHART CARD -->
+                <div class="radar-card-container">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div class="badge-pill"><div class="dot-glow"></div> MULTIDIMENSIONAL MATRIX <span class="binary-tag" style="margin-left:4px;">1010</span></div>
+                            <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:6px;">5-Axis AI Health & Vitality Radar</h3>
+                        </div>
+                        <span style="font-size:0.75rem; color:var(--accent-neon); font-weight:700; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:4px 10px; border-radius:14px;" id="radar-overall-score">Optimal 89.2%</span>
+                    </div>
+                    
+                    <div class="card-inner-centered">
+                        <svg viewBox="0 0 380 250" style="width:100%; max-width:340px; height:auto;">
+                            <!-- Concentric Radar Grid Circles -->
+                            <circle cx="190" cy="125" r="105" fill="rgba(0, 242, 254, 0.03)" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                            <circle cx="190" cy="125" r="78.75" fill="rgba(0, 242, 254, 0.04)" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1.5"/>
+                            <circle cx="190" cy="125" r="52.5" fill="rgba(0, 242, 254, 0.05)" stroke="rgba(0, 242, 254, 0.25)" stroke-width="1.5"/>
+                            <circle cx="190" cy="125" r="26.25" fill="rgba(0, 242, 254, 0.08)" stroke="rgba(0, 242, 254, 0.3)" stroke-width="1.5"/>
+                            
+                            <!-- Radar Polygon Grids -->
+                            <polygon points="190,20 290,95 252,210 128,210 90,95" fill="none" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5"/>
+                            <polygon points="190,46 270,106 239,198 141,198 110,106" fill="none" stroke="rgba(0, 242, 254, 0.25)" stroke-width="1.5"/>
+                            <polygon points="190,72 250,117 226,186 154,186 130,117" fill="none" stroke="rgba(0, 242, 254, 0.35)" stroke-width="1.5"/>
+                            
+                            <!-- Axes Rays -->
+                            <line x1="190" y1="125" x2="190" y2="20" stroke="rgba(0,242,254,0.25)" stroke-width="1.5"/>
+                            <line x1="190" y1="125" x2="290" y2="95" stroke="rgba(0,242,254,0.25)" stroke-width="1.5"/>
+                            <line x1="190" y1="125" x2="252" y2="210" stroke="rgba(0,242,254,0.25)" stroke-width="1.5"/>
+                            <line x1="190" y1="125" x2="128" y2="210" stroke="rgba(0,242,254,0.25)" stroke-width="1.5"/>
+                            <line x1="190" y1="125" x2="90" y2="95" stroke="rgba(0,242,254,0.25)" stroke-width="1.5"/>
+                            
+                            <!-- Active Data Area Polygon -->
+                            <polygon id="radar-active-polygon" points="190,28 282,100 244,200 138,200 98,100" fill="rgba(0, 242, 254, 0.22)" stroke="#00f2fe" stroke-width="3" filter="drop-shadow(0 0 10px rgba(0,242,254,0.6))"/>
+                            
+                            <!-- Vertex Glowing Dots -->
+                            <circle id="radar-dot-1" cx="190" cy="28" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"/>
+                            <circle id="radar-dot-2" cx="282" cy="100" r="4.5" fill="#10b981" filter="drop-shadow(0 0 6px #10b981)"/>
+                            <circle id="radar-dot-3" cx="244" cy="200" r="4.5" fill="#a855f7" filter="drop-shadow(0 0 6px #a855f7)"/>
+                            <circle id="radar-dot-4" cx="138" cy="200" r="4.5" fill="#f43f5e" filter="drop-shadow(0 0 6px #f43f5e)"/>
+                            <circle id="radar-dot-5" cx="98" cy="100" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"/>
+                            
+                            <!-- Axis Labels -->
+                            <text id="radar-txt-rec" x="190" y="12" fill="#00f2fe" font-size="11" font-weight="800" text-anchor="middle">Recovery (92%)</text>
+                            <text id="radar-txt-hrv" x="296" y="98" fill="#10b981" font-size="11" font-weight="800" text-anchor="start">HRV (84%)</text>
+                            <text id="radar-txt-sleep" x="254" y="226" fill="#a855f7" font-size="11" font-weight="800" text-anchor="middle">Sleep (88%)</text>
+                            <text id="radar-txt-act" x="126" y="226" fill="#f43f5e" font-size="11" font-weight="800" text-anchor="middle">Activity (76%)</text>
+                            <text id="radar-txt-stress" x="84" y="98" fill="#00f2fe" font-size="11" font-weight="800" text-anchor="end">Stress (85%)</text>
+                        </svg>
+
+                        <!-- Centered Matrix Summary Pills -->
+                        <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:10px;">
+                            <span id="radar-pill-rec" style="font-size:0.7rem; font-weight:700; color:#00f2fe; background:rgba(0,242,254,0.1); border:1px solid rgba(0,242,254,0.3); padding:3px 8px; border-radius:10px;">Recovery 92%</span>
+                            <span id="radar-pill-hrv" style="font-size:0.7rem; font-weight:700; color:#10b981; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); padding:3px 8px; border-radius:10px;">HRV 84%</span>
+                            <span id="radar-pill-sleep" style="font-size:0.7rem; font-weight:700; color:#a855f7; background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.3); padding:3px 8px; border-radius:10px;">Sleep 88%</span>
+                            <span id="radar-pill-act" style="font-size:0.7rem; font-weight:700; color:#f43f5e; background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.3); padding:3px 8px; border-radius:10px;">Activity 76%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CIRCADIAN ENERGY CLOCK CARD -->
+                <div class="circadian-card-container">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div class="badge-pill"><div class="dot-glow"></div> BIORHYTHM PREDICTOR <span class="binary-tag" style="margin-left:4px;">0110</span></div>
+                            <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:6px;">Circadian Energy & Focus Clock</h3>
+                        </div>
+                        <button onclick="launchBreathingCoachModal()" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:6px 14px; border-radius:14px; font-size:0.78rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                            <i data-lucide="wind" style="width:14px; height:14px; color:var(--accent-cyan);"></i> <span>Box Breathing</span>
+                        </button>
+                    </div>
+
+                    <div class="card-inner-centered">
+                        <div style="display:flex; gap:16px; align-items:center; width:100%;">
+                            <!-- Realistic 24H Clock Wheel -->
+                            <div style="width:130px; height:130px; flex-shrink:0; position:relative; display:flex; align-items:center; justify-content:center;">
+                                <svg viewBox="0 0 100 100" style="width:100%; height:100%; transform:rotate(-90deg);">
+                                    <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.06)" stroke-width="12" fill="none"/>
+                                    <circle cx="50" cy="50" r="42" stroke="#a855f7" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="180" stroke-linecap="round"/>
+                                    <circle cx="50" cy="50" r="42" stroke="#00f2fe" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="100" stroke-linecap="round"/>
+                                    <circle cx="50" cy="50" r="42" stroke="#10b981" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="35" stroke-linecap="round"/>
+                                </svg>
+                                <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                                    <div style="font-size:1.15rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk';" id="clock-center-time">10:30</div>
+                                    <div style="font-size:0.58rem; color:var(--accent-neon); font-weight:800; letter-spacing:0.5px;" id="clock-center-lbl">PEAK FOCUS</div>
+                                </div>
+                            </div>
+
+                            <!-- Centered Biorhythm 3 Prediction Boxes -->
+                            <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+                                <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.25); border-left:3px solid var(--accent-cyan); padding:8px 12px; border-radius:12px;">
+                                    <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="zap" style="width:13px; height:13px; color:var(--accent-cyan);"></i> Cognitive Energy Peak</div>
+                                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-1">10:30 AM – 1:00 PM (Heavy cognition)</div>
+                                </div>
+                                <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--accent-neon); padding:8px 12px; border-radius:12px;">
+                                    <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="activity" style="width:13px; height:13px; color:var(--accent-neon);"></i> Physical Strain Window</div>
+                                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-2">4:30 PM – 6:45 PM (Optimal muscle temp)</div>
+                                </div>
+                                <div style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-left:3px solid var(--accent-purple); padding:8px 12px; border-radius:12px;">
+                                    <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="moon" style="width:13px; height:13px; color:var(--accent-purple);"></i> Sleep & Caffeine Cutoff</div>
+                                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-3">2:30 PM Cutoff • Dim screens by 10 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- AI INSIGHTS SECTION -->
@@ -1820,48 +2009,88 @@
 
         <!-- USABILITY TASKS & REAL-TIME DATA GATHERING SECTION -->
         <section id="usability-logger" class="tasks-flow-section">
-            <div class="section-header-row">
-                <h2 class="section-title">Usability Protocol Tasks & Real-Time Data Gathering Engine.</h2>
-                <p class="section-desc">Gen Z research participants execute ISO 9241-11 usability tasks while the system automatically measures completion times, task success rates, and Brooke (1996) SUS scores for Chapter 4 results.</p>
+            <!-- GEN Z DAILY VITALITY STREAK & ACHIEVEMENT BADGES BAR -->
+            <div class="vitality-badges-grid">
+                <div class="badge-streak-card">
+                    <div style="width:40px; height:40px; border-radius:12px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-cyan);">
+                        <i data-lucide="award" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">HRV Master</div>
+                        <div style="font-size:0.72rem; color:var(--accent-neon); font-weight:700;">+12% HRV Resilience Lift</div>
+                    </div>
+                </div>
+
+                <div class="badge-streak-card">
+                    <div style="width:40px; height:40px; border-radius:12px; background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-purple);">
+                        <i data-lucide="moon" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">8H Sleep Architect</div>
+                        <div style="font-size:0.72rem; color:var(--accent-purple); font-weight:700;">88/100 Optimal Sleep Score</div>
+                    </div>
+                </div>
+
+                <div class="badge-streak-card">
+                    <div style="width:40px; height:40px; border-radius:12px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-neon);">
+                        <i data-lucide="zap" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">Gen Z Vitality Streak</div>
+                        <div style="font-size:0.72rem; color:var(--accent-neon); font-weight:700; display:flex; align-items:center; gap:4px;"><i data-lucide="flame" style="width:12px; height:12px; color:var(--accent-neon);"></i> 7-Day Active Health Streak</div>
+                    </div>
+                </div>
+
+                <div class="badge-streak-card">
+                    <div style="width:40px; height:40px; border-radius:12px; background:rgba(244,63,94,0.15); border:1px solid rgba(244,63,94,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-pink);">
+                        <i data-lucide="shield-check" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">Privacy Shield Guard</div>
+                        <div style="font-size:0.72rem; color:var(--accent-cyan); font-weight:700;">Anonymized Telemetry Active</div>
+                    </div>
+                </div>
             </div>
 
             <!-- STEP 1: MANDATORY PARTICIPANT DEMOGRAPHICS REGISTRATION FORM -->
-            <div id="demographics-reg-box" style="background:linear-gradient(135deg, rgba(14, 23, 38, 0.95) 0%, rgba(8, 14, 24, 0.95) 100%); border:2px solid var(--accent-cyan); border-radius:24px; padding:22px 24px; margin-bottom:24px; box-shadow:0 0 35px rgba(0,242,254,0.18);">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
-                    <div style="font-size:1.05rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
-                        <i data-lucide="user-check" style="color:var(--accent-cyan);"></i>
+            <div id="demographics-reg-box" style="background:linear-gradient(135deg, rgba(14, 23, 38, 0.95) 0%, rgba(8, 14, 24, 0.95) 100%); border:1.5px solid rgba(0,242,254,0.4); border-radius:24px; padding:28px 32px; margin-bottom:32px; box-shadow:0 0 35px rgba(0,242,254,0.18);">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:12px; padding-bottom:14px; border-bottom:1px solid rgba(0,242,254,0.15);">
+                    <div style="font-size:1.1rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:10px;">
+                        <div style="width:32px; height:32px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-cyan);">
+                            <i data-lucide="user-check" style="width:18px; height:18px;"></i>
+                        </div>
                         <span>Step 1: Participant Demographic Registration</span>
                         <span class="binary-tag" style="color:var(--accent-pink); font-weight:700;">[REQUIRED TO UNLOCK USABILITY TASKS]</span>
                     </div>
-                    <div style="font-size:0.82rem; color:#ef4444; font-weight:700; font-family:'Space Grotesk'; display:flex; align-items:center; gap:6px;" id="demographics-status-text">
+                    <div style="font-size:0.84rem; color:#ef4444; font-weight:700; font-family:'Space Grotesk'; display:flex; align-items:center; gap:6px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); padding:5px 12px; border-radius:12px;" id="demographics-status-text">
                         <i data-lucide="lock" style="width:14px; height:14px;"></i> <span>Status: Tasks Locked — Please Fill Out Form Below</span>
                     </div>
                 </div>
 
                 <div class="demographics-inputs-grid">
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="user" style="width:12px; height:12px;"></i> Full Name (Unique Name) *</label>
-                        <input type="text" id="reg-name" class="chat-input" placeholder="e.g. Jemani Sean Gabrielle" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
+                        <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="user" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Full Name (Unique Name) *</label>
+                        <input type="text" id="reg-name" class="demographic-input-field" placeholder="e.g. Jemani Sean Gabrielle">
                     </div>
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="calendar" style="width:12px; height:12px;"></i> Age (14 - 27 yrs) *</label>
-                        <input type="number" id="reg-age" class="chat-input" placeholder="14 - 27" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);" min="14" max="27">
+                        <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="calendar" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Age (14 - 27 yrs) *</label>
+                        <input type="number" id="reg-age" class="demographic-input-field" placeholder="14 - 27" min="14" max="27">
                     </div>
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="map-pin" style="width:12px; height:12px;"></i> Address / Location *</label>
-                        <input type="text" id="reg-address" class="chat-input" placeholder="e.g. Pasay City, Metro Manila" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
+                        <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="map-pin" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Address / Location *</label>
+                        <input type="text" id="reg-address" class="demographic-input-field" placeholder="e.g. Pasay City, Metro Manila">
                     </div>
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="mail" style="width:12px; height:12px;"></i> Email Address *</label>
-                        <input type="email" id="reg-email" class="chat-input" placeholder="e.g. participant@example.com" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
+                        <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="mail" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Email Address *</label>
+                        <input type="email" id="reg-email" class="demographic-input-field" placeholder="e.g. participant@example.com">
                     </div>
                 </div>
 
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
-                    <div style="font-size:0.76rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
-                        <i data-lucide="shield" style="width:14px; height:14px;"></i> Registration unlocks the 5 usability protocol tasks & 10-Item SUS Scale survey for Firebase DB persistence.
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid rgba(0,242,254,0.15); flex-wrap:wrap; gap:12px;">
+                    <div style="font-size:0.78rem; color:var(--text-secondary); display:flex; align-items:center; gap:8px;">
+                        <i data-lucide="shield-check" style="width:16px; height:16px; color:var(--accent-neon);"></i> <span>Registration unlocks the 5 usability protocol tasks & 10-Item SUS Scale survey for Firebase DB persistence.</span>
                     </div>
-                    <button class="btn-ai-action" style="padding:10px 24px; font-size:0.88rem;" onclick="registerParticipantAndUnlockTasks()" id="btn-reg-unlock">
+                    <button class="btn-ai-action" style="padding:12px 28px; font-size:0.9rem; border-radius:16px; cursor:pointer;" onclick="registerParticipantAndUnlockTasks()" id="btn-reg-unlock">
                         <i data-lucide="lock" id="btn-lock-icon"></i> <span id="btn-lock-text">Register Participant & Unlock Usability Tasks</span>
                     </button>
                 </div>
@@ -2228,8 +2457,37 @@
         </div>
 
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chat-input" placeholder="Ask BYTECODE AI about diet, sleep, workouts..." onkeypress="handleKeyPress(event)">
+            <button class="send-btn" id="voice-mic-btn" onclick="toggleSpeechToText()" style="background:rgba(0,242,254,0.15); border-color:var(--accent-cyan);" title="Speak to BYTECODE AI (Voice Recognition)"><i data-lucide="mic" style="width:16px; height:16px; color:var(--accent-cyan);"></i></button>
+            <button class="send-btn" id="voice-speaker-btn" onclick="toggleTextToSpeech()" style="background:rgba(16,185,129,0.15); border-color:var(--accent-neon);" title="Toggle AI Text-to-Speech Voice Output"><i data-lucide="volume-2" id="speaker-icon-el" style="width:16px; height:16px; color:var(--accent-neon);"></i></button>
+            <input type="text" class="chat-input" id="chat-input" placeholder="Ask BYTECODE AI or speak using mic..." onkeypress="handleKeyPress(event)">
             <button class="send-btn" onclick="sendChatMessage()"><i data-lucide="send" style="width:16px; height:16px;"></i></button>
+        </div>
+    </div>
+
+    <!-- BOX BREATHING COACH MODAL OVERLAY -->
+    <div class="modal-overlay" id="breathing-modal-overlay">
+        <div class="modal-card" style="max-width:440px; text-align:center;">
+            <div class="modal-header" style="justify-content:center;">
+                <div style="font-size:1.15rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="wind" style="color:var(--accent-cyan);"></i>
+                    <span>BYTECODE Box Breathing Coach</span>
+                </div>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:8px;">Follow the glowing ring to reduce autonomic stress index (4-4-4-4 Protocol).</p>
+
+            <div class="breathing-ring-wrapper" id="breathing-ring-el">
+                <div style="font-size:1.4rem; font-weight:800; color:var(--accent-cyan);" id="breathing-timer-text">4s</div>
+                <div style="font-size:0.8rem; font-weight:700; color:#ffffff; margin-top:4px;" id="breathing-phase-text">Inhale</div>
+            </div>
+
+            <div style="font-size:0.88rem; color:var(--accent-neon); font-weight:700; margin-bottom:16px;" id="breathing-status-msg">
+                Live Stress Reduction Active
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn-ai-action" onclick="toggleBreathingCycle()" id="btn-breathing-toggle"><i data-lucide="play"></i> <span>Start Session</span></button>
+                <button class="btn-secondary" onclick="closeBreathingCoachModal()"><i data-lucide="x"></i> <span>Close</span></button>
+            </div>
         </div>
     </div>
 
@@ -3422,7 +3680,72 @@
             const drawerDevEl = document.getElementById('mobile-drawer-device-name');
             if (drawerDevEl) drawerDevEl.innerText = dev.name;
 
+            updateRadarAndPredictorUI(dev);
             refreshLucideIcons();
+        }
+
+        function updateRadarAndPredictorUI(dev) {
+            const devObj = dev || (typeof devicesList !== 'undefined' ? devicesList[0] : { hrv: 68, sleep: 88, move: 76, stress: 22 });
+            const recVal = Math.min(99, Math.max(50, Math.round((devObj.hrv * 0.5) + (devObj.sleep * 0.5))));
+            const hrvVal = Math.min(99, Math.max(50, Math.round(devObj.hrv * 1.18)));
+            const sleepVal = devObj.sleep;
+            const moveVal = devObj.move;
+            const stressVal = Math.max(50, 100 - devObj.stress);
+
+            const cx = 190, cy = 125, R = 105;
+            const r1 = recVal / 100, r2 = hrvVal / 100, r3 = sleepVal / 100, r4 = moveVal / 100, r5 = stressVal / 100;
+
+            const p1x = cx;
+            const p1y = cy - R * r1;
+
+            const p2x = cx + R * r2 * 0.9510565;
+            const p2y = cy - R * r2 * 0.309017;
+
+            const p3x = cx + R * r3 * 0.587785;
+            const p3y = cy + R * r3 * 0.809017;
+
+            const p4x = cx - R * r4 * 0.587785;
+            const p4y = cy + R * r4 * 0.809017;
+
+            const p5x = cx - R * r5 * 0.9510565;
+            const p5y = cy - R * r5 * 0.309017;
+
+            const polyEl = document.getElementById('radar-active-polygon');
+            if (polyEl) {
+                const ptsStr = `${p1x.toFixed(1)},${p1y.toFixed(1)} ${p2x.toFixed(1)},${p2y.toFixed(1)} ${p3x.toFixed(1)},${p3y.toFixed(1)} ${p4x.toFixed(1)},${p4y.toFixed(1)} ${p5x.toFixed(1)},${p5y.toFixed(1)}`;
+                polyEl.setAttribute('points', ptsStr);
+            }
+
+            const setDot = (id, x, y) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.setAttribute('cx', x.toFixed(1));
+                    el.setAttribute('cy', y.toFixed(1));
+                }
+            };
+            setDot('radar-dot-1', p1x, p1y);
+            setDot('radar-dot-2', p2x, p2y);
+            setDot('radar-dot-3', p3x, p3y);
+            setDot('radar-dot-4', p4x, p4y);
+            setDot('radar-dot-5', p5x, p5y);
+
+            const setText = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            };
+            setText('radar-txt-rec', `Recovery (${recVal}%)`);
+            setText('radar-txt-hrv', `HRV (${hrvVal}%)`);
+            setText('radar-txt-sleep', `Sleep (${sleepVal}%)`);
+            setText('radar-txt-act', `Activity (${moveVal}%)`);
+            setText('radar-txt-stress', `Stress (${stressVal}%)`);
+
+            setText('radar-pill-rec', `Recovery ${recVal}%`);
+            setText('radar-pill-hrv', `HRV ${hrvVal}%`);
+            setText('radar-pill-sleep', `Sleep ${sleepVal}%`);
+            setText('radar-pill-act', `Activity ${moveVal}%`);
+
+            const overall = ((recVal + hrvVal + sleepVal + moveVal + stressVal) / 5).toFixed(1);
+            setText('radar-overall-score', `Optimal ${overall}%`);
         }
 
         function selectDevice(id) {
@@ -3616,6 +3939,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             refreshLucideIcons();
             renderDevicesList();
+            if (typeof devicesList !== 'undefined' && devicesList.length > 0) {
+                updateBiometricsUI(devicesList[0]);
+            }
             renderSUSQuestions();
             updateStudyDashboardUI();
             
@@ -3763,6 +4089,139 @@
                     refreshLucideIcons();
                 });
             }
+
+            /* BOX BREATHING COACH & STRESS REDUCTION JS ENGINE */
+            let breathingInterval = null;
+            let isBreathingActive = false;
+            let breathingPhase = 0; // 0: Inhale, 1: Hold, 2: Exhale, 3: Hold
+
+            window.launchBreathingCoachModal = function() {
+                const modal = document.getElementById('breathing-modal-overlay');
+                if (modal) modal.classList.add('active');
+                refreshLucideIcons();
+            };
+
+            window.closeBreathingCoachModal = function() {
+                const modal = document.getElementById('breathing-modal-overlay');
+                if (modal) modal.classList.remove('active');
+                if (breathingInterval) clearInterval(breathingInterval);
+                isBreathingActive = false;
+                const btn = document.getElementById('btn-breathing-toggle');
+                if (btn) btn.innerHTML = `<i data-lucide="play"></i> <span>Start Session</span>`;
+                refreshLucideIcons();
+            };
+
+            window.toggleBreathingCycle = function() {
+                const ring = document.getElementById('breathing-ring-el');
+                const timerText = document.getElementById('breathing-timer-text');
+                const phaseText = document.getElementById('breathing-phase-text');
+                const btn = document.getElementById('btn-breathing-toggle');
+                const statusMsg = document.getElementById('breathing-status-msg');
+
+                if (!isBreathingActive) {
+                    isBreathingActive = true;
+                    btn.innerHTML = `<i data-lucide="pause"></i> <span>Pause Session</span>`;
+                    showToast('Box Breathing Session Started!');
+                    
+                    let countdown = 4;
+                    breathingPhase = 0;
+
+                    breathingInterval = setInterval(() => {
+                        countdown--;
+                        if (countdown <= 0) {
+                            countdown = 4;
+                            breathingPhase = (breathingPhase + 1) % 4;
+
+                            if (breathingPhase === 0) {
+                                ring.className = 'breathing-ring-wrapper expand';
+                                phaseText.innerText = 'Inhale';
+                            } else if (breathingPhase === 1) {
+                                ring.className = 'breathing-ring-wrapper hold';
+                                phaseText.innerText = 'Hold Breath';
+                            } else if (breathingPhase === 2) {
+                                ring.className = 'breathing-ring-wrapper contract';
+                                phaseText.innerText = 'Exhale';
+                            } else if (breathingPhase === 3) {
+                                ring.className = 'breathing-ring-wrapper hold';
+                                phaseText.innerText = 'Hold Breath';
+
+                                // Reduce stress dynamically!
+                                currentBiometrics.stress = Math.max(12, currentBiometrics.stress - 2);
+                                document.getElementById('live-stress-card').innerText = currentBiometrics.stress;
+                                statusMsg.innerText = `Stress Reduced to ${currentBiometrics.stress}/100!`;
+                            }
+                        }
+                        timerText.innerText = `${countdown}s`;
+                    }, 1000);
+                } else {
+                    isBreathingActive = false;
+                    if (breathingInterval) clearInterval(breathingInterval);
+                    btn.innerHTML = `<i data-lucide="play"></i> <span>Resume Session</span>`;
+                    showToast('Breathing Session Paused');
+                }
+                refreshLucideIcons();
+            };
+
+            /* SPEECH-TO-TEXT & TEXT-TO-SPEECH MULTIMODAL AI ASSISTANT ENGINE */
+            let isSpeechEnabled = false;
+            let speechRecognitionObj = null;
+
+            window.toggleTextToSpeech = function() {
+                isSpeechEnabled = !isSpeechEnabled;
+                const icon = document.getElementById('speaker-icon-el');
+                if (isSpeechEnabled) {
+                    showToast('BYTECODE AI Voice Output: ENABLED 🔊');
+                    if (icon) icon.setAttribute('data-lucide', 'volume-2');
+                    speakText("BYTECODE AI Voice Assistant Enabled.");
+                } else {
+                    showToast('BYTECODE AI Voice Output: MUTED 🔇');
+                    if (icon) icon.setAttribute('data-lucide', 'volume-x');
+                    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                }
+                refreshLucideIcons();
+            };
+
+            window.speakText = function(text) {
+                if (!isSpeechEnabled || !('speechSynthesis' in window)) return;
+                window.speechSynthesis.cancel();
+                const cleanText = text.replace(/<[^>]*>?/gm, ''); // strip HTML tags
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.rate = 1.05;
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            };
+
+            window.toggleSpeechToText = function() {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    showToast('Speech recognition not supported in this browser. Try Chrome/Edge!');
+                    return;
+                }
+
+                if (!speechRecognitionObj) {
+                    speechRecognitionObj = new SpeechRecognition();
+                    speechRecognitionObj.continuous = false;
+                    speechRecognitionObj.interimResults = false;
+
+                    speechRecognitionObj.onstart = () => {
+                        showToast('Listening... Speak your prompt for BYTECODE AI 🎙️');
+                        document.getElementById('voice-mic-btn').style.background = 'rgba(239,68,68,0.3)';
+                    };
+
+                    speechRecognitionObj.onresult = (e) => {
+                        const transcript = e.results[0][0].transcript;
+                        document.getElementById('chat-input').value = transcript;
+                        showToast(`Voice Recognized: "${transcript}"`);
+                        sendChatMessage();
+                    };
+
+                    speechRecognitionObj.onend = () => {
+                        document.getElementById('voice-mic-btn').style.background = 'rgba(0,242,254,0.15)';
+                    };
+                }
+
+                speechRecognitionObj.start();
+            };
         });
     </script>
 </body>
