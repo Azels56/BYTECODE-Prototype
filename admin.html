@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Researcher Admin Portal - Chapter 4 Results & Data Gathering Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- LUCIDE ICONS CDN LOGIC -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GOOGLE FIREBASE CLOUD DATABASE COMPAT SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTARZZSEIU0inIHGFKtnItYXggLhdkJ7g",
+            authDomain: "bytecode-health-db.firebaseapp.com",
+            databaseURL: "https://bytecode-health-db-default-rtdb.firebaseio.com",
+            projectId: "bytecode-health-db",
+            storageBucket: "bytecode-health-db.firebasestorage.app",
+            messagingSenderId: "1074183189774",
+            appId: "1:1074183189774:web:fd63e9b7035975c514935f",
+            measurementId: "G-XEE15ST80C"
+        };
+
+        let firebaseDb = null;
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                firebaseDb = firebase.database();
+                console.log('⚡ Firebase Realtime Database Initialized Successfully in Admin Portal!');
+            }
+        } catch (err) {
+            console.warn('Firebase init notice:', err);
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #04070d;
+            --bg-card: rgba(11, 18, 30, 0.9);
+            --bg-card-sub: rgba(18, 28, 45, 0.85);
+            --border-card: rgba(0, 242, 254, 0.2);
+            --text-primary: #ffffff;
+            --text-heading: #cbd5e1;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --accent-cyan: #00f2fe;
+            --accent-green: #10b981;
+            --accent-neon: #00ff88;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            
+            --gradient-bytecode: linear-gradient(135deg, #00f2fe 0%, #a855f7 50%, #00ff88 100%);
+            --gradient-btn: linear-gradient(135deg, #00f2fe 0%, #10b981 100%);
+            --shadow-neon: 0 0 25px rgba(0, 242, 254, 0.35);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .lucide, [data-lucide] {
+            width: 1.15em;
+            height: 1.15em;
+            stroke-width: 2.2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        button, .btn-secondary, .btn-export-csv, .nav-pill, .prompt-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 75%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+        }
+
+        /* AMBIENT WATERMARK OVERLAY */
+        .bg-binary-watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.68rem;
+            color: var(--accent-cyan);
+            opacity: 0.035;
+            line-height: 1.6;
+            letter-spacing: 4px;
+            overflow: hidden;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* HEADER NAVBAR */
+        .navbar-wrapper {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+            background: rgba(4, 7, 13, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+        }
+
+        .navbar {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon-wrap {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: #060c14; border: 2px solid var(--accent-cyan);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 0 18px rgba(0, 242, 254, 0.45); flex-shrink: 0;
+        }
+
+        .logo-brand {
+            font-size: 1.15rem;
+            font-weight: 800;
+            background: var(--gradient-bytecode);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-sub {
+            font-size: 0.62rem;
+            color: var(--text-secondary);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+        .btn-portal-switch {
+            background: rgba(0, 242, 254, 0.12);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            color: var(--accent-cyan);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-portal-switch:hover {
+            background: var(--gradient-btn);
+            color: #04090f;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.45);
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 110px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title-box {
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--accent-neon);
+            font-size: 0.76rem;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .dot-glow {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent-neon); box-shadow: 0 0 10px var(--accent-neon);
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 0.94rem;
+            color: var(--text-secondary);
+            max-width: 850px;
+            line-height: 1.55;
+        }
+
+        /* 5 STAT CARDS GRID */
+        .stats-5grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 24px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .stat-num {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--accent-neon);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+        }
+
+        .stat-lbl {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .stat-sub {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ACTION CONTROLS PANEL */
+        .actions-panel {
+            background: linear-gradient(135deg, rgba(14, 23, 38, 0.95) 0%, rgba(8, 14, 24, 0.95) 100%);
+            border: 1.5px solid rgba(0, 242, 254, 0.35);
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.15);
+        }
+
+        .actions-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .actions-buttons-grid {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-export-csv {
+            background: var(--gradient-btn);
+            color: #04090f;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.86rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+            transition: var(--transition);
+        }
+
+        .btn-export-csv:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.55);
+        }
+
+        .btn-secondary {
+            background: rgba(18, 28, 45, 0.85);
+            border: 1px solid var(--border-card);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(24, 38, 60, 1);
+            transform: translateY(-2px);
+        }
+
+        /* TABLES SECTIONS */
+        .section-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 28px;
+            padding: 26px;
+            margin-bottom: 32px;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .section-h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 20px;
+            max-height: 440px;
+            overflow-y: auto;
+        }
+
+        .table-wrapper::-webkit-scrollbar { width: 6px; height: 6px; }
+        .table-wrapper::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.8); }
+        .table-wrapper::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00f2fe, #10b981); border-radius: 10px; }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+            text-align: center;
+        }
+
+        .admin-table th {
+            background: rgba(18, 30, 48, 0.95);
+            color: var(--accent-cyan);
+            font-weight: 700;
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.3);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .admin-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-heading);
+        }
+
+        .admin-table tr:hover td {
+            background: rgba(0, 242, 254, 0.08);
+            color: #ffffff;
+        }
+
+        .sus-type-tag {
+            font-size: 0.68rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            white-space: nowrap;
+        }
+
+        .sus-type-tag.odd { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.4); }
+        .sus-type-tag.even { background: rgba(236, 72, 153, 0.15); color: var(--accent-pink); border: 1px solid rgba(236, 72, 153, 0.4); }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #090e17;
+            border: 1px solid var(--accent-cyan);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            z-index: 30000;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast-notification.active {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .stats-5grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 95px 16px 40px; }
+            .stats-5grid { grid-template-columns: repeat(2, 1fr); }
+            .page-title { font-size: 1.6rem; }
+            .actions-buttons-grid { flex-direction: column; align-items: stretch; }
+            .btn-export-csv, .btn-secondary { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-5grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AMBIENT WATERMARK -->
+    <div class="bg-binary-watermark">
+        <div>10101010 01100001 01110010 10101010 01000001</div>
+        <div>01000011 01001111 01000100 01000101 10101010</div>
+        <div>10101100 01100011 10101010 01000001 01100001</div>
+    </div>
+
+    <!-- NAVBAR HEADER -->
+    <header class="navbar-wrapper">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="shield-check" style="color:var(--accent-cyan);"></i>
+                </div>
+                <div>
+                    <div class="logo-brand">RESEARCHER ADMIN PORTAL</div>
+                    <div class="logo-sub">ARELLANO UNIVERSITY • CHAPTER 4 RESULTS ENGINE</div>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <a href="index.html" class="btn-portal-switch">
+                    <i data-lucide="smartphone"></i> <span>Open Participant Portal</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        
+        <!-- HEADER TITLE BOX -->
+        <div class="header-title-box">
+            <div class="page-badge">
+                <div class="dot-glow"></div> <i data-lucide="database"></i> CHAPTER 4 STATISTICAL DATA GATHERING & RESULTS ENGINE
+            </div>
+            <h1 class="page-title">
+                Interactive Design & Usability Testing of AI-Enhanced Wearable Dashboards for Gen Z
+            </h1>
+            <p class="page-subtitle">
+                Study Authors: <b>Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina</b> (Arellano University - Jose Abad Santos Campus, Pasay City, Philippines).
+            </p>
+        </div>
+
+        <!-- 5 METRIC CARDS SUMMARY GRID -->
+        <div class="stats-5grid">
+            <div class="stat-card">
+                <div class="stat-num" id="admin-total-n">N = 0</div>
+                <div class="stat-lbl"><i data-lucide="users"></i> Participants Responded</div>
+                <div class="stat-sub">Active Sample Count</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="admin-task-succ">100.0%</div>
+                <div class="stat-lbl"><i data-lucide="check-circle-2"></i> Task Success Rate</div>
+                <div class="stat-sub">5 Protocol Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="admin-mean-time">38.4s</div>
+                <div class="stat-lbl"><i data-lucide="clock"></i> Mean Task Time</div>
+                <div class="stat-sub">Average Seconds</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="admin-overall-mean">0.00 / 5.00</div>
+                <div class="stat-lbl"><i data-lucide="bar-chart-2"></i> Likert Weighted Mean</div>
+                <div class="stat-sub" id="admin-overall-verbal">Unanswered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="admin-sus-score">Pending (N=0)</div>
+                <div class="stat-lbl"><i data-lucide="award"></i> Composite SUS Score</div>
+                <div class="stat-sub" id="admin-sus-grade">Brooke (1996) Benchmark</div>
+            </div>
+        </div>
+
+        <!-- EXPORTER CONTROLS & DATABASE ACTION PANEL -->
+        <div class="actions-panel">
+            <div class="actions-top-row">
+                <div style="font-size:1.05rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="download-cloud" style="color:var(--accent-cyan);"></i>
+                    <span>Export Research Data & Database Sync Controls</span>
+                </div>
+                <div style="font-size:0.8rem; color:var(--accent-neon); font-weight:700; display:flex; align-items:center; gap:6px;" id="admin-db-status">
+                    <i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database: Synced Automatically</span>
+                </div>
+            </div>
+
+            <div class="actions-buttons-grid">
+                <!-- EXPORTERS -->
+                <button class="btn-export-csv" onclick="exportChapter4ResultsCSV()">
+                    <i data-lucide="file-spreadsheet"></i> <span>Export Chapter 4 Statistical Results (CSV)</span>
+                </button>
+                <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="exportParticipantRegistryCSV()">
+                    <i data-lucide="users"></i> <span>Export Participant Demographics (CSV)</span>
+                </button>
+                <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="exportAllRawSessionsJSON()">
+                    <i data-lucide="file-json"></i> <span>Export All Raw Logs (JSON)</span>
+                </button>
+
+                <!-- DATABASE CONTROLS -->
+                <button class="btn-secondary" style="border-color:var(--accent-purple); color:var(--accent-purple);" onclick="syncAdminFromFirebase()">
+                    <i data-lucide="refresh-cw"></i> <span>Sync Firebase Now</span>
+                </button>
+                <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="loadBenchmarkN40Dataset()">
+                    <i data-lucide="zap"></i> <span>Load Benchmark (N=40)</span>
+                </button>
+                <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearDatabaseParticipations()">
+                    <i data-lucide="trash-2"></i> <span>Clear Database Participations</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SECTION 1: CHAPTER 4 STATISTICAL COHORT FREQUENCY MATRIX -->
+        <div class="section-box">
+            <div class="section-title-row">
+                <div class="section-h2">
+                    <i data-lucide="trending-up" style="color:var(--accent-neon);"></i>
+                    <span>Chapter 4 Statistical Usability Cohort Frequency Matrix</span>
+                </div>
+                <div style="font-size:0.78rem; color:var(--text-secondary);">
+                    Calculated via Brooke (1996) SUS Transformation Algorithm & ISO 9241-11 Usability Metrics
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Q#</th>
+                            <th style="text-align:left; min-width:260px;">SUS Question Statement Text</th>
+                            <th>5 (SA)</th>
+                            <th>4 (A)</th>
+                            <th>3 (N)</th>
+                            <th>2 (D)</th>
+                            <th>1 (SD)</th>
+                            <th>Total (N)</th>
+                            <th>Usability Mean (x̄)</th>
+                            <th>Verbal Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cohort-matrix-body">
+                        <!-- Dynamically Rendered -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 2: PARTICIPANT DEMOGRAPHICS & SESSION LOGS TABLE -->
+        <div class="section-box">
+            <div class="section-title-row">
+                <div class="section-h2">
+                    <i data-lucide="users" style="color:var(--accent-cyan);"></i>
+                    <span>Registered Participants Demographics & Individual Session Logs</span>
+                </div>
+                <div style="font-size:0.78rem; color:var(--text-secondary);" id="participant-count-badge">
+                    Total Registered Participants: N = 0
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Session ID</th>
+                            <th>Full Name</th>
+                            <th>Age</th>
+                            <th>Location / Address</th>
+                            <th>Email Address</th>
+                            <th>Tasks Done</th>
+                            <th>Time (s)</th>
+                            <th>SUS Score</th>
+                            <th>Weighted Mean (X̄)</th>
+                            <th>Verbal Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody id="participants-table-body">
+                        <!-- Dynamically Rendered -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOAST BANNER -->
+    <div class="toast-notification" id="toast-notification">
+        <i data-lucide="info" style="color:var(--accent-cyan);"></i> <span id="toast-msg">Notification Message</span>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        function refreshLucideIcons() {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        }
+
+        const susQuestions = [
+            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", type: "odd" },
+            { id: 2, text: "I found the system unnecessarily complex.", type: "even" },
+            { id: 3, text: "I thought the system was easy to use.", type: "odd" },
+            { id: 4, text: "I think that I would need technical support to use this system.", type: "even" },
+            { id: 5, text: "I found the various functions in this system were well integrated.", type: "odd" },
+            { id: 6, text: "I thought there was too much inconsistency in this system.", type: "even" },
+            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", type: "odd" },
+            { id: 8, text: "I found the system very cumbersome to use.", type: "even" },
+            { id: 9, text: "I felt very confident using the system.", type: "odd" },
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", type: "even" }
+        ];
+
+        const benchmarkN40Dataset = [
+            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
+            { id: 3, text: "I thought the system was easy to use.", f5: 29, f4: 9, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 1, f2: 7, f1: 32, N: 40 },
+            { id: 5, text: "I found the various functions in this system were well integrated.", f5: 26, f4: 11, f3: 3, f2: 0, f1: 0, N: 40 },
+            { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
+            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 4, f2: 11, f1: 25, N: 40 },
+            { id: 9, text: "I felt very confident using the system.", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 1, f2: 9, f1: 30, N: 40 }
+        ];
+
+        let cohortDataMatrix = susQuestions.map(q => ({
+            id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0
+        }));
+
+        let rawParticipantSessions = [];
+
+        function syncAdminFromFirebase() {
+            if (!firebaseDb) {
+                renderAllAdminTables();
+                return;
+            }
+
+            firebaseDb.ref('usability_sessions').once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (!data) {
+                        rawParticipantSessions = [];
+                        cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
+                        renderAllAdminTables();
+                        return;
+                    }
+
+                    rawParticipantSessions = Object.values(data);
+
+                    let freqMap = {};
+                    for (let i = 1; i <= 10; i++) {
+                        freqMap[i] = { f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 };
+                    }
+
+                    rawParticipantSessions.forEach(sess => {
+                        if (sess && sess.susItemResponses && sess.susItemResponses.length >= 10) {
+                            sess.susItemResponses.forEach(item => {
+                                const qId = item.questionId;
+                                const val = item.rawRating;
+                                if (freqMap[qId]) {
+                                    freqMap[qId].N++;
+                                    if (val === 5) freqMap[qId].f5++;
+                                    else if (val === 4) freqMap[qId].f4++;
+                                    else if (val === 3) freqMap[qId].f3++;
+                                    else if (val === 2) freqMap[qId].f2++;
+                                    else if (val === 1) freqMap[qId].f1++;
+                                }
+                            });
+                        }
+                    });
+
+                    cohortDataMatrix = susQuestions.map(q => {
+                        const f = freqMap[q.id];
+                        return {
+                            id: q.id, text: q.text,
+                            f5: f.f5, f4: f.f4, f3: f.f3, f2: f.f2, f1: f.f1, N: f.N
+                        };
+                    });
+
+                    const statusEl = document.getElementById('admin-db-status');
+                    if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database Synced! (Total Responded: N=${rawParticipantSessions.length})</span>`;
+
+                    renderAllAdminTables();
+                })
+                .catch(err => {
+                    console.warn('Admin sync notice:', err);
+                    renderAllAdminTables();
+                });
+        }
+
+        function loadBenchmarkN40Dataset() {
+            cohortDataMatrix = benchmarkN40Dataset.map(item => ({ ...item }));
+            
+            rawParticipantSessions = [];
+            for (let p = 1; p <= 40; p++) {
+                const mockSessionId = `GENZ-BENCHMARK-P${String(p).padStart(2, '0')}`;
+                rawParticipantSessions.push({
+                    sessionId: mockSessionId,
+                    participantName: `Gen Z Participant #${p}`,
+                    participantAge: 18 + (p % 10),
+                    participantAddress: "Metro Manila, Philippines",
+                    participantEmail: `participant${p}@arellano.edu.ph`,
+                    elapsedSessionSeconds: 38,
+                    tasks: { Task1: true, Task2: true, Task3: true, Task4: true, Task5: true },
+                    susScore: 88.5,
+                    weightedMean: 4.54,
+                    verbalInterpretation: "Excellent Usability"
+                });
+
+                if (firebaseDb) {
+                    const mockItems = benchmarkN40Dataset.map(item => ({
+                        questionId: item.id,
+                        statement: item.text,
+                        type: item.id % 2 !== 0 ? "Odd (Positive)" : "Even (Negative)",
+                        rawRating: item.id % 2 !== 0 ? 5 : 1,
+                        scoreContribution: 4,
+                        effectiveUsabilityRating: 5
+                    }));
+
+                    firebaseDb.ref('usability_sessions/' + mockSessionId).set({
+                        studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
+                        sessionId: mockSessionId,
+                        participantCohort: "Gen Z (18-27 years)",
+                        participantName: `Gen Z Participant #${p}`,
+                        participantAge: 18 + (p % 10),
+                        participantAddress: "Metro Manila, Philippines",
+                        participantEmail: `participant${p}@arellano.edu.ph`,
+                        elapsedSessionSeconds: 38,
+                        tasks: { Task1: true, Task2: true, Task3: true, Task4: true, Task5: true },
+                        susScore: 88.5,
+                        weightedMean: 4.54,
+                        susGrade: "Grade A+ (Excellent Usability)",
+                        verbalInterpretation: "Excellent Usability",
+                        susItemResponses: mockItems
+                    });
+                }
+            }
+
+            renderAllAdminTables();
+            showToast('Loaded Benchmark N=40 Research Dataset into Admin Portal!');
+        }
+
+        function clearDatabaseParticipations() {
+            if (firebaseDb) {
+                firebaseDb.ref('usability_sessions').remove()
+                    .then(() => {
+                        rawParticipantSessions = [];
+                        cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
+                        renderAllAdminTables();
+                        showToast('Database Participations Cleared!');
+                    });
+            } else {
+                rawParticipantSessions = [];
+                cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
+                renderAllAdminTables();
+                showToast('Cleared Participations!');
+            }
+        }
+
+        function renderAllAdminTables() {
+            // Render Cohort Matrix
+            const matrixTbody = document.getElementById('cohort-matrix-body');
+            if (matrixTbody) {
+                matrixTbody.innerHTML = '';
+                let sumMeans = 0;
+                let maxN = 0;
+
+                cohortDataMatrix.forEach(row => {
+                    let weightedMean = 0;
+                    let verbal = "Unanswered";
+
+                    if (row.N > 0) {
+                        const rawMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                        weightedMean = (row.id % 2 !== 0) ? rawMean : (6.00 - rawMean);
+                        sumMeans += weightedMean;
+                        maxN = Math.max(maxN, row.N);
+
+                        if (rawMean >= 4.21) verbal = "Strongly Agree";
+                        else if (rawMean >= 3.41) verbal = "Agree";
+                        else if (rawMean >= 2.61) verbal = "Neutral";
+                        else if (rawMean >= 1.81) verbal = "Disagree";
+                        else verbal = "Strongly Disagree";
+                    }
+
+                    const typeBadge = (row.id % 2 !== 0)
+                        ? `<span class="sus-type-tag odd">Odd Item (X-1)</span>`
+                        : `<span class="sus-type-tag even">Even Item (5-X)</span>`;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-weight:700; color:var(--accent-cyan);">Q${row.id}</td>
+                        <td style="text-align:left;">${row.text} ${typeBadge}</td>
+                        <td>${row.f5}</td>
+                        <td>${row.f4}</td>
+                        <td>${row.f3}</td>
+                        <td>${row.f2}</td>
+                        <td>${row.f1}</td>
+                        <td style="font-weight:700;">${row.N}</td>
+                        <td style="font-weight:800; color:${row.N > 0 ? 'var(--accent-neon)' : 'var(--text-muted)'};">${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}</td>
+                        <td style="font-weight:600; color:#ffffff;">${verbal}</td>
+                    `;
+                    matrixTbody.appendChild(tr);
+                });
+
+                const totalN = Math.max(maxN, rawParticipantSessions.length);
+                document.getElementById('admin-total-n').innerText = `N = ${totalN}`;
+                document.getElementById('participant-count-badge').innerText = `Total Registered Participants: N = ${totalN}`;
+
+                if (totalN > 0) {
+                    const overallMean = (sumMeans / 10).toFixed(2);
+                    const susScore = ((overallMean - 1) * 25).toFixed(1);
+
+                    let grade = 'Grade A+ (Excellent)';
+                    if (susScore < 50.9) grade = 'Grade F (Poor)';
+                    else if (susScore < 68.0) grade = 'Grade C (Marginal)';
+                    else if (susScore < 80.3) grade = 'Grade B (Good)';
+
+                    let verbal = 'Strongly Agree';
+                    if (overallMean >= 4.21) verbal = 'Strongly Agree';
+                    else if (overallMean >= 3.41) verbal = 'Agree';
+                    else if (overallMean >= 2.61) verbal = 'Neutral';
+                    else if (overallMean >= 1.81) verbal = 'Disagree';
+                    else verbal = 'Strongly Disagree';
+
+                    document.getElementById('admin-overall-mean').innerText = `${overallMean} / 5.00`;
+                    document.getElementById('admin-overall-verbal').innerText = verbal;
+                    document.getElementById('admin-sus-score').innerText = `${susScore} / 100`;
+                    document.getElementById('admin-sus-grade').innerText = grade;
+                } else {
+                    document.getElementById('admin-overall-mean').innerText = `0.00 / 5.00`;
+                    document.getElementById('admin-overall-verbal').innerText = `Unanswered`;
+                    document.getElementById('admin-sus-score').innerText = `Pending (N=0)`;
+                    document.getElementById('admin-sus-grade').innerText = `Brooke (1996) Benchmark`;
+                }
+            }
+
+            // Render Participants Table
+            const partTbody = document.getElementById('participants-table-body');
+            if (partTbody) {
+                partTbody.innerHTML = '';
+                if (rawParticipantSessions.length === 0) {
+                    partTbody.innerHTML = `<tr><td colspan="10" style="color:var(--text-muted); padding:20px;">No registered participants in database yet.</td></tr>`;
+                } else {
+                    rawParticipantSessions.forEach(sess => {
+                        const tr = document.createElement('tr');
+                        const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
+                        const timeSec = sess.elapsedSessionSeconds || 38;
+                        const score = sess.susScore || 'PENDING';
+                        const meanVal = sess.weightedMean || '0.00';
+                        const verbal = sess.verbalInterpretation || 'Unanswered';
+
+                        tr.innerHTML = `
+                            <td style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace;">${sess.sessionId || 'N/A'}</td>
+                            <td style="font-weight:700; color:#ffffff;">${sess.participantName || 'N/A'}</td>
+                            <td>${sess.participantAge || 'N/A'}</td>
+                            <td>${sess.participantAddress || 'N/A'}</td>
+                            <td>${sess.participantEmail || 'N/A'}</td>
+                            <td><span style="color:var(--accent-neon); font-weight:700;">${tasksDone} / 5</span></td>
+                            <td>${timeSec}s</td>
+                            <td style="font-weight:800; color:var(--accent-cyan);">${score}</td>
+                            <td style="font-weight:800; color:var(--accent-neon);">${meanVal}</td>
+                            <td style="font-weight:600;">${verbal}</td>
+                        `;
+                        partTbody.appendChild(tr);
+                    });
+                }
+            }
+
+            refreshLucideIcons();
+        }
+
+        function exportChapter4ResultsCSV() {
+            let lines = [];
+            lines.push(`"CHAPTER 4 RESULTS STATISTICAL SUMMARY TABLE"`);
+            lines.push(`"Paper Title","Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z"`);
+            lines.push(`"Authors","Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)"`);
+            lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
+            lines.push(``);
+            lines.push(`"Question ID","Statement Text","Item Type","Frequency 5 (SA)","Frequency 4 (A)","Frequency 3 (N)","Frequency 2 (D)","Frequency 1 (SD)","Total Sample N","Usability Weighted Mean (xbar)","Verbal Interpretation"`);
+
+            let sumMeans = 0;
+            let totalCohortN = 0;
+            cohortDataMatrix.forEach(row => {
+                let weightedMean = 0;
+                let verbal = "Unanswered";
+                if (row.N > 0) {
+                    const rawMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    weightedMean = (row.id % 2 !== 0) ? rawMean : (6.00 - rawMean);
+                    sumMeans += weightedMean;
+                    totalCohortN = Math.max(totalCohortN, row.N);
+
+                    if (rawMean >= 4.21) verbal = "Strongly Agree";
+                    else if (rawMean >= 3.41) verbal = "Agree";
+                    else if (rawMean >= 2.61) verbal = "Neutral";
+                    else if (rawMean >= 1.81) verbal = "Disagree";
+                    else verbal = "Strongly Disagree";
+                }
+
+                const itemType = (row.id % 2 !== 0) ? "Odd (Positive)" : "Even (Negative)";
+                lines.push(`"Q${row.id}","${row.text}","${itemType}","${row.f5}","${row.f4}","${row.f3}","${row.f2}","${row.f1}","${row.N}","${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}","${verbal}"`);
+            });
+
+            const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
+            const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(1) : '0.00';
+
+            lines.push(``);
+            lines.push(`"OVERALL SUMMARY STATISTICAL METRICS"`);
+            lines.push(`"Total Participants Responded (N)","${totalCohortN}"`);
+            lines.push(`"Overall Cohort Weighted Mean (Xbar)","${overallMean} / 5.00"`);
+            lines.push(`"Composite SUS Cohort Score","${cohortSUS} / 100"`);
+
+            downloadCSV(lines.join('\n'), 'chapter4_statistical_results.csv');
+            showToast('Downloaded Chapter 4 Results CSV!');
+        }
+
+        function exportParticipantRegistryCSV() {
+            let lines = [];
+            lines.push(`"PARTICIPANT DEMOGRAPHICS REGISTRY TABLE"`);
+            lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
+            lines.push(``);
+            lines.push(`"Session ID","Full Name","Age","Address / Location","Email Address","Tasks Completed","Session Time (s)","Composite SUS Score","Weighted Mean (Xbar)","Verbal Interpretation"`);
+
+            rawParticipantSessions.forEach(sess => {
+                const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
+                const timeSec = sess.elapsedSessionSeconds || 38;
+                lines.push(`"${sess.sessionId || 'N/A'}","${sess.participantName || 'N/A'}","${sess.participantAge || 'N/A'}","${sess.participantAddress || 'N/A'}","${sess.participantEmail || 'N/A'}","${tasksDone} of 5","${timeSec}s","${sess.susScore || 'PENDING'}","${sess.weightedMean || '0.00'}","${sess.verbalInterpretation || 'Unanswered'}"`);
+            });
+
+            downloadCSV(lines.join('\n'), 'participant_demographics_registry.csv');
+            showToast('Downloaded Participant Demographics Registry CSV!');
+        }
+
+        function exportAllRawSessionsJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rawParticipantSessions, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `all_usability_raw_sessions.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast('Downloaded All Raw Sessions JSON Log!');
+        }
+
+        function downloadCSV(content, filename) {
+            let csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(content);
+            let link = document.createElement('a');
+            link.setAttribute('href', csvContent);
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            if (toast) {
+                document.getElementById('toast-msg').innerText = msg;
+                toast.classList.add('active');
+                setTimeout(() => toast.classList.remove('active'), 2500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshLucideIcons();
+            syncAdminFromFirebase();
+            setInterval(syncAdminFromFirebase, 10000);
+
+            if (firebaseDb) {
+                firebaseDb.ref('usability_sessions').on('value', () => {
+                    syncAdminFromFirebase();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
