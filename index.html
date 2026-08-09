@@ -63,15 +63,205 @@
         }
 
         [data-theme="light"] {
-            --bg-primary: #f0fdfa;
-            --bg-card: #ffffff;
-            --bg-card-sub: #f8fafc;
-            --border-card: rgba(16, 185, 129, 0.25);
-            --text-primary: #022c22;
-            --text-heading: #0f766e;
+            --bg-primary: #e2e8f0;
+            --bg-card: #f1f5f9;
+            --bg-card-sub: #e2e8f0;
+            --border-card: #cbd5e1;
+            --border-glow: #94a3b8;
+            --text-primary: #0f172a;
+            --text-heading: #0f172a;
             --text-secondary: #334155;
-            --text-muted: #64748b;
-            --shadow-neon: 0 10px 30px rgba(16, 185, 129, 0.18);
+            --text-muted: #475569;
+            --shadow-neon: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .navbar-wrapper {
+            background: rgba(226, 232, 240, 0.95) !important;
+            border-bottom: 1px solid #cbd5e1 !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+        }
+
+        [data-theme="light"] .logo-brand { color: #0f172a !important; }
+        [data-theme="light"] .logo-sub { color: #475569 !important; }
+
+        [data-theme="light"] .nav-pills {
+            background: #cbd5e1 !important;
+            border-color: #94a3b8 !important;
+        }
+
+        [data-theme="light"] .nav-pill { color: #334155 !important; }
+        [data-theme="light"] .nav-pill:hover { color: #0f172a !important; }
+        [data-theme="light"] .nav-pill.active {
+            background: #0284c7 !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        [data-theme="light"] .device-connect-btn,
+        [data-theme="light"] .data-gathering-btn,
+        [data-theme="light"] #privacy-btn,
+        [data-theme="light"] .btn-icon {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .hero-title,
+        [data-theme="light"] .section-title,
+        [data-theme="light"] .panel-heading,
+        [data-theme="light"] .card-heading-title,
+        [data-theme="light"] .card-big-number,
+        [data-theme="light"] .preview-big-val,
+        [data-theme="light"] .card-sub-header,
+        [data-theme="light"] .activity-title-text,
+        [data-theme="light"] .cmd-title-text,
+        [data-theme="light"] .step-title,
+        [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4 {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .hero-desc,
+        [data-theme="light"] .section-desc,
+        [data-theme="light"] .card-body-text,
+        [data-theme="light"] .step-desc,
+        [data-theme="light"] .stat-lbl,
+        [data-theme="light"] .legend-list {
+            color: #334155 !important;
+        }
+
+        [data-theme="light"] .hero-card-preview,
+        [data-theme="light"] .cmd-console-card,
+        [data-theme="light"] .cmd-box,
+        [data-theme="light"] .big-feature-panel,
+        [data-theme="light"] .metric-card-figma,
+        [data-theme="light"] .radar-card-container,
+        [data-theme="light"] .circadian-card-container,
+        [data-theme="light"] .task-step-card,
+        [data-theme="light"] .stat-box,
+        [data-theme="light"] .res-stat-card,
+        [data-theme="light"] .badge-streak-card,
+        [data-theme="light"] .ai-chat-window,
+        [data-theme="light"] .modal-card,
+        [data-theme="light"] .device-modal-card,
+        [data-theme="light"] .cohort-modal-card,
+        [data-theme="light"] .sus-modal-card,
+        [data-theme="light"] #demographics-reg-box {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .preview-sub-card,
+        [data-theme="light"] .preview-bottom-card,
+        [data-theme="light"] .panel-list-item,
+        [data-theme="light"] .demographic-input-field,
+        [data-theme="light"] #cmd-input-prompt {
+            background: #e2e8f0 !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .demographic-input-field::placeholder,
+        [data-theme="light"] #cmd-input-prompt::placeholder {
+            color: #64748b !important;
+        }
+
+        [data-theme="light"] #cmd-ai-bubble,
+        [data-theme="light"] .msg-ai {
+            background: #e2e8f0 !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .msg-user {
+            background: #bae6fd !important;
+            border-color: #7dd3fc !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .btn-secondary {
+            background: #f1f5f9 !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .btn-secondary:hover {
+            background: #e2e8f0 !important;
+            border-color: #0284c7 !important;
+        }
+
+        [data-theme="light"] .pill-tag-sync,
+        [data-theme="light"] .pill-tag-ai,
+        [data-theme="light"] .badge-pill,
+        [data-theme="light"] .card-pill-tag,
+        [data-theme="light"] .steps-pill-badge {
+            background: #e0f2fe !important;
+            border-color: #bae6fd !important;
+            color: #0369a1 !important;
+        }
+
+        [data-theme="light"] .wave-bottom-tile {
+            background: #e2e8f0 !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .chat-messages {
+            background: #f1f5f9 !important;
+        }
+
+        [data-theme="light"] .quick-prompts,
+        [data-theme="light"] .chat-input-area {
+            background: #e2e8f0 !important;
+            border-top: 1px solid #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .chat-header {
+            background: #e2e8f0 !important;
+            border-bottom: 1px solid #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .chat-title { color: #0f172a !important; }
+
+        [data-theme="light"] .chat-input {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .send-btn {
+            background: #e0f2fe !important;
+            border-color: #7dd3fc !important;
+            color: #0369a1 !important;
+        }
+
+        [data-theme="light"] .prompt-chip {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            color: #0369a1 !important;
+        }
+
+        [data-theme="light"] .tasks-flow-section h2,
+        [data-theme="light"] .tasks-flow-section h3,
+        [data-theme="light"] .tasks-flow-section p,
+        [data-theme="light"] #step2-header-title {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .task-step-card.locked {
+            background: #e2e8f0 !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        [data-theme="light"] footer,
+        [data-theme="light"] .footer-container {
+            background: #e2e8f0 !important;
+            color: #334155 !important;
+            border-top: 1px solid #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .footer-links a {
+            color: #0284c7 !important;
         }
 
         * {
@@ -1348,6 +1538,41 @@
             box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
         }
 
+        .analytics-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .circadian-clock-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .circadian-clock-row {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 18px !important;
+            }
+            .circadian-clock-row > div:nth-child(2) {
+                width: 100% !important;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .analytics-card-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 8px !important;
+            }
+        }
+
         .card-inner-centered {
             flex: 1;
             display: flex;
@@ -1396,11 +1621,29 @@
         .breathing-ring-wrapper.hold { transform: scale(1.3); border-color: var(--accent-purple); box-shadow: 0 0 50px rgba(168, 85, 247, 0.5); }
         .breathing-ring-wrapper.contract { transform: scale(0.85); border-color: var(--accent-pink); box-shadow: 0 0 25px rgba(244, 63, 94, 0.3); }
 
+        /* PERFORMANCE & GPU HARDWARE ACCELERATION (ELIMINATE SCROLL & ANIMATION LAG) */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-binary-watermark, .radar-card-container, .circadian-card-container, .metric-card, .badge-streak-card, .ai-chat-window {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
         /* ==========================================================================
            100% PERFECT RESPONSIVE MEDIA QUERIES FOR ALL PHONES & TABLETS
            ========================================================================== */
-
-
 
         @media (max-width: 1180px) {
             .nav-pills { display: none; }
@@ -1420,15 +1663,15 @@
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 10px 14px; gap: 4px; }
+            .navbar { padding: 8px 12px; gap: 4px; }
             .logo-sub { display: none; }
             #privacy-btn, .user-profile, .data-gathering-btn, .device-connect-btn { display: none !important; }
 
-            .nav-actions { gap: 8px; flex-shrink: 0; }
+            .nav-actions { gap: 6px; flex-shrink: 0; }
 
             .btn-icon, .mobile-menu-toggle {
-                width: 38px;
-                height: 38px;
+                width: 36px;
+                height: 36px;
                 flex-shrink: 0;
             }
 
@@ -1436,75 +1679,121 @@
                 display: flex !important;
             }
 
-            .container { padding: 90px 14px 20px; }
-            .hero-title { font-size: 2rem; line-height: 1.2; letter-spacing: -0.5px; }
-            .hero-desc { font-size: 0.94rem; line-height: 1.55; }
+            .container { padding: 85px 12px 20px !important; width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }
+            .hero-title { font-size: 1.8rem; line-height: 1.25; letter-spacing: -0.5px; word-break: break-word; }
+            .hero-desc { font-size: 0.9rem; line-height: 1.5; word-break: break-word; }
             .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 30px; }
-            .btn-ai-action, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+            .btn-ai-action, .btn-secondary, .cmd-action-btn { width: 100% !important; justify-content: center !important; text-align: center !important; white-space: normal !important; word-break: break-word !important; padding: 12px 14px !important; font-size: 0.85rem !important; }
 
             .quick-stats-row { grid-template-columns: 1fr; gap: 10px; }
-            .hero-card-preview { padding: 18px; border-radius: 24px; }
+            .hero-card-preview, .big-feature-panel, .cmd-console-card, .ai-banner-card { padding: 16px 14px !important; border-radius: 20px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
             .preview-grid-2 { grid-template-columns: 1fr; gap: 14px; }
 
+            .panel-heading { font-size: 1.25rem !important; line-height: 1.35 !important; margin-bottom: 16px !important; white-space: normal !important; word-break: break-word !important; }
+            .panel-list-item { padding: 12px 14px; border-radius: 16px; gap: 10px; }
+
+            .cmd-top-header { flex-wrap: wrap !important; gap: 8px !important; }
+            .cmd-top-header .binary-tag { display: none; }
+            .cmd-title-text { font-size: 0.82rem !important; white-space: normal !important; word-break: break-word !important; }
+            .cmd-status-tag { font-size: 0.68rem !important; padding: 3px 8px !important; white-space: normal !important; }
+
             .section-header-row { flex-direction: column; gap: 8px; margin-bottom: 24px; }
-            .section-title { font-size: 1.65rem; }
+            .section-title { font-size: 1.55rem; word-break: break-word; }
             
             .metrics-4grid { grid-template-columns: 1fr; gap: 16px; }
             .tasks-5grid { grid-template-columns: 1fr; gap: 12px; }
 
-            .ai-banner-card { flex-direction: column; align-items: flex-start; padding: 22px 18px; gap: 18px; }
-            .ai-banner-card .btn-ai-action { width: 100%; }
+            .ai-banner-card { flex-direction: column; align-items: flex-start; padding: 18px 14px !important; gap: 16px; }
 
-            .big-feature-panel { padding: 20px 16px; border-radius: 22px; }
-            .panel-heading { font-size: 1.35rem; }
-            .panel-list-item { padding: 14px; border-radius: 16px; gap: 10px; }
-
-            .cmd-top-header .binary-tag { display: none; }
-            .cmd-title-text { font-size: 0.82rem; }
-            .cmd-status-tag { font-size: 0.7rem; padding: 3px 8px; }
-
-            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 24px 70px; }
-            .footer-links { justify-content: center; width: 100%; }
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 16px 75px; }
+            .footer-links { justify-content: center; width: 100%; flex-wrap: wrap; }
 
             .ai-chat-window {
-                width: 94vw;
-                right: 3vw;
-                bottom: 76px;
-                height: 72vh;
-                max-height: calc(100vh - 90px);
+                width: 94vw !important;
+                right: 3vw !important;
+                bottom: 68px !important;
+                height: 72vh !important;
+                max-height: calc(100vh - 80px);
                 z-index: 30000;
             }
             .ai-chat-trigger {
-                bottom: 16px;
-                right: 16px;
-                padding: 12px 18px;
-                font-size: 0.85rem;
+                bottom: 12px !important;
+                right: 12px !important;
+                padding: 10px 14px !important;
+                font-size: 0.78rem !important;
+                max-width: calc(100vw - 24px) !important;
             }
 
             .device-modal-card, .sus-modal-card, .cohort-modal-card {
-                width: 94vw;
-                padding: 18px;
-                border-radius: 24px;
+                width: 94vw !important;
+                padding: 16px 12px !important;
+                border-radius: 20px !important;
             }
 
             .sus-calc-summary-box {
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
+
+            .demographics-inputs-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .analytics-two-col {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+
+            #demographics-reg-box {
+                padding: 18px 14px !important;
+                border-radius: 20px !important;
+            }
+
+            .radar-card-container, .circadian-card-container {
+                padding: 16px 12px !important;
+                border-radius: 20px !important;
+            }
+
+            .vitality-badges-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+
+            .table-responsive {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
         }
 
         /* EXTRA NARROW MOBILE SMARTPHONES (< 520px) */
         @media (max-width: 520px) {
-            .logo-brand { font-size: 1.05rem; }
-            .navbar { padding: 8px 10px; gap: 4px; }
-            .container { padding: 85px 12px 20px; }
-            .hero-title { font-size: 1.65rem; }
-            .hero-card-preview { padding: 14px; border-radius: 20px; }
-            .preview-big-val { font-size: 1.8rem; }
+            .logo-brand { font-size: 1rem; }
+            .navbar { padding: 6px 10px; gap: 4px; }
+            .container { padding: 80px 10px 20px !important; }
+            .hero-title { font-size: 1.5rem; word-break: break-word; }
+            .hero-card-preview { padding: 14px 12px !important; border-radius: 18px; }
+            .preview-big-val { font-size: 1.6rem; }
             .activity-content-row { flex-direction: column; align-items: flex-start; gap: 14px; }
 
-            .cmd-top-header { flex-wrap: nowrap; gap: 6px; }
-            .cmd-title-text { font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis; }
+            .cmd-top-header { flex-wrap: wrap; gap: 6px; }
+            .cmd-title-text { font-size: 0.76rem !important; white-space: normal !important; word-break: break-word !important; }
+
+            .vitality-badges-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .ai-chat-window {
+                width: 96vw !important;
+                right: 2vw !important;
+                bottom: 64px !important;
+                height: 75vh !important;
+            }
+
+            .device-modal-card, .sus-modal-card, .cohort-modal-card {
+                width: 96vw !important;
+                padding: 14px 10px !important;
+            }
         }
     </style>
 </head>
@@ -1826,16 +2115,16 @@
             <div class="analytics-two-col">
                 <!-- RADAR CHART CARD -->
                 <div class="radar-card-container">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="analytics-card-header">
                         <div>
                             <div class="badge-pill"><div class="dot-glow"></div> MULTIDIMENSIONAL MATRIX <span class="binary-tag" style="margin-left:4px;">1010</span></div>
                             <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:6px;">5-Axis AI Health & Vitality Radar</h3>
                         </div>
-                        <span style="font-size:0.75rem; color:var(--accent-neon); font-weight:700; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:4px 10px; border-radius:14px;" id="radar-overall-score">Optimal 89.2%</span>
+                        <span style="font-size:0.75rem; color:var(--accent-neon); font-weight:700; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:4px 10px; border-radius:14px; white-space:nowrap; flex-shrink:0;" id="radar-overall-score">Optimal 89.2%</span>
                     </div>
                     
                     <div class="card-inner-centered">
-                        <svg viewBox="0 0 380 250" style="width:100%; max-width:340px; height:auto;">
+                        <svg viewBox="0 0 380 250" style="width:100%; max-width:340px; height:auto; display:block; margin:0 auto; overflow:visible;">
                             <!-- Concentric Radar Grid Circles -->
                             <circle cx="190" cy="125" r="105" fill="rgba(0, 242, 254, 0.03)" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
                             <circle cx="190" cy="125" r="78.75" fill="rgba(0, 242, 254, 0.04)" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1.5"/>
@@ -1864,16 +2153,16 @@
                             <circle id="radar-dot-4" cx="138" cy="200" r="4.5" fill="#f43f5e" filter="drop-shadow(0 0 6px #f43f5e)"/>
                             <circle id="radar-dot-5" cx="98" cy="100" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"/>
                             
-                            <!-- Axis Labels -->
+                            <!-- Axis Labels (Adjusted inwards to prevent mobile boundary clipping) -->
                             <text id="radar-txt-rec" x="190" y="12" fill="#00f2fe" font-size="11" font-weight="800" text-anchor="middle">Recovery (92%)</text>
-                            <text id="radar-txt-hrv" x="296" y="98" fill="#10b981" font-size="11" font-weight="800" text-anchor="start">HRV (84%)</text>
+                            <text id="radar-txt-hrv" x="282" y="98" fill="#10b981" font-size="11" font-weight="800" text-anchor="start">HRV (84%)</text>
                             <text id="radar-txt-sleep" x="254" y="226" fill="#a855f7" font-size="11" font-weight="800" text-anchor="middle">Sleep (88%)</text>
                             <text id="radar-txt-act" x="126" y="226" fill="#f43f5e" font-size="11" font-weight="800" text-anchor="middle">Activity (76%)</text>
-                            <text id="radar-txt-stress" x="84" y="98" fill="#00f2fe" font-size="11" font-weight="800" text-anchor="end">Stress (85%)</text>
+                            <text id="radar-txt-stress" x="98" y="98" fill="#00f2fe" font-size="11" font-weight="800" text-anchor="end">Stress (85%)</text>
                         </svg>
 
                         <!-- Centered Matrix Summary Pills -->
-                        <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:10px;">
+                        <div style="display:flex; justify-content:center; gap:6px 8px; flex-wrap:wrap; margin-top:10px; width:100%;">
                             <span id="radar-pill-rec" style="font-size:0.7rem; font-weight:700; color:#00f2fe; background:rgba(0,242,254,0.1); border:1px solid rgba(0,242,254,0.3); padding:3px 8px; border-radius:10px;">Recovery 92%</span>
                             <span id="radar-pill-hrv" style="font-size:0.7rem; font-weight:700; color:#10b981; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); padding:3px 8px; border-radius:10px;">HRV 84%</span>
                             <span id="radar-pill-sleep" style="font-size:0.7rem; font-weight:700; color:#a855f7; background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.3); padding:3px 8px; border-radius:10px;">Sleep 88%</span>
@@ -1884,20 +2173,20 @@
 
                 <!-- CIRCADIAN ENERGY CLOCK CARD -->
                 <div class="circadian-card-container">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="analytics-card-header">
                         <div>
                             <div class="badge-pill"><div class="dot-glow"></div> BIORHYTHM PREDICTOR <span class="binary-tag" style="margin-left:4px;">0110</span></div>
                             <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:6px;">Circadian Energy & Focus Clock</h3>
                         </div>
-                        <button onclick="launchBreathingCoachModal()" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:6px 14px; border-radius:14px; font-size:0.78rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                        <button onclick="launchBreathingCoachModal()" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:6px 14px; border-radius:14px; font-size:0.78rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; white-space:nowrap; flex-shrink:0;">
                             <i data-lucide="wind" style="width:14px; height:14px; color:var(--accent-cyan);"></i> <span>Box Breathing</span>
                         </button>
                     </div>
 
                     <div class="card-inner-centered">
-                        <div style="display:flex; gap:16px; align-items:center; width:100%;">
+                        <div class="circadian-clock-row">
                             <!-- Realistic 24H Clock Wheel -->
-                            <div style="width:130px; height:130px; flex-shrink:0; position:relative; display:flex; align-items:center; justify-content:center;">
+                            <div style="width:130px; height:130px; flex-shrink:0; position:relative; display:flex; align-items:center; justify-content:center; margin:0 auto;">
                                 <svg viewBox="0 0 100 100" style="width:100%; height:100%; transform:rotate(-90deg);">
                                     <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.06)" stroke-width="12" fill="none"/>
                                     <circle cx="50" cy="50" r="42" stroke="#a855f7" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="180" stroke-linecap="round"/>
@@ -1911,16 +2200,16 @@
                             </div>
 
                             <!-- Centered Biorhythm 3 Prediction Boxes -->
-                            <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
-                                <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.25); border-left:3px solid var(--accent-cyan); padding:8px 12px; border-radius:12px;">
+                            <div style="flex:1; display:flex; flex-direction:column; gap:8px; width:100%;">
+                                <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.25); border-left:3px solid var(--accent-cyan); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
                                     <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="zap" style="width:13px; height:13px; color:var(--accent-cyan);"></i> Cognitive Energy Peak</div>
                                     <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-1">10:30 AM – 1:00 PM (Heavy cognition)</div>
                                 </div>
-                                <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--accent-neon); padding:8px 12px; border-radius:12px;">
+                                <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--accent-neon); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
                                     <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="activity" style="width:13px; height:13px; color:var(--accent-neon);"></i> Physical Strain Window</div>
                                     <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-2">4:30 PM – 6:45 PM (Optimal muscle temp)</div>
                                 </div>
-                                <div style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-left:3px solid var(--accent-purple); padding:8px 12px; border-radius:12px;">
+                                <div style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-left:3px solid var(--accent-purple); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
                                     <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="moon" style="width:13px; height:13px; color:var(--accent-purple);"></i> Sleep & Caffeine Cutoff</div>
                                     <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-3">2:30 PM Cutoff • Dim screens by 10 PM</div>
                                 </div>
@@ -3860,6 +4149,12 @@
             appendMsg(text, 'user');
             input.value = '';
 
+            const aiReply = generateAIResponse(text);
+
+            if (isTtsEnabled) {
+                speakText(aiReply);
+            }
+
             const chatBox = document.getElementById('chat-messages');
             const typingDiv = document.createElement('div');
             typingDiv.className = 'msg msg-ai';
@@ -3872,9 +4167,258 @@
                 const indicator = document.getElementById('typing-indicator');
                 if (indicator) indicator.remove();
 
-                const aiReply = generateAIResponse(text);
                 appendMsg(aiReply, 'ai');
-            }, 450);
+            }, 300);
+        }
+
+        let isTtsEnabled = false;
+        let isListening = false;
+        let speechRecognizer = null;
+        let cachedVoices = [];
+        let speakTtsInstance = null;
+
+        function initTtsLibraries() {
+            if (typeof SpeakTTS !== 'undefined') {
+                try {
+                    speakTtsInstance = new SpeakTTS();
+                    speakTtsInstance.init({
+                        volume: 1,
+                        lang: 'en-US',
+                        rate: 1,
+                        pitch: 1,
+                        splitSentences: true
+                    }).then(() => {
+                        console.log("⚡ speak-tts initialized!");
+                    }).catch(e => console.warn("speak-tts init notice:", e));
+                } catch(e) {}
+            }
+        }
+        setTimeout(initTtsLibraries, 600);
+
+        function loadVoices() {
+            if ('speechSynthesis' in window) {
+                cachedVoices = window.speechSynthesis.getVoices();
+            }
+        }
+        if ('speechSynthesis' in window) {
+            loadVoices();
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = loadVoices;
+            }
+        }
+
+        function playSynthBeep(freq = 440, type = 'sine') {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.25);
+            } catch (e) {}
+        }
+
+        function toggleTextToSpeech() {
+            isTtsEnabled = !isTtsEnabled;
+            const btn = document.getElementById('voice-speaker-btn');
+            const icon = document.getElementById('speaker-icon-el');
+            
+            if (isTtsEnabled) {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.resume();
+                }
+                playSynthBeep(587.33, 'sine'); // D5 pitch chime
+                if (btn) {
+                    btn.style.background = 'rgba(16, 185, 129, 0.35)';
+                    btn.style.borderColor = 'var(--accent-neon)';
+                    btn.style.boxShadow = '0 0 16px rgba(16, 185, 129, 0.6)';
+                }
+                if (icon) icon.setAttribute('data-lucide', 'volume-2');
+                showToast('BYTECODE AI Voice Output: Activated (TTS On)');
+                speakText('BYTECODE AI voice output activated. I will read recommendations aloud.');
+            } else {
+                if (typeof responsiveVoice !== 'undefined') try { responsiveVoice.cancel(); } catch(e) {}
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                playSynthBeep(349.23, 'sine'); // F4 pitch chime
+                if (btn) {
+                    btn.style.background = 'rgba(255, 255, 255, 0.05)';
+                    btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    btn.style.boxShadow = 'none';
+                }
+                if (icon) icon.setAttribute('data-lucide', 'volume-x');
+                showToast('BYTECODE AI Voice Output: Muted');
+            }
+            refreshLucideIcons();
+        }
+
+        let activeAudioElement = null;
+
+        function speakText(htmlText) {
+            if (!htmlText) return;
+
+            // Stop any playing audio / speech synthesis
+            if (activeAudioElement) {
+                try {
+                    activeAudioElement.pause();
+                    activeAudioElement.currentTime = 0;
+                } catch(e) {}
+            }
+            if ('speechSynthesis' in window) {
+                try { window.speechSynthesis.cancel(); } catch(e) {}
+            }
+
+            // Strip HTML & markdown tags for clean speech output
+            let plainText = htmlText
+                .replace(/<[^>]*>?/gm, '')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/\*/g, '')
+                .replace(/BYTECODE AI[^:]*:/gi, '')
+                .trim();
+
+            if (!plainText) return;
+
+            // Extract initial key sentence (up to 180 chars) for instant audio stream playback
+            let phrase = plainText.split('.')[0];
+            if (phrase.length < 40 && plainText.split('.')[1]) {
+                phrase += '. ' + plainText.split('.')[1];
+            }
+            phrase = phrase.substring(0, 180).trim();
+
+            // 1. Primary Engine: Public Google TTS MP3 Stream via HTML5 Audio
+            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(phrase)}&tl=en&client=tw-ob`;
+
+            try {
+                activeAudioElement = new Audio(ttsUrl);
+                activeAudioElement.volume = 1.0;
+                
+                const playPromise = activeAudioElement.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log("🔊 Playing Google AI Voice MP3 Audio Stream!");
+                    }).catch(err => {
+                        console.warn("HTML5 Audio stream blocked or offline, switching to Native Web Speech:", err);
+                        fallbackNativeSpeech(plainText);
+                    });
+                }
+            } catch (err) {
+                fallbackNativeSpeech(plainText);
+            }
+        }
+
+        function fallbackNativeSpeech(plainText) {
+            if (!('speechSynthesis' in window)) {
+                showToast('Web Speech Synthesis not supported in this browser mode.');
+                return;
+            }
+
+            try {
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(plainText);
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                utterance.lang = 'en-US';
+
+                const voices = window.speechSynthesis.getVoices();
+                if (voices && voices.length > 0) {
+                    const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('David') || v.name.includes('Zira') || v.name.includes('Samantha'))) || voices.find(v => v.lang.startsWith('en'));
+                    if (preferredVoice) {
+                        utterance.voice = preferredVoice;
+                    }
+                }
+
+                setTimeout(() => {
+                    if ('speechSynthesis' in window) {
+                        window.speechSynthesis.resume();
+                        window.speechSynthesis.speak(utterance);
+                    }
+                }, 60);
+            } catch (err) {
+                console.error('Native speech synthesis error:', err);
+            }
+        }
+
+        function toggleSpeechToText() {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRec) {
+                showToast('Speech Recognition not supported in this browser environment. Type text in chat!');
+                return;
+            }
+
+            const micBtn = document.getElementById('voice-mic-btn');
+
+            if (isListening) {
+                if (speechRecognizer) {
+                    try { speechRecognizer.stop(); } catch(e) {}
+                }
+                isListening = false;
+                if (micBtn) {
+                    micBtn.style.background = 'rgba(0, 242, 254, 0.15)';
+                    micBtn.style.borderColor = 'var(--accent-cyan)';
+                    micBtn.style.boxShadow = 'none';
+                }
+                showToast('Microphone Stopped.');
+                return;
+            }
+
+            try {
+                speechRecognizer = new SpeechRec();
+                speechRecognizer.continuous = false;
+                speechRecognizer.interimResults = false;
+                speechRecognizer.lang = 'en-US';
+
+                speechRecognizer.onstart = function() {
+                    isListening = true;
+                    playSynthBeep(880, 'triangle');
+                    if (micBtn) {
+                        micBtn.style.background = 'rgba(239, 68, 68, 0.35)';
+                        micBtn.style.borderColor = '#ef4444';
+                        micBtn.style.boxShadow = '0 0 16px rgba(239, 68, 68, 0.6)';
+                    }
+                    showToast('🎙️ Listening... Speak into your microphone!');
+                };
+
+                speechRecognizer.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    const input = document.getElementById('chat-input');
+                    if (input && transcript) {
+                        input.value = transcript;
+                        showToast(`Voice Input: "${transcript}"`);
+                        setTimeout(sendChatMessage, 300);
+                    }
+                };
+
+                speechRecognizer.onerror = function(e) {
+                    isListening = false;
+                    if (micBtn) {
+                        micBtn.style.background = 'rgba(0, 242, 254, 0.15)';
+                        micBtn.style.borderColor = 'var(--accent-cyan)';
+                        micBtn.style.boxShadow = 'none';
+                    }
+                    showToast('Mic Error: ' + (e.error === 'not-allowed' ? 'Microphone permission blocked in browser' : (e.error || 'Please speak clearly')));
+                };
+
+                speechRecognizer.onend = function() {
+                    isListening = false;
+                    if (micBtn) {
+                        micBtn.style.background = 'rgba(0, 242, 254, 0.15)';
+                        micBtn.style.borderColor = 'var(--accent-cyan)';
+                        micBtn.style.boxShadow = 'none';
+                    }
+                };
+
+                speechRecognizer.start();
+            } catch (err) {
+                showToast('Could not access microphone: ' + err.message);
+            }
         }
 
         function sendQuickPrompt(promptText) {
