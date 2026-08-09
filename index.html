@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BYTECODE AI Health - Usability Testing & Data Gathering Engine</title>
+    <title>Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
+    <!-- LUCIDE ICONS CDN LOGIC -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <!-- GOOGLE FIREBASE CLOUD DATABASE COMPAT SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -77,6 +80,25 @@
             box-sizing: border-box;
             font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
+        }
+
+        /* LUCIDE ICON GLOBAL STYLING & PERFECT FLEX ALIGNMENT */
+        .lucide, [data-lucide] {
+            width: 1.15em;
+            height: 1.15em;
+            stroke-width: 2.2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        button, .btn-ai-action, .btn-secondary, .btn-export-csv, .device-connect-btn, .data-gathering-btn, .mobile-drawer-btn, .mobile-nav-link, .prompt-chip, .cmd-action-btn, .ai-chat-trigger, .pill-tag-sync, .pill-tag-ai, .task-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         html, body {
@@ -152,13 +174,13 @@
         }
 
         .navbar {
-            max-width: 1360px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 14px 24px;
+            padding: 12px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
             box-sizing: border-box;
             position: relative;
@@ -220,10 +242,10 @@
         }
 
         .nav-pill {
-            padding: 7px 14px;
+            padding: 6px 11px;
             border-radius: 20px;
             color: var(--text-secondary);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 500;
             text-decoration: none;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -251,16 +273,16 @@
             box-shadow: 0 0 22px rgba(0, 242, 254, 0.6);
         }
 
-        .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
         .device-connect-btn {
             background: rgba(0, 242, 254, 0.1);
             border: 1px solid rgba(0, 242, 254, 0.4);
             color: #ffffff;
             height: 38px;
-            padding: 0 14px;
+            padding: 0 12px;
             border-radius: 24px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -287,22 +309,9 @@
         .btn-icon:hover { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 242, 254, 0.35); transform: translateY(-2px); }
         .btn-icon:active { transform: scale(0.95); }
         
-        .user-profile { display: flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--border-card); padding: 4px; border-radius: 30px; height: 38px; flex-shrink: 0; }
+        .user-profile { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-card); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); flex-shrink: 0; }
+        .user-profile:hover { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 242, 254, 0.35); transform: translateY(-2px); }
         .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--gradient-bytecode); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; color: #06090e; flex-shrink: 0; }
-
-        .user-profile-name {
-            display: none;
-        }
-
-        @media (min-width: 1440px) {
-            .user-profile-name {
-                display: inline-block;
-                font-size: 0.8rem;
-                font-weight: 600;
-                padding-right: 8px;
-                white-space: nowrap;
-            }
-        }
 
         /* DATA GATHERING MODE BADGE BUTTON */
         .data-gathering-btn {
@@ -480,7 +489,7 @@
         .quick-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .stat-box { background: var(--bg-card); border: 1px solid var(--border-card); padding: 16px; border-radius: 18px; position: relative; }
         .stat-val { font-size: 1.5rem; font-weight: 700; font-family: 'Inter', sans-serif; color: var(--accent-cyan); }
-        .stat-lbl { font-size: 0.78rem; color: var(--text-secondary); font-weight: 400; }
+        .stat-lbl { font-size: 0.78rem; color: var(--text-secondary); font-weight: 400; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
 
         /* HERO MISSION CONTROL PREVIEW CARD */
         .hero-card-preview {
@@ -536,8 +545,8 @@
 
         .preview-bottom-card { background: rgba(22, 34, 52, 0.85); border: 1px solid rgba(0, 242, 254, 0.18); border-radius: 24px; padding: 24px; position: relative; }
         .activity-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
-        .activity-title-text { font-size: 1rem; font-weight: 600; font-family: 'Inter', sans-serif; color: #ffffff; }
-        .steps-pill-badge { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: #ffffff; font-size: 0.82rem; font-weight: 600; padding: 6px 16px; border-radius: 20px; }
+        .activity-title-text { font-size: 1rem; font-weight: 600; font-family: 'Inter', sans-serif; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+        .steps-pill-badge { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: #ffffff; font-size: 0.82rem; font-weight: 600; padding: 6px 16px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
         .activity-content-row { display: flex; align-items: center; gap: 28px; }
         
         .ring-box-large { position: relative; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -599,7 +608,7 @@
         }
 
         .metric-card-figma:hover { transform: translateY(-4px); border-color: var(--accent-cyan); box-shadow: 0 10px 30px rgba(0, 242, 254, 0.25); }
-        .card-pill-tag { display: inline-block; background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.35); color: var(--accent-cyan); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 14px; margin-bottom: 14px; }
+        .card-pill-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.35); color: var(--accent-cyan); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 14px; margin-bottom: 14px; }
         .card-heading-title { font-size: 0.95rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 12px; }
         .card-big-number { font-size: 2.5rem; font-weight: 700; font-family: 'Inter', sans-serif; margin-bottom: 8px; color: var(--text-primary); }
         .card-body-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 16px; font-weight: 400; }
@@ -661,11 +670,11 @@
         .task-step-card.completed .step-num-bubble { background: var(--accent-green); color: #ffffff; }
         .task-step-card.locked .step-num-bubble { background: rgba(239, 68, 68, 0.25); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.5); }
 
-        .step-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; font-family: 'Inter', sans-serif; color: var(--text-primary); text-align: left; }
+        .step-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; font-family: 'Inter', sans-serif; color: var(--text-primary); text-align: left; display: flex; align-items: center; gap: 6px; }
         .step-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; font-weight: 400; text-align: left; margin-bottom: 14px; }
 
         .task-action-btn {
-            background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--accent-cyan); font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 12px; cursor: pointer; transition: var(--transition); text-align: center; width: 100%;
+            background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--accent-cyan); font-size: 0.75rem; font-weight: 700; padding: 8px 12px; border-radius: 12px; cursor: pointer; transition: var(--transition); text-align: center; width: 100%;
         }
 
         .task-action-btn.locked-btn {
@@ -713,6 +722,12 @@
             border-radius: 20px;
             text-align: center;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            height: 100%;
         }
 
         .res-stat-card:hover {
@@ -739,6 +754,10 @@
             color: var(--text-secondary);
             margin-top: 6px;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .researcher-actions {
@@ -768,10 +787,10 @@
             box-shadow: 0 0 30px rgba(0, 242, 254, 0.55);
         }
 
-        .ai-chat-trigger { position: fixed; bottom: 24px; right: 24px; background: var(--gradient-btn); color: #04090f; border: none; padding: 15px 26px; border-radius: 40px; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 0 30px rgba(0, 242, 254, 0.4); display: flex; align-items: center; gap: 10px; z-index: 999; transition: var(--transition); user-select: none; }
+        .ai-chat-trigger { position: fixed; bottom: 24px; right: 24px; background: var(--gradient-btn); color: #04090f; border: none; padding: 15px 26px; border-radius: 40px; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 0 30px rgba(0, 242, 254, 0.4); display: flex; align-items: center; gap: 10px; z-index: 25000; transition: var(--transition); user-select: none; }
         .ai-chat-trigger:hover { transform: translateY(-3px) scale(1.04); }
 
-        .ai-chat-window { position: fixed; bottom: 90px; right: 24px; width: 410px; max-width: 92vw; height: 550px; background: #080d16; border: 1px solid rgba(0, 242, 254, 0.4); border-radius: 24px; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); z-index: 999; opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: var(--transition); overflow: hidden; }
+        .ai-chat-window { position: fixed; bottom: 88px; right: 24px; width: 410px; max-width: 92vw; height: 520px; max-height: calc(100vh - 105px); background: #080d16; border: 1.5px solid rgba(0, 242, 254, 0.45); border-radius: 24px; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95); z-index: 30000; opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: var(--transition); overflow: hidden; }
         .ai-chat-window.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 
         .chat-header {
@@ -817,7 +836,7 @@
         .chat-input-area { padding: 12px 16px; background: rgba(8, 13, 22, 0.95); border-top: 1px solid var(--border-card); display: flex; align-items: center; gap: 10px; }
         .chat-input { flex: 1; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-card); border-radius: 20px; padding: 10px 16px; color: var(--text-primary); font-size: 0.88rem; outline: none; }
         .send-btn { background: var(--gradient-btn); color: #04090f; border: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 800; font-size: 1rem; flex-shrink: 0; box-shadow: 0 0 12px rgba(0, 242, 254, 0.4); }
-        .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; }
+        .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
 
         /* Professional AI Command Console Styling */
         .cmd-box {
@@ -1221,6 +1240,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
+            color: var(--accent-cyan);
             flex-shrink: 0;
         }
 
@@ -1255,7 +1275,7 @@
         }
 
         .footer-section { background: rgba(18, 28, 42, 0.95); border-top: 1px solid rgba(0, 242, 254, 0.15); padding: 32px 0; margin-top: 60px; position: relative; z-index: 1; }
-        .footer-container { max-width: 1360px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .footer-container { max-width: 1360px; margin: 0 auto; padding: 0 260px 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .footer-brand { display: flex; align-items: center; gap: 14px; }
         
         .footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -1273,7 +1293,7 @@
             background: rgba(0, 242, 254, 0.1);
         }
 
-        .toast-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #090e17; border: 1px solid var(--accent-cyan); color: white; padding: 12px 24px; border-radius: 30px; font-size: 0.88rem; font-weight: 700; z-index: 3000; opacity: 0; transition: var(--transition); pointer-events: none; }
+        .toast-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #090e17; border: 1px solid var(--accent-cyan); color: white; padding: 12px 24px; border-radius: 30px; font-size: 0.88rem; font-weight: 700; z-index: 3000; opacity: 0; transition: var(--transition); pointer-events: none; display: flex; align-items: center; gap: 8px; }
         .toast-notification.active { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         /* RESPONSIVE DEMOGRAPHICS FORM GRID */
@@ -1299,7 +1319,9 @@
            100% PERFECT RESPONSIVE MEDIA QUERIES FOR ALL PHONES & TABLETS
            ========================================================================== */
 
-        @media (max-width: 1280px) {
+
+
+        @media (max-width: 1180px) {
             .nav-pills { display: none; }
             .mobile-menu-toggle { display: flex !important; }
 
@@ -1360,14 +1382,16 @@
             .cmd-title-text { font-size: 0.82rem; }
             .cmd-status-tag { font-size: 0.7rem; padding: 3px 8px; }
 
-            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 24px 70px; }
             .footer-links { justify-content: center; width: 100%; }
 
             .ai-chat-window {
                 width: 94vw;
                 right: 3vw;
-                bottom: 80px;
-                height: 78vh;
+                bottom: 76px;
+                height: 72vh;
+                max-height: calc(100vh - 90px);
+                z-index: 30000;
             }
             .ai-chat-trigger {
                 bottom: 16px;
@@ -1428,7 +1452,7 @@
                 </div>
                 <div class="logo-text">
                     <span class="logo-brand">BYTECODE <span class="logo-brand-sub-text">AI Health</span></span>
-                    <span class="logo-sub">USABILITY TESTING ENGINE <span class="binary-tag" style="margin-left:4px;">[10101010]</span></span>
+                    <span class="logo-sub">GEN Z AI WEARABLE RESEARCH PLATFORM <span class="binary-tag" style="margin-left:4px;">[10101010]</span></span>
                 </div>
             </a>
 
@@ -1446,28 +1470,29 @@
                 <!-- DATA GATHERING MODE BUTTON -->
                 <button class="data-gathering-btn" onclick="scrollToDataGathering()" title="Study Data Gathering Console">
                     <div class="dot-glow"></div>
-                    <span class="data-gathering-btn-text">📊 Data Mode</span>
+                    <i data-lucide="bar-chart-3" style="width:1rem; height:1rem;"></i>
+                    <span class="data-gathering-btn-text">Data Mode</span>
                 </button>
 
                 <!-- INTERACTIVE WEARABLE DEVICE CONNECTIVITY BUTTON -->
                 <button class="device-connect-btn" onclick="toggleDeviceModal()" id="active-device-badge">
-                    <span id="active-device-name">📱 Samsung Watch 6</span>
+                    <i data-lucide="smartphone" style="width:1rem; height:1rem;"></i>
+                    <span id="active-device-name">Samsung Watch 6</span>
                 </button>
 
                 <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
-                    <span id="theme-icon">🌙</span>
+                    <i data-lucide="moon" id="theme-icon-lucide"></i>
                 </button>
                 <button class="btn-icon" id="privacy-btn" title="Privacy Settings">
-                    <span>🛡️</span>
+                    <i data-lucide="shield-check"></i>
                 </button>
-                <div class="user-profile">
-                    <div class="avatar">BC</div>
-                    <span class="user-profile-name">Gen Z Participant</span>
+                <div class="user-profile" title="Gen Z Research Participant">
+                    <div class="avatar"><i data-lucide="user" style="width:14px; height:14px; color:#06090e;"></i></div>
                 </div>
 
                 <!-- MOBILE & TABLET HAMBURGER TOGGLE BUTTON -->
                 <button class="mobile-menu-toggle" id="mobile-menu-btn" onclick="toggleMobileDrawer()" title="Menu">
-                    <span id="hamburger-icon">☰</span>
+                    <i data-lucide="menu" id="hamburger-icon-lucide"></i>
                 </button>
             </div>
         </nav>
@@ -1475,32 +1500,32 @@
         <!-- SLIDE-DOWN MOBILE & TABLET MENU DRAWER -->
         <div class="mobile-nav-drawer" id="mobile-nav-drawer">
             <a href="#overview" class="mobile-nav-link active" onclick="closeMobileDrawer()">
-                <span>🚀 Overview</span> <span>➔</span>
+                <span><i data-lucide="rocket"></i> Overview</span> <i data-lucide="chevron-right"></i>
             </a>
             <a href="#metrics" class="mobile-nav-link" onclick="closeMobileDrawer()">
-                <span>📊 Metrics & Biometrics</span> <span>➔</span>
+                <span><i data-lucide="activity"></i> Metrics & Biometrics</span> <i data-lucide="chevron-right"></i>
             </a>
             <a href="#insights" class="mobile-nav-link" onclick="closeMobileDrawer()">
-                <span>💡 AI Health Insights</span> <span>➔</span>
+                <span><i data-lucide="sparkles"></i> AI Health Insights</span> <i data-lucide="chevron-right"></i>
             </a>
             <a href="#privacy" class="mobile-nav-link" onclick="closeMobileDrawer()">
-                <span>🛡️ Privacy Controls</span> <span>➔</span>
+                <span><i data-lucide="shield-check"></i> Privacy Controls</span> <i data-lucide="chevron-right"></i>
             </a>
             <a href="#usability-logger" class="mobile-nav-link" onclick="closeMobileDrawer()">
-                <span>📋 Data Gathering Tasks</span> <span>➔</span>
+                <span><i data-lucide="clipboard-list"></i> Data Gathering Tasks</span> <i data-lucide="chevron-right"></i>
             </a>
             
             <div class="mobile-drawer-actions-box">
                 <button class="mobile-drawer-btn green" onclick="scrollToDataGathering(); closeMobileDrawer();">
-                    <span>📊 Data Gathering Mode & Console</span> <span>➔</span>
+                    <span><i data-lucide="bar-chart-3"></i> Data Gathering Mode & Console</span> <i data-lucide="chevron-right"></i>
                 </button>
                 <button class="mobile-drawer-btn cyan" onclick="toggleDeviceModal(); closeMobileDrawer();">
-                    <span>📱 Active Device: <b id="mobile-drawer-device-name" style="color:#ffffff;">Samsung Watch 6</b></span> <span>➔</span>
+                    <span><i data-lucide="smartphone"></i> Active Device: <b id="mobile-drawer-device-name" style="color:#ffffff;">Samsung Watch 6</b></span> <i data-lucide="chevron-right"></i>
                 </button>
             </div>
 
             <a href="#assistant" class="mobile-nav-link" onclick="closeMobileDrawer()">
-                <span>🤖 AI Assistant Engine</span> <span>➔</span>
+                <span><i data-lucide="bot"></i> AI Assistant Engine</span> <i data-lucide="chevron-right"></i>
             </a>
         </div>
     </header>
@@ -1512,33 +1537,33 @@
         <section id="overview" class="hero-section">
             <div>
                 <div class="badge-pill">
-                    <div class="dot-glow"></div> USABILITY TESTING DATA ENGINE <span class="binary-tag" style="margin-left:6px;">01010</span>
+                    <div class="dot-glow"></div> <i data-lucide="cpu" style="width:14px; height:14px;"></i> GEN Z RESEARCH COHORT PLATFORM <span class="binary-tag" style="margin-left:6px;">01010</span>
                 </div>
                 <h1 class="hero-title">
-                    Make health testing feel like a <span class="gradient-text">living mission control.</span>
+                    Interactive Design & Usability Testing of <span class="gradient-text">AI-Enhanced Wearable Dashboards</span> for Gen Z
                 </h1>
                 <p class="hero-desc">
-                    A complete, calmer BYTECODE experience with clear navigation, accessible neon contrast, privacy-first controls, and real-time usability data gathering for research participants.
+                    An interactive, privacy-first AI-enhanced wearable health dashboard designed and evaluated for Gen Z users — integrating real-time telemetry, biometrics visualization, and automated usability data gathering.
                 </p>
                 <div class="hero-ctas">
-                    <button class="btn-ai-action" onclick="toggleChatWindow()">💬 Ask BYTECODE AI</button>
-                    <button class="btn-secondary" onclick="scrollToDataGathering()">📥 Open Usability Data Console</button>
+                    <button class="btn-ai-action" onclick="toggleChatWindow()"><i data-lucide="bot"></i> <span>Ask BYTECODE AI</span></button>
+                    <button class="btn-secondary" onclick="scrollToDataGathering()"><i data-lucide="database"></i> <span>Open Usability Data Console</span></button>
                 </div>
 
                 <div class="quick-stats-row">
                     <div class="stat-box">
                         <div class="stat-val" id="stat-sleep-val">88%</div>
-                        <div class="stat-lbl">Sleep score</div>
+                        <div class="stat-lbl"><i data-lucide="moon" style="width:1rem; height:1rem; color:var(--accent-cyan);"></i> Sleep score</div>
                         <span class="binary-tag" style="position:absolute; top:8px; right:12px; opacity:0.35;">1010</span>
                     </div>
                     <div class="stat-box">
                         <div class="stat-val" id="stat-hrv-val">+12%</div>
-                        <div class="stat-lbl">HRV recovery</div>
+                        <div class="stat-lbl"><i data-lucide="heart-pulse" style="width:1rem; height:1rem; color:var(--accent-neon);"></i> HRV recovery</div>
                         <span class="binary-tag" style="position:absolute; top:8px; right:12px; opacity:0.35;">0110</span>
                     </div>
                     <div class="stat-box">
                         <div class="stat-val" id="stat-move-val">76%</div>
-                        <div class="stat-lbl">Move goal</div>
+                        <div class="stat-lbl"><i data-lucide="flame" style="width:1rem; height:1rem; color:var(--accent-pink);"></i> Move goal</div>
                         <span class="binary-tag" style="position:absolute; top:8px; right:12px; opacity:0.35;">1101</span>
                     </div>
                 </div>
@@ -1547,15 +1572,15 @@
             <!-- Hero Mission Control Preview Card -->
             <div class="hero-card-preview">
                 <div class="preview-top-bar">
-                    <div class="pill-tag-sync" onclick="syncActiveDevice()"><div class="dot-glow"></div> <span id="sync-status-text">Synced 12 sec ago (Samsung Galaxy Watch 6 )</span> <span class="binary-tag" style="margin-left:4px; opacity:0.5;">0101</span></div>
-                    <div class="pill-tag-ai">AI Ready</div>
+                    <div class="pill-tag-sync" onclick="syncActiveDevice()"><div class="dot-glow"></div> <i data-lucide="refresh-cw" style="width:12px; height:12px;"></i> <span id="sync-status-text">Synced 12 sec ago (Samsung Galaxy Watch 6 )</span> <span class="binary-tag" style="margin-left:4px; opacity:0.5;">0101</span></div>
+                    <div class="pill-tag-ai"><i data-lucide="sparkles" style="width:12px; height:12px;"></i> AI Ready</div>
                 </div>
 
                 <div class="preview-grid-2">
                     <div class="preview-sub-card">
                         <div class="card-sub-header">
                             <span>HRV <span class="binary-tag">10101</span></span>
-                            <div class="icon-circle-badge">🩵</div>
+                            <div class="icon-circle-badge"><i data-lucide="heart-pulse" style="width:16px; height:16px;"></i></div>
                         </div>
                         <div class="preview-big-val" id="preview-hrv-num">
                             68 <span>ms</span>
@@ -1575,7 +1600,7 @@
                     <div class="preview-sub-card">
                         <div class="card-sub-header">
                             <span>Sleep <span class="binary-tag">01101</span></span>
-                            <div class="icon-circle-badge">🌙</div>
+                            <div class="icon-circle-badge"><i data-lucide="moon" style="width:16px; height:16px;"></i></div>
                         </div>
                         <div class="preview-big-val">
                             7h <span>12m</span>
@@ -1595,8 +1620,8 @@
 
                 <div class="preview-bottom-card">
                     <div class="activity-top-row">
-                        <div class="activity-title-text">Daily Activity <span class="binary-tag" style="margin-left:6px;">10101010</span></div>
-                        <div class="steps-pill-badge" id="steps-pill-text">9,120 / 12,000 steps</div>
+                        <div class="activity-title-text"><i data-lucide="flame" style="color:var(--accent-pink);"></i> Daily Activity <span class="binary-tag" style="margin-left:6px;">10101010</span></div>
+                        <div class="steps-pill-badge" id="steps-pill-text"><i data-lucide="footprints" style="width:14px; height:14px;"></i> 9,120 / 12,000 steps</div>
                     </div>
                     <div class="activity-content-row">
                         <div class="ring-box-large">
@@ -1619,15 +1644,15 @@
         <!-- METRICS SECTION -->
         <section id="metrics">
             <div class="section-header-row">
-                <h2 class="section-title">Cleaner metrics with calmer contrast and clearer hierarchy.</h2>
-                <p class="section-desc">The palette keeps the signature BYTECODE glow, but grounds it in richer panels, stronger text contrast, and consistent status color roles.</p>
+                <h2 class="section-title">Interactive Biometric Telemetry & AI-Enhanced Health Dashboards.</h2>
+                <p class="section-desc">Designed and evaluated for Gen Z usability, combining PPG heart rate variability, sleep stages, activity goals, and stress biofeedback with high-contrast accessibility.</p>
             </div>
 
             <div class="metrics-4grid">
                 <!-- Card 1: HRV -->
-                <div class="metric-card-figma" onclick="toggleChatWindow()">
+                <div class="metric-card-figma" onclick="openMetricAIInsight('hrv')" title="Click card for instant BYTECODE AI HRV Insight">
                     <div>
-                        <span class="card-pill-tag">PPG Sensor <span class="binary-tag" style="margin-left:4px; opacity:0.7;">1010</span></span>
+                        <span class="card-pill-tag"><i data-lucide="heart-pulse" style="width:12px; height:12px;"></i> PPG Sensor <span class="binary-tag" style="margin-left:4px; opacity:0.7;">1010</span></span>
                         <div class="card-heading-title">Heart Rate Variability</div>
                         <div class="card-big-number"><span id="live-hrv-card">68</span> <span style="font-size:1rem; color:var(--text-secondary); font-weight:400;">ms</span></div>
                         <p class="card-body-text" id="hrv-card-text">High recovery signal measured from PPG telemetry.</p>
@@ -1642,9 +1667,9 @@
                 </div>
 
                 <!-- Card 2: Sleep -->
-                <div class="metric-card-figma" onclick="toggleChatWindow()">
+                <div class="metric-card-figma" onclick="openMetricAIInsight('sleep')" title="Click card for instant BYTECODE AI Sleep Insight">
                     <div>
-                        <span class="card-pill-tag">Sleep Lab <span class="binary-tag" style="margin-left:4px; opacity:0.7;">0110</span></span>
+                        <span class="card-pill-tag"><i data-lucide="moon" style="width:12px; height:12px;"></i> Sleep Lab <span class="binary-tag" style="margin-left:4px; opacity:0.7;">0110</span></span>
                         <div class="card-heading-title">Sleep Quality Score</div>
                         <div class="card-big-number"><span id="live-sleep-card">88</span> <span style="font-size:1rem; color:var(--text-secondary); font-weight:400;">/100</span></div>
                         <p class="card-body-text" id="sleep-card-text">Deep sleep reached 2h 4m with optimal REM stages.</p>
@@ -1666,9 +1691,9 @@
                 </div>
 
                 <!-- Card 3: Activity -->
-                <div class="metric-card-figma" onclick="toggleChatWindow()">
+                <div class="metric-card-figma" onclick="openMetricAIInsight('move')" title="Click card for instant BYTECODE AI Activity Insight">
                     <div>
-                        <span class="card-pill-tag">Move Goal <span class="binary-tag" style="margin-left:4px; opacity:0.7;">1101</span></span>
+                        <span class="card-pill-tag"><i data-lucide="flame" style="width:12px; height:12px;"></i> Move Goal <span class="binary-tag" style="margin-left:4px; opacity:0.7;">1101</span></span>
                         <div class="card-heading-title">Daily Activity</div>
                         <div class="card-big-number"><span id="live-move-card">76</span>%</div>
                         <p class="card-body-text" id="activity-card-text">Step target tracking active via accelerometer.</p>
@@ -1692,9 +1717,9 @@
                 </div>
 
                 <!-- Card 4: Stress -->
-                <div class="metric-card-figma" onclick="toggleChatWindow()">
+                <div class="metric-card-figma" onclick="openMetricAIInsight('stress')" title="Click card for instant BYTECODE AI Stress Insight">
                     <div>
-                        <span class="card-pill-tag">Biofeedback <span class="binary-tag" style="margin-left:4px; opacity:0.7;">0011</span></span>
+                        <span class="card-pill-tag"><i data-lucide="wind" style="width:12px; height:12px;"></i> Biofeedback <span class="binary-tag" style="margin-left:4px; opacity:0.7;">0011</span></span>
                         <div class="card-heading-title">Stress Index</div>
                         <div class="card-big-number"><span id="live-stress-card">22</span> <span style="font-size:1rem; color:var(--text-secondary); font-weight:400;">/100</span></div>
                         <p class="card-body-text" id="stress-card-text">Low stress state with balanced autonomic patterns.</p>
@@ -1721,7 +1746,7 @@
         <section id="insights" class="ai-banner-section">
             <div class="ai-banner-card">
                 <div>
-                    <div class="badge-pill" style="margin-bottom:12px;"><div class="dot-glow"></div> BYTECODE AI INSIGHT <span class="binary-tag" style="margin-left:6px;">11001010</span></div>
+                    <div class="badge-pill" style="margin-bottom:12px;"><div class="dot-glow"></div> <i data-lucide="sparkles" style="width:14px; height:14px;"></i> BYTECODE AI INSIGHT <span class="binary-tag" style="margin-left:6px;">11001010</span></div>
                     <h2 style="font-size:1.4rem; font-weight:700; font-family:'Inter'; margin-bottom:8px; color:var(--text-heading);" id="ai-insight-title">
                         Optimal recovery reached — HRV up 12%
                     </h2>
@@ -1729,7 +1754,7 @@
                         Your sleep score was 88% last night via Samsung Galaxy Watch. BYTECODE AI predicts peak energy between 10:30 AM and 1:00 PM. Recommended action: 30-minute moderate cardio session and one mindful cool-down block.
                     </p>
                 </div>
-                <button class="btn-ai-action" onclick="toggleChatWindow()">Open guidance</button>
+                <button class="btn-ai-action" onclick="toggleChatWindow()"><i data-lucide="bot"></i> <span>Open guidance</span></button>
             </div>
         </section>
 
@@ -1740,16 +1765,16 @@
                 <h2 class="panel-heading">Every major task now has a visible destination.</h2>
                 <div class="panel-list">
                     <div class="panel-list-item">
-                        <span style="font-size:1.3rem;">➡️</span>
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">Participants land on a summary with meaningful CTAs instead of a loose dashboard.</div>
+                        <i data-lucide="arrow-right-circle" style="color:var(--accent-cyan);"></i>
+                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400; flex:1;">Participants land on a summary with meaningful CTAs instead of a loose dashboard.</div>
                     </div>
                     <div class="panel-list-item">
-                        <span style="font-size:1.3rem;">📊</span>
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">Health cards, AI insight, privacy settings, and assistant all have clear sections.</div>
+                        <i data-lucide="bar-chart-2" style="color:var(--accent-neon);"></i>
+                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400; flex:1;">Health cards, AI insight, privacy settings, and assistant all have clear sections.</div>
                     </div>
                     <div class="panel-list-item">
-                        <span style="font-size:1.3rem;">🛡️</span>
-                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400;">Privacy settings are promoted from floating buttons into an understandable control panel.</div>
+                        <i data-lucide="shield" style="color:var(--accent-purple);"></i>
+                        <div style="font-size:0.9rem; color:var(--text-secondary); font-weight:400; flex:1;">Privacy settings are promoted from floating buttons into an understandable control panel.</div>
                     </div>
                 </div>
             </div>
@@ -1761,7 +1786,7 @@
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Allows study-level pattern analysis.</div>
-                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">Share anonymized testing data</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="share-2" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Share anonymized testing data</div>
                         </div>
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Share anonymized testing data');"></div>
                     </div>
@@ -1769,7 +1794,7 @@
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Show why each recommendation appears.</div>
-                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">AI explanation mode</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="eye" style="width:16px; height:16px; color:var(--accent-neon);"></i> AI explanation mode</div>
                         </div>
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'AI explanation mode');"></div>
                     </div>
@@ -1777,7 +1802,7 @@
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">PPG, sleep, and activity data enabled.</div>
-                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">Sensor access</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="cpu" style="width:16px; height:16px; color:var(--accent-purple);"></i> Sensor access</div>
                         </div>
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Sensor access');"></div>
                     </div>
@@ -1785,7 +1810,7 @@
                     <div class="panel-list-item">
                         <div>
                             <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Downloadable participant permissions summary.</div>
-                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter';">Export consent report</div>
+                            <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="file-text" style="width:16px; height:16px; color:var(--accent-pink);"></i> Export consent report</div>
                         </div>
                         <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Export consent report');"></div>
                     </div>
@@ -1796,58 +1821,60 @@
         <!-- USABILITY TASKS & REAL-TIME DATA GATHERING SECTION -->
         <section id="usability-logger" class="tasks-flow-section">
             <div class="section-header-row">
-                <h2 class="section-title">Usability tasks & real-time data gathering logger.</h2>
-                <p class="section-desc">Gen Z participants execute research tasks while the system automatically measures task completion times, success rates, and SUS usability scores for Chapter 4 research results.</p>
+                <h2 class="section-title">Usability Protocol Tasks & Real-Time Data Gathering Engine.</h2>
+                <p class="section-desc">Gen Z research participants execute ISO 9241-11 usability tasks while the system automatically measures completion times, task success rates, and Brooke (1996) SUS scores for Chapter 4 results.</p>
             </div>
 
             <!-- STEP 1: MANDATORY PARTICIPANT DEMOGRAPHICS REGISTRATION FORM -->
             <div id="demographics-reg-box" style="background:linear-gradient(135deg, rgba(14, 23, 38, 0.95) 0%, rgba(8, 14, 24, 0.95) 100%); border:2px solid var(--accent-cyan); border-radius:24px; padding:22px 24px; margin-bottom:24px; box-shadow:0 0 35px rgba(0,242,254,0.18);">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
                     <div style="font-size:1.05rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
-                        <span>📝 Step 1: Participant Demographic Registration</span>
+                        <i data-lucide="user-check" style="color:var(--accent-cyan);"></i>
+                        <span>Step 1: Participant Demographic Registration</span>
                         <span class="binary-tag" style="color:var(--accent-pink); font-weight:700;">[REQUIRED TO UNLOCK USABILITY TASKS]</span>
                     </div>
-                    <div style="font-size:0.82rem; color:#ef4444; font-weight:700; font-family:'Space Grotesk';" id="demographics-status-text">
-                        🔒 Status: Tasks Locked — Please Fill Out Form Below
+                    <div style="font-size:0.82rem; color:#ef4444; font-weight:700; font-family:'Space Grotesk'; display:flex; align-items:center; gap:6px;" id="demographics-status-text">
+                        <i data-lucide="lock" style="width:14px; height:14px;"></i> <span>Status: Tasks Locked — Please Fill Out Form Below</span>
                     </div>
                 </div>
 
                 <div class="demographics-inputs-grid">
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Full Name *</label>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="user" style="width:12px; height:12px;"></i> Full Name (Unique Name) *</label>
                         <input type="text" id="reg-name" class="chat-input" placeholder="e.g. Jemani Sean Gabrielle" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
                     </div>
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Age *</label>
-                        <input type="number" id="reg-age" class="chat-input" placeholder="e.g. 21" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);" min="12" max="99">
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="calendar" style="width:12px; height:12px;"></i> Age (14 - 27 yrs) *</label>
+                        <input type="number" id="reg-age" class="chat-input" placeholder="14 - 27" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);" min="14" max="27">
                     </div>
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Address / Location *</label>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="map-pin" style="width:12px; height:12px;"></i> Address / Location *</label>
                         <input type="text" id="reg-address" class="chat-input" placeholder="e.g. Pasay City, Metro Manila" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
                     </div>
                     <div>
-                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;">Email Address *</label>
+                        <label style="font-size:0.78rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:6px;"><i data-lucide="mail" style="width:12px; height:12px;"></i> Email Address *</label>
                         <input type="email" id="reg-email" class="chat-input" placeholder="e.g. participant@example.com" style="width:100%; font-size:0.88rem; background:rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
-                    <div style="font-size:0.76rem; color:var(--text-secondary);">
-                        🔒 Registration unlocks the 5 usability protocol tasks & 10-Item SUS Scale survey for Firebase DB persistence.
+                    <div style="font-size:0.76rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="shield" style="width:14px; height:14px;"></i> Registration unlocks the 5 usability protocol tasks & 10-Item SUS Scale survey for Firebase DB persistence.
                     </div>
                     <button class="btn-ai-action" style="padding:10px 24px; font-size:0.88rem;" onclick="registerParticipantAndUnlockTasks()" id="btn-reg-unlock">
-                        🔒 Register Participant & Unlock Usability Tasks
+                        <i data-lucide="lock" id="btn-lock-icon"></i> <span id="btn-lock-text">Register Participant & Unlock Usability Tasks</span>
                     </button>
                 </div>
             </div>
 
             <!-- STEP 2: USABILITY TASK PROTOCOL CARDS (LOCKED UNTIL STEP 1 IS COMPLETED) -->
             <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; margin-bottom:4px;">
-                <div style="font-size:0.95rem; font-weight:700; color:#ffffff; font-family:'Inter';">
-                    📋 Step 2: Usability Protocol Tasks (5 Protocol Items)
+                <div style="font-size:0.95rem; font-weight:700; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="clipboard-list" style="color:var(--accent-cyan);"></i>
+                    <span>Step 2: Usability Protocol Tasks (5 Protocol Items)</span>
                 </div>
-                <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:600;" id="tasks-lock-status-badge">
-                    🔒 Status: Locked (Complete Registration Above)
+                <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:600; display:flex; align-items:center; gap:6px;" id="tasks-lock-status-badge">
+                    <i data-lucide="lock" style="width:14px; height:14px;"></i> <span>Status: Locked (Complete Registration Above)</span>
                 </div>
             </div>
 
@@ -1855,46 +1882,46 @@
                 <div class="task-step-card locked" id="task-card-1">
                     <div>
                         <div class="step-num-bubble">1</div>
-                        <div class="step-title">View metrics</div>
+                        <div class="step-title"><i data-lucide="activity" style="width:16px; height:16px; color:var(--accent-cyan);"></i> View metrics</div>
                         <p class="step-desc">Review HRV, sleep, activity, and stress cards.</p>
                     </div>
-                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(1, 'View metrics')">🔒 Complete Reg First</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(1, 'View metrics')"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
                 </div>
 
                 <div class="task-step-card locked" id="task-card-2">
                     <div>
                         <div class="step-num-bubble">2</div>
-                        <div class="step-title">Read tooltips</div>
+                        <div class="step-title"><i data-lucide="help-circle" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Read tooltips</div>
                         <p class="step-desc">Understand sensor definitions and AI confidence.</p>
                     </div>
-                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(2, 'Read tooltips')">🔒 Complete Reg First</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(2, 'Read tooltips')"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
                 </div>
 
                 <div class="task-step-card locked" id="task-card-3">
                     <div>
                         <div class="step-num-bubble">3</div>
-                        <div class="step-title">Toggle theme</div>
+                        <div class="step-title"><i data-lucide="sun-medium" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Toggle theme</div>
                         <p class="step-desc">Check legibility across light and dark preferences.</p>
                     </div>
-                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(3, 'Toggle theme')">🔒 Complete Reg First</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(3, 'Toggle theme')"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
                 </div>
 
                 <div class="task-step-card locked" id="task-card-4">
                     <div>
                         <div class="step-num-bubble">4</div>
-                        <div class="step-title">Set privacy</div>
+                        <div class="step-title"><i data-lucide="shield-check" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Set privacy</div>
                         <p class="step-desc">Adjust consent, explanations, and data sharing.</p>
                     </div>
-                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(4, 'Set privacy')">🔒 Complete Reg First</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(4, 'Set privacy')"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
                 </div>
 
                 <div class="task-step-card locked" id="task-card-5">
                     <div>
                         <div class="step-num-bubble">5</div>
-                        <div class="step-title">Ask assistant</div>
+                        <div class="step-title"><i data-lucide="bot" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Ask assistant</div>
                         <p class="step-desc">Request a plain-language recommendation.</p>
                     </div>
-                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(5, 'Ask assistant')">🔒 Complete Reg First</button>
+                    <button class="task-action-btn locked-btn" onclick="completeStudyTask(5, 'Ask assistant')"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
                 </div>
             </div>
 
@@ -1902,12 +1929,16 @@
             <div class="researcher-data-panel">
                 <div class="researcher-top-row">
                     <div>
-                        <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">📊 Usability Study Data Gathering Console</div>
+                        <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="bar-chart-3" style="color:var(--accent-neon);"></i>
+                            <span>Usability Study Data Gathering Console</span>
+                        </div>
                         <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">
                             Study Authors: Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)
                         </div>
                     </div>
-                    <div style="background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.35); padding:6px 14px; border-radius:20px; font-size:0.8rem; color:var(--accent-cyan); font-weight:700;">
+                    <div style="background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.35); padding:6px 14px; border-radius:20px; font-size:0.8rem; color:var(--accent-cyan); font-weight:700; display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="user" style="width:14px; height:14px;"></i>
                         Participant Session ID: <span id="participant-session-id" style="color:#ffffff;">GENZ-P-042</span>
                     </div>
                 </div>
@@ -1915,32 +1946,29 @@
                 <div class="research-metrics-grid">
                     <div class="res-stat-card">
                         <div class="res-stat-num" id="data-tasks-completed">0 / 5</div>
-                        <div class="res-stat-lbl">Tasks Completed</div>
+                        <div class="res-stat-lbl"><i data-lucide="check-square" style="width:14px; height:14px;"></i> Tasks Completed</div>
                     </div>
                     <div class="res-stat-card">
                         <div class="res-stat-num" id="data-completion-rate">0%</div>
-                        <div class="res-stat-lbl">Task Success Rate</div>
+                        <div class="res-stat-lbl"><i data-lucide="target" style="width:14px; height:14px;"></i> Task Success Rate</div>
                     </div>
                     <div class="res-stat-card">
                         <div class="res-stat-num" id="data-avg-time">0s</div>
-                        <div class="res-stat-lbl">Elapsed Study Time</div>
+                        <div class="res-stat-lbl"><i data-lucide="clock" style="width:14px; height:14px;"></i> Elapsed Study Time</div>
                     </div>
                     
-                    <!-- UNANSWERED INITIAL SUS CARD -->
-                    <div class="res-stat-card locked" id="data-sus-card" onclick="toggleSUSModal()" style="cursor:pointer;" title="Click to view 10-Item SUS Scale & Formula Calculator">
+                    <!-- UNANSWERED INITIAL SUS CARD WITH PERFECT ALIGNMENT -->
+                    <div class="res-stat-card locked" id="data-sus-card" onclick="toggleSUSModal()" style="cursor:pointer;" title="Click to view 10-Item SUS Scale Survey">
                         <div class="res-stat-num" id="data-sus-score">Pending (0/10)</div>
-                        <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:2px;" id="data-sus-grade">🔒 Register to Take SUS Survey</div>
-                        <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600; margin-top:2px;" id="data-sus-weighted-mean">Unanswered (0/10 Rating Inputs)</div>
-                        <div class="res-stat-lbl" style="margin-top:6px;">Calculated SUS Score 📝</div>
+                        <div class="res-stat-lbl"><i data-lucide="file-text" style="width:14px; height:14px;"></i> Calculated SUS Score</div>
+                        <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px;" id="data-sus-grade"><i data-lucide="lock" style="width:12px; height:12px;"></i> <span>Register to Take SUS Survey</span></div>
+                        <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600; margin-top:2px; display:none;" id="data-sus-weighted-mean">Unanswered (0/10 Rating Inputs)</div>
                     </div>
                 </div>
 
                 <div class="researcher-actions">
-                    <button class="btn-export-csv" onclick="exportUsabilityDataCSV()">📥 Export Participant Data (CSV)</button>
-                    <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="toggleSUSModal()">📝 10-Item SUS Scale Calculator</button>
-                    <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="toggleCohortModal()">📈 View Chapter 4 Results</button>
-                    <button class="btn-secondary" onclick="exportUsabilityDataJSON()">📋 Export Raw Logs (JSON)</button>
-                    <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="resetStudySession()">🔄 Reset Participant Session</button>
+                    <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="toggleSUSModal()"><i data-lucide="file-text"></i> <span>10-Item SUS Scale Survey</span></button>
+                    <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="resetStudySession()"><i data-lucide="rotate-ccw"></i> <span>Reset Participant Session</span></button>
                 </div>
             </div>
         </section>
@@ -1948,18 +1976,19 @@
         <!-- AI ASSISTANT CONSOLE SECTION -->
         <section id="assistant" class="two-col-section">
             <div class="big-feature-panel">
-                <div class="badge-pill"><div class="dot-glow"></div> AI ASSISTANT ENGINE <span class="binary-tag" style="margin-left:6px;">10101010</span></div>
+                <div class="badge-pill"><div class="dot-glow"></div> <i data-lucide="bot" style="width:14px; height:14px;"></i> AI ASSISTANT ENGINE <span class="binary-tag" style="margin-left:6px;">10101010</span></div>
                 <h2 class="panel-heading">Guidance that feels useful, not noisy.</h2>
                 <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:24px; font-weight:400;">
                     BYTECODE AI summarizes what changed, why it matters, and what the participant should try next — with confidence and clear privacy controls.
                 </p>
-                <button class="btn-ai-action" onclick="toggleChatWindow()">Launch AI Chat Assistant 🤖</button>
+                <button class="btn-ai-action" onclick="toggleChatWindow()"><i data-lucide="bot"></i> <span>Launch AI Chat Assistant</span></button>
             </div>
 
             <div class="cmd-box">
                 <div class="cmd-top-header">
                     <div style="display:flex; align-items:center; gap:8px;">
                         <div class="dot-glow"></div>
+                        <i data-lucide="terminal" style="color:var(--accent-cyan);"></i>
                         <span class="cmd-title-text">BYTECODE COMMAND CONSOLE</span>
                     </div>
                     <div class="cmd-status-tag">STATUS: ONLINE</div>
@@ -1974,8 +2003,7 @@
                 </div>
 
                 <div style="display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;">
-                    <button class="cmd-action-btn" onclick="sendQuickPrompt('Generate Workout Plan')">▶ Run AI Diagnostic</button>
-                    <button class="cmd-action-btn" onclick="exportUsabilityDataCSV()">📋 Export Usability Data</button>
+                    <button class="cmd-action-btn" onclick="sendQuickPrompt('Generate Workout Plan')"><i data-lucide="play" style="width:14px; height:14px;"></i> <span>Run AI Diagnostic</span></button>
                 </div>
             </div>
         </section>
@@ -1991,8 +2019,8 @@
                     <div class="logo-b">B</div>
                 </div>
                 <div class="logo-text">
-                    <span class="logo-brand">BYTECODE AI Health</span>
-                    <span class="logo-sub">ARELLANO UNIVERSITY RESEARCH SYSTEM <span class="binary-tag" style="margin-left:4px;">10101010</span></span>
+                    <span class="logo-brand">BYTECODE <span class="logo-brand-sub-text">AI Health</span></span>
+                    <span class="logo-sub">GEN Z AI WEARABLE RESEARCH PLATFORM <span class="binary-tag" style="margin-left:4px;">[10101010]</span></span>
                 </div>
             </div>
 
@@ -2012,10 +2040,13 @@
         <div class="device-modal-card">
             <div class="modal-top-header">
                 <div>
-                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">Connected Wearable Device</div>
+                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                        <i data-lucide="smartphone" style="color:var(--accent-cyan);"></i>
+                        <span>Connected Wearable Device</span>
+                    </div>
                     <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Select or pair your primary biometric smartwatch/band</div>
                 </div>
-                <button class="close-btn" onclick="toggleDeviceModal()">&times;</button>
+                <button class="close-btn" onclick="toggleDeviceModal()"><i data-lucide="x"></i></button>
             </div>
 
             <div class="device-list-grid" id="device-list-grid">
@@ -2023,25 +2054,30 @@
             </div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,242,254,0.06); border:1px solid rgba(0,242,254,0.2); padding:14px 20px; border-radius:18px; flex-shrink:0; flex-wrap:wrap; gap:10px;">
-                <div style="font-size:0.82rem; color:var(--text-secondary);">Telemetry: <b>Continuous PPG Pulse Streaming</b></div>
-                <button class="btn-ai-action" style="padding:8px 20px; font-size:0.82rem;" onclick="syncActiveDevice()">🔄 Sync Telemetry Now</button>
+                <div style="font-size:0.82rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
+                    <i data-lucide="radio" style="color:var(--accent-cyan);"></i> Telemetry: <b>Continuous PPG Pulse Streaming</b>
+                </div>
+                <button class="btn-ai-action" style="padding:8px 20px; font-size:0.82rem;" onclick="syncActiveDevice()"><i data-lucide="refresh-cw"></i> <span>Sync Telemetry Now</span></button>
             </div>
         </div>
     </div>
 
-    <!-- 10-ITEM SYSTEM USABILITY SCALE (SUS) INTERACTIVE CALCULATOR MODAL WITH CLEAR BUTTON -->
+    <!-- 10-ITEM SYSTEM USABILITY SCALE (SUS) INTERACTIVE SURVEY MODAL WITH CLEAR BUTTON -->
     <div class="sus-modal-overlay" id="sus-modal-overlay">
         <div class="sus-modal-card">
             <div class="modal-top-header">
                 <div>
-                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter';">10-Item System Usability Scale (SUS) Calculator</div>
+                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                        <i data-lucide="file-text" style="color:var(--accent-cyan);"></i>
+                        <span>10-Item System Usability Scale (SUS) Survey</span>
+                    </div>
                     <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Based on Brooke (1996) SUS Formula & Chapter 3 Methodology</div>
                 </div>
                 <div style="display:flex; align-items:center; gap:10px;">
                     <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearSUSSurvey()" title="Clear all radio selections">
-                        🧹 Clear Survey
+                        <i data-lucide="eraser"></i> <span>Clear Survey</span>
                     </button>
-                    <button class="close-btn" onclick="toggleSUSModal()">&times;</button>
+                    <button class="close-btn" onclick="toggleSUSModal()"><i data-lucide="x"></i></button>
                 </div>
             </div>
 
@@ -2071,25 +2107,29 @@
         <div class="cohort-modal-card">
             <div class="modal-top-header">
                 <div>
-                    <div style="font-size:1.2rem; font-weight:800; color:#ffffff; font-family:'Inter';">Chapter 4 Results: Usability Testing & Statistical Cohort Matrix</div>
-                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;" id="cohort-db-sync-status">
-                        ☁️ Firebase Realtime Database: Syncing automatically every 10s (Total Participants Responded: N=0)
+                    <div style="font-size:1.2rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                        <i data-lucide="trending-up" style="color:var(--accent-neon);"></i>
+                        <span>Chapter 4 Results: Usability Testing & Statistical Cohort Matrix</span>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px; display:flex; align-items:center; gap:6px;" id="cohort-db-sync-status">
+                        <i data-lucide="cloud" style="width:14px; height:14px;"></i>
+                        <span>Firebase Realtime Database: Syncing automatically every 10s (Total Participants Responded: N=0)</span>
                     </div>
                 </div>
-                <button class="close-btn" onclick="toggleCohortModal()">&times;</button>
+                <button class="close-btn" onclick="toggleCohortModal()"><i data-lucide="x"></i></button>
             </div>
 
             <!-- ACTION BUTTONS ROW -->
             <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:14px; flex-shrink:0;">
                 <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                     <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="syncCohortMatrixFromFirebase()" title="Force instant re-sync with Firebase Cloud Database">
-                        🔄 Sync Firebase Now
+                        <i data-lucide="cloud-lightning"></i> <span>Sync Firebase Now</span>
                     </button>
                     <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-neon); color:var(--accent-neon);" onclick="loadBenchmarkN40Dataset()" title="Preload N=40 benchmark research dataset from thesis paper">
-                        ⚡ Load Benchmark (N=40)
+                        <i data-lucide="zap"></i> <span>Load Benchmark (N=40)</span>
                     </button>
                     <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearParticipationsAndDatabase()" title="Clear all participations from Firebase database & reset matrix to N=0">
-                        🧹 Clear Database Participations
+                        <i data-lucide="trash-2"></i> <span>Clear Database Participations</span>
                     </button>
                 </div>
             </div>
@@ -2146,14 +2186,14 @@
             </div>
 
             <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:10px;">
-                <button class="btn-export-csv" onclick="exportCohortMatrixCSV()">📥 Export Chapter 4 Statistical Results (CSV)</button>
+                <button class="btn-export-csv" onclick="exportCohortMatrixCSV()"><i data-lucide="download"></i> <span>Export Chapter 4 Statistical Results (CSV)</span></button>
             </div>
         </div>
     </div>
 
     <!-- Floating BYTECODE AI Assistant Button -->
     <button class="ai-chat-trigger" onclick="toggleChatWindow()">
-        <span>⚡ BYTECODE AI Assistant</span>
+        <i data-lucide="bot"></i> <span>BYTECODE AI Assistant</span>
     </button>
 
     <!-- Floating BYTECODE AI Chat Window -->
@@ -2162,60 +2202,85 @@
             <div class="chat-header-info">
                 <div class="dot-glow"></div>
                 <div>
-                    <div class="chat-title">BYTECODE AI Health Assistant <span class="binary-tag" style="margin-left:4px; font-size:0.6rem;">[1010]</span></div>
+                    <div class="chat-title" style="display:flex; align-items:center; gap:6px;"><i data-lucide="bot" style="width:16px; height:16px; color:var(--accent-cyan);"></i> BYTECODE AI Health Assistant <span class="binary-tag" style="margin-left:4px; font-size:0.6rem;">[1010]</span></div>
                     <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">Biometric Matrix Intelligence</div>
                 </div>
             </div>
-            <button class="close-btn" onclick="toggleChatWindow()">&times;</button>
+            <button class="close-btn" onclick="toggleChatWindow()"><i data-lucide="x"></i></button>
         </div>
 
         <div class="chat-messages" id="chat-messages">
             <div class="msg msg-ai" id="chat-welcome-msg">
-                System Initialized. ⚡ Welcome to <b>BYTECODE AI</b>. I analyzed your real-time biometrics from <b>Samsung Galaxy Watch 6</b>: HRV is <b>68ms</b> and Sleep Score is <b>88%</b>. How can I optimize your health & performance today?
+                System Initialized. Welcome to <b>BYTECODE AI</b>. I analyzed your real-time biometrics from <b>Samsung Galaxy Watch 6</b>: HRV is <b>68ms</b> and Sleep Score is <b>88%</b>. How can I optimize your health & performance today?
             </div>
         </div>
 
         <div class="quick-prompts">
-            <div class="prompt-chip" onclick="sendQuickPrompt('What should I eat for dinner?')">🥗 Healthy Dinner Plan</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('High protein diet plan')">🥩 High Protein Diet</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('Post-workout meal')">🍱 Post-Workout Meal</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('When to stop drinking coffee?')">☕ Caffeine Cutoff</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('Am I hydrated enough?')">💧 Hydration Check</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('Generate Workout Plan')">🏋️ 20-min Workout</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('Fix my sleep schedule')">🌙 Fix Sleep Cycle</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('Quick stress relief')">🧘 Stress Relief</div>
-            <div class="prompt-chip" onclick="sendQuickPrompt('Explain my HRV score')">❤️ Explain HRV</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('What should I eat for dinner?')"><i data-lucide="utensils" style="width:12px; height:12px;"></i> Healthy Dinner Plan</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('High protein diet plan')"><i data-lucide="dumbbell" style="width:12px; height:12px;"></i> High Protein Diet</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('Post-workout meal')"><i data-lucide="package" style="width:12px; height:12px;"></i> Post-Workout Meal</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('When to stop drinking coffee?')"><i data-lucide="coffee" style="width:12px; height:12px;"></i> Caffeine Cutoff</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('Am I hydrated enough?')"><i data-lucide="droplet" style="width:12px; height:12px;"></i> Hydration Check</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('Generate Workout Plan')"><i data-lucide="activity" style="width:12px; height:12px;"></i> 20-min Workout</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('Fix my sleep schedule')"><i data-lucide="moon" style="width:12px; height:12px;"></i> Fix Sleep Cycle</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('Quick stress relief')"><i data-lucide="wind" style="width:12px; height:12px;"></i> Stress Relief</div>
+            <div class="prompt-chip" onclick="sendQuickPrompt('Explain my HRV score')"><i data-lucide="heart-pulse" style="width:12px; height:12px;"></i> Explain HRV</div>
         </div>
 
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chat-input" placeholder="Ask BYTECODE AI about diet, sleep, workouts..." onkeypress="handleKeyPress(event)">
-            <button class="send-btn" onclick="sendChatMessage()">➔</button>
+            <button class="send-btn" onclick="sendChatMessage()"><i data-lucide="send" style="width:16px; height:16px;"></i></button>
         </div>
     </div>
 
-    <!-- Toast Notification Banner -->
-    <div class="toast-notification" id="toast-notification">
-        <span>⚡</span> <span id="toast-msg">Notification Message</span>
+            <div class="toast-notification" id="toast-notification">
+        <i data-lucide="info" style="color:var(--accent-cyan);"></i> <span id="toast-msg">Notification Message</span>
     </div>
+
+    <style>
+        /* GPU HARDWARE ACCELERATION FOR SILKY SMOOTH 60 FPS SCROLLING */
+        .navbar-wrapper, .bg-binary-watermark, .hero-card-preview, .metric-card-figma, .ai-chat-window, .device-modal-card, .sus-modal-card, .cohort-modal-card {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .bar-pill, .anim-ecg, .anim-sleep-bars, .anim-breath, .histo-bar {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
+    </style>
 
     <!-- SCRIPT -->
     <script>
+        let lucideDebounce = null;
+        function refreshLucideIcons() {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                if (lucideDebounce) clearTimeout(lucideDebounce);
+                lucideDebounce = setTimeout(() => {
+                    window.lucide.createIcons();
+                }, 60);
+            }
+        }
+
         function toggleMobileDrawer() {
             const drawer = document.getElementById('mobile-nav-drawer');
-            const icon = document.getElementById('hamburger-icon');
+            const icon = document.getElementById('hamburger-icon-lucide');
             drawer.classList.toggle('active');
             if (drawer.classList.contains('active')) {
-                icon.innerText = '✕';
+                icon.setAttribute('data-lucide', 'x');
             } else {
-                icon.innerText = '☰';
+                icon.setAttribute('data-lucide', 'menu');
             }
+            refreshLucideIcons();
         }
 
         function closeMobileDrawer() {
             const drawer = document.getElementById('mobile-nav-drawer');
-            const icon = document.getElementById('hamburger-icon');
+            const icon = document.getElementById('hamburger-icon-lucide');
             drawer.classList.remove('active');
-            icon.innerText = '☰';
+            icon.setAttribute('data-lucide', 'menu');
+            refreshLucideIcons();
         }
 
         function toggleChatWindow() {
@@ -2224,11 +2289,13 @@
             if (chatWin.classList.contains('active')) {
                 document.getElementById('chat-input').focus();
             }
+            refreshLucideIcons();
         }
 
         function toggleDeviceModal() {
             const modal = document.getElementById('device-modal-overlay');
             modal.classList.toggle('active');
+            refreshLucideIcons();
         }
 
         function toggleSUSModal() {
@@ -2241,7 +2308,7 @@
                 if (name && age && address && email) {
                     registerParticipantAndUnlockTasks();
                 } else {
-                    showToast('🔒 Please complete Participant Demographic Registration first to access SUS survey!');
+                    showToast('Please complete Participant Demographic Registration first to access SUS survey!');
                     const regSection = document.getElementById('demographics-reg-box');
                     if (regSection) regSection.scrollIntoView({ behavior: 'smooth' });
                     document.getElementById('reg-name').focus();
@@ -2251,6 +2318,7 @@
 
             const modal = document.getElementById('sus-modal-overlay');
             modal.classList.toggle('active');
+            refreshLucideIcons();
         }
 
         function toggleCohortModal() {
@@ -2259,13 +2327,14 @@
             if (modal.classList.contains('active')) {
                 syncCohortMatrixFromFirebase();
             }
+            refreshLucideIcons();
         }
 
         function scrollToDataGathering() {
             const section = document.getElementById('usability-logger');
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
-                showToast('Opened Data Gathering Console 📊');
+                showToast('Opened Data Gathering Console');
             }
         }
 
@@ -2337,7 +2406,7 @@
                     if (!data) {
                         totalParticipantsRespondedCount = 0;
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: Total Participants Responded: N=0`;
+                        if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database Connected: Total Participants Responded: N=0</span>`;
                         clearCohortMatrix();
                         return;
                     }
@@ -2352,7 +2421,11 @@
                     let totalPossibleTasks = 0;
                     let totalElapsedSec = 0;
 
+                    registeredParticipantNamesSet.clear();
                     Object.values(data).forEach(sess => {
+                        if (sess && sess.participantName) {
+                            registeredParticipantNamesSet.add(sess.participantName);
+                        }
                         if (sess && sess.susItemResponses && sess.susItemResponses.length >= 10) {
                             validSessionsCount++;
 
@@ -2406,12 +2479,12 @@
                         });
 
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Synced! Total Participants Responded: N=${validSessionsCount} (Auto-updating every 10s)`;
+                        if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud-lightning" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span>Firebase Realtime Database Synced! Total Participants Responded: N=${validSessionsCount} (Auto-updating every 10s)</span>`;
                     } else {
                         activeAvgSuccessRate = "0.0";
                         activeMeanTaskTimeSec = "0.0";
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Realtime Database Connected: Total Participants Responded: N=0`;
+                        if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database Connected: Total Participants Responded: N=0</span>`;
                     }
 
                     renderCohortTable();
@@ -2428,8 +2501,8 @@
                     .then(() => {
                         clearCohortMatrix();
                         const statusEl = document.getElementById('cohort-db-sync-status');
-                        if (statusEl) statusEl.innerText = `☁️ Firebase Database Cleared! Participations Reset to N=0`;
-                        showToast('Cleared All Participations from Firebase Cloud Database! 🧹');
+                        if (statusEl) statusEl.innerHTML = `<i data-lucide="trash-2" style="width:14px; height:14px; color:var(--accent-pink);"></i> <span>Firebase Database Cleared! Participations Reset to N=0</span>`;
+                        showToast('Cleared All Participations from Firebase Cloud Database!');
                     })
                     .catch(err => {
                         console.warn('Firebase clear error:', err);
@@ -2494,7 +2567,7 @@
                 }
             }
 
-            showToast('Preloaded Chapter 4 Benchmark Results (N=40 Responded) to View & Database! ⚡');
+            showToast('Preloaded Chapter 4 Benchmark Results (N=40 Responded) to View & Database!');
         }
 
         function renderCohortTable() {
@@ -2593,6 +2666,8 @@
                 const gradeEl = document.getElementById('cohort-overall-grade');
                 if (gradeEl) gradeEl.innerText = `Pending Inputs (N=0)`;
             }
+
+            refreshLucideIcons();
         }
 
         function exportCohortMatrixCSV() {
@@ -2649,7 +2724,7 @@
             link.click();
             document.body.removeChild(link);
 
-            showToast(`Downloaded Chapter 4 Results Statistical CSV Table! 📥`);
+            showToast(`Downloaded Chapter 4 Results Statistical CSV Table!`);
         }
 
         function renderSUSQuestions() {
@@ -2698,8 +2773,27 @@
             renderCohortTable();
         }
 
-        /* STRICT DEMOGRAPHICS GATE LOCK ENGINE */
+        /* STRICT DEMOGRAPHICS GATE LOCK ENGINE WITH AGE LIMIT (14-27) & DUPLICATE NAME DETECTION */
         let isDemographicsRegistered = false;
+        let registeredParticipantNamesSet = new Set();
+
+        function isDuplicateParticipantName(name) {
+            if (!name) return false;
+            const normNew = name.toLowerCase().replace(/\s+/g, ' ').trim();
+
+            // Allow re-registering the same name in the active session
+            if (isDemographicsRegistered && studyLog && studyLog.participantName &&
+                studyLog.participantName.toLowerCase().replace(/\s+/g, ' ').trim() === normNew) {
+                return false;
+            }
+
+            for (let existingName of registeredParticipantNamesSet) {
+                if (existingName.toLowerCase().replace(/\s+/g, ' ').trim() === normNew) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         function registerParticipantAndUnlockTasks() {
             const name = document.getElementById('reg-name').value.trim();
@@ -2708,15 +2802,43 @@
             const email = document.getElementById('reg-email').value.trim();
 
             if (!name || !ageVal || !address || !email) {
-                showToast('⚠️ Please fill out ALL 4 demographic fields (Name, Age, Address, Email) to unlock usability tasks!');
+                showToast('Please fill out ALL 4 demographic fields (Name, Age, Address, Email) to unlock usability tasks!');
                 const statusEl = document.getElementById('demographics-status-text');
                 if (statusEl) {
-                    statusEl.innerHTML = `<span style="color:#ef4444;">⚠️ Form Incomplete — Fill All Fields First</span>`;
+                    statusEl.innerHTML = `<i data-lucide="alert-circle" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Form Incomplete — Fill All Fields First</span>`;
                 }
+                refreshLucideIcons();
                 return false;
             }
 
             const age = parseInt(ageVal);
+
+            // AGE LIMIT VALIDATION: 14 TO 27 YEARS OLD
+            if (isNaN(age) || age < 14 || age > 27) {
+                showToast('Age Limit Error! Participant age must be between 14 and 27 years old (Gen Z research cohort limit).');
+                const statusEl = document.getElementById('demographics-status-text');
+                if (statusEl) {
+                    statusEl.innerHTML = `<i data-lucide="alert-triangle" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Age Out of Bounds — Gen Z Cohort Limit is 14 to 27 Years Old</span>`;
+                }
+                document.getElementById('reg-age').focus();
+                refreshLucideIcons();
+                return false;
+            }
+
+            // DUPLICATE NAME DETECTION ("NO MATCHY")
+            if (isDuplicateParticipantName(name)) {
+                showToast(`Duplicate Name Error! "${name}" has already registered in the study database. No matching names allowed!`);
+                const statusEl = document.getElementById('demographics-status-text');
+                if (statusEl) {
+                    statusEl.innerHTML = `<i data-lucide="user-x" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Duplicate Name Error — "${name}" already registered!</span>`;
+                }
+                document.getElementById('reg-name').focus();
+                refreshLucideIcons();
+                return false;
+            }
+
+            registeredParticipantNamesSet.add(name);
+
             studyLog.participantDemographics = { fullName: name, age, address, email };
             studyLog.participantName = name;
             studyLog.participantAge = age;
@@ -2728,17 +2850,17 @@
             // Update UI status
             const statusEl = document.getElementById('demographics-status-text');
             if (statusEl) {
-                statusEl.innerHTML = `<span style="color:var(--accent-neon); font-weight:700;">🟢 Registered: ${name} (${age} yrs, ${address}) — Usability Tasks Unlocked!</span>`;
+                statusEl.innerHTML = `<i data-lucide="check-circle-2" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Registered: ${name} (${age} yrs, ${address}) — Tasks Unlocked!</span>`;
             }
 
             const lockBadge = document.getElementById('tasks-lock-status-badge');
             if (lockBadge) {
-                lockBadge.innerHTML = `<span style="color:var(--accent-neon); font-weight:700;">🔓 Status: UNLOCKED</span>`;
+                lockBadge.innerHTML = `<i data-lucide="unlock" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Status: UNLOCKED</span>`;
             }
 
             const btnUnlock = document.getElementById('btn-reg-unlock');
             if (btnUnlock) {
-                btnUnlock.innerText = `🟢 Participant Registered (${name}) — Tasks Unlocked`;
+                btnUnlock.innerHTML = `<i data-lucide="check-circle-2"></i> <span>Participant Registered (${name}) — Tasks Unlocked</span>`;
                 btnUnlock.style.background = 'rgba(16, 185, 129, 0.2)';
                 btnUnlock.style.borderColor = 'var(--accent-green)';
                 btnUnlock.style.color = 'var(--accent-neon)';
@@ -2749,7 +2871,8 @@
 
             // Sync to Firebase
             saveSessionToFirebase();
-            showToast(`🔓 Demographics Registered for ${name}! Usability Tasks & SUS Scale UNLOCKED.`);
+            showToast(`Demographics Registered for ${name}! Usability Tasks & SUS Scale UNLOCKED.`);
+            refreshLucideIcons();
             return true;
         }
 
@@ -2762,7 +2885,7 @@
                     if (btn) {
                         btn.classList.remove('locked-btn');
                         if (!studyLog.tasks[`Task_${i}`]) {
-                            btn.innerText = `Complete Task ${i} ✅`;
+                            btn.innerHTML = `<i data-lucide="check-circle-2" class="task-btn-icon"></i> <span class="task-btn-text">Complete Task ${i}</span>`;
                         }
                     }
                 }
@@ -2773,9 +2896,10 @@
                 susCard.classList.remove('locked');
                 const gradeLbl = document.getElementById('data-sus-grade');
                 if (gradeLbl && gradeLbl.innerText.includes('Register')) {
-                    gradeLbl.innerText = 'Click to Take SUS Survey 📝';
+                    gradeLbl.innerHTML = `<i data-lucide="file-text" style="width:12px; height:12px;"></i> <span>Click to Take SUS Survey</span>`;
                 }
             }
+            refreshLucideIcons();
         }
 
         function saveParticipantDemographics() {
@@ -2811,7 +2935,7 @@
                 firebaseDb.ref('usability_sessions/' + studyLog.sessionId).set(studyLog)
                     .then(() => {
                         console.log('⚡ Session ' + studyLog.sessionId + ' saved to Firebase Realtime Database!');
-                        showToast('Cloud Database Synced to Firebase! ☁️');
+                        showToast('Cloud Database Synced to Firebase!');
                         syncCohortMatrixFromFirebase();
                     })
                     .catch(err => {
@@ -2863,7 +2987,7 @@
                 document.getElementById('modal-sus-weighted-mean').innerText = `Select ratings 1 to 5`;
 
                 document.getElementById('data-sus-score').innerText = `Pending (${answeredCount}/10)`;
-                document.getElementById('data-sus-grade').innerText = `Click to Take SUS Survey 📝`;
+                document.getElementById('data-sus-grade').innerHTML = `<i data-lucide="file-text" style="width:12px; height:12px;"></i> <span>Click to Take SUS Survey</span>`;
                 document.getElementById('data-sus-weighted-mean').innerText = `Unanswered (${answeredCount}/10 Rating Inputs)`;
 
                 studyLog.susScore = "PENDING";
@@ -2871,6 +2995,7 @@
                 studyLog.susGrade = 'Pending Survey Inputs';
                 studyLog.verbalInterpretation = 'Unanswered';
                 studyLog.susItemResponses = susItemDetails;
+                refreshLucideIcons();
                 return;
             }
 
@@ -2917,6 +3042,7 @@
 
             // Sync session data to Firebase Realtime Database!
             saveSessionToFirebase();
+            refreshLucideIcons();
         }
 
         function clearSUSSurvey() {
@@ -2925,7 +3051,7 @@
                 radios.forEach(r => r.checked = false);
             }
             calculateLiveSUS();
-            showToast('Cleared SUS Scale Survey Answers! 🧹');
+            showToast('Cleared SUS Scale Survey Answers!');
         }
 
         /* DATA GATHERING & USABILITY LOGGING SYSTEM */
@@ -2971,7 +3097,7 @@
                 if (name && age && address && email) {
                     registerParticipantAndUnlockTasks();
                 } else {
-                    showToast('🔒 Please complete and register Participant Demographics first to unlock tasks!');
+                    showToast('Please complete and register Participant Demographics first to unlock tasks!');
                     const regBox = document.getElementById('demographics-reg-box');
                     if (regBox) regBox.scrollIntoView({ behavior: 'smooth' });
                     document.getElementById('reg-name').focus();
@@ -2983,7 +3109,7 @@
             if (card) {
                 card.classList.add('completed');
                 const btn = card.querySelector('.task-action-btn');
-                if (btn) btn.innerText = 'Task Completed ✓';
+                if (btn) btn.innerHTML = `<i data-lucide="check-circle-2"></i> <span>Task Completed</span>`;
             }
 
             const protocol = studyTaskProtocols.find(p => p.id === taskNum);
@@ -2999,10 +3125,9 @@
             };
 
             updateStudyDashboardUI();
-            showToast(`Task ${taskNum} Logged: "${taskName}" Completed! ✅`);
-
-            // Sync task completion to Firebase Cloud Database!
+            showToast(`Task ${taskNum} Logged: "${taskName}" Completed!`);
             saveSessionToFirebase();
+            refreshLucideIcons();
         }
 
         /* FULL RESEARCH-GRADE COMPREHENSIVE CSV DATA EXPORTER */
@@ -3075,7 +3200,7 @@
             link.click();
             document.body.removeChild(link);
 
-            showToast(`Downloaded Usability CSV Research Data for ${studyLog.sessionId}! 📥`);
+            showToast(`Downloaded Usability CSV Research Data for ${studyLog.sessionId}!`);
         }
 
         /* FULL RESEARCH-GRADE COMPREHENSIVE RAW JSON LOG EXPORTER */
@@ -3145,7 +3270,7 @@
             downloadAnchor.click();
             downloadAnchor.remove();
 
-            showToast(`Downloaded Comprehensive JSON Log for ${studyLog.sessionId}! 📋`);
+            showToast(`Downloaded Comprehensive JSON Log for ${studyLog.sessionId}!`);
         }
 
         function resetStudySession() {
@@ -3176,14 +3301,14 @@
             document.getElementById('reg-email').value = '';
 
             const statusEl = document.getElementById('demographics-status-text');
-            if (statusEl) statusEl.innerHTML = `🔒 Status: Tasks Locked — Please Fill Out Form Below`;
+            if (statusEl) statusEl.innerHTML = `<i data-lucide="lock" style="width:14px; height:14px;"></i> <span>Status: Tasks Locked — Please Fill Out Form Below</span>`;
 
             const lockBadge = document.getElementById('tasks-lock-status-badge');
-            if (lockBadge) lockBadge.innerHTML = `🔒 Status: Locked (Complete Registration Above)`;
+            if (lockBadge) lockBadge.innerHTML = `<i data-lucide="lock" style="width:14px; height:14px;"></i> <span>Status: Locked (Complete Registration Above)</span>`;
 
             const btnUnlock = document.getElementById('btn-reg-unlock');
             if (btnUnlock) {
-                btnUnlock.innerText = `🔒 Register Participant & Unlock Usability Tasks`;
+                btnUnlock.innerHTML = `<i data-lucide="lock" id="btn-lock-icon"></i> <span id="btn-lock-text">Register Participant & Unlock Usability Tasks</span>`;
                 btnUnlock.style.background = 'var(--gradient-btn)';
                 btnUnlock.style.borderColor = 'none';
                 btnUnlock.style.color = '#04090f';
@@ -3196,7 +3321,7 @@
                     card.classList.add('locked');
                     const btn = card.querySelector('.task-action-btn');
                     if (btn) {
-                        btn.innerText = `🔒 Complete Reg First`;
+                        btn.innerHTML = `<i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span>`;
                         btn.classList.add('locked-btn');
                     }
                 }
@@ -3206,25 +3331,26 @@
             if (susCard) {
                 susCard.classList.add('locked');
                 const gradeLbl = document.getElementById('data-sus-grade');
-                if (gradeLbl) gradeLbl.innerText = '🔒 Register to Take SUS Survey';
+                if (gradeLbl) gradeLbl.innerHTML = `<i data-lucide="lock" style="width:12px; height:12px;"></i> <span>Register to Take SUS Survey</span>`;
             }
 
             renderSUSQuestions();
             updateStudyDashboardUI();
             showToast('Reset Participant Session! Tasks Locked for New Participant ID: ' + studyLog.sessionId);
+            refreshLucideIcons();
         }
 
         const devicesList = [
-            { id: 'samsung', name: 'Samsung Galaxy Watch 6', icon: '📱', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%' },
-            { id: 'xiaomi', name: 'Xiaomi Watch S3', icon: '🟠', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%' },
-            { id: 'infinix', name: 'Infinix XWatch 3', icon: '⚡', sub: 'Infinix Health Link', hrv: 71, sleep: 86, move: 72, stress: 19, hr: 64, steps: '8,640', hrvLift: '+15%' },
-            { id: 'huawei', name: 'Huawei Watch GT 4', icon: '🔴', sub: 'Huawei Health Engine', hrv: 74, sleep: 91, move: 79, stress: 18, hr: 62, steps: '9,480', hrvLift: '+18%' },
-            { id: 'amazfit', name: 'Amazfit GTS 4', icon: '🔶', sub: 'Zepp OS Telemetry', hrv: 66, sleep: 85, move: 74, stress: 24, hr: 67, steps: '8,880', hrvLift: '+10%' },
-            { id: 'apple', name: 'Apple Watch Series 9', icon: '🍎', sub: 'Apple HealthKit Sync', hrv: 72, sleep: 90, move: 84, stress: 20, hr: 63, steps: '10,080', hrvLift: '+16%' },
-            { id: 'garmin', name: 'Garmin Fēnix 7', icon: '🔺', sub: 'Garmin Connect API', hrv: 78, sleep: 92, move: 91, stress: 15, hr: 59, steps: '10,920', hrvLift: '+22%' },
-            { id: 'whoop', name: 'Whoop 4.0 Strap', icon: '⚡', sub: 'Recovery & Strain Engine', hrv: 82, sleep: 94, move: 88, stress: 14, hr: 57, steps: '10,560', hrvLift: '+25%' },
-            { id: 'fitbit', name: 'Fitbit Sense 2', icon: '👟', sub: 'Google Health Connect', hrv: 69, sleep: 87, move: 78, stress: 21, hr: 65, steps: '9,360', hrvLift: '+13%' },
-            { id: 'oura', name: 'Oura Ring Gen 3', icon: '💍', sub: 'Oura Readiness & PPG', hrv: 76, sleep: 95, move: 70, stress: 16, hr: 58, steps: '8,400', hrvLift: '+20%' }
+            { id: 'samsung', name: 'Samsung Galaxy Watch 6', icon: 'smartphone', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%' },
+            { id: 'xiaomi', name: 'Xiaomi Watch S3', icon: 'watch', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%' },
+            { id: 'infinix', name: 'Infinix XWatch 3', icon: 'zap', sub: 'Infinix Health Link', hrv: 71, sleep: 86, move: 72, stress: 19, hr: 64, steps: '8,640', hrvLift: '+15%' },
+            { id: 'huawei', name: 'Huawei Watch GT 4', icon: 'watch', sub: 'Huawei Health Engine', hrv: 74, sleep: 91, move: 79, stress: 18, hr: 62, steps: '9,480', hrvLift: '+18%' },
+            { id: 'amazfit', name: 'Amazfit GTS 4', icon: 'activity', sub: 'Zepp OS Telemetry', hrv: 66, sleep: 85, move: 74, stress: 24, hr: 67, steps: '8,880', hrvLift: '+10%' },
+            { id: 'apple', name: 'Apple Watch Series 9', icon: 'watch', sub: 'Apple HealthKit Sync', hrv: 72, sleep: 90, move: 84, stress: 20, hr: 63, steps: '10,080', hrvLift: '+16%' },
+            { id: 'garmin', name: 'Garmin Fēnix 7', icon: 'activity', sub: 'Garmin Connect API', hrv: 78, sleep: 92, move: 91, stress: 15, hr: 59, steps: '10,920', hrvLift: '+22%' },
+            { id: 'whoop', name: 'Whoop 4.0 Strap', icon: 'zap', sub: 'Recovery & Strain Engine', hrv: 82, sleep: 94, move: 88, stress: 14, hr: 57, steps: '10,560', hrvLift: '+25%' },
+            { id: 'fitbit', name: 'Fitbit Sense 2', icon: 'activity', sub: 'Google Health Connect', hrv: 69, sleep: 87, move: 78, stress: 21, hr: 65, steps: '9,360', hrvLift: '+13%' },
+            { id: 'oura', name: 'Oura Ring Gen 3', icon: 'disc', sub: 'Oura Readiness & PPG', hrv: 76, sleep: 95, move: 70, stress: 16, hr: 58, steps: '8,400', hrvLift: '+20%' }
         ];
 
         let selectedDeviceId = 'samsung';
@@ -3242,16 +3368,18 @@
 
                 row.innerHTML = `
                     <div class="device-info-left">
-                        <div class="device-icon-box">${dev.icon}</div>
+                        <div class="device-icon-box"><i data-lucide="${dev.icon}"></i></div>
                         <div>
                             <div class="device-name">${dev.name}</div>
-                            <div class="device-sub">${dev.sub} • ${isActive ? 'Connected 🟢' : 'Ready ⚡'}</div>
+                            <div class="device-sub">${dev.sub} • ${isActive ? 'Connected' : 'Ready'}</div>
                         </div>
                     </div>
-                    <span class="connect-pill-btn ${isActive ? 'connected' : ''}">${isActive ? 'Active 🟢' : 'Connect 🔗'}</span>
+                    <span class="connect-pill-btn ${isActive ? 'connected' : ''}">${isActive ? 'Active' : 'Connect'}</span>
                 `;
                 grid.appendChild(row);
             });
+
+            refreshLucideIcons();
         }
 
         let currentBiometrics = { hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66 };
@@ -3276,7 +3404,7 @@
 
             document.getElementById('preview-hrv-num').innerHTML = `${dev.hrv} <span>ms</span>`;
             document.getElementById('move-ring-text').innerText = `${dev.move}%`;
-            document.getElementById('steps-pill-text').innerText = `${dev.steps} / 12,000 steps`;
+            document.getElementById('steps-pill-text').innerHTML = `<i data-lucide="footprints" style="width:14px; height:14px;"></i> ${dev.steps} / 12,000 steps`;
 
             const ringCircle = document.getElementById('move-ring-circle');
             if (ringCircle) {
@@ -3293,6 +3421,8 @@
 
             const drawerDevEl = document.getElementById('mobile-drawer-device-name');
             if (drawerDevEl) drawerDevEl.innerText = dev.name;
+
+            refreshLucideIcons();
         }
 
         function selectDevice(id) {
@@ -3303,12 +3433,12 @@
             renderDevicesList();
 
             const shortName = dev.name;
-            document.getElementById('active-device-name').innerText = `${dev.icon} ${shortName}`;
+            document.getElementById('active-device-name').innerText = `${shortName}`;
             document.getElementById('sync-status-text').innerText = `Synced 2 sec ago (${shortName})`;
 
             updateBiometricsUI(dev);
 
-            showToast(`Connected to ${dev.name} — Biometrics Updated! ⚡`);
+            showToast(`Connected to ${dev.name} — Biometrics Updated!`);
             setTimeout(toggleDeviceModal, 500);
         }
 
@@ -3324,7 +3454,7 @@
                 updateBiometricsUI(syncedDev);
             }
 
-            showToast(`Synced Telemetry from ${devName}... ⚡`);
+            showToast(`Synced Telemetry from ${devName}...`);
             document.getElementById('sync-status-text').innerText = `Synced 1 sec ago (${devName})`;
         }
 
@@ -3336,65 +3466,65 @@
 
             if (lower.includes('dinner') || lower.includes('night meal') || lower.includes('supper')) {
                 const dinners = [
-                    `🥗 <b>BYTECODE AI Dinner Recommendation:</b> Based on your HRV (${hrv}ms from ${activeDevName}), choose a high-tryptophan dinner: <b>Grilled salmon/chicken breast with quinoa and steamed broccoli</b>. High in omega-3s & magnesium!`,
-                    `🍲 <b>BYTECODE AI Dinner Recommendation:</b> Low-inflammatory option: <b>Tofu/chicken brown rice bowl with avocado and kimchi</b>. Supports gut microbiome and steady nighttime glucose.`
+                    `<b>BYTECODE AI Dinner Recommendation:</b> Based on your HRV (${hrv}ms from ${activeDevName}), choose a high-tryptophan dinner: <b>Grilled salmon/chicken breast with quinoa and steamed broccoli</b>. High in omega-3s & magnesium!`,
+                    `<b>BYTECODE AI Dinner Recommendation:</b> Low-inflammatory option: <b>Tofu/chicken brown rice bowl with avocado and kimchi</b>. Supports gut microbiome and steady nighttime glucose.`
                 ];
                 return dinners[Math.floor(Math.random() * dinners.length)];
             }
 
             if (lower.includes('protein') || lower.includes('high protein') || lower.includes('macros')) {
-                return `🥩 <b>BYTECODE AI Macro Protocol:</b> For your current active profile (Move goal: ${move}%), target <b>1.6g to 2.0g protein per kg</b> of bodyweight. Key sources: Chicken breast, whey/plant protein shakes, eggs, Greek yogurt, and lentils.`;
+                return `<b>BYTECODE AI Macro Protocol:</b> For your current active profile (Move goal: ${move}%), target <b>1.6g to 2.0g protein per kg</b> of bodyweight. Key sources: Chicken breast, whey/plant protein shakes, eggs, Greek yogurt, and lentils.`;
             }
 
             if (lower.includes('diet') || lower.includes('eat') || lower.includes('food') || lower.includes('meal') || lower.includes('snack')) {
                 const snacks = [
-                    `🍱 <b>BYTECODE AI Post-Workout Meal:</b> Your HRV is ${hrv}ms (high recovery state via ${activeDevName}). Combine <b>30g protein + 45g complex carbs</b> (e.g., Turkey wrap with spinach & sweet potato sides) within 45 mins of training.`,
-                    `🥗 <b>BYTECODE AI Recovery Snack:</b> Snack on <b>Greek yogurt + blueberries + 1 tbsp chia seeds</b> (24g protein / 30g anti-oxidant carbs) to boost REM sleep recovery.`,
-                    `🥑 <b>BYTECODE AI Nutrient Balance:</b> Fuel up with <b>Avocado toast on sourdough</b> with 2 poached eggs and pumpkin seeds for steady autonomic balance.`
+                    `<b>BYTECODE AI Post-Workout Meal:</b> Your HRV is ${hrv}ms (high recovery state via ${activeDevName}). Combine <b>30g protein + 45g complex carbs</b> (e.g., Turkey wrap with spinach & sweet potato sides) within 45 mins of training.`,
+                    `<b>BYTECODE AI Recovery Snack:</b> Snack on <b>Greek yogurt + blueberries + 1 tbsp chia seeds</b> (24g protein / 30g anti-oxidant carbs) to boost REM sleep recovery.`,
+                    `<b>BYTECODE AI Nutrient Balance:</b> Fuel up with <b>Avocado toast on sourdough</b> with 2 poached eggs and pumpkin seeds for steady autonomic balance.`
                 ];
                 return snacks[Math.floor(Math.random() * snacks.length)];
             }
 
             if (lower.includes('coffee') || lower.includes('caffeine') || lower.includes('pre-workout') || lower.includes('drink')) {
-                return `☕ <b>BYTECODE AI Caffeine Guidance:</b> Caffeine has a 6-hour half-life. To safeguard your <b>${sleep}% sleep score</b>, cut off caffeine by <b>2:00 PM</b>. Limit pre-workout intake to under 200mg.`;
+                return `<b>BYTECODE AI Caffeine Guidance:</b> Caffeine has a 6-hour half-life. To safeguard your <b>${sleep}% sleep score</b>, cut off caffeine by <b>2:00 PM</b>. Limit pre-workout intake to under 200mg.`;
             }
 
             if (lower.includes('water') || lower.includes('hydrate') || lower.includes('hydration') || lower.includes('fluid')) {
-                return `💧 <b>BYTECODE AI Hydration Check:</b> Aim for <b>2.8 to 3.2 Liters</b> of water daily. Add a dash of sea salt or an electrolyte packet after workouts to maintain cell volume and stable PPG pulse amplitudes.`;
+                return `<b>BYTECODE AI Hydration Check:</b> Aim for <b>2.8 to 3.2 Liters</b> of water daily. Add a dash of sea salt or an electrolyte packet after workouts to maintain cell volume and stable PPG pulse amplitudes.`;
             }
 
             if (lower.includes('workout') || lower.includes('exercise') || lower.includes('gym') || lower.includes('train') || lower.includes('cardio')) {
                 const workouts = [
-                    `🏋️ <b>BYTECODE AI Custom Workout:</b> Your HRV is strong (${hrv}ms on ${activeDevName}). Recommended: <b>35-min Zone 2 Cardio</b> followed by 10 mins of core stability. Keep HR around 135–145 bpm.`,
-                    `🚴 <b>BYTECODE AI Custom Workout:</b> High parasympathetic recovery detected (${hrv}ms). Ideal day for a <b>45-min Outdoor Cycling</b> or Tempo Run session!`,
-                    `🧘 <b>BYTECODE AI Custom Workout:</b> Sleep is solid (${sleep}%), but stress is ${stress}/100. Recommended: <b>30-min Moderate Strength</b> circuit with 5-min mobility cool-down.`
+                    `<b>BYTECODE AI Custom Workout:</b> Your HRV is strong (${hrv}ms on ${activeDevName}). Recommended: <b>35-min Zone 2 Cardio</b> followed by 10 mins of core stability. Keep HR around 135–145 bpm.`,
+                    `<b>BYTECODE AI Custom Workout:</b> High parasympathetic recovery detected (${hrv}ms). Ideal day for a <b>45-min Outdoor Cycling</b> or Tempo Run session!`,
+                    `<b>BYTECODE AI Custom Workout:</b> Sleep is solid (${sleep}%), but stress is ${stress}/100. Recommended: <b>30-min Moderate Strength</b> circuit with 5-min mobility cool-down.`
                 ];
                 return workouts[Math.floor(Math.random() * workouts.length)];
             }
 
             if (lower.includes('sleep') || lower.includes('bed') || lower.includes('tired') || lower.includes('rest')) {
-                return `🌙 <b>BYTECODE AI Sleep Analysis:</b> Last night's sleep score was <b>${sleep}/100</b> (Deep Sleep: 2h 4m via ${activeDevName}). To preserve this baseline tonight, turn on blue-light filters by 9:30 PM and keep your bedroom temperature at 67°F (19.5°C).`;
+                return `<b>BYTECODE AI Sleep Analysis:</b> Last night's sleep score was <b>${sleep}/100</b> (Deep Sleep: 2h 4m via ${activeDevName}). To preserve this baseline tonight, turn on blue-light filters by 9:30 PM and keep your bedroom temperature at 67°F (19.5°C).`;
             }
 
             if (lower.includes('stress') || lower.includes('anxiety') || lower.includes('calm') || lower.includes('breath') || lower.includes('relax')) {
-                return `🧘 <b>BYTECODE AI Biofeedback:</b> Current Stress Index is <b>${stress}/100</b> (Low Stress). Execute 3 cycles of Box Breathing (Inhale 4s, Hold 4s, Exhale 4s, Hold 4s) to keep parasympathetic tone dominant.`;
+                return `<b>BYTECODE AI Biofeedback:</b> Current Stress Index is <b>${stress}/100</b> (Low Stress). Execute 3 cycles of Box Breathing (Inhale 4s, Hold 4s, Exhale 4s, Hold 4s) to keep parasympathetic tone dominant.`;
             }
 
             if (lower.includes('hrv') || lower.includes('heart') || lower.includes('pulse')) {
-                return `❤️ <b>BYTECODE AI HRV Signal:</b> Current HRV is <b>${hrv} ms</b> (Resting HR: ${hr} bpm on ${activeDevName}). Your autonomic nervous system is in an optimal recovery state (+12% above 7-day average).`;
+                return `<b>BYTECODE AI HRV Signal:</b> Current HRV is <b>${hrv} ms</b> (Resting HR: ${hr} bpm on ${activeDevName}). Your autonomic nervous system is in an optimal recovery state (+12% above 7-day average).`;
             }
 
             if (lower.includes('energy') || lower.includes('peak')) {
-                return `⚡ <b>BYTECODE AI Peak Energy Prediction:</b> Based on sleep score (${sleep}%) and HRV (${hrv}ms), your peak cognitive alertness is predicted between <b>10:45 AM and 1:15 PM</b>.`;
+                return `<b>BYTECODE AI Peak Energy Prediction:</b> Based on sleep score (${sleep}%) and HRV (${hrv}ms), your peak cognitive alertness is predicted between <b>10:45 AM and 1:15 PM</b>.`;
             }
 
             if (lower.includes('trend') || lower.includes('weekly')) {
-                return `📊 <b>BYTECODE AI Weekly Summary:</b> 7-day trend: HRV average is <b>66.4 ms</b>, Sleep average is <b>86.2%</b>, and overall recovery index is <b>+14% optimal</b>.`;
+                return `<b>BYTECODE AI Weekly Summary:</b> 7-day trend: HRV average is <b>66.4 ms</b>, Sleep average is <b>86.2%</b>, and overall recovery index is <b>+14% optimal</b>.`;
             }
 
             const defaults = [
-                `⚡ <b>BYTECODE AI:</b> Biometrics refreshed from ${activeDevName}! Current HRV is <b>${hrv}ms</b>, Sleep Score is <b>${sleep}%</b>, and Move Goal is <b>${move}%</b>. You are in an optimal physical state to train or focus today!`,
-                `🤖 <b>BYTECODE AI Intelligence:</b> System status healthy. Heart rate is <b>${hr} bpm</b> with a stress score of <b>${stress}/100</b>. How else can I assist your health protocol?`
+                `<b>BYTECODE AI:</b> Biometrics refreshed from ${activeDevName}! Current HRV is <b>${hrv}ms</b>, Sleep Score is <b>${sleep}%</b>, and Move Goal is <b>${move}%</b>. You are in an optimal physical state to train or focus today!`,
+                `<b>BYTECODE AI Intelligence:</b> System status healthy. Heart rate is <b>${hr} bpm</b> with a stress score of <b>${stress}/100</b>. How else can I assist your health protocol?`
             ];
             return defaults[Math.floor(Math.random() * defaults.length)];
         }
@@ -3433,6 +3563,26 @@
             }
         }
 
+        function openMetricAIInsight(metricType) {
+            const chatWin = document.getElementById('ai-chat-window');
+            if (!chatWin.classList.contains('active')) {
+                chatWin.classList.add('active');
+            }
+
+            let promptText = 'Analyze my Heart Rate Variability (HRV)';
+            if (metricType === 'hrv') {
+                promptText = 'Analyze my Heart Rate Variability (HRV)';
+            } else if (metricType === 'sleep') {
+                promptText = 'Analyze my Sleep Quality Score';
+            } else if (metricType === 'move') {
+                promptText = 'Analyze my Daily Activity Progress';
+            } else if (metricType === 'stress') {
+                promptText = 'Analyze my Stress Index Biofeedback';
+            }
+
+            sendQuickPrompt(promptText);
+        }
+
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendChatMessage();
         }
@@ -3464,6 +3614,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            refreshLucideIcons();
             renderDevicesList();
             renderSUSQuestions();
             updateStudyDashboardUI();
@@ -3573,9 +3724,16 @@
                 }
             }
 
+            let isTicking = false;
             window.addEventListener('scroll', () => {
                 if (isClickScrolling) return;
-                calculateActiveSection();
+                if (!isTicking) {
+                    window.requestAnimationFrame(() => {
+                        calculateActiveSection();
+                        isTicking = false;
+                    });
+                    isTicking = true;
+                }
             }, { passive: true });
 
             const privacyBtn = document.getElementById('privacy-btn');
@@ -3587,7 +3745,7 @@
             }
 
             const themeBtn = document.getElementById('theme-toggle-btn');
-            const themeIcon = document.getElementById('theme-icon');
+            const themeIconLucide = document.getElementById('theme-icon-lucide');
             let isDark = true;
 
             if (themeBtn) {
@@ -3595,13 +3753,14 @@
                     isDark = !isDark;
                     if (isDark) {
                         document.body.removeAttribute('data-theme');
-                        if (themeIcon) themeIcon.innerText = '🌙';
+                        if (themeIconLucide) themeIconLucide.setAttribute('data-lucide', 'moon');
                         showToast('Switched to Dark Mode (Cyber Navy)');
                     } else {
                         document.body.setAttribute('data-theme', 'light');
-                        if (themeIcon) themeIcon.innerText = '☀️';
+                        if (themeIconLucide) themeIconLucide.setAttribute('data-lucide', 'sun');
                         showToast('Switched to Light Mode (Teal Slate)');
                     }
+                    refreshLucideIcons();
                 });
             }
         });
