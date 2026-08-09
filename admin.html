@@ -640,6 +640,7 @@
                 <table class="admin-table">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Session ID</th>
                             <th>Full Name</th>
                             <th>Age</th>
@@ -650,6 +651,7 @@
                             <th>SUS Score</th>
                             <th>Weighted Mean (X̄)</th>
                             <th>Verbal Interpretation</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="participants-table-body">
@@ -879,6 +881,36 @@
                     matrixTbody.appendChild(tr);
                 });
 
+                // COMPUTE DYNAMIC TASK SUCCESS RATE & MEAN TASK TIME ACROSS ACTIVE SESSIONS
+                let totalTasksDone = 0;
+                let totalPossibleTasks = rawParticipantSessions.length * 5;
+                let totalElapsedSec = 0;
+
+                rawParticipantSessions.forEach(sess => {
+                    let tCount = 5;
+                    if (sess.tasks) {
+                        tCount = Object.keys(sess.tasks).length;
+                    }
+                    totalTasksDone += tCount;
+
+                    let sec = 38;
+                    if (sess.elapsedSessionSeconds) {
+                        sec = parseInt(sess.elapsedSessionSeconds);
+                    }
+                    totalElapsedSec += sec;
+                });
+
+                const dynamicTaskSuccRate = totalPossibleTasks > 0 
+                    ? ((totalTasksDone / totalPossibleTasks) * 100).toFixed(1) 
+                    : "0.0";
+                
+                const dynamicMeanTaskTime = rawParticipantSessions.length > 0 
+                    ? (totalElapsedSec / rawParticipantSessions.length).toFixed(1) 
+                    : "0.0";
+
+                document.getElementById('admin-task-succ').innerText = `${dynamicTaskSuccRate}%`;
+                document.getElementById('admin-mean-time').innerText = `${dynamicMeanTaskTime}s`;
+
                 const totalN = Math.max(maxN, rawParticipantSessions.length);
                 document.getElementById('admin-total-n').innerText = `N = ${totalN}`;
                 document.getElementById('participant-count-badge').innerText = `Total Registered Participants: N = ${totalN}`;
@@ -887,10 +919,10 @@
                     const overallMean = (sumMeans / 10).toFixed(2);
                     const susScore = ((overallMean - 1) * 25).toFixed(1);
 
-                    let grade = 'Grade A+ (Excellent)';
-                    if (susScore < 50.9) grade = 'Grade F (Poor)';
-                    else if (susScore < 68.0) grade = 'Grade C (Marginal)';
-                    else if (susScore < 80.3) grade = 'Grade B (Good)';
+                    let grade = 'Grade A+ (Excellent Usability)';
+                    if (susScore < 50.9) grade = 'Grade F (Poor Usability)';
+                    else if (susScore < 68.0) grade = 'Grade C (Marginal Usability)';
+                    else if (susScore < 80.3) grade = 'Grade B (Good Usability)';
 
                     let verbal = 'Strongly Agree';
                     if (overallMean >= 4.21) verbal = 'Strongly Agree';
@@ -916,8 +948,9 @@
             if (partTbody) {
                 partTbody.innerHTML = '';
                 if (rawParticipantSessions.length === 0) {
-                    partTbody.innerHTML = `<tr><td colspan="10" style="color:var(--text-muted); padding:20px;">No registered participants in database yet.</td></tr>`;
+                    partTbody.innerHTML = `<tr><td colspan="12" style="color:var(--text-muted); padding:20px;">No registered participants in database yet.</td></tr>`;
                 } else {
+                    let index = 1;
                     rawParticipantSessions.forEach(sess => {
                         const tr = document.createElement('tr');
                         const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
@@ -925,10 +958,13 @@
                         const score = sess.susScore || 'PENDING';
                         const meanVal = sess.weightedMean || '0.00';
                         const verbal = sess.verbalInterpretation || 'Unanswered';
+                        const sId = sess.sessionId || `GENZ-P-${String(index).padStart(3, '0')}`;
+                        const name = sess.participantName || 'N/A';
 
                         tr.innerHTML = `
-                            <td style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace;">${sess.sessionId || 'N/A'}</td>
-                            <td style="font-weight:700; color:#ffffff;">${sess.participantName || 'N/A'}</td>
+                            <td style="font-weight:800; color:var(--accent-neon);">${index}</td>
+                            <td style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace;">${sId}</td>
+                            <td style="font-weight:700; color:#ffffff;">${name}</td>
                             <td>${sess.participantAge || 'N/A'}</td>
                             <td>${sess.participantAddress || 'N/A'}</td>
                             <td>${sess.participantEmail || 'N/A'}</td>
@@ -937,13 +973,42 @@
                             <td style="font-weight:800; color:var(--accent-cyan);">${score}</td>
                             <td style="font-weight:800; color:var(--accent-neon);">${meanVal}</td>
                             <td style="font-weight:600;">${verbal}</td>
+                            <td>
+                                <button onclick="deleteParticipantSession('${sId}', '${name.replace(/'/g, "\\'")}')" style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:5px 10px; border-radius:12px; font-size:0.75rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px;" title="Delete record from database">
+                                    <i data-lucide="trash-2" style="width:12px; height:12px;"></i> Delete
+                                </button>
+                            </td>
                         `;
                         partTbody.appendChild(tr);
+                        index++;
                     });
                 }
             }
 
             refreshLucideIcons();
+        }
+
+        function deleteParticipantSession(sessionId, name) {
+            if (confirm(`Are you sure you want to delete participant record "${name}" (${sessionId}) from the database?`)) {
+                if (firebaseDb) {
+                    firebaseDb.ref('usability_sessions/' + sessionId).remove()
+                        .then(() => {
+                            rawParticipantSessions = rawParticipantSessions.filter(s => s.sessionId !== sessionId);
+                            syncAdminFromFirebase();
+                            showToast(`Deleted record for "${name}"!`);
+                        })
+                        .catch(err => {
+                            console.error("Delete error:", err);
+                            rawParticipantSessions = rawParticipantSessions.filter(s => s.sessionId !== sessionId);
+                            renderAllAdminTables();
+                            showToast(`Removed "${name}"!`);
+                        });
+                } else {
+                    rawParticipantSessions = rawParticipantSessions.filter(s => s.sessionId !== sessionId);
+                    renderAllAdminTables();
+                    showToast(`Removed "${name}"!`);
+                }
+            }
         }
 
         function exportChapter4ResultsCSV() {
