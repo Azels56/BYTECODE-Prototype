@@ -350,7 +350,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 10000;
+            z-index: 26000;
             background: rgba(5, 8, 14, 0.96);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(0, 242, 254, 0.18);
@@ -421,28 +421,40 @@
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        /* DESKTOP NAV PILLS */
+        }        /* DESKTOP NAV PILLS (PERFECTLY DEAD-CENTERED & UNIFORM) */
         .nav-pills {
             display: flex; align-items: center; gap: 4px;
             background: rgba(18, 28, 45, 0.6); border: 1px solid var(--border-card);
-            padding: 4px; border-radius: 30px;
+            padding: 3px 5px; border-radius: 30px;
             flex-shrink: 0;
+            height: 38px;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 1221px) {
+            .nav-pills {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
 
         .nav-pill {
-            padding: 6px 11px;
+            padding: 5px 13px;
             border-radius: 20px;
             color: var(--text-secondary);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             background: transparent;
             white-space: nowrap;
             user-select: none;
+            display: inline-flex;
+            align-items: center;
+            height: 30px;
+            box-sizing: border-box;
         }
 
         .nav-pill:hover {
@@ -463,43 +475,63 @@
             box-shadow: 0 0 22px rgba(0, 242, 254, 0.6);
         }
 
-        .nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; height: 38px; }
 
         .device-connect-btn {
-            background: rgba(0, 242, 254, 0.1);
-            border: 1px solid rgba(0, 242, 254, 0.4);
+            background: rgba(18, 28, 45, 0.6);
+            border: 1px solid var(--border-card);
             color: #ffffff;
             height: 38px;
-            padding: 0 12px;
-            border-radius: 24px;
-            font-size: 0.78rem;
+            padding: 0 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: 600;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 8px;
             cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
             flex-shrink: 0;
-        }
-
-        #active-device-name {
-            display: inline-block;
-            white-space: nowrap;
+            box-sizing: border-box;
         }
 
         .device-connect-btn:hover {
-            background: rgba(0, 242, 254, 0.22);
+            background: rgba(0, 242, 254, 0.12);
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
-            transform: translateY(-1px);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
+            transform: translateY(-2px);
         }
 
-        .btn-icon { background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); font-size: 1rem; flex-shrink: 0; }
-        .btn-icon:hover { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 242, 254, 0.35); transform: translateY(-2px); }
+        .btn-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(18, 28, 45, 0.6);
+            border: 1px solid var(--border-card);
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .btn-icon:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.12);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.35);
+            transform: translateY(-2px);
+        }
+
         .btn-icon:active { transform: scale(0.95); }
         
-        .user-profile { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-card); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); flex-shrink: 0; }
+        .user-profile { width: 38px; height: 38px; border-radius: 50%; background: rgba(18, 28, 45, 0.6); border: 1px solid var(--border-card); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); flex-shrink: 0; box-sizing: border-box; }
         .user-profile:hover { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 242, 254, 0.35); transform: translateY(-2px); }
         .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--gradient-bytecode); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; color: #06090e; flex-shrink: 0; }
 
@@ -525,6 +557,328 @@
         .data-gathering-btn:hover {
             background: rgba(16, 185, 129, 0.3);
             box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+        }
+
+        /* BATTERY & PHILIPPINE TIME (PHT) BADGES */
+        .battery-badge, .ph-time-badge {
+            background: rgba(18, 28, 45, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+        }
+        .ph-time-badge {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(10, 25, 20, 0.7);
+        }
+        .ph-time-text {
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 700;
+            color: var(--accent-neon);
+        }
+
+        /* HERO PREVIEW CARD INTEGRATED TIME & BATTERY BADGES */
+        .card-time-badge, .card-batt-badge {
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card-batt-badge {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        [data-theme="light"] .card-time-badge, [data-theme="light"] .card-batt-badge {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.15);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .battery-badge, [data-theme="light"] .ph-time-badge {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+        [data-theme="light"] .ph-time-text {
+            color: #059669;
+        }
+
+        /* NOTIFICATION BELL & BADGE COUNT */
+        .notif-bell-btn {
+            position: relative;
+        }
+        .notif-badge-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #080d16;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+            transition: var(--transition);
+        }
+
+        /* INBOX NOTIFICATIONS MODAL OVERLAY */
+        .inbox-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 13, 0.88);
+            backdrop-filter: blur(16px);
+            z-index: 35000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 70px 24px 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        .inbox-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .inbox-modal-card {
+            background: rgba(10, 16, 26, 0.95);
+            border: 1.5px solid rgba(0, 242, 254, 0.35);
+            border-radius: 24px;
+            width: 380px;
+            max-width: 94vw;
+            max-height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+        }
+        [data-theme="light"] .inbox-modal-card {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+        [data-theme="light"] .inbox-header, [data-theme="light"] .inbox-footer {
+            background: #e2e8f0 !important;
+        }
+        [data-theme="light"] .inbox-title, [data-theme="light"] .notif-item-title {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .notif-item {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+        }
+        .inbox-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 11, 18, 0.9);
+        }
+        .inbox-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .inbox-body {
+            padding: 14px 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 420px;
+        }
+        .notif-item {
+            background: rgba(18, 28, 45, 0.8);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 16px;
+            padding: 12px 14px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            transition: var(--transition);
+            position: relative;
+        }
+        .notif-item.unread {
+            border-color: rgba(0, 242, 254, 0.5);
+            background: rgba(0, 242, 254, 0.06);
+        }
+        .notif-icon-box {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .notif-content {
+            flex: 1;
+        }
+        .notif-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .notif-item-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .notif-time {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .notif-text {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .inbox-footer {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(0, 242, 254, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 11, 18, 0.9);
+        }
+
+        /* BYTECODE AI RECOMMENDATION CARD COMPONENT (EXACT DESIGN MATCH) */
+        .ai-recommendation-card {
+            background: rgba(10, 18, 30, 0.95);
+            border: 2px solid #00f2fe;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.35), inset 0 0 15px rgba(0, 242, 254, 0.1);
+            max-width: 440px;
+            width: 100%;
+            transition: var(--transition);
+            margin: 10px 0;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .ai-recommendation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.5), inset 0 0 20px rgba(0, 242, 254, 0.15);
+            border-color: #38ef7d;
+        }
+
+        .ai-rec-header {
+            background: linear-gradient(90deg, #00f2fe 0%, #00d2ff 100%);
+            padding: 9px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #04090f;
+        }
+
+        .ai-rec-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #04090f;
+        }
+
+        .ai-rec-body {
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(14, 23, 38, 0.95);
+        }
+
+        .ai-rec-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.02rem;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .ai-rec-heading strong {
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .ai-rec-desc-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: rgba(225, 235, 245, 0.85);
+            font-size: 0.92rem;
+            line-height: 1.45;
+        }
+
+        .ai-rec-help-btn {
+            background: transparent;
+            border: none;
+            color: rgba(0, 242, 254, 0.7);
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .ai-rec-help-btn:hover {
+            color: var(--accent-neon);
+            transform: scale(1.15);
+        }
+
+        [data-theme="light"] .ai-recommendation-card {
+            background: #ffffff;
+            border-color: #00d2ff;
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.25);
+        }
+
+        [data-theme="light"] .ai-rec-body {
+            background: #f8fafc;
+        }
+
+        [data-theme="light"] .ai-rec-heading {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .ai-rec-desc-row {
+            color: #334155;
         }
 
         /* MOBILE & TABLET HAMBURGER TOGGLE BUTTON */
@@ -555,14 +909,18 @@
         .mobile-nav-drawer {
             display: none;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             background: #080d16;
             border-bottom: 2px solid var(--accent-cyan);
-            padding: 18px 20px 22px;
+            padding: 14px 16px 18px;
             position: absolute;
             top: 100%;
             left: 0;
             width: 100%;
+            box-sizing: border-box;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95);
             z-index: 10001;
         }
@@ -572,18 +930,30 @@
         }
 
         .mobile-nav-link {
-            padding: 14px 18px;
-            border-radius: 16px;
+            padding: 12px 16px;
+            border-radius: 14px;
             color: #ffffff;
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            font-weight: 600;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
             background: rgba(18, 28, 45, 0.9);
             border: 1px solid rgba(0, 242, 254, 0.25);
             transition: var(--transition);
+        }
+        .mobile-nav-link span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+        .mobile-nav-link span svg {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
         }
 
         .mobile-nav-link:hover, .mobile-nav-link.active {
@@ -597,26 +967,38 @@
         .mobile-drawer-actions-box {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             margin: 4px 0;
-            padding: 10px 0;
+            padding: 8px 0;
             border-top: 1px solid rgba(0, 242, 254, 0.15);
             border-bottom: 1px solid rgba(0, 242, 254, 0.15);
         }
 
         .mobile-drawer-btn {
-            padding: 13px 18px;
-            border-radius: 16px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            padding: 11px 16px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
             border: 1px solid rgba(0, 242, 254, 0.3);
             background: rgba(18, 28, 45, 0.95);
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
             cursor: pointer;
             transition: var(--transition);
+        }
+        .mobile-drawer-btn span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+        .mobile-drawer-btn span svg {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
         }
 
         .mobile-drawer-btn.green {
@@ -691,9 +1073,57 @@
             position: relative;
         }
 
-        .preview-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
-        .pill-tag-sync { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: #ffffff; font-size: 0.82rem; font-weight: 600; padding: 7px 18px; border-radius: 30px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .pill-tag-ai { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: #ffffff; font-size: 0.82rem; font-weight: 600; padding: 7px 18px; border-radius: 30px; }
+        .preview-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            flex-wrap: nowrap;
+            gap: 8px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .preview-top-bar::-webkit-scrollbar { display: none; }
+        
+        .pill-tag-sync, .pill-tag-ai, .card-time-badge, .card-batt-badge {
+            height: 30px;
+            padding: 0 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            box-sizing: border-box;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: #ffffff;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .pill-tag-sync { cursor: pointer; }
+        .pill-tag-sync:hover { background: rgba(0, 242, 254, 0.18); border-color: var(--accent-cyan); }
+
+        .card-batt-badge {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.12);
+        }
+        .card-batt-badge:hover {
+            background: rgba(16, 185, 129, 0.25);
+            border-color: var(--accent-neon);
+        }
+
+        .hero-top-badges-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
 
         .preview-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
         .preview-sub-card { background: rgba(22, 34, 52, 0.85); border: 1px solid rgba(0, 242, 254, 0.18); border-radius: 24px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
@@ -734,18 +1164,107 @@
         .preview-bar-row .bar-pill:nth-child(7) { animation-delay: 0.6s; }
 
         .preview-bottom-card { background: rgba(22, 34, 52, 0.85); border: 1px solid rgba(0, 242, 254, 0.18); border-radius: 24px; padding: 24px; position: relative; }
-        .activity-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+        .activity-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
         .activity-title-text { font-size: 1rem; font-weight: 600; font-family: 'Inter', sans-serif; color: #ffffff; display: flex; align-items: center; gap: 8px; }
-        .steps-pill-badge { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4); color: #ffffff; font-size: 0.82rem; font-weight: 600; padding: 6px 16px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
-        .activity-content-row { display: flex; align-items: center; gap: 28px; }
         
-        .ring-box-large { position: relative; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .ring-score-text { position: absolute; font-size: 1.15rem; font-weight: 700; font-family: 'Inter', sans-serif; color: #ffffff; }
-        .legend-list { display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; color: var(--text-secondary); font-weight: 400; }
-        .legend-row { display: flex; align-items: center; gap: 10px; }
-        .dot-c { width: 9px; height: 9px; border-radius: 50%; background: #00f2fe; box-shadow: 0 0 8px #00f2fe; }
-        .dot-m { width: 9px; height: 9px; border-radius: 50%; background: #ec4899; box-shadow: 0 0 8px #ec4899; }
-        .dot-g { width: 9px; height: 9px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; }
+        /* STEP GOAL METER WITH PROGRESS BAR & PERCENTAGE */
+        .step-goal-meter-box {
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            border-radius: 16px;
+            padding: 8px 14px;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+        .step-meter-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.8rem;
+        }
+        .step-meter-title {
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .step-meter-count {
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.76rem;
+        }
+        .step-meter-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .step-meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00f2fe 0%, #3b82f6 100%);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+            transition: width 0.8s ease;
+        }
+
+        .activity-content-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; flex-wrap: wrap; }
+        
+        .ring-box-large { position: relative; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .ring-score-text { position: absolute; font-size: 0.8rem; font-weight: 800; font-family: 'Space Grotesk', 'Inter', sans-serif; color: #ffffff; text-shadow: 0 0 8px rgba(0,0,0,0.6); line-height: 1; letter-spacing: -0.2px; }
+        
+        .legend-list { display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem; color: var(--text-secondary); font-weight: 500; min-width: 175px; }
+        .legend-row { display: flex; align-items: center; gap: 12px; }
+        .legend-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+        .legend-hdr-line { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .legend-lbl { font-size: 0.88rem; font-weight: 700; }
+        .legend-pct { font-size: 0.82rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+        .legend-val { font-size: 0.78rem; color: var(--text-secondary); opacity: 0.9; }
+
+        .activity-kcal-badge {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 18px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        .kcal-num { font-size: 1.5rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: #ffffff; }
+        .kcal-unit { font-size: 0.88rem; font-weight: 500; color: var(--text-secondary); }
+
+        [data-theme="light"] .step-goal-meter-box {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: rgba(0, 242, 254, 0.5);
+        }
+        [data-theme="light"] .step-meter-title {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .step-meter-count {
+            color: #334155 !important;
+        }
+        [data-theme="light"] .activity-kcal-badge {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+        [data-theme="light"] .kcal-num, [data-theme="light"] .ring-score-text {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .kcal-unit, [data-theme="light"] .legend-val {
+            color: #334155 !important;
+        }
+
+        .dot-c { width: 9px; height: 9px; border-radius: 50%; background: #00f2fe; box-shadow: 0 0 8px #00f2fe; flex-shrink: 0; }
+        .dot-m { width: 9px; height: 9px; border-radius: 50%; background: #ec4899; box-shadow: 0 0 8px #ec4899; flex-shrink: 0; }
+        .dot-g { width: 9px; height: 9px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; flex-shrink: 0; }
 
         .ai-banner-section { margin-top: 48px; margin-bottom: 60px; }
         .ai-banner-card {
@@ -1148,7 +1667,7 @@
             height: 100vh;
             background: rgba(4, 7, 13, 0.92);
             backdrop-filter: blur(18px);
-            z-index: 25000;
+            z-index: 27000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1280,6 +1799,9 @@
             flex-shrink: 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
+        .cohort-summary-5col {
+            grid-template-columns: repeat(5, 1fr);
+        }
 
         /* N=40 MULTI-RESPONDENT CHAPTER 4 RESULTS MODAL STYLING (ALWAYS OVERLAYS ABOVE NAVBAR) */
         .cohort-modal-overlay {
@@ -1290,7 +1812,7 @@
             height: 100vh;
             background: rgba(4, 7, 13, 0.94);
             backdrop-filter: blur(20px);
-            z-index: 25000;
+            z-index: 27000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1465,7 +1987,7 @@
         }
 
         .footer-section { background: rgba(18, 28, 42, 0.95); border-top: 1px solid rgba(0, 242, 254, 0.15); padding: 32px 0; margin-top: 60px; position: relative; z-index: 1; }
-        .footer-container { max-width: 1360px; margin: 0 auto; padding: 0 260px 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .footer-container { max-width: 1360px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .footer-brand { display: flex; align-items: center; gap: 14px; }
         
         .footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -1645,8 +2167,8 @@
            100% PERFECT RESPONSIVE MEDIA QUERIES FOR ALL PHONES & TABLETS
            ========================================================================== */
 
-        @media (max-width: 1180px) {
-            .nav-pills { display: none; }
+        @media (max-width: 1220px) {
+            .nav-pills { display: none !important; }
             .mobile-menu-toggle { display: flex !important; }
 
             .container { padding: 100px 20px 24px; }
@@ -1658,16 +2180,35 @@
             .two-col-section { grid-template-columns: 1fr; gap: 24px; }
             .tasks-5grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
             .research-metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .footer-container { padding: 0 24px; }
             .section-title { font-size: 2rem; max-width: 100%; }
             .section-desc { max-width: 100%; margin-top: 0; }
         }
 
-        @media (max-width: 768px) {
-            .navbar { padding: 8px 12px; gap: 4px; }
-            .logo-sub { display: none; }
-            #privacy-btn, .user-profile, .data-gathering-btn, .device-connect-btn { display: none !important; }
+        @media (max-width: 980px) {
+            .ph-time-badge { display: none !important; }
+        }
 
-            .nav-actions { gap: 6px; flex-shrink: 0; }
+        @media (max-width: 820px) {
+            .battery-badge, #privacy-btn, .user-profile { display: none !important; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 8px 10px; gap: 6px; }
+            .logo-brand-sub-text { display: inline !important; }
+            .logo-brand { font-size: 0.88rem !important; line-height: 1.1; }
+            .logo-sub {
+                display: flex !important;
+                font-size: 0.5rem !important;
+                letter-spacing: 0.6px !important;
+                opacity: 0.85 !important;
+                white-space: nowrap !important;
+                margin-top: 1px !important;
+            }
+            .logo-sub .binary-tag { display: none !important; }
+            .device-connect-btn { display: none !important; }
+
+            .nav-actions { gap: 4px; flex-shrink: 0; }
 
             .btn-icon, .mobile-menu-toggle {
                 width: 36px;
@@ -1679,17 +2220,69 @@
                 display: flex !important;
             }
 
-            .container { padding: 85px 12px 20px !important; width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }
-            .hero-title { font-size: 1.8rem; line-height: 1.25; letter-spacing: -0.5px; word-break: break-word; }
-            .hero-desc { font-size: 0.9rem; line-height: 1.5; word-break: break-word; }
-            .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 30px; }
-            .btn-ai-action, .btn-secondary, .cmd-action-btn { width: 100% !important; justify-content: center !important; text-align: center !important; white-space: normal !important; word-break: break-word !important; padding: 12px 14px !important; font-size: 0.85rem !important; }
+            .container { padding: 85px 12px 90px !important; width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }
+            .hero-title { font-size: 1.65rem; line-height: 1.25; letter-spacing: -0.5px; word-break: break-word; }
+            .hero-desc { font-size: 0.88rem; line-height: 1.5; word-break: break-word; }
+            .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 24px; }
+            .btn-ai-action, .btn-secondary, .cmd-action-btn { width: 100% !important; justify-content: center !important; text-align: center !important; white-space: normal !important; word-break: break-word !important; padding: 12px 14px !important; font-size: 0.82rem !important; box-sizing: border-box !important; }
+
+            .badge-pill {
+                font-size: 0.68rem !important;
+                padding: 4px 8px !important;
+                max-width: 100% !important;
+                white-space: normal !important;
+                line-height: 1.35 !important;
+                word-break: break-word !important;
+            }
+            .badge-pill .binary-tag { display: none !important; }
 
             .quick-stats-row { grid-template-columns: 1fr; gap: 10px; }
-            .hero-card-preview, .big-feature-panel, .cmd-console-card, .ai-banner-card { padding: 16px 14px !important; border-radius: 20px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
-            .preview-grid-2 { grid-template-columns: 1fr; gap: 14px; }
+            .hero-card-preview, .big-feature-panel, .cmd-console-card, .ai-banner-card { padding: 14px 12px !important; border-radius: 20px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+            
+            .preview-top-bar {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 8px !important;
+                width: 100% !important;
+            }
+            .pill-tag-sync {
+                width: 100% !important;
+                justify-content: space-between !important;
+                font-size: 0.72rem !important;
+                height: 28px !important;
+                padding: 0 8px !important;
+                box-sizing: border-box !important;
+            }
+            .hero-top-badges-group {
+                width: 100% !important;
+                justify-content: space-between !important;
+                margin-left: 0 !important;
+                gap: 4px !important;
+            }
+            .card-time-badge, .card-batt-badge, .pill-tag-ai {
+                padding: 0 8px !important;
+                font-size: 0.7rem !important;
+                height: 28px !important;
+            }
 
-            .panel-heading { font-size: 1.25rem !important; line-height: 1.35 !important; margin-bottom: 16px !important; white-space: normal !important; word-break: break-word !important; }
+            .preview-grid-2 { grid-template-columns: 1fr !important; gap: 14px !important; }
+            .preview-sub-card { padding: 16px 14px !important; border-radius: 18px !important; }
+            .preview-big-val { font-size: 1.8rem !important; }
+
+            .activity-top-row { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+            .activity-title-text { font-size: 0.92rem !important; }
+            .step-goal-meter-box { width: 100% !important; min-width: 0 !important; padding: 8px 12px !important; box-sizing: border-box !important; }
+            .step-meter-header { font-size: 0.75rem !important; }
+            
+            .activity-content-row { flex-direction: column !important; align-items: center !important; gap: 18px !important; width: 100% !important; }
+            .ring-box-large { width: 130px !important; height: 130px !important; flex-shrink: 0 !important; }
+            .legend-list { width: 100% !important; gap: 10px !important; }
+            .legend-row { padding: 8px 10px !important; border-radius: 12px !important; }
+            .legend-lbl, .legend-pct { font-size: 0.8rem !important; }
+            .legend-val { font-size: 0.74rem !important; }
+            .activity-kcal-badge { width: 100% !important; padding: 12px !important; border-radius: 16px !important; text-align: center !important; justify-content: center !important; align-self: center !important; box-sizing: border-box !important; }
+
+            .panel-heading { font-size: 1.2rem !important; line-height: 1.35 !important; margin-bottom: 16px !important; white-space: normal !important; word-break: break-word !important; }
             .panel-list-item { padding: 12px 14px; border-radius: 16px; gap: 10px; }
 
             .cmd-top-header { flex-wrap: wrap !important; gap: 8px !important; }
@@ -1698,30 +2291,45 @@
             .cmd-status-tag { font-size: 0.68rem !important; padding: 3px 8px !important; white-space: normal !important; }
 
             .section-header-row { flex-direction: column; gap: 8px; margin-bottom: 24px; }
-            .section-title { font-size: 1.55rem; word-break: break-word; }
+            .section-title { font-size: 1.45rem; word-break: break-word; }
             
             .metrics-4grid { grid-template-columns: 1fr; gap: 16px; }
             .tasks-5grid { grid-template-columns: 1fr; gap: 12px; }
+            .research-metrics-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
 
-            .ai-banner-card { flex-direction: column; align-items: flex-start; padding: 18px 14px !important; gap: 16px; }
+            .ai-banner-card { flex-direction: column; align-items: flex-start; padding: 16px 12px !important; gap: 16px; }
+            .ai-recommendation-card { max-width: 100% !important; width: 100% !important; }
 
-            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 16px 75px; }
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 16px 85px; }
             .footer-links { justify-content: center; width: 100%; flex-wrap: wrap; }
 
             .ai-chat-window {
                 width: 94vw !important;
                 right: 3vw !important;
-                bottom: 68px !important;
+                bottom: 72px !important;
                 height: 72vh !important;
                 max-height: calc(100vh - 80px);
                 z-index: 30000;
             }
             .ai-chat-trigger {
-                bottom: 12px !important;
-                right: 12px !important;
-                padding: 10px 14px !important;
-                font-size: 0.78rem !important;
-                max-width: calc(100vw - 24px) !important;
+                bottom: 16px !important;
+                right: 16px !important;
+                width: 48px !important;
+                height: 48px !important;
+                border-radius: 50% !important;
+                padding: 0 !important;
+                justify-content: center !important;
+                border: 2px solid var(--accent-cyan) !important;
+                box-shadow: 0 0 25px rgba(0, 242, 254, 0.6) !important;
+                z-index: 25000 !important;
+            }
+            .ai-chat-trigger span {
+                display: none !important;
+            }
+            .ai-chat-trigger svg {
+                width: 22px !important;
+                height: 22px !important;
+                margin: 0 !important;
             }
 
             .device-modal-card, .sus-modal-card, .cohort-modal-card {
@@ -1731,8 +2339,8 @@
             }
 
             .sus-calc-summary-box {
-                grid-template-columns: 1fr;
-                gap: 10px;
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
             }
 
             .demographics-inputs-grid {
@@ -1837,17 +2445,16 @@
             </div>
 
             <div class="nav-actions">
-                <!-- DATA GATHERING MODE BUTTON -->
-                <button class="data-gathering-btn" onclick="scrollToDataGathering()" title="Study Data Gathering Console">
-                    <div class="dot-glow"></div>
-                    <i data-lucide="bar-chart-3" style="width:1rem; height:1rem;"></i>
-                    <span class="data-gathering-btn-text">Data Mode</span>
-                </button>
-
                 <!-- INTERACTIVE WEARABLE DEVICE CONNECTIVITY BUTTON -->
-                <button class="device-connect-btn" onclick="toggleDeviceModal()" id="active-device-badge">
+                <button class="device-connect-btn" onclick="toggleDeviceModal()" id="active-device-badge" title="Connect Wearable Device">
                     <i data-lucide="smartphone" style="width:1rem; height:1rem;"></i>
                     <span id="active-device-name">Samsung Watch 6</span>
+                </button>
+
+                <!-- INBOX NOTIFICATIONS BELL BUTTON -->
+                <button class="btn-icon notif-bell-btn" id="inbox-bell-btn" onclick="toggleInboxModal()" title="Inbox Notifications & AI Health Alerts">
+                    <i data-lucide="bell"></i>
+                    <span class="notif-badge-count" id="notif-count-badge">3</span>
                 </button>
 
                 <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
@@ -1890,7 +2497,16 @@
                     <span><i data-lucide="bar-chart-3"></i> Data Gathering Mode & Console</span> <i data-lucide="chevron-right"></i>
                 </button>
                 <button class="mobile-drawer-btn cyan" onclick="toggleDeviceModal(); closeMobileDrawer();">
-                    <span><i data-lucide="smartphone"></i> Active Device: <b id="mobile-drawer-device-name" style="color:#ffffff;">Samsung Watch 6</b></span> <i data-lucide="chevron-right"></i>
+                    <span><i data-lucide="smartphone"></i> Device: <b id="mobile-drawer-device-name" style="color:#ffffff;">Samsung Watch 6</b> (<b id="mobile-drawer-batt-text" style="color:var(--accent-neon);">88%</b>)</span> <i data-lucide="chevron-right"></i>
+                </button>
+                <button class="mobile-drawer-btn cyan" onclick="toggleInboxModal(); closeMobileDrawer();">
+                    <span><i data-lucide="bell"></i> Inbox Alerts (<b id="mobile-drawer-notif-tag" style="color:var(--accent-pink);">3 New</b>)</span> <i data-lucide="chevron-right"></i>
+                </button>
+                <button class="mobile-drawer-btn cyan" onclick="document.getElementById('theme-toggle-btn').click(); closeMobileDrawer();">
+                    <span><i data-lucide="moon"></i> Toggle Theme (Light / Dark)</span> <i data-lucide="chevron-right"></i>
+                </button>
+                <button class="mobile-drawer-btn cyan" onclick="document.getElementById('privacy-btn').click(); closeMobileDrawer();">
+                    <span><i data-lucide="shield-check"></i> Privacy Settings</span> <i data-lucide="chevron-right"></i>
                 </button>
             </div>
 
@@ -1916,8 +2532,8 @@
                     An interactive, privacy-first AI-enhanced wearable health dashboard designed and evaluated for Gen Z users — integrating real-time telemetry, biometrics visualization, and automated usability data gathering.
                 </p>
                 <div class="hero-ctas">
-                    <button class="btn-ai-action" onclick="toggleChatWindow()"><i data-lucide="bot"></i> <span>Ask BYTECODE AI</span></button>
-                    <button class="btn-secondary" onclick="scrollToDataGathering()"><i data-lucide="database"></i> <span>Open Usability Data Console</span></button>
+                    <button class="btn-ai-action" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Ask BYTECODE AI</span></button>
+                    <button class="btn-secondary" onclick="scrollToDataGathering()"><i data-lucide="terminal"></i> <span>Open Usability Data Console</span></button>
                 </div>
 
                 <div class="quick-stats-row">
@@ -1942,8 +2558,13 @@
             <!-- Hero Mission Control Preview Card -->
             <div class="hero-card-preview">
                 <div class="preview-top-bar">
-                    <div class="pill-tag-sync" onclick="syncActiveDevice()"><div class="dot-glow"></div> <i data-lucide="refresh-cw" style="width:12px; height:12px;"></i> <span id="sync-status-text">Synced 12 sec ago (Samsung Galaxy Watch 6 )</span> <span class="binary-tag" style="margin-left:4px; opacity:0.5;">0101</span></div>
-                    <div class="pill-tag-ai"><i data-lucide="sparkles" style="width:12px; height:12px;"></i> AI Ready</div>
+                    <div class="pill-tag-sync" onclick="syncActiveDevice()" title="Sync Wearable Telemetry"><div class="dot-glow"></div> <i data-lucide="refresh-cw" style="width:11px; height:11px;"></i> <span id="sync-status-text">Synced 12s ago (Samsung Watch 6)</span> <span class="binary-tag" style="margin-left:2px; opacity:0.5;">0101</span></div>
+                    
+                    <div class="hero-top-badges-group">
+                        <div class="card-time-badge" id="card-ph-time-badge" title="Philippine Standard Time (PHT)"><i data-lucide="clock" style="width:11px; height:11px; color:var(--accent-cyan);"></i> <span id="card-ph-time-text" style="color:var(--accent-neon); font-weight:700;">11:50 AM PHT</span></div>
+                        <div class="card-batt-badge" id="card-batt-badge" title="Active Wearable Battery Level" onclick="toggleDeviceModal()" style="cursor:pointer;"><i data-lucide="battery-charging" style="width:12px; height:12px; color:var(--accent-neon);"></i> <span id="card-batt-text" style="font-weight:700;">88%</span></div>
+                        <div class="pill-tag-ai"><i data-lucide="sparkles" style="width:11px; height:11px;"></i> AI Ready</div>
+                    </div>
                 </div>
 
                 <div class="preview-grid-2">
@@ -1990,21 +2611,91 @@
 
                 <div class="preview-bottom-card">
                     <div class="activity-top-row">
-                        <div class="activity-title-text"><i data-lucide="flame" style="color:var(--accent-pink);"></i> Daily Activity <span class="binary-tag" style="margin-left:6px;">10101010</span></div>
-                        <div class="steps-pill-badge" id="steps-pill-text"><i data-lucide="footprints" style="width:14px; height:14px;"></i> 9,120 / 12,000 steps</div>
+                        <div class="activity-title-text"><i data-lucide="flame" style="color:#ec4899;"></i> Daily Activity <span class="binary-tag" style="margin-left:6px;">10101010</span></div>
+                        
+                        <!-- STEP GOAL METER WITH PROGRESS BAR & PERCENTAGE -->
+                        <div class="step-goal-meter-box" id="step-goal-meter-box">
+                            <div class="step-meter-header">
+                                <span class="step-meter-title"><i data-lucide="footprints" style="width:14px; height:14px; color:#00f2fe;"></i> Step Goal: <b id="steps-meter-pct" style="color:#00f2fe;">76%</b></span>
+                                <span class="step-meter-count" id="steps-meter-count">9,120 / 12,000 steps</span>
+                            </div>
+                            <div class="step-meter-track">
+                                <div class="step-meter-fill" id="steps-meter-bar" style="width: 76%;"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="activity-content-row">
+                        <!-- TRIPLE CONCENTRIC RINGS SVG -->
                         <div class="ring-box-large">
-                            <svg viewBox="0 0 100 100" style="width:100%; height:100%; transform:rotate(-90deg);">
-                                <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.08)" stroke-width="12" fill="none"/>
-                                <circle cx="50" cy="50" r="40" stroke="#00f2fe" stroke-width="12" fill="none" stroke-dasharray="251.3" stroke-dashoffset="60.3" stroke-linecap="round" id="move-ring-circle"/>
+                            <svg viewBox="0 0 120 120" style="width:100%; height:100%; transform:rotate(-90deg);">
+                                <defs>
+                                    <linearGradient id="moveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#f43f5e"/>
+                                        <stop offset="100%" stop-color="#ec4899"/>
+                                    </linearGradient>
+                                    <linearGradient id="stepsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#00f2fe"/>
+                                        <stop offset="100%" stop-color="#3b82f6"/>
+                                    </linearGradient>
+                                    <linearGradient id="standGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#10b981"/>
+                                        <stop offset="100%" stop-color="#34d399"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Ring 1: Move (Outer) -->
+                                <circle cx="60" cy="60" r="48" stroke="rgba(244, 63, 94, 0.15)" stroke-width="8.5" fill="none"/>
+                                <circle cx="60" cy="60" r="48" stroke="url(#moveGradient)" stroke-width="8.5" fill="none" stroke-dasharray="301.59" stroke-dashoffset="72.38" stroke-linecap="round" id="move-ring-circle" style="transition: stroke-dashoffset 0.8s ease;"/>
+
+                                <!-- Ring 2: Steps (Middle) -->
+                                <circle cx="60" cy="60" r="36" stroke="rgba(0, 242, 254, 0.15)" stroke-width="8.5" fill="none"/>
+                                <circle cx="60" cy="60" r="36" stroke="url(#stepsGradient)" stroke-width="8.5" fill="none" stroke-dasharray="226.19" stroke-dashoffset="54.28" stroke-linecap="round" id="steps-ring-circle" style="transition: stroke-dashoffset 0.8s ease;"/>
+
+                                <!-- Ring 3: Stand (Inner) -->
+                                <circle cx="60" cy="60" r="24" stroke="rgba(16, 185, 129, 0.15)" stroke-width="8.5" fill="none"/>
+                                <circle cx="60" cy="60" r="24" stroke="url(#standGradient)" stroke-width="8.5" fill="none" stroke-dasharray="150.80" stroke-dashoffset="25.18" stroke-linecap="round" id="stand-ring-circle" style="transition: stroke-dashoffset 0.8s ease;"/>
                             </svg>
                             <div class="ring-score-text" id="move-ring-text">76%</div>
                         </div>
+
+                        <!-- LEGEND DETAILS WITH UNIFORM PERCENTAGES -->
                         <div class="legend-list">
-                            <div class="legend-row"><div class="dot-c"></div> <span>Steps tracking</span></div>
-                            <div class="legend-row"><div class="dot-m"></div> <span>Move minutes</span></div>
-                            <div class="legend-row"><div class="dot-g"></div> <span>Stand progress</span></div>
+                            <div class="legend-row">
+                                <div class="dot-c"></div>
+                                <div class="legend-info">
+                                    <div class="legend-hdr-line">
+                                        <span class="legend-lbl" style="color:#00f2fe;">Steps</span>
+                                        <span class="legend-pct" id="steps-legend-pct" style="color:#00f2fe;">76%</span>
+                                    </div>
+                                    <span class="legend-val" id="steps-legend-val">9,120 / 12,000 steps</span>
+                                </div>
+                            </div>
+                            <div class="legend-row">
+                                <div class="dot-m"></div>
+                                <div class="legend-info">
+                                    <div class="legend-hdr-line">
+                                        <span class="legend-lbl" style="color:#ec4899;">Move</span>
+                                        <span class="legend-pct" id="move-legend-pct" style="color:#ec4899;">77%</span>
+                                    </div>
+                                    <span class="legend-val" id="move-mins-val">540 / 700 kcal</span>
+                                </div>
+                            </div>
+                            <div class="legend-row">
+                                <div class="dot-g"></div>
+                                <div class="legend-info">
+                                    <div class="legend-hdr-line">
+                                        <span class="legend-lbl" style="color:#10b981;">Stand</span>
+                                        <span class="legend-pct" id="stand-legend-pct" style="color:#10b981;">83%</span>
+                                    </div>
+                                    <span class="legend-val" id="stand-hrs-val">10 / 12 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOTAL CALORIES BADGE -->
+                        <div class="activity-kcal-badge">
+                            <span class="kcal-num" id="total-kcal-val">1,840</span>
+                            <span class="kcal-unit">kcal</span>
                         </div>
                     </div>
                 </div>
@@ -2124,7 +2815,7 @@
                     </div>
                     
                     <div class="card-inner-centered">
-                        <svg viewBox="0 0 380 250" style="width:100%; max-width:340px; height:auto; display:block; margin:0 auto; overflow:visible;">
+                        <svg viewBox="0 0 380 250" style="width:100%; max-width:340px; height:auto; display:block; margin:0 auto; overflow:hidden;">
                             <!-- Concentric Radar Grid Circles -->
                             <circle cx="190" cy="125" r="105" fill="rgba(0, 242, 254, 0.03)" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
                             <circle cx="190" cy="125" r="78.75" fill="rgba(0, 242, 254, 0.04)" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1.5"/>
@@ -2222,17 +2913,34 @@
 
         <!-- AI INSIGHTS SECTION -->
         <section id="insights" class="ai-banner-section">
-            <div class="ai-banner-card">
-                <div>
-                    <div class="badge-pill" style="margin-bottom:12px;"><div class="dot-glow"></div> <i data-lucide="sparkles" style="width:14px; height:14px;"></i> BYTECODE AI INSIGHT <span class="binary-tag" style="margin-left:6px;">11001010</span></div>
+            <div class="ai-banner-card" style="flex-wrap:wrap; gap:24px; align-items:center;">
+                <div style="flex:1; min-width:280px;">
+                    <div class="badge-pill" style="margin-bottom:12px;"><div class="dot-glow"></div> <i data-lucide="sparkles" style="width:14px; height:14px;"></i> BYTECODE AI INSIGHT ENGINE <span class="binary-tag" style="margin-left:6px;">11001010</span></div>
                     <h2 style="font-size:1.4rem; font-weight:700; font-family:'Inter'; margin-bottom:8px; color:var(--text-heading);" id="ai-insight-title">
                         Optimal recovery reached — HRV up 12%
                     </h2>
-                    <p style="color:var(--text-secondary); font-size:0.95rem; max-width:700px; font-weight:400;" id="ai-insight-desc">
+                    <p style="color:var(--text-secondary); font-size:0.95rem; max-width:700px; font-weight:400; margin-bottom:18px;" id="ai-insight-desc">
                         Your sleep score was 88% last night via Samsung Galaxy Watch. BYTECODE AI predicts peak energy between 10:30 AM and 1:00 PM. Recommended action: 30-minute moderate cardio session and one mindful cool-down block.
                     </p>
+                    <button class="btn-ai-action" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Open AI Guidance Console</span></button>
                 </div>
-                <button class="btn-ai-action" onclick="toggleChatWindow()"><i data-lucide="bot"></i> <span>Open guidance</span></button>
+
+                <!-- BYTECODE AI RECOMMENDATION CARD COMPONENT FROM USER SCREENSHOT -->
+                <div class="ai-recommendation-card" id="bytecode-ai-recommendation-card">
+                    <div class="ai-rec-header">
+                        <div class="ai-rec-title"><i data-lucide="sparkles" style="width:15px; height:15px;"></i> AI RECOMMENDATION</div>
+                        <i data-lucide="star" style="width:15px; height:15px; fill:#04090f; color:#04090f;"></i>
+                    </div>
+                    <div class="ai-rec-body">
+                        <div class="ai-rec-heading" id="ai-rec-card-title"><strong>Recovery Insight:</strong> Low HRV today.</div>
+                        <div class="ai-rec-desc-row">
+                            <span id="ai-rec-card-text">Consider lighter activity or meditation. (AI)</span>
+                            <button class="ai-rec-help-btn" onclick="showToast('BYTECODE AI Telemetry Insight: Evaluates HRV recovery index and sleep score.')" title="AI Insight Telemetry Info">
+                                <i data-lucide="help-circle" style="width:18px; height:18px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2499,7 +3207,7 @@
                 <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:24px; font-weight:400;">
                     BYTECODE AI summarizes what changed, why it matters, and what the participant should try next — with confidence and clear privacy controls.
                 </p>
-                <button class="btn-ai-action" onclick="toggleChatWindow()"><i data-lucide="bot"></i> <span>Launch AI Chat Assistant</span></button>
+                <button class="btn-ai-action" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Launch AI Chat Assistant</span></button>
             </div>
 
             <div class="cmd-box">
@@ -2552,6 +3260,69 @@
             </div>
         </div>
     </footer>
+
+    <!-- INBOX NOTIFICATIONS MODAL OVERLAY -->
+    <div class="inbox-modal-overlay" id="inbox-modal-overlay" onclick="handleInboxOverlayClick(event)">
+        <div class="inbox-modal-card">
+            <div class="inbox-header">
+                <div class="inbox-title">
+                    <i data-lucide="bell" style="color:var(--accent-cyan);"></i> BYTECODE AI Inbox
+                    <span class="binary-tag" id="inbox-unread-tag" style="margin-left:6px;">3 NEW</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button style="background:none; border:none; color:var(--accent-cyan); font-size:0.75rem; font-weight:600; cursor:pointer;" onclick="markAllNotificationsRead()">Mark all read</button>
+                    <button class="close-btn" style="width:28px; height:28px;" onclick="toggleInboxModal()"><i data-lucide="x"></i></button>
+                </div>
+            </div>
+
+            <!-- INBOX NOTIFICATIONS LIST -->
+            <div class="inbox-body" id="inbox-items-container">
+                <div class="notif-item unread" id="notif-item-1" onclick="markNotifRead(1)">
+                    <div class="notif-icon-box" style="background:rgba(16,185,129,0.15); color:var(--accent-neon);">
+                        <i data-lucide="zap" style="width:18px; height:18px;"></i>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-title-row">
+                            <span class="notif-item-title">HRV Peak & Recovery Signal</span>
+                            <span class="notif-time" id="notif-time-1">11:28 AM PHT</span>
+                        </div>
+                        <p class="notif-text">Heart Rate Variability increased +12% after 8h 12m sleep. Peak athletic and cognitive output window predicted.</p>
+                    </div>
+                </div>
+
+                <div class="notif-item unread" id="notif-item-2" onclick="markNotifRead(2)">
+                    <div class="notif-icon-box" style="background:rgba(0,242,254,0.15); color:var(--accent-cyan);">
+                        <i data-lucide="battery-charging" style="width:18px; height:18px;"></i>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-title-row">
+                            <span class="notif-item-title">Device Telemetry Connected</span>
+                            <span class="notif-time" id="notif-time-2">11:20 AM PHT</span>
+                        </div>
+                        <p class="notif-text"><b id="notif-device-name">Samsung Galaxy Watch 6</b> active. Battery charged at <b id="notif-device-battery">88%</b> with active PPG pulse telemetry.</p>
+                    </div>
+                </div>
+
+                <div class="notif-item unread" id="notif-item-3" onclick="markNotifRead(3)">
+                    <div class="notif-icon-box" style="background:rgba(236,72,153,0.15); color:var(--accent-pink);">
+                        <i data-lucide="clipboard-check" style="width:18px; height:18px;"></i>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-title-row">
+                            <span class="notif-item-title">Research Protocol Status</span>
+                            <span class="notif-time" id="notif-time-3">11:00 AM PHT</span>
+                        </div>
+                        <p class="notif-text">Participant ID registered. System Usability Scale (SUS) survey unlocked for evaluation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inbox-footer">
+                <span style="font-size:0.75rem; color:var(--text-secondary);" id="inbox-status-summary">3 unread • Philippine Time (PHT)</span>
+                <button class="btn-secondary" style="padding:4px 12px; font-size:0.75rem;" onclick="clearAllNotifications()">Clear All</button>
+            </div>
+        </div>
+    </div>
 
     <!-- INTERACTIVE WEARABLE DEVICE CONNECTIVITY MODAL -->
     <div class="device-modal-overlay" id="device-modal-overlay">
@@ -2653,7 +3424,7 @@
             </div>
 
             <!-- 5 SUMMARY CARDS GRID FOR CHAPTER 4 RESULTS -->
-            <div class="sus-calc-summary-box" style="grid-template-columns: repeat(5, 1fr); margin-bottom:16px; padding:14px 14px;">
+            <div class="sus-calc-summary-box cohort-summary-5col" style="margin-bottom:16px; padding:14px 14px;">
                 <div>
                     <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Total Participants Responded</div>
                     <div style="font-size:1.3rem; font-weight:800; color:var(--accent-neon); font-family:'Space Grotesk'; margin-top:2px;" id="cohort-total-participants">N = 0</div>
@@ -3622,6 +4393,22 @@
             susItemResponses: []
         };
 
+        function scrollToSection(sectionId) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function openAIGuidanceConsole() {
+            toggleChatWindow();
+            scrollToSection('assistant');
+            setTimeout(() => {
+                const input = document.getElementById('chat-input');
+                if (input) input.focus();
+            }, 300);
+        }
+
         function updateStudyDashboardUI() {
             document.getElementById('participant-session-id').innerText = studyLog.sessionId;
             const completedCount = Object.keys(studyLog.tasks).length;
@@ -3888,16 +4675,16 @@
         }
 
         const devicesList = [
-            { id: 'samsung', name: 'Samsung Galaxy Watch 6', icon: 'smartphone', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%' },
-            { id: 'xiaomi', name: 'Xiaomi Watch S3', icon: 'watch', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%' },
-            { id: 'infinix', name: 'Infinix XWatch 3', icon: 'zap', sub: 'Infinix Health Link', hrv: 71, sleep: 86, move: 72, stress: 19, hr: 64, steps: '8,640', hrvLift: '+15%' },
-            { id: 'huawei', name: 'Huawei Watch GT 4', icon: 'watch', sub: 'Huawei Health Engine', hrv: 74, sleep: 91, move: 79, stress: 18, hr: 62, steps: '9,480', hrvLift: '+18%' },
-            { id: 'amazfit', name: 'Amazfit GTS 4', icon: 'activity', sub: 'Zepp OS Telemetry', hrv: 66, sleep: 85, move: 74, stress: 24, hr: 67, steps: '8,880', hrvLift: '+10%' },
-            { id: 'apple', name: 'Apple Watch Series 9', icon: 'watch', sub: 'Apple HealthKit Sync', hrv: 72, sleep: 90, move: 84, stress: 20, hr: 63, steps: '10,080', hrvLift: '+16%' },
-            { id: 'garmin', name: 'Garmin Fēnix 7', icon: 'activity', sub: 'Garmin Connect API', hrv: 78, sleep: 92, move: 91, stress: 15, hr: 59, steps: '10,920', hrvLift: '+22%' },
-            { id: 'whoop', name: 'Whoop 4.0 Strap', icon: 'zap', sub: 'Recovery & Strain Engine', hrv: 82, sleep: 94, move: 88, stress: 14, hr: 57, steps: '10,560', hrvLift: '+25%' },
-            { id: 'fitbit', name: 'Fitbit Sense 2', icon: 'activity', sub: 'Google Health Connect', hrv: 69, sleep: 87, move: 78, stress: 21, hr: 65, steps: '9,360', hrvLift: '+13%' },
-            { id: 'oura', name: 'Oura Ring Gen 3', icon: 'disc', sub: 'Oura Readiness & PPG', hrv: 76, sleep: 95, move: 70, stress: 16, hr: 58, steps: '8,400', hrvLift: '+20%' }
+            { id: 'samsung', name: 'Samsung Galaxy Watch 6', icon: 'smartphone', sub: 'Android Wear OS', hrv: 68, sleep: 88, move: 76, stress: 22, hr: 66, steps: '9,120', hrvLift: '+12%', battery: 88 },
+            { id: 'xiaomi', name: 'Xiaomi Watch S3', icon: 'watch', sub: 'Android Mi Fitness API', hrv: 64, sleep: 84, move: 81, stress: 26, hr: 68, steps: '9,720', hrvLift: '+8%', battery: 92 },
+            { id: 'infinix', name: 'Infinix XWatch 3', icon: 'zap', sub: 'Infinix Health Link', hrv: 71, sleep: 86, move: 72, stress: 19, hr: 64, steps: '8,640', hrvLift: '+15%', battery: 78 },
+            { id: 'huawei', name: 'Huawei Watch GT 4', icon: 'watch', sub: 'Huawei Health Engine', hrv: 74, sleep: 91, move: 79, stress: 18, hr: 62, steps: '9,480', hrvLift: '+18%', battery: 85 },
+            { id: 'amazfit', name: 'Amazfit GTS 4', icon: 'activity', sub: 'Zepp OS Telemetry', hrv: 66, sleep: 85, move: 74, stress: 24, hr: 67, steps: '8,880', hrvLift: '+10%', battery: 64 },
+            { id: 'apple', name: 'Apple Watch Series 9', icon: 'watch', sub: 'Apple HealthKit Sync', hrv: 72, sleep: 90, move: 84, stress: 20, hr: 63, steps: '10,080', hrvLift: '+16%', battery: 82 },
+            { id: 'garmin', name: 'Garmin Fēnix 7', icon: 'activity', sub: 'Garmin Connect API', hrv: 78, sleep: 92, move: 91, stress: 15, hr: 59, steps: '10,920', hrvLift: '+22%', battery: 96 },
+            { id: 'whoop', name: 'Whoop 4.0 Strap', icon: 'zap', sub: 'Recovery & Strain Engine', hrv: 82, sleep: 94, move: 88, stress: 14, hr: 57, steps: '10,560', hrvLift: '+25%', battery: 74 },
+            { id: 'fitbit', name: 'Fitbit Sense 2', icon: 'activity', sub: 'Google Health Connect', hrv: 69, sleep: 87, move: 78, stress: 21, hr: 65, steps: '9,360', hrvLift: '+13%', battery: 80 },
+            { id: 'oura', name: 'Oura Ring Gen 3', icon: 'disc', sub: 'Oura Readiness & PPG', hrv: 76, sleep: 95, move: 70, stress: 16, hr: 58, steps: '8,400', hrvLift: '+20%', battery: 90 }
         ];
 
         let selectedDeviceId = 'samsung';
@@ -3951,15 +4738,78 @@
 
             document.getElementById('preview-hrv-num').innerHTML = `${dev.hrv} <span>ms</span>`;
             document.getElementById('move-ring-text').innerText = `${dev.move}%`;
-            document.getElementById('steps-pill-text').innerHTML = `<i data-lucide="footprints" style="width:14px; height:14px;"></i> ${dev.steps} / 12,000 steps`;
 
-            const ringCircle = document.getElementById('move-ring-circle');
-            if (ringCircle) {
-                const dashoffset = 251.3 * (1 - dev.move / 100);
-                ringCircle.setAttribute('stroke-dashoffset', dashoffset);
-            }
+            // Calculate percentages for 3 concentric rings
+            const movePercent = Math.min(1, Math.max(0, dev.move / 100));
+            const stepsNum = parseInt((dev.steps || "9120").replace(/,/g, ''), 10);
+            const stepsPercent = Math.min(1, Math.max(0, stepsNum / 12000));
+            const standPercent = Math.min(1, Math.max(0, (dev.move + 8) / 100));
+
+            // Update Step Goal Meter Box
+            const stepsPctText = `${Math.round(stepsPercent * 100)}%`;
+            if (document.getElementById('steps-meter-pct')) document.getElementById('steps-meter-pct').innerText = stepsPctText;
+            if (document.getElementById('steps-meter-count')) document.getElementById('steps-meter-count').innerText = `${dev.steps} / 12,000 steps`;
+            if (document.getElementById('steps-meter-bar')) document.getElementById('steps-meter-bar').style.width = stepsPctText;
+
+            // Ring 1: Move (Outer, r=48, C=301.59)
+            const moveCircle = document.getElementById('move-ring-circle');
+            if (moveCircle) moveCircle.setAttribute('stroke-dashoffset', (301.59 * (1 - movePercent)).toFixed(1));
+
+            // Ring 2: Steps (Middle, r=36, C=226.19)
+            const stepsCircle = document.getElementById('steps-ring-circle');
+            if (stepsCircle) stepsCircle.setAttribute('stroke-dashoffset', (226.19 * (1 - stepsPercent)).toFixed(1));
+
+            // Ring 3: Stand (Inner, r=24, C=150.80)
+            const standCircle = document.getElementById('stand-ring-circle');
+            if (standCircle) standCircle.setAttribute('stroke-dashoffset', (150.80 * (1 - standPercent)).toFixed(1));
+
+            // Update uniform activity legend percentages and values
+            const kcalTotal = Math.round(1840 * (dev.move / 76));
+            const totalKcalEl = document.getElementById('total-kcal-val');
+            if (totalKcalEl) totalKcalEl.innerText = kcalTotal.toLocaleString();
+
+            if (document.getElementById('steps-legend-pct')) document.getElementById('steps-legend-pct').innerText = stepsPctText;
+            const stepsLegendEl = document.getElementById('steps-legend-val');
+            if (stepsLegendEl) stepsLegendEl.innerText = `${dev.steps} / 12,000 steps`;
+
+            const movePctText = `${Math.round(movePercent * 100)}%`;
+            if (document.getElementById('move-legend-pct')) document.getElementById('move-legend-pct').innerText = movePctText;
+            const moveMinsEl = document.getElementById('move-mins-val');
+            if (moveMinsEl) moveMinsEl.innerText = `${Math.round(540 * (dev.move / 76))} / 700 kcal`;
+
+            const standPctText = `${Math.round(standPercent * 100)}%`;
+            if (document.getElementById('stand-legend-pct')) document.getElementById('stand-legend-pct').innerText = standPctText;
+            const standHrsEl = document.getElementById('stand-hrs-val');
+            if (standHrsEl) standHrsEl.innerText = `${Math.min(12, Math.round(10 * (dev.move / 76)))} / 12 hrs`;
 
             const shortName = dev.name;
+            const battPct = dev.battery || 88;
+            const battPctEl = document.getElementById('battery-pct-text');
+            if (battPctEl) battPctEl.innerText = `${battPct}%`;
+
+            const cardBattTextEl = document.getElementById('card-batt-text');
+            if (cardBattTextEl) cardBattTextEl.innerText = `${battPct}%`;
+
+            const mobileBattTextEl = document.getElementById('mobile-drawer-batt-text');
+            if (mobileBattTextEl) mobileBattTextEl.innerText = `${battPct}%`;
+
+            const notifBattEl = document.getElementById('notif-device-battery');
+            if (notifBattEl) notifBattEl.innerText = `${battPct}%`;
+            const notifDevEl = document.getElementById('notif-device-name');
+            if (notifDevEl) notifDevEl.innerText = dev.name;
+
+            const recTitleEl = document.getElementById('ai-rec-card-title');
+            const recTextEl = document.getElementById('ai-rec-card-text');
+            if (recTitleEl && recTextEl) {
+                if (dev.hrv < 67) {
+                    recTitleEl.innerHTML = `<strong>Recovery Insight:</strong> Low HRV today (${dev.hrv}ms).`;
+                    recTextEl.innerText = `Consider lighter activity or meditation. (AI)`;
+                } else {
+                    recTitleEl.innerHTML = `<strong>Recovery Insight:</strong> Optimal HRV recovery (${dev.hrv}ms).`;
+                    recTextEl.innerText = `Prime condition for high-intensity training or focus blocks. (AI)`;
+                }
+            }
+
             document.getElementById('ai-insight-title').innerText = `Optimal recovery reached — HRV up ${dev.hrvLift.replace('+','')}`;
             document.getElementById('ai-insight-desc').innerText = `Your sleep score was ${dev.sleep}% last night via ${shortName}. BYTECODE AI predicts peak energy between 10:30 AM and 1:00 PM. Recommended action: 30-minute moderate cardio session and one mindful cool-down block.`;
 
@@ -3971,6 +4821,105 @@
 
             updateRadarAndPredictorUI(dev);
             refreshLucideIcons();
+        }
+
+        /* LIVE PHILIPPINE TIME (PHT, UTC+8) CLOCK TIMER */
+        function updatePHTClock() {
+            try {
+                const now = new Date();
+                const options = {
+                    timeZone: 'Asia/Manila',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                };
+                const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
+                const el = document.getElementById('ph-time-text');
+                if (el) el.innerText = `${timeString} PHT`;
+
+                const shortOpt = { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit', hour12: true };
+                const shortTimeString = new Intl.DateTimeFormat('en-US', shortOpt).format(now);
+                const cardTimeEl = document.getElementById('card-ph-time-text');
+                if (cardTimeEl) cardTimeEl.innerText = `${shortTimeString} PHT`;
+                const t1 = new Date(now.getTime() - 10 * 60000);
+                const t2 = new Date(now.getTime() - 25 * 60000);
+                const t3 = new Date(now.getTime() - 45 * 60000);
+                
+                const notif1 = document.getElementById('notif-time-1');
+                if (notif1) notif1.innerText = new Intl.DateTimeFormat('en-US', shortOpt).format(t1) + ' PHT';
+                const notif2 = document.getElementById('notif-time-2');
+                if (notif2) notif2.innerText = new Intl.DateTimeFormat('en-US', shortOpt).format(t2) + ' PHT';
+                const notif3 = document.getElementById('notif-time-3');
+                if (notif3) notif3.innerText = new Intl.DateTimeFormat('en-US', shortOpt).format(t3) + ' PHT';
+            } catch (e) {}
+        }
+        setInterval(updatePHTClock, 1000);
+        updatePHTClock();
+
+        /* INBOX NOTIFICATION MODAL CONTROLLERS */
+        let unreadNotifCount = 3;
+
+        function toggleInboxModal() {
+            const overlay = document.getElementById('inbox-modal-overlay');
+            if (!overlay) return;
+            overlay.classList.toggle('active');
+        }
+
+        function handleInboxOverlayClick(e) {
+            if (e.target.id === 'inbox-modal-overlay') {
+                toggleInboxModal();
+            }
+        }
+
+        function markNotifRead(id) {
+            const item = document.getElementById(`notif-item-${id}`);
+            if (item && item.classList.contains('unread')) {
+                item.classList.remove('unread');
+                unreadNotifCount = Math.max(0, unreadNotifCount - 1);
+                updateNotifBadgeUI();
+            }
+        }
+
+        function markAllNotificationsRead() {
+            const unreadItems = document.querySelectorAll('.notif-item.unread');
+            unreadItems.forEach(item => item.classList.remove('unread'));
+            unreadNotifCount = 0;
+            updateNotifBadgeUI();
+            showToast('Marked all inbox notifications as read!');
+        }
+
+        function clearAllNotifications() {
+            const container = document.getElementById('inbox-items-container');
+            if (container) {
+                container.innerHTML = `<div style="text-align:center; padding:32px 10px; color:var(--text-secondary); font-size:0.85rem;"><i data-lucide="check-circle-2" style="width:28px; height:28px; color:var(--accent-neon); margin-bottom:8px; display:block; margin-left:auto; margin-right:auto;"></i> Inbox cleared! No active health alerts.</div>`;
+            }
+            unreadNotifCount = 0;
+            updateNotifBadgeUI();
+            const summary = document.getElementById('inbox-status-summary');
+            if (summary) summary.innerText = '0 notifications • PHT';
+            showToast('Cleared all notifications.');
+            refreshLucideIcons();
+        }
+
+        function updateNotifBadgeUI() {
+            const badge = document.getElementById('notif-count-badge');
+            if (badge) {
+                badge.innerText = unreadNotifCount;
+                if (unreadNotifCount === 0) {
+                    badge.style.display = 'none';
+                } else {
+                    badge.style.display = 'flex';
+                }
+            }
+            const tag = document.getElementById('inbox-unread-tag');
+            if (tag) tag.innerText = `${unreadNotifCount} NEW`;
+
+            const mobileTag = document.getElementById('mobile-drawer-notif-tag');
+            if (mobileTag) mobileTag.innerText = unreadNotifCount > 0 ? `${unreadNotifCount} New` : '0 New';
+
+            const summary = document.getElementById('inbox-status-summary');
+            if (summary) summary.innerText = `${unreadNotifCount} unread • Philippine Time (PHT)`;
         }
 
         function updateRadarAndPredictorUI(dev) {
@@ -4263,86 +5212,100 @@
         function speakText(htmlText) {
             if (!htmlText) return;
 
-            // Stop any playing audio / speech synthesis
-            if (activeAudioElement) {
-                try {
-                    activeAudioElement.pause();
-                    activeAudioElement.currentTime = 0;
-                } catch(e) {}
-            }
+            // Stop any currently playing speech
             if ('speechSynthesis' in window) {
                 try { window.speechSynthesis.cancel(); } catch(e) {}
             }
+            if (activeAudioElement) {
+                try { activeAudioElement.pause(); activeAudioElement.currentTime = 0; } catch(e) {}
+                activeAudioElement = null;
+            }
 
-            // Strip HTML & markdown tags for clean speech output
+            // Strip HTML tags & markdown for clean speech output
             let plainText = htmlText
                 .replace(/<[^>]*>?/gm, '')
                 .replace(/&nbsp;/g, ' ')
+                .replace(/&amp;/g, 'and')
+                .replace(/&lt;/g, '')
+                .replace(/&gt;/g, '')
                 .replace(/\*/g, '')
                 .replace(/BYTECODE AI[^:]*:/gi, '')
+                .replace(/\s+/g, ' ')
                 .trim();
 
             if (!plainText) return;
 
-            // Extract initial key sentence (up to 180 chars) for instant audio stream playback
-            let phrase = plainText.split('.')[0];
-            if (phrase.length < 40 && plainText.split('.')[1]) {
-                phrase += '. ' + plainText.split('.')[1];
-            }
-            phrase = phrase.substring(0, 180).trim();
-
-            // 1. Primary Engine: Public Google TTS MP3 Stream via HTML5 Audio
-            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(phrase)}&tl=en&client=tw-ob`;
-
-            try {
-                activeAudioElement = new Audio(ttsUrl);
-                activeAudioElement.volume = 1.0;
-                
-                const playPromise = activeAudioElement.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        console.log("🔊 Playing Google AI Voice MP3 Audio Stream!");
-                    }).catch(err => {
-                        console.warn("HTML5 Audio stream blocked or offline, switching to Native Web Speech:", err);
-                        fallbackNativeSpeech(plainText);
-                    });
-                }
-            } catch (err) {
-                fallbackNativeSpeech(plainText);
-            }
-        }
-
-        function fallbackNativeSpeech(plainText) {
             if (!('speechSynthesis' in window)) {
-                showToast('Web Speech Synthesis not supported in this browser mode.');
+                console.warn('speechSynthesis not supported');
+                showToast('Text-to-Speech not supported in this browser.');
                 return;
             }
 
-            try {
-                window.speechSynthesis.cancel();
+            function doSpeak() {
+                try {
+                    window.speechSynthesis.cancel();
 
-                const utterance = new SpeechSynthesisUtterance(plainText);
-                utterance.rate = 1.0;
-                utterance.pitch = 1.0;
-                utterance.volume = 1.0;
-                utterance.lang = 'en-US';
+                    const utterance = new SpeechSynthesisUtterance(plainText);
+                    utterance.rate = 1.0;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    utterance.lang = 'en-US';
 
-                const voices = window.speechSynthesis.getVoices();
-                if (voices && voices.length > 0) {
-                    const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('David') || v.name.includes('Zira') || v.name.includes('Samantha'))) || voices.find(v => v.lang.startsWith('en'));
-                    if (preferredVoice) {
-                        utterance.voice = preferredVoice;
+                    // Pick the best available English voice
+                    const voices = window.speechSynthesis.getVoices();
+                    if (voices && voices.length > 0) {
+                        const preferred = voices.find(v =>
+                            v.lang.startsWith('en') && (
+                                v.name.includes('Natural') ||
+                                v.name.includes('Google') ||
+                                v.name.includes('Microsoft') ||
+                                v.name.includes('Samantha') ||
+                                v.name.includes('Daniel')
+                            )
+                        ) || voices.find(v => v.lang.startsWith('en'));
+                        if (preferred) {
+                            utterance.voice = preferred;
+                            console.log('🔊 Using voice:', preferred.name);
+                        }
                     }
+
+                    utterance.onstart = () => {
+                        console.log('🔊 BYTECODE AI speaking:', plainText.substring(0, 80) + '...');
+                    };
+                    utterance.onend = () => {
+                        console.log('🔊 Speech finished.');
+                        clearInterval(keepAliveTimer);
+                    };
+                    utterance.onerror = (e) => {
+                        console.warn('🔇 Speech error:', e.error);
+                        clearInterval(keepAliveTimer);
+                    };
+
+                    // Chrome bug workaround: speech auto-pauses after ~15 seconds
+                    let keepAliveTimer = setInterval(() => {
+                        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+                            window.speechSynthesis.pause();
+                            window.speechSynthesis.resume();
+                        } else if (!window.speechSynthesis.speaking) {
+                            clearInterval(keepAliveTimer);
+                        }
+                    }, 10000);
+
+                    window.speechSynthesis.speak(utterance);
+                    console.log('🔊 speechSynthesis.speak() called successfully');
+                } catch (err) {
+                    console.error('Speech synthesis error:', err);
+                    showToast('Voice output error. Check browser permissions.');
                 }
+            }
 
-                setTimeout(() => {
-                    if ('speechSynthesis' in window) {
-                        window.speechSynthesis.resume();
-                        window.speechSynthesis.speak(utterance);
-                    }
-                }, 60);
-            } catch (err) {
-                console.error('Native speech synthesis error:', err);
+            // Voices may not be loaded yet — wait for them (Chrome loads async)
+            const voices = window.speechSynthesis.getVoices();
+            if (voices && voices.length > 0) {
+                doSpeak();
+            } else {
+                window.speechSynthesis.onvoiceschanged = () => { doSpeak(); };
+                setTimeout(doSpeak, 300);
             }
         }
 
