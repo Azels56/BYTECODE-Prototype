@@ -63,49 +63,159 @@
             }
 
             [data-theme="light"] {
-                --bg-primary: #e2e8f0;
-                --bg-card: #f1f5f9;
-                --bg-card-sub: #e2e8f0;
-                --border-card: #cbd5e1;
-                --border-glow: #94a3b8;
+                --bg-primary: #f8fafc;
+                --bg-card: #ffffff;
+                --bg-card-sub: #f1f5f9;
+                --border-card: #e2e8f0;
+                --border-glow: #cbd5e1;
                 --text-primary: #0f172a;
                 --text-heading: #0f172a;
-                --text-secondary: #334155;
-                --text-muted: #475569;
-                --shadow-neon: 0 10px 30px rgba(15, 23, 42, 0.08);
+                --text-secondary: #475569;
+                --text-muted: #64748b;
+                
+                --accent-cyan: #0284c7;
+                --accent-green: #059669;
+                --accent-neon: #059669;
+                --accent-purple: #7c3aed;
+                --accent-pink: #db2777;
+                
+                --gradient-bytecode: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #059669 100%);
+                --gradient-text-hero: linear-gradient(135deg, #7c3aed 0%, #0284c7 50%, #059669 100%);
+                --gradient-btn: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+                --shadow-neon: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
+            }
+
+            [data-theme="light"] body {
+                background-color: #f8fafc !important;
+                background-image: 
+                    radial-gradient(circle at 10% 15%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 75%, rgba(124, 58, 237, 0.05) 0%, transparent 40%) !important;
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .bg-binary-watermark {
+                opacity: 0.015 !important;
+                color: #64748b !important;
+            }
+            [data-theme="light"] .binary-tag {
+                color: #0284c7 !important;
+                opacity: 0.85 !important;
             }
 
             [data-theme="light"] .navbar-wrapper {
-                background: rgba(226, 232, 240, 0.95) !important;
-                border-bottom: 1px solid #cbd5e1 !important;
+                background: rgba(255, 255, 255, 0.95) !important;
+                border-bottom: 1px solid #e2e8f0 !important;
                 box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
             }
 
+            [data-theme="light"] .logo-icon-wrap {
+                background: #ffffff !important;
+                border-color: #059669 !important;
+                box-shadow: 0 0 12px rgba(5, 150, 105, 0.2) !important;
+            }
+            [data-theme="light"] .logo-b { color: #059669 !important; }
+            [data-theme="light"] .binary-digits { color: #0284c7 !important; }
             [data-theme="light"] .logo-brand { color: #0f172a !important; }
             [data-theme="light"] .logo-sub { color: #475569 !important; }
 
             [data-theme="light"] .nav-pills {
-                background: #cbd5e1 !important;
-                border-color: #94a3b8 !important;
+                background: #f1f5f9 !important;
+                border-color: #e2e8f0 !important;
             }
 
-            [data-theme="light"] .nav-pill { color: #334155 !important; }
-            [data-theme="light"] .nav-pill:hover { color: #0f172a !important; }
+            [data-theme="light"] .nav-pill { color: #475569 !important; }
+            [data-theme="light"] .nav-pill:hover { color: #0f172a !important; background: #e2e8f0 !important; }
             [data-theme="light"] .nav-pill.active {
                 background: #0284c7 !important;
                 color: #ffffff !important;
                 font-weight: 700 !important;
+                box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3) !important;
+            }
+
+            /* MOBILE NAV DRAWER IN LIGHT MODE */
+            [data-theme="light"] .mobile-nav-drawer {
+                background: #ffffff !important;
+                border-bottom: 2px solid #0284c7 !important;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12) !important;
+            }
+
+            [data-theme="light"] .mobile-nav-link {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .mobile-nav-link:hover,
+            [data-theme="light"] .mobile-nav-link.active {
+                background: #0284c7 !important;
+                color: #ffffff !important;
+                border-color: #0284c7 !important;
+                box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25) !important;
+            }
+
+            [data-theme="light"] .mobile-drawer-actions-box {
+                border-top: 1px solid #e2e8f0 !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+
+            [data-theme="light"] .mobile-drawer-btn {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .mobile-drawer-btn.green {
+                background: #ecfdf5 !important;
+                border-color: #a7f3d0 !important;
+                color: #059669 !important;
+            }
+
+            [data-theme="light"] .mobile-drawer-btn.cyan {
+                background: #f0f9ff !important;
+                border-color: #bae6fd !important;
+                color: #0284c7 !important;
+            }
+
+            [data-theme="light"] .mobile-drawer-btn:hover {
+                background: #ffffff !important;
+                border-color: #0284c7 !important;
+                box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15) !important;
+            }
+
+            [data-theme="light"] .mobile-menu-toggle {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #0f172a !important;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
             }
 
             [data-theme="light"] .device-connect-btn,
             [data-theme="light"] .data-gathering-btn,
             [data-theme="light"] #privacy-btn,
             [data-theme="light"] .btn-icon {
-                background: #f1f5f9 !important;
-                border-color: #cbd5e1 !important;
+                background: #ffffff !important;
+                border: 1px solid #e2e8f0 !important;
                 color: #0f172a !important;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
             }
 
+            [data-theme="light"] .btn-icon:hover,
+            [data-theme="light"] .device-connect-btn:hover,
+            [data-theme="light"] .data-gathering-btn:hover,
+            [data-theme="light"] #privacy-btn:hover {
+                background: #f8fafc !important;
+                border-color: #cbd5e1 !important;
+            }
+
+            /* GLOBAL HIGH-CONTRAST TEXT & ELEMENT OVERRIDES IN LIGHT MODE */
+            [data-theme="light"] h1, 
+            [data-theme="light"] h2, 
+            [data-theme="light"] h3, 
+            [data-theme="light"] h4, 
+            [data-theme="light"] h5, 
+            [data-theme="light"] h6,
+            [data-theme="light"] strong, 
+            [data-theme="light"] b,
             [data-theme="light"] .hero-title,
             [data-theme="light"] .section-title,
             [data-theme="light"] .panel-heading,
@@ -116,17 +226,40 @@
             [data-theme="light"] .activity-title-text,
             [data-theme="light"] .cmd-title-text,
             [data-theme="light"] .step-title,
-            [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4 {
+            [data-theme="light"] .device-name,
+            [data-theme="light"] .modal-top-header div,
+            [data-theme="light"] .modal-top-header span,
+            [data-theme="light"] .sus-header-title-row span,
+            [data-theme="light"] .badge-streak-card div,
+            [data-theme="light"] .panel-list-item div,
+            [data-theme="light"] .notif-item-title,
+            [data-theme="light"] .notif-text,
+            [data-theme="light"] #demographics-reg-box div,
+            [data-theme="light"] #demographics-reg-box span:not(.dot-glow):not(.badge-pill *),
+            [data-theme="light"] .demographics-inputs-grid label,
+            [data-theme="light"] .demographics-inputs-grid label span,
+            [data-theme="light"] .circadian-clock-row div,
+            [data-theme="light"] .analytics-card-header h3,
+            [data-theme="light"] .ai-rec-heading,
+            [data-theme="light"] .ai-rec-heading strong,
+            [data-theme="light"] #mobile-drawer-device-name,
+            [data-theme="light"] #participant-session-id {
                 color: #0f172a !important;
             }
 
+            [data-theme="light"] p,
             [data-theme="light"] .hero-desc,
             [data-theme="light"] .section-desc,
             [data-theme="light"] .card-body-text,
             [data-theme="light"] .step-desc,
             [data-theme="light"] .stat-lbl,
+            [data-theme="light"] .device-sub,
+            [data-theme="light"] .ai-rec-desc-row,
+            [data-theme="light"] #pred-box-1,
+            [data-theme="light"] #pred-box-2,
+            [data-theme="light"] #pred-box-3,
             [data-theme="light"] .legend-list {
-                color: #334155 !important;
+                color: #475569 !important;
             }
 
             [data-theme="light"] .hero-card-preview,
@@ -141,25 +274,57 @@
             [data-theme="light"] .res-stat-card,
             [data-theme="light"] .badge-streak-card,
             [data-theme="light"] .ai-chat-window,
+            [data-theme="light"] .ai-banner-card,
+            [data-theme="light"] .ai-recommendation-card,
             [data-theme="light"] .modal-card,
             [data-theme="light"] .device-modal-card,
             [data-theme="light"] .cohort-modal-card,
             [data-theme="light"] .sus-modal-card,
-            [data-theme="light"] #demographics-reg-box {
-                background: #f1f5f9 !important;
-                border-color: #cbd5e1 !important;
-                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+            [data-theme="light"] .inbox-modal-card,
+            [data-theme="light"] #demographics-reg-box,
+            [data-theme="light"] .researcher-data-panel {
+                background: #ffffff !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
                 color: #0f172a !important;
+            }
+
+            [data-theme="light"] .res-stat-num {
+                color: #0284c7 !important;
+            }
+
+            [data-theme="light"] .res-stat-card.locked {
+                background: #fef2f2 !important;
+                border: 1.5px solid #fecaca !important;
+            }
+
+            [data-theme="light"] .res-stat-card.locked .res-stat-num {
+                color: #dc2626 !important;
+            }
+
+            [data-theme="light"] .metric-card-figma:hover {
+                border-color: #0284c7 !important;
+                box-shadow: 0 12px 30px -5px rgba(2, 132, 199, 0.15) !important;
+                transform: translateY(-3px) !important;
             }
 
             [data-theme="light"] .preview-sub-card,
             [data-theme="light"] .preview-bottom-card,
+            [data-theme="light"] .wave-bottom-tile,
+            [data-theme="light"] .step-goal-meter-box,
             [data-theme="light"] .panel-list-item,
             [data-theme="light"] .demographic-input-field,
             [data-theme="light"] #cmd-input-prompt {
-                background: #e2e8f0 !important;
-                border-color: #cbd5e1 !important;
+                background: #f8fafc !important;
+                border: 1px solid #cbd5e1 !important;
                 color: #0f172a !important;
+            }
+
+            [data-theme="light"] .demographic-input-field:focus,
+            [data-theme="light"] #cmd-input-prompt:focus {
+                background: #ffffff !important;
+                border-color: #0284c7 !important;
+                box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
             }
 
             [data-theme="light"] .demographic-input-field::placeholder,
@@ -167,27 +332,77 @@
                 color: #64748b !important;
             }
 
+            [data-theme="light"] #reg-gender {
+                background-color: #f8fafc !important;
+                border-color: #cbd5e1 !important;
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] #reg-gender option {
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .data-privacy-consent-box {
+                background: #f0fdf4 !important;
+                border: 1.5px solid #86efac !important;
+            }
+
+            [data-theme="light"] .data-privacy-consent-box span {
+                color: #065f46 !important;
+            }
+
+            [data-theme="light"] .data-privacy-consent-box label span {
+                color: #0f172a !important;
+                font-weight: 700 !important;
+            }
+
+            [data-theme="light"] .data-privacy-consent-box p {
+                color: #1e293b !important;
+            }
+
+            [data-theme="light"] .panel-list-item div {
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .panel-list-item div div:first-child {
+                color: #475569 !important;
+            }
+
+            [data-theme="light"] #demographics-status-text {
+                background: #fef2f2 !important;
+                border: 1px solid #fca5a5 !important;
+                color: #dc2626 !important;
+            }
+
+            [data-theme="light"] #admin-consent-badge {
+                background: #fffbeb !important;
+                border: 1px solid #fcd34d !important;
+                color: #d97706 !important;
+            }
+
             [data-theme="light"] #cmd-ai-bubble,
             [data-theme="light"] .msg-ai {
-                background: #e2e8f0 !important;
-                border-color: #cbd5e1 !important;
+                background: #f1f5f9 !important;
+                border: 1px solid #e2e8f0 !important;
                 color: #0f172a !important;
             }
 
             [data-theme="light"] .msg-user {
-                background: #bae6fd !important;
-                border-color: #7dd3fc !important;
-                color: #0f172a !important;
+                background: #e0f2fe !important;
+                border: 1px solid #bae6fd !important;
+                color: #0369a1 !important;
             }
 
             [data-theme="light"] .btn-secondary {
-                background: #f1f5f9 !important;
+                background: #ffffff !important;
                 color: #0f172a !important;
-                border-color: #cbd5e1 !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
             }
 
             [data-theme="light"] .btn-secondary:hover {
-                background: #e2e8f0 !important;
+                background: #f8fafc !important;
                 border-color: #0284c7 !important;
             }
 
@@ -196,35 +411,119 @@
             [data-theme="light"] .badge-pill,
             [data-theme="light"] .card-pill-tag,
             [data-theme="light"] .steps-pill-badge {
-                background: #e0f2fe !important;
-                border-color: #bae6fd !important;
-                color: #0369a1 !important;
+                background: #f0f9ff !important;
+                border: 1px solid #bae6fd !important;
+                color: #0284c7 !important;
+                font-weight: 700 !important;
             }
 
-            [data-theme="light"] .wave-bottom-tile {
-                background: #e2e8f0 !important;
-                border-color: #cbd5e1 !important;
+            [data-theme="light"] .ai-chat-trigger,
+            [data-theme="light"] .btn-ai-action {
+                background: linear-gradient(135deg, #0284c7, #059669) !important;
+                color: #ffffff !important;
+                box-shadow: 0 4px 16px rgba(2, 132, 199, 0.35) !important;
             }
 
-            [data-theme="light"] .chat-messages {
+            /* SVG GRAPHS & SPARKLINES IN LIGHT MODE */
+            [data-theme="light"] .anim-ecg path {
+                stroke: #0284c7 !important;
+                filter: none !important;
+            }
+            [data-theme="light"] .anim-sleep-bars path[stroke] {
+                stroke: #059669 !important;
+                filter: none !important;
+            }
+            [data-theme="light"] .histo-bar {
+                background: #cbd5e1 !important;
+            }
+            [data-theme="light"] .histo-bar.active {
+                background: #0284c7 !important;
+            }
+            [data-theme="light"] .anim-breath path[stroke] {
+                stroke: #059669 !important;
+                filter: none !important;
+            }
+
+            /* RADAR CHART IN LIGHT MODE */
+            [data-theme="light"] .radar-grid-polygon,
+            [data-theme="light"] circle[stroke*="rgba(0, 242, 254"] {
+                stroke: #cbd5e1 !important;
+            }
+            [data-theme="light"] polygon[points*="190,20"] {
+                stroke: #cbd5e1 !important;
+            }
+            [data-theme="light"] line[stroke*="rgba(0,242,254"] {
+                stroke: #e2e8f0 !important;
+            }
+            [data-theme="light"] #radar-active-polygon {
+                fill: rgba(2, 132, 199, 0.18) !important;
+                stroke: #0284c7 !important;
+                filter: none !important;
+            }
+            [data-theme="light"] #radar-txt-rec,
+            [data-theme="light"] #radar-txt-hrv,
+            [data-theme="light"] #radar-txt-sleep,
+            [data-theme="light"] #radar-txt-act,
+            [data-theme="light"] #radar-txt-stress {
+                fill: #0f172a !important;
+                font-weight: 800 !important;
+            }
+            [data-theme="light"] #radar-pill-rec,
+            [data-theme="light"] #radar-pill-hrv,
+            [data-theme="light"] #radar-pill-sleep,
+            [data-theme="light"] #radar-pill-act {
                 background: #f1f5f9 !important;
+                border-color: #cbd5e1 !important;
+                color: #0f172a !important;
+            }
+            [data-theme="light"] #radar-overall-score {
+                background: #ecfdf5 !important;
+                border-color: #a7f3d0 !important;
+                color: #059669 !important;
+            }
+
+            /* CIRCADIAN CLOCK IN LIGHT MODE */
+            [data-theme="light"] #clock-center-time {
+                color: #0f172a !important;
+            }
+            [data-theme="light"] #clock-center-lbl {
+                color: #059669 !important;
+            }
+            [data-theme="light"] .circadian-clock-row > div:nth-child(2) > div {
+                background: #ffffff !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+            }
+            [data-theme="light"] .circadian-clock-row > div:nth-child(2) > div:nth-child(1) {
+                border-left: 4px solid #0284c7 !important;
+            }
+            [data-theme="light"] .circadian-clock-row > div:nth-child(2) > div:nth-child(2) {
+                border-left: 4px solid #059669 !important;
+            }
+            [data-theme="light"] .circadian-clock-row > div:nth-child(2) > div:nth-child(3) {
+                border-left: 4px solid #7c3aed !important;
+            }
+
+            /* CHAT WINDOW IN LIGHT MODE */
+            [data-theme="light"] .chat-messages {
+                background: #f8fafc !important;
             }
 
             [data-theme="light"] .quick-prompts,
             [data-theme="light"] .chat-input-area {
-                background: #e2e8f0 !important;
-                border-top: 1px solid #cbd5e1 !important;
+                background: #ffffff !important;
+                border-top: 1px solid #e2e8f0 !important;
             }
 
             [data-theme="light"] .chat-header {
-                background: #e2e8f0 !important;
-                border-bottom: 1px solid #cbd5e1 !important;
+                background: #ffffff !important;
+                border-bottom: 1px solid #e2e8f0 !important;
             }
 
             [data-theme="light"] .chat-title { color: #0f172a !important; }
 
             [data-theme="light"] .chat-input {
-                background: #f1f5f9 !important;
+                background: #f8fafc !important;
                 border-color: #cbd5e1 !important;
                 color: #0f172a !important;
             }
@@ -236,32 +535,220 @@
             }
 
             [data-theme="light"] .prompt-chip {
-                background: #f1f5f9 !important;
-                border-color: #cbd5e1 !important;
+                background: #f8fafc !important;
+                border-color: #e2e8f0 !important;
                 color: #0369a1 !important;
             }
 
             [data-theme="light"] .tasks-flow-section h2,
             [data-theme="light"] .tasks-flow-section h3,
             [data-theme="light"] .tasks-flow-section p,
-            [data-theme="light"] #step2-header-title {
+            [data-theme="light"] .step2-header-title,
+            [data-theme="light"] .step2-header-title span,
+            [data-theme="light"] .step2-header-title div,
+            [data-theme="light"] .step2-header-row div {
                 color: #0f172a !important;
             }
 
+            [data-theme="light"] #tasks-lock-status-badge {
+                color: #dc2626 !important;
+                background: #fef2f2 !important;
+                border: 1px solid #fca5a5 !important;
+                padding: 4px 10px !important;
+                border-radius: 12px !important;
+                font-weight: 700 !important;
+            }
+
+            [data-theme="light"] .step-num-bubble {
+                background: linear-gradient(135deg, #0284c7, #059669) !important;
+                color: #ffffff !important;
+                font-weight: 800 !important;
+            }
+
+            [data-theme="light"] .task-step-card {
+                background: #ffffff !important;
+                border: 1.5px solid #e2e8f0 !important;
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+            }
+
             [data-theme="light"] .task-step-card.locked {
-                background: #e2e8f0 !important;
-                border-color: #cbd5e1 !important;
+                background: #ffffff !important;
+                border: 1.5px solid #fecaca !important;
+                box-shadow: 0 4px 16px rgba(239, 68, 68, 0.06) !important;
+            }
+
+            [data-theme="light"] .task-step-card.locked .step-num-bubble {
+                background: #fee2e2 !important;
+                color: #dc2626 !important;
+                border: 1.5px solid #fca5a5 !important;
+                font-weight: 800 !important;
+            }
+
+            [data-theme="light"] .task-action-btn.locked-btn {
+                background: #fef2f2 !important;
+                border: 1.5px solid #fca5a5 !important;
+                color: #dc2626 !important;
+                font-weight: 700 !important;
+            }
+
+            [data-theme="light"] .task-action-btn.locked-btn:hover {
+                background: #fee2e2 !important;
+                border-color: #ef4444 !important;
+                color: #b91c1c !important;
+            }
+
+            [data-theme="light"] .task-step-card.completed {
+                border-color: #a7f3d0 !important;
+                background: #ffffff !important;
+            }
+
+            [data-theme="light"] .task-step-card.completed .step-num-bubble {
+                background: #059669 !important;
+                color: #ffffff !important;
+                border: none !important;
+            }
+
+            [data-theme="light"] .task-step-card.completed .task-action-btn {
+                background: #ecfdf5 !important;
+                border: 1.5px solid #a7f3d0 !important;
+                color: #059669 !important;
+                font-weight: 700 !important;
+            }
+
+            /* COMMAND CONSOLE & RUN AI DIAGNOSTIC BUTTON IN LIGHT MODE */
+            [data-theme="light"] .cmd-box {
+                background: #ffffff !important;
+                border: 1.5px solid #e2e8f0 !important;
+                box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+            }
+
+            [data-theme="light"] .cmd-title-text {
+                color: #0f172a !important;
+                font-weight: 800 !important;
+            }
+
+            [data-theme="light"] .cmd-status-tag {
+                background: #ecfdf5 !important;
+                border: 1px solid #a7f3d0 !important;
+                color: #059669 !important;
+                font-weight: 700 !important;
+            }
+
+            [data-theme="light"] .cmd-action-btn {
+                background: linear-gradient(135deg, #0284c7, #059669) !important;
+                color: #ffffff !important;
+                border: none !important;
+                font-weight: 700 !important;
+                box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3) !important;
+            }
+
+            [data-theme="light"] .cmd-action-btn:hover {
+                background: linear-gradient(135deg, #0369a1, #047857) !important;
+                transform: translateY(-2px) !important;
+                box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4) !important;
+            }
+
+            /* BRAND & LOGO IN LIGHT MODE */
+            [data-theme="light"] .logo-icon-wrap {
+                background: #ffffff !important;
+                border: 2px solid #059669 !important;
+                box-shadow: 0 0 12px rgba(5, 150, 105, 0.25) !important;
+            }
+
+            [data-theme="light"] .logo-icon-wrap .binary-digits {
+                color: #0284c7 !important;
+            }
+
+            [data-theme="light"] .logo-icon-wrap .logo-b {
+                color: #059669 !important;
+            }
+
+            [data-theme="light"] .logo-brand {
+                background: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #059669 100%) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+            }
+
+            [data-theme="light"] .logo-sub {
+                color: #64748b !important;
+                font-weight: 700 !important;
             }
 
             [data-theme="light"] footer,
             [data-theme="light"] .footer-container {
-                background: #e2e8f0 !important;
-                color: #334155 !important;
-                border-top: 1px solid #cbd5e1 !important;
+                background: #ffffff !important;
+                color: #475569 !important;
+                border-top: 1px solid #e2e8f0 !important;
             }
 
             [data-theme="light"] .footer-links a {
                 color: #0284c7 !important;
+            }
+
+            /* MODALS, TABLES, AND SUS SURVEY IN LIGHT MODE */
+            [data-theme="light"] .modal-header div,
+            [data-theme="light"] .modal-header span,
+            [data-theme="light"] #breathing-phase-text,
+            [data-theme="light"] #modal-sus-weighted-mean,
+            [data-theme="light"] #cohort-mean-time {
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .sus-item-box {
+                background: #ffffff !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+            [data-theme="light"] .sus-item-box:hover {
+                background: #f8fafc !important;
+                border-color: #0284c7 !important;
+            }
+            [data-theme="light"] .sus-item-header {
+                color: #0f172a !important;
+            }
+            [data-theme="light"] .sus-opt-label {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #475569 !important;
+            }
+            [data-theme="light"] .sus-opt-label:hover {
+                background: #f0f9ff !important;
+                border-color: #0284c7 !important;
+                color: #0284c7 !important;
+            }
+            [data-theme="light"] .sus-opt-label.selected {
+                background: #e0f2fe !important;
+                border-color: #0284c7 !important;
+                color: #0284c7 !important;
+            }
+            [data-theme="light"] .sus-calc-summary-box {
+                background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%) !important;
+                border: 1.5px solid #cbd5e1 !important;
+                box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+            }
+
+            [data-theme="light"] .cohort-table-wrapper {
+                border: 1px solid #e2e8f0 !important;
+                background: #ffffff !important;
+            }
+            [data-theme="light"] .cohort-table th {
+                background: #f1f5f9 !important;
+                color: #0284c7 !important;
+                border-bottom: 1.5px solid #cbd5e1 !important;
+            }
+            [data-theme="light"] .cohort-table td {
+                color: #0f172a !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+            [data-theme="light"] .cohort-table tr:hover td {
+                background: #f0f9ff !important;
+                color: #0284c7 !important;
+            }
+            [data-theme="light"] .cohort-modal-overlay,
+            [data-theme="light"] .sus-modal-overlay,
+            [data-theme="light"] .modal-overlay,
+            [data-theme="light"] .inbox-modal-overlay {
+                background: rgba(15, 23, 42, 0.6) !important;
+                backdrop-filter: blur(8px) !important;
             }
 
             * {
@@ -657,11 +1144,13 @@
                 padding: 70px 24px 24px;
                 opacity: 0;
                 pointer-events: none;
-                transition: var(--transition);
+                visibility: hidden;
+                transition: opacity 0.25s ease, visibility 0.25s ease;
             }
             .inbox-modal-overlay.active {
                 opacity: 1;
                 pointer-events: auto;
+                visibility: visible;
             }
             .inbox-modal-card {
                 background: rgba(10, 16, 26, 0.95);
@@ -1152,7 +1641,7 @@
 
             @keyframes barPillPulse {
                 0%, 100% { transform: scaleY(1); opacity: 0.85; }
-                50% { transform: scaleY(1.24); opacity: 1; filter: drop-shadow(0 0 12px #00f2fe); }
+                50% { transform: scaleY(1.24); opacity: 1; }
             }
 
             .preview-bar-row .bar-pill:nth-child(1) { animation-delay: 0.1s; }
@@ -1329,25 +1818,25 @@
                 overflow: hidden; position: relative; display: flex; align-items: flex-end; padding: 4px 8px;
             }
 
-            @keyframes ecgFlow { 0% { transform: translateX(0); } 100% { transform: translateX(-140px); } }
-            .anim-ecg { animation: ecgFlow 2.4s linear infinite; }
+            @keyframes ecgFlow { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-140px, 0, 0); } }
+            .anim-ecg { animation: ecgFlow 2.4s linear infinite; will-change: transform; }
 
-            @keyframes sleepPulse { 0%, 100% { opacity: 0.7; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.08); filter: drop-shadow(0 0 8px #10b981); } }
-            .anim-sleep-bars { animation: sleepPulse 3s ease-in-out infinite; transform-origin: bottom; }
+            @keyframes sleepPulse { 0%, 100% { opacity: 0.75; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.08); } }
+            .anim-sleep-bars { animation: sleepPulse 3s ease-in-out infinite; transform-origin: bottom; will-change: transform, opacity; }
 
             .histogram-container { display: flex; align-items: flex-end; gap: 5px; width: 100%; height: 100%; padding: 6px 0 2px; }
-            .histo-bar { flex: 1; background: linear-gradient(180deg, #00f2fe 0%, rgba(0, 242, 254, 0.2) 100%); border-radius: 4px; transform-origin: bottom; }
+            .histo-bar { flex: 1; background: linear-gradient(180deg, #00f2fe 0%, rgba(0, 242, 254, 0.2) 100%); border-radius: 4px; transform-origin: bottom; will-change: transform; }
 
-            @keyframes histoGrow { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.22); filter: drop-shadow(0 0 6px #00f2fe); } }
-            .histo-bar.active { animation: histoGrow 2s ease-in-out infinite alternate; }
+            @keyframes histoGrow { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.22); } }
+            .histo-bar.active { animation: histoGrow 2s ease-in-out infinite alternate; will-change: transform; }
             .histo-bar:nth-child(3) { animation-delay: 0.1s; }
             .histo-bar:nth-child(4) { animation-delay: 0.4s; }
             .histo-bar:nth-child(6) { animation-delay: 0.2s; }
             .histo-bar:nth-child(8) { animation-delay: 0.5s; }
             .histo-bar:nth-child(10) { animation-delay: 0.3s; }
 
-            @keyframes breathFlow { 0% { transform: translateX(0); } 100% { transform: translateX(-180px); } }
-            .anim-breath { animation: breathFlow 4.5s linear infinite; }
+            @keyframes breathFlow { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-180px, 0, 0); } }
+            .anim-breath { animation: breathFlow 4.5s linear infinite; will-change: transform; }
 
             .two-col-section { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 60px; }
             .big-feature-panel { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 28px; padding: 32px; position: relative; }
@@ -1631,12 +2120,14 @@
                 justify-content: center;
                 opacity: 0;
                 pointer-events: none;
-                transition: var(--transition);
+                visibility: hidden;
+                transition: opacity 0.25s ease, visibility 0.25s ease;
             }
 
             .modal-overlay.active, .device-modal-overlay.active {
                 opacity: 1;
                 pointer-events: auto;
+                visibility: visible;
             }
 
             .device-modal-card {
@@ -1673,12 +2164,14 @@
                 justify-content: center;
                 opacity: 0;
                 pointer-events: none;
-                transition: var(--transition);
+                visibility: hidden;
+                transition: opacity 0.25s ease, visibility 0.25s ease;
             }
 
             .sus-modal-overlay.active {
                 opacity: 1;
                 pointer-events: auto;
+                visibility: visible;
             }
 
             .sus-modal-card {
@@ -1866,6 +2359,82 @@
                 grid-template-columns: repeat(5, 1fr);
             }
 
+            /* QUALITATIVE BIOFEEDBACK SECTION STYLING */
+            .sus-qualitative-section {
+                margin-top: 20px;
+                padding-top: 18px;
+                border-top: 1.5px dashed rgba(0, 242, 254, 0.35);
+            }
+
+            .qual-input-card {
+                background: rgba(16, 26, 42, 0.85);
+                border: 1px solid rgba(0, 242, 254, 0.2);
+                border-radius: 16px;
+                padding: 14px 16px;
+                transition: var(--transition);
+            }
+
+            .qual-input-card:hover {
+                border-color: rgba(0, 242, 254, 0.45);
+                background: rgba(20, 32, 52, 0.95);
+            }
+
+            .qual-label {
+                font-size: 0.84rem;
+                font-weight: 700;
+                color: var(--text-heading);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 4px;
+            }
+
+            .qual-hint {
+                font-size: 0.74rem;
+                color: var(--text-secondary);
+                margin-bottom: 8px;
+                line-height: 1.35;
+            }
+
+            .qual-textarea {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px 14px;
+                font-size: 0.8rem;
+                font-family: 'Inter', sans-serif;
+                color: var(--text-primary);
+                background: rgba(8, 14, 24, 0.9);
+                border: 1px solid rgba(0, 242, 254, 0.25);
+                border-radius: 12px;
+                outline: none;
+                resize: vertical;
+                min-height: 52px;
+                transition: var(--transition);
+            }
+
+            .qual-textarea:focus {
+                border-color: var(--accent-cyan);
+                box-shadow: 0 0 12px rgba(0, 242, 254, 0.25);
+                background: rgba(12, 20, 34, 0.95);
+            }
+
+            [data-theme="light"] .qual-input-card {
+                background: #f8fafc !important;
+                border-color: #e2e8f0 !important;
+                box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+            }
+
+            [data-theme="light"] .qual-textarea {
+                background: #ffffff !important;
+                border-color: #cbd5e1 !important;
+                color: #0f172a !important;
+            }
+
+            [data-theme="light"] .qual-textarea:focus {
+                border-color: #0284c7 !important;
+                box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+            }
+
             /* N=40 MULTI-RESPONDENT CHAPTER 4 RESULTS MODAL STYLING (ALWAYS OVERLAYS ABOVE NAVBAR) */
             .cohort-modal-overlay {
                 position: fixed;
@@ -1881,13 +2450,15 @@
                 justify-content: center;
                 opacity: 0;
                 pointer-events: none;
-                transition: var(--transition);
+                visibility: hidden;
+                transition: opacity 0.25s ease, visibility 0.25s ease;
                 padding: 20px;
             }
 
             .cohort-modal-overlay.active {
                 opacity: 1;
                 pointer-events: auto;
+                visibility: visible;
             }
 
             .cohort-modal-card {
@@ -2074,13 +2645,18 @@
             /* RESPONSIVE DEMOGRAPHICS FORM GRID STYLES */
             .demographics-inputs-grid {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px 28px;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 18px 22px;
                 margin-top: 20px;
                 margin-bottom: 24px;
             }
-            @media (max-width: 768px) {
-                .demographics-inputs-grid { grid-template-columns: 1fr; }
+            @media (max-width: 820px) {
+                .demographics-inputs-grid {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    gap: 16px !important;
+                    width: 100% !important;
+                }
             }
 
             .demographic-input-field {
@@ -2099,6 +2675,19 @@
             .demographic-input-field:focus {
                 border-color: var(--accent-cyan);
                 box-shadow: 0 0 18px rgba(0, 242, 254, 0.35), inset 0 2px 5px rgba(0, 0, 0, 0.5);
+            }
+
+            #reg-gender {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300f2fe' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 14px center;
+                background-size: 14px 14px;
+                padding-right: 36px;
+                cursor: pointer;
+            }
+            #reg-gender option {
+                background-color: #080e18;
+                color: #ffffff;
             }
 
             /* RADAR CHART & CIRCADIAN ENERGY CLOCK PANEL STYLES */
@@ -2254,15 +2843,30 @@
 
             @media (max-width: 820px) {
                 .battery-badge, #privacy-btn, .user-profile { display: none !important; }
+                
+                .demographics-inputs-grid {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    gap: 16px !important;
+                    width: 100% !important;
+                }
+                .demographics-inputs-grid > div {
+                    width: 100% !important;
+                    grid-column: auto !important;
+                }
+                .demographics-email-wrapper {
+                    width: 100% !important;
+                    grid-column: auto !important;
+                }
             }
 
             @media (max-width: 768px) {
-                .navbar { padding: 8px 10px; gap: 6px; }
+                .navbar { padding: 8px 12px; gap: 6px; }
                 .logo-brand-sub-text { display: inline !important; }
-                .logo-brand { font-size: 0.88rem !important; line-height: 1.1; }
+                .logo-brand { font-size: 0.95rem !important; line-height: 1.1; }
                 .logo-sub {
                     display: flex !important;
-                    font-size: 0.5rem !important;
+                    font-size: 0.52rem !important;
                     letter-spacing: 0.6px !important;
                     opacity: 0.85 !important;
                     white-space: nowrap !important;
@@ -2271,11 +2875,11 @@
                 .logo-sub .binary-tag { display: none !important; }
                 .device-connect-btn { display: none !important; }
 
-                .nav-actions { gap: 4px; flex-shrink: 0; }
+                .nav-actions { gap: 6px; flex-shrink: 0; }
 
                 .btn-icon, .mobile-menu-toggle {
-                    width: 36px;
-                    height: 36px;
+                    width: 38px;
+                    height: 38px;
                     flex-shrink: 0;
                 }
 
@@ -2283,7 +2887,7 @@
                     display: flex !important;
                 }
 
-                .container { padding: 85px 12px 90px !important; width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }
+                .container { padding: 85px 12px 110px !important; width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }
                 .hero-title { font-size: 1.65rem; line-height: 1.25; letter-spacing: -0.5px; word-break: break-word; }
                 .hero-desc { font-size: 0.88rem; line-height: 1.5; word-break: break-word; }
                 .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 24px; }
@@ -2300,7 +2904,7 @@
                 .badge-pill .binary-tag { display: none !important; }
 
                 .quick-stats-row { grid-template-columns: 1fr; gap: 10px; }
-                .hero-card-preview, .big-feature-panel, .cmd-console-card, .ai-banner-card { padding: 14px 12px !important; border-radius: 20px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+                .hero-card-preview, .big-feature-panel, .cmd-console-card, .ai-banner-card { padding: 16px 14px !important; border-radius: 20px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
                 
                 .preview-top-bar {
                     flex-direction: column !important;
@@ -2363,22 +2967,55 @@
                 .ai-banner-card { flex-direction: column; align-items: flex-start; padding: 16px 12px !important; gap: 16px; }
                 .ai-recommendation-card { max-width: 100% !important; width: 100% !important; }
 
+                /* DEMOGRAPHICS FORM MOBILE FULL-WIDTH LAYOUT */
+                #demographics-reg-box {
+                    padding: 20px 14px !important;
+                    border-radius: 20px !important;
+                }
+                .demographics-inputs-grid {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    gap: 16px !important;
+                    width: 100% !important;
+                }
+                .demographics-inputs-grid > div {
+                    width: 100% !important;
+                    grid-column: auto !important;
+                }
+                .demographic-input-field {
+                    width: 100% !important;
+                    min-height: 48px !important;
+                    box-sizing: border-box !important;
+                    font-size: 0.92rem !important;
+                }
+                .demographics-email-row {
+                    display: flex !important;
+                    gap: 10px !important;
+                    flex-wrap: wrap !important;
+                    width: 100% !important;
+                }
+                .demographics-email-row button {
+                    width: 100% !important;
+                    justify-content: center !important;
+                    padding: 12px 16px !important;
+                }
+
                 .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 16px 85px; }
                 .footer-links { justify-content: center; width: 100%; flex-wrap: wrap; }
 
                 .ai-chat-window {
                     width: 94vw !important;
                     right: 3vw !important;
-                    bottom: 72px !important;
+                    bottom: 76px !important;
                     height: 72vh !important;
-                    max-height: calc(100vh - 80px);
+                    max-height: calc(100vh - 90px);
                     z-index: 30000;
                 }
                 .ai-chat-trigger {
-                    bottom: 16px !important;
-                    right: 16px !important;
-                    width: 48px !important;
-                    height: 48px !important;
+                    bottom: 18px !important;
+                    right: 18px !important;
+                    width: 50px !important;
+                    height: 50px !important;
                     border-radius: 50% !important;
                     padding: 0 !important;
                     justify-content: center !important;
@@ -2390,8 +3027,8 @@
                     display: none !important;
                 }
                 .ai-chat-trigger svg {
-                    width: 22px !important;
-                    height: 22px !important;
+                    width: 24px !important;
+                    height: 24px !important;
                     margin: 0 !important;
                 }
 
@@ -2523,7 +3160,7 @@
                 .sus-opt-label span {
                     text-align: left !important;
                     font-weight: 600 !important;
-                    color: #ffffff !important;
+                    color: inherit !important;
                 }
 
                 .sus-calc-summary-box {
@@ -2533,19 +3170,9 @@
                     border-radius: 18px !important;
                 }
 
-                .demographics-inputs-grid {
-                    grid-template-columns: 1fr !important;
-                    gap: 16px !important;
-                }
-
                 .analytics-two-col {
                     grid-template-columns: 1fr !important;
                     gap: 20px !important;
-                }
-
-                #demographics-reg-box {
-                    padding: 18px 14px !important;
-                    border-radius: 20px !important;
                 }
 
                 .radar-card-container, .circadian-card-container {
@@ -2566,9 +3193,9 @@
 
             /* EXTRA NARROW MOBILE SMARTPHONES (< 520px) */
             @media (max-width: 520px) {
-                .logo-brand { font-size: 1rem; }
+                .logo-brand { font-size: 0.95rem; }
                 .navbar { padding: 6px 10px; gap: 4px; }
-                .container { padding: 80px 10px 20px !important; }
+                .container { padding: 80px 10px 110px !important; }
                 .hero-title { font-size: 1.5rem; word-break: break-word; }
                 .hero-card-preview { padding: 14px 12px !important; border-radius: 18px; }
                 .preview-big-val { font-size: 1.6rem; }
@@ -2584,7 +3211,7 @@
                 .ai-chat-window {
                     width: 96vw !important;
                     right: 2vw !important;
-                    bottom: 64px !important;
+                    bottom: 70px !important;
                     height: 75vh !important;
                 }
 
@@ -2687,7 +3314,7 @@
                         <span><i data-lucide="bar-chart-3"></i> Data Gathering Mode & Console</span> <i data-lucide="chevron-right"></i>
                     </button>
                     <button class="mobile-drawer-btn cyan" onclick="toggleDeviceModal(); closeMobileDrawer();">
-                        <span><i data-lucide="smartphone"></i> Device: <b id="mobile-drawer-device-name" style="color:#ffffff;">Samsung Watch 6</b> (<b id="mobile-drawer-batt-text" style="color:var(--accent-neon);">88%</b>)</span> <i data-lucide="chevron-right"></i>
+                        <span><i data-lucide="smartphone"></i> Device: <b id="mobile-drawer-device-name">Samsung Watch 6</b> (<b id="mobile-drawer-batt-text" style="color:var(--accent-neon);">88%</b>)</span> <i data-lucide="chevron-right"></i>
                     </button>
                     <button class="mobile-drawer-btn cyan" onclick="toggleInboxModal(); closeMobileDrawer();">
                         <span><i data-lucide="bell"></i> Inbox Alerts (<b id="mobile-drawer-notif-tag" style="color:var(--accent-pink);">3 New</b>)</span> <i data-lucide="chevron-right"></i>
@@ -2911,7 +3538,7 @@
                         <div class="wave-bottom-tile">
                             <svg viewBox="0 0 200 48" style="width:100%; height:100%;">
                                 <g class="anim-ecg">
-                                    <path d="M 0,28 L 30,28 L 36,12 L 42,40 L 48,6 L 54,34 L 60,28 L 90,28 L 100,28 L 106,12 L 112,40 L 118,6 L 124,34 L 130,28 L 160,28 L 170,28 L 176,12 L 182,40 L 188,6 L 194,34 L 200,28 L 240,28 L 246,12 L 252,40 L 258,6 L 264,34 L 270,28 L 340,28" stroke="#00f2fe" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 0 6px #00f2fe)"/>
+                                    <path d="M 0,28 L 30,28 L 36,12 L 42,40 L 48,6 L 54,34 L 60,28 L 90,28 L 100,28 L 106,12 L 112,40 L 118,6 L 124,34 L 130,28 L 160,28 L 170,28 L 176,12 L 182,40 L 188,6 L 194,34 L 200,28 L 240,28 L 246,12 L 252,40 L 258,6 L 264,34 L 270,28 L 340,28" stroke="#00f2fe" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                                 </g>
                             </svg>
                         </div>
@@ -2935,7 +3562,7 @@
                                 </defs>
                                 <g class="anim-sleep-bars">
                                     <path d="M 5,35 L 25,35 L 25,20 L 45,20 L 45,8 L 75,8 L 75,25 L 100,25 L 100,10 L 130,10 L 130,30 L 160,30 L 160,6 L 195,6 L 195,40 L 5,40 Z" fill="url(#sleep-stage-grad)"/>
-                                    <path d="M 5,35 L 25,35 L 25,20 L 45,20 L 45,8 L 75,8 L 75,25 L 100,25 L 100,10 L 130,10 L 130,30 L 160,30 L 160,6 L 195,6" stroke="#10b981" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 0 6px #10b981)"/>
+                                    <path d="M 5,35 L 25,35 L 25,20 L 45,20 L 45,8 L 75,8 L 75,25 L 100,25 L 100,10 L 130,10 L 130,30 L 160,30 L 160,6 L 195,6" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                                 </g>
                             </svg>
                         </div>
@@ -2985,7 +3612,7 @@
                                 </defs>
                                 <g class="anim-breath">
                                     <path d="M 0,24 C 30,8 60,40 90,24 C 120,8 150,40 180,24 C 210,8 240,40 270,24 C 300,8 330,40 360,24 L 360,48 L 0,48 Z" fill="url(#breath-grad)"/>
-                                    <path d="M 0,24 C 30,8 60,40 90,24 C 120,8 150,40 180,24 C 210,8 240,40 270,24 C 300,8 330,40 360,24" stroke="#10b981" stroke-width="3" fill="none" stroke-linecap="round" filter="drop-shadow(0 0 6px #10b981)"/>
+                                    <path d="M 0,24 C 30,8 60,40 90,24 C 120,8 150,40 180,24 C 210,8 240,40 270,24 C 300,8 330,40 360,24" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                                 </g>
                             </svg>
                         </div>
@@ -2999,7 +3626,7 @@
                         <div class="analytics-card-header">
                             <div>
                                 <div class="badge-pill"><div class="dot-glow"></div> MULTIDIMENSIONAL MATRIX <span class="binary-tag" style="margin-left:4px;">1010</span></div>
-                                <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:6px;">5-Axis AI Health & Vitality Radar</h3>
+                                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; margin-top:6px;">5-Axis AI Health & Vitality Radar</h3>
                             </div>
                             <span style="font-size:0.75rem; color:var(--accent-neon); font-weight:700; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:4px 10px; border-radius:14px; white-space:nowrap; flex-shrink:0;" id="radar-overall-score">Optimal 89.2%</span>
                         </div>
@@ -3057,7 +3684,7 @@
                         <div class="analytics-card-header">
                             <div>
                                 <div class="badge-pill"><div class="dot-glow"></div> BIORHYTHM PREDICTOR <span class="binary-tag" style="margin-left:4px;">0110</span></div>
-                                <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:6px;">Circadian Energy & Focus Clock</h3>
+                                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; margin-top:6px;">Circadian Energy & Focus Clock</h3>
                             </div>
                             <button onclick="launchBreathingCoachModal()" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:6px 14px; border-radius:14px; font-size:0.78rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; white-space:nowrap; flex-shrink:0;">
                                 <i data-lucide="wind" style="width:14px; height:14px; color:var(--accent-cyan);"></i> <span>Box Breathing</span>
@@ -3083,15 +3710,15 @@
                                 <!-- Centered Biorhythm 3 Prediction Boxes -->
                                 <div style="flex:1; display:flex; flex-direction:column; gap:8px; width:100%;">
                                     <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.25); border-left:3px solid var(--accent-cyan); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
-                                        <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="zap" style="width:13px; height:13px; color:var(--accent-cyan);"></i> Cognitive Energy Peak</div>
+                                        <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="zap" style="width:13px; height:13px; color:var(--accent-cyan);"></i> Cognitive Energy Peak</div>
                                         <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-1">10:30 AM – 1:00 PM (Heavy cognition)</div>
                                     </div>
                                     <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--accent-neon); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
-                                        <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="activity" style="width:13px; height:13px; color:var(--accent-neon);"></i> Physical Strain Window</div>
+                                        <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="activity" style="width:13px; height:13px; color:var(--accent-neon);"></i> Physical Strain Window</div>
                                         <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-2">4:30 PM – 6:45 PM (Optimal muscle temp)</div>
                                     </div>
                                     <div style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-left:3px solid var(--accent-purple); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
-                                        <div style="font-size:0.8rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px;"><i data-lucide="moon" style="width:13px; height:13px; color:var(--accent-purple);"></i> Sleep & Caffeine Cutoff</div>
+                                        <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="moon" style="width:13px; height:13px; color:var(--accent-purple);"></i> Sleep & Caffeine Cutoff</div>
                                         <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-3">2:30 PM Cutoff • Dim screens by 10 PM</div>
                                     </div>
                                 </div>
@@ -3161,32 +3788,32 @@
                     <div class="panel-list">
                         <div class="panel-list-item">
                             <div>
-                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Allows study-level pattern analysis.</div>
-                                <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="share-2" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Share anonymized testing data</div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:500;">Allows study-level pattern analysis.</div>
+                                <div style="font-size:0.98rem; color:var(--text-primary); font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="share-2" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Share anonymized testing data</div>
                             </div>
                             <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Share anonymized testing data');"></div>
                         </div>
 
                         <div class="panel-list-item">
                             <div>
-                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Show why each recommendation appears.</div>
-                                <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="eye" style="width:16px; height:16px; color:var(--accent-neon);"></i> AI explanation mode</div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:500;">Show why each recommendation appears.</div>
+                                <div style="font-size:0.98rem; color:var(--text-primary); font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="eye" style="width:16px; height:16px; color:var(--accent-neon);"></i> AI explanation mode</div>
                             </div>
                             <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'AI explanation mode');"></div>
                         </div>
 
                         <div class="panel-list-item">
                             <div>
-                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">PPG, sleep, and activity data enabled.</div>
-                                <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="cpu" style="width:16px; height:16px; color:var(--accent-purple);"></i> Sensor access</div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:500;">PPG, sleep, and activity data enabled.</div>
+                                <div style="font-size:0.98rem; color:var(--text-primary); font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="cpu" style="width:16px; height:16px; color:var(--accent-purple);"></i> Sensor access</div>
                             </div>
                             <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Sensor access');"></div>
                         </div>
 
                         <div class="panel-list-item">
                             <div>
-                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:400;">Downloadable participant permissions summary.</div>
-                                <div style="font-size:0.98rem; color:#ffffff; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="file-text" style="width:16px; height:16px; color:var(--accent-pink);"></i> Export consent report</div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px; font-weight:500;">Downloadable participant permissions summary.</div>
+                                <div style="font-size:0.98rem; color:var(--text-primary); font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:6px;"><i data-lucide="file-text" style="width:16px; height:16px; color:var(--accent-pink);"></i> Export consent report</div>
                             </div>
                             <div class="mini-toggle-btn" onclick="toggleCardSensor(this, 'Export consent report');"></div>
                         </div>
@@ -3203,7 +3830,7 @@
                             <i data-lucide="award" style="width:20px; height:20px;"></i>
                         </div>
                         <div>
-                            <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">HRV Master</div>
+                            <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary);">HRV Master</div>
                             <div style="font-size:0.72rem; color:var(--accent-neon); font-weight:700;">+12% HRV Resilience Lift</div>
                         </div>
                     </div>
@@ -3213,17 +3840,17 @@
                             <i data-lucide="moon" style="width:20px; height:20px;"></i>
                         </div>
                         <div>
-                            <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">8H Sleep Architect</div>
+                            <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary);">8H Sleep Architect</div>
                             <div style="font-size:0.72rem; color:var(--accent-purple); font-weight:700;">88/100 Optimal Sleep Score</div>
                         </div>
                     </div>
 
                     <div class="badge-streak-card">
-                        <div style="width:40px; height:40px; border-radius:12px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-neon);">
+                        <div style="width:40px; height:40px; border-radius:12px; background:rgba(168,85,247,0.15); border:1px solid rgba(16,185,129,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-neon);">
                             <i data-lucide="zap" style="width:20px; height:20px;"></i>
                         </div>
                         <div>
-                            <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">Gen Z Vitality Streak</div>
+                            <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary);">Gen Z Vitality Streak</div>
                             <div style="font-size:0.72rem; color:var(--accent-neon); font-weight:700; display:flex; align-items:center; gap:4px;"><i data-lucide="flame" style="width:12px; height:12px; color:var(--accent-neon);"></i> 7-Day Active Health Streak</div>
                         </div>
                     </div>
@@ -3233,7 +3860,7 @@
                             <i data-lucide="shield-check" style="width:20px; height:20px;"></i>
                         </div>
                         <div>
-                            <div style="font-size:0.85rem; font-weight:800; color:#ffffff;">Privacy Shield Guard</div>
+                            <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary);">Privacy Shield Guard</div>
                             <div style="font-size:0.72rem; color:var(--accent-cyan); font-weight:700;">Anonymized Telemetry Active</div>
                         </div>
                     </div>
@@ -3242,7 +3869,7 @@
                 <!-- STEP 1: MANDATORY PARTICIPANT DEMOGRAPHICS REGISTRATION FORM -->
                 <div id="demographics-reg-box" style="background:linear-gradient(135deg, rgba(14, 23, 38, 0.95) 0%, rgba(8, 14, 24, 0.95) 100%); border:1.5px solid rgba(0,242,254,0.4); border-radius:24px; padding:28px 32px; margin-bottom:32px; box-shadow:0 0 35px rgba(0,242,254,0.18);">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:12px; padding-bottom:14px; border-bottom:1px solid rgba(0,242,254,0.15);">
-                        <div style="font-size:1.1rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:10px;">
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--text-heading); font-family:'Inter'; display:flex; align-items:center; gap:10px;">
                             <div style="width:32px; height:32px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-cyan);">
                                 <i data-lucide="user-check" style="width:18px; height:18px;"></i>
                             </div>
@@ -3264,12 +3891,33 @@
                             <input type="number" id="reg-age" class="demographic-input-field" placeholder="12 - 27" min="12" max="27">
                         </div>
                         <div>
+                            <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="users" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Gender (Optional)</label>
+                            <select id="reg-gender" class="demographic-input-field" style="cursor:pointer; appearance: none; -webkit-appearance: none; background-repeat: no-repeat; background-position: right 14px center; background-size: 10px auto; padding-right: 32px;">
+                                <option value="Prefer not to say" selected>Prefer not to say</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Non-Binary / Third Gender">Non-Binary / Third Gender</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
                             <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="map-pin" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Address / Location *</label>
                             <input type="text" id="reg-address" class="demographic-input-field" placeholder="e.g. Pasay City, Metro Manila">
                         </div>
-                        <div>
-                            <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:8px;"><i data-lucide="mail" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Email Address *</label>
-                            <input type="email" id="reg-email" class="demographic-input-field" placeholder="e.g. participant@example.com">
+                        <div class="demographics-email-wrapper" style="grid-column: span 2;">
+                            <label style="font-size:0.82rem; color:var(--text-heading); font-weight:700; display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+                                <span style="display:flex; align-items:center; gap:6px;"><i data-lucide="mail" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Email Address (Gmail / Academic) *</span>
+                                <span id="email-validity-indicator" style="font-size:0.75rem; font-weight:700; display:none;"></span>
+                            </label>
+                            <div class="demographics-email-row" style="display:flex; gap:10px; flex-wrap:wrap;">
+                                <input type="email" id="reg-email" class="demographic-input-field" style="flex:1; min-width:220px;" placeholder="e.g. yourname@gmail.com" oninput="validateEmailLive(this.value)">
+                                <button type="button" class="btn-secondary" style="padding:10px 16px; font-size:0.8rem; border-color:var(--accent-neon); color:var(--accent-neon); white-space:nowrap; flex-shrink:0; cursor:pointer;" onclick="resumeSessionByEmail()" title="Enter your registered email to resume an existing session and edit/finish your survey">
+                                    <i data-lucide="history"></i> <span>Resume Session via Email</span>
+                                </button>
+                            </div>
+                            <div id="email-error-msg" style="color:#ef4444; font-size:0.75rem; font-weight:600; margin-top:6px; display:none;">
+                                <i data-lucide="alert-triangle" style="width:13px; height:13px; display:inline-block; vertical-align:middle;"></i> Please enter a valid email format (e.g., student@gmail.com or user@arellano.edu.ph).
+                            </div>
                         </div>
                     </div>
 
@@ -3289,7 +3937,7 @@
 
                         <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; user-select:none;">
                             <input type="checkbox" id="reg-consent-checkbox" style="width:18px; height:18px; margin-top:2px; accent-color:var(--accent-cyan); cursor:pointer;">
-                            <span style="font-size:0.84rem; color:#ffffff; font-weight:700; line-height:1.4;">
+                            <span style="font-size:0.84rem; color:var(--text-heading); font-weight:700; line-height:1.4;">
                                 I have read, understood, and agree to the Data Privacy Act of 2012 (R.A. 10173) terms and grant consent for my research data *
                             </span>
                         </label>
@@ -3306,8 +3954,8 @@
                 </div>
 
                 <!-- STEP 2: USABILITY TASK PROTOCOL CARDS (LOCKED UNTIL STEP 1 IS COMPLETED) -->
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; margin-bottom:4px;">
-                    <div style="font-size:0.95rem; font-weight:700; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                <div class="step2-header-row" style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+                    <div class="step2-header-title" style="font-size:0.95rem; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
                         <i data-lucide="clipboard-list" style="color:var(--accent-cyan);"></i>
                         <span>Step 2: Usability Protocol Tasks (5 Protocol Items)</span>
                     </div>
@@ -3367,7 +4015,7 @@
                 <div class="researcher-data-panel">
                     <div class="researcher-top-row">
                         <div>
-                            <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                            <div style="font-size:1.15rem; font-weight:800; color:var(--text-heading); font-family:'Inter'; display:flex; align-items:center; gap:8px;">
                                 <i data-lucide="bar-chart-3" style="color:var(--accent-neon);"></i>
                                 <span>Usability Study Data Gathering Console</span>
                             </div>
@@ -3378,7 +4026,7 @@
                         <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
                             <div style="background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.35); padding:6px 14px; border-radius:20px; font-size:0.8rem; color:var(--accent-cyan); font-weight:700; display:flex; align-items:center; gap:6px;">
                                 <i data-lucide="user" style="width:14px; height:14px;"></i>
-                                Participant Session ID: <span id="participant-session-id" style="color:#ffffff;">GENZ-P-042</span>
+                                Participant Session ID: <span id="participant-session-id" style="color:var(--text-heading); font-weight:800;">GENZ-P-050</span>
                             </div>
                             <div style="font-size:0.75rem; color:#f59e0b; font-weight:700; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.35); padding:4px 12px; border-radius:14px; display:flex; align-items:center; gap:5px;" id="admin-consent-badge">
                                 <i data-lucide="shield-alert" style="width:13px; height:13px;"></i> R.A. 10173 Consent: <span>PENDING CONSENT</span>
@@ -3546,7 +4194,7 @@
             <div class="device-modal-card">
                 <div class="modal-top-header">
                     <div>
-                        <div style="font-size:1.15rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                        <div style="font-size:1.15rem; font-weight:800; color:var(--text-heading); font-family:'Inter'; display:flex; align-items:center; gap:8px;">
                             <i data-lucide="smartphone" style="color:var(--accent-cyan);"></i>
                             <span>Connected Wearable Device</span>
                         </div>
@@ -3574,7 +4222,7 @@
                 <div class="modal-top-header sus-header-responsive">
                     <div class="sus-header-title-row">
                         <div>
-                            <div style="font-size:1.1rem; font-weight:800; color:#ffffff; font-family:'Inter', sans-serif; display:flex; align-items:center; gap:8px;">
+                            <div style="font-size:1.1rem; font-weight:800; color:var(--text-heading); font-family:'Inter', sans-serif; display:flex; align-items:center; gap:8px;">
                                 <i data-lucide="file-text" style="color:var(--accent-cyan); width:20px; height:20px; flex-shrink:0;"></i>
                                 <span>10-Item System Usability Scale (SUS) Survey</span>
                             </div>
@@ -3592,8 +4240,71 @@
                     </div>
                 </div>
 
-                <div class="sus-questions-list" id="sus-questions-container">
-                    <!-- 10 SUS Survey Questions Dynamically Rendered -->
+                <div class="sus-questions-list" id="sus-scroll-body">
+                    <div style="font-size:0.85rem; font-weight:800; color:var(--accent-cyan); display:flex; align-items:center; gap:6px; margin-bottom:8px;">
+                        <i data-lucide="list-ordered" style="width:16px; height:16px;"></i>
+                        <span>Section A: 10-Item System Usability Scale (SUS) Ratings (Required)</span>
+                    </div>
+
+                    <div id="sus-questions-container" style="display:flex; flex-direction:column; gap:14px;">
+                        <!-- 10 SUS Survey Questions Dynamically Rendered -->
+                    </div>
+
+                    <!-- SECTION B: QUALITATIVE DIAGNOSTIC BIOFEEDBACK & USER OBSERVATIONS -->
+                    <div class="sus-qualitative-section" id="sus-qualitative-section">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                            <div style="font-size:0.98rem; font-weight:800; color:var(--text-heading); font-family:'Inter', sans-serif; display:flex; align-items:center; gap:8px;">
+                                <i data-lucide="message-square-text" style="color:var(--accent-neon); width:18px; height:18px;"></i>
+                                <span>Section B: Qualitative Biofeedback & Diagnostic Evaluation (Optional)</span>
+                            </div>
+                            <span class="binary-tag" style="color:var(--accent-cyan); font-weight:700; font-size:0.68rem;">[QUALITATIVE STREAM]</span>
+                        </div>
+                        <p style="font-size:0.78rem; color:var(--text-secondary); margin-bottom:14px; line-height:1.4;">
+                            Share your subjective diagnostic feedback to formulate evidence-based HCI design guidelines for Gen Z health dashboards.
+                        </p>
+
+                        <div class="qualitative-inputs-grid" style="display:flex; flex-direction:column; gap:12px;">
+                            <!-- Field 1: AI Explainability (XAI) -->
+                            <div class="qual-input-card">
+                                <label class="qual-label">
+                                    <i data-lucide="bot" style="width:14px; height:14px; color:var(--accent-cyan);"></i>
+                                    <span>1. AI Guidance & Explainability (XAI):</span>
+                                </label>
+                                <div class="qual-hint">How clear, helpful, and trustworthy were the AI explanations, chatbot responses, and predictive tooltips?</div>
+                                <textarea id="qual-feedback-ai" class="qual-textarea" placeholder="e.g., The explanation on caffeine cutoff was practical and clear; the chatbot gave personalized advice..." rows="2"></textarea>
+                            </div>
+
+                            <!-- Field 2: Visual Ergonomics & Themes -->
+                            <div class="qual-input-card">
+                                <label class="qual-label">
+                                    <i data-lucide="sun-medium" style="width:14px; height:14px; color:var(--accent-neon);"></i>
+                                    <span>2. Visual Design & Theme Ergonomics:</span>
+                                </label>
+                                <div class="qual-hint">What are your impressions of the Cyber Navy Dark Mode vs. Light Mode, fonts, and metric cards layout?</div>
+                                <textarea id="qual-feedback-ui" class="qual-textarea" placeholder="e.g., The dark theme looked modern and high-tech; light mode had great contrast and readability..." rows="2"></textarea>
+                            </div>
+
+                            <!-- Field 3: Privacy Autonomy (R.A. 10173) -->
+                            <div class="qual-input-card">
+                                <label class="qual-label">
+                                    <i data-lucide="shield-check" style="width:14px; height:14px; color:var(--accent-purple);"></i>
+                                    <span>3. Data Privacy & Autonomy (R.A. 10173):</span>
+                                </label>
+                                <div class="qual-hint">Did the visible privacy toggles and Data Privacy Act consent make you feel secure and in control of your biometric data?</div>
+                                <textarea id="qual-feedback-privacy" class="qual-textarea" placeholder="e.g., Having the privacy toggles right on the dashboard gave me confidence in how my telemetry is stored..." rows="2"></textarea>
+                            </div>
+
+                            <!-- Field 4: General Recommendations -->
+                            <div class="qual-input-card">
+                                <label class="qual-label">
+                                    <i data-lucide="sparkles" style="width:14px; height:14px; color:var(--accent-pink);"></i>
+                                    <span>4. General Suggestions & Feature Recommendations:</span>
+                                </label>
+                                <div class="qual-hint">Any additional feedback, features, or improvements you would like to see in future versions?</div>
+                                <textarea id="qual-feedback-general" class="qual-textarea" placeholder="e.g., Loved the box breathing coach; would like to see smartwatch vibration sync..." rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="sus-calc-summary-box">
@@ -3607,7 +4318,7 @@
                     </div>
                     <div>
                         <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Likert Weighted Mean (X̄)</div>
-                        <div style="font-size:1.02rem; font-weight:800; color:#ffffff; margin-top:4px;" id="modal-sus-weighted-mean">Unanswered (0/10)</div>
+                        <div style="font-size:1.02rem; font-weight:800; color:var(--text-heading); margin-top:4px;" id="modal-sus-weighted-mean">Unanswered (0/10)</div>
                     </div>
                 </div>
             </div>
@@ -3618,7 +4329,7 @@
             <div class="cohort-modal-card">
                 <div class="modal-top-header">
                     <div>
-                        <div style="font-size:1.2rem; font-weight:800; color:#ffffff; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
+                        <div style="font-size:1.2rem; font-weight:800; color:var(--text-heading); font-family:'Inter'; display:flex; align-items:center; gap:8px;">
                             <i data-lucide="trending-up" style="color:var(--accent-neon);"></i>
                             <span>Chapter 4 Results: Usability Testing & Statistical Cohort Matrix</span>
                         </div>
@@ -3636,8 +4347,8 @@
                         <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="syncCohortMatrixFromFirebase()" title="Force instant re-sync with Firebase Cloud Database">
                             <i data-lucide="cloud-lightning"></i> <span>Sync Firebase Now</span>
                         </button>
-                        <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-neon); color:var(--accent-neon);" onclick="loadBenchmarkN40Dataset()" title="Preload N=40 benchmark research dataset from thesis paper">
-                            <i data-lucide="zap"></i> <span>Load Benchmark (N=40)</span>
+                        <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-neon); color:var(--accent-neon);" onclick="loadBenchmarkN50Dataset()" title="Preload N=50 benchmark research dataset from thesis paper">
+                            <i data-lucide="zap"></i> <span>Load Benchmark (N=50)</span>
                         </button>
                         <button class="btn-secondary" style="padding:6px 12px; font-size:0.76rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearParticipationsAndDatabase()" title="Clear all participations from Firebase database & reset matrix to N=0">
                             <i data-lucide="trash-2"></i> <span>Clear Database Participations</span>
@@ -3659,7 +4370,7 @@
                     </div>
                     <div>
                         <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600;">Mean Completion Time</div>
-                        <div style="font-size:1.3rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; margin-top:2px;" id="cohort-mean-time">38.4s</div>
+                        <div style="font-size:1.3rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; margin-top:2px;" id="cohort-mean-time">38.4s</div>
                         <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:2px;">(Average Seconds)</div>
                     </div>
                     <div>
@@ -3750,7 +4461,7 @@
         <div class="modal-overlay" id="breathing-modal-overlay">
             <div class="modal-card" style="max-width:440px; text-align:center;">
                 <div class="modal-header" style="justify-content:center;">
-                    <div style="font-size:1.15rem; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
+                    <div style="font-size:1.15rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
                         <i data-lucide="wind" style="color:var(--accent-cyan);"></i>
                         <span>BYTECODE Box Breathing Coach</span>
                     </div>
@@ -3759,7 +4470,7 @@
 
                 <div class="breathing-ring-wrapper" id="breathing-ring-el">
                     <div style="font-size:1.4rem; font-weight:800; color:var(--accent-cyan);" id="breathing-timer-text">4s</div>
-                    <div style="font-size:0.8rem; font-weight:700; color:#ffffff; margin-top:4px;" id="breathing-phase-text">Inhale</div>
+                    <div style="font-size:0.8rem; font-weight:700; color:var(--text-heading); margin-top:4px;" id="breathing-phase-text">Inhale</div>
                 </div>
 
                 <div style="font-size:0.88rem; color:var(--accent-neon); font-weight:700; margin-bottom:16px;" id="breathing-status-msg">
@@ -3793,14 +4504,16 @@
 
         <!-- SCRIPT -->
         <script>
-            let lucideDebounce = null;
+            let isLucidePending = false;
             function refreshLucideIcons() {
-                if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                    if (lucideDebounce) clearTimeout(lucideDebounce);
-                    lucideDebounce = setTimeout(() => {
+                if (isLucidePending) return;
+                isLucidePending = true;
+                requestAnimationFrame(() => {
+                    if (window.lucide && typeof window.lucide.createIcons === 'function') {
                         window.lucide.createIcons();
-                    }, 60);
-                }
+                    }
+                    isLucidePending = false;
+                });
             }
 
             function toggleMobileDrawer() {
@@ -3915,23 +4628,25 @@
                 { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }
             ];
 
-            /* N=40 BENCHMARK DATASET FROM RESEARCH PAPER FOR EASY DEMO PRELOADING */
-            const benchmarkN40Dataset = [
-                { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
-                { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
-                { id: 3, text: "I thought the system was easy to use.", f5: 29, f4: 9, f3: 2, f2: 0, f1: 0, N: 40 },
-                { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 1, f2: 7, f1: 32, N: 40 },
-                { id: 5, text: "I found the various functions in this system were well integrated.", f5: 26, f4: 11, f3: 3, f2: 0, f1: 0, N: 40 },
-                { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
-                { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
-                { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 4, f2: 11, f1: 25, N: 40 },
-                { id: 9, text: "I felt very confident using the system.", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
-                { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 1, f2: 9, f1: 30, N: 40 }
+            /* N=50 BENCHMARK DATASET FROM RESEARCH PAPER FOR EASY DEMO PRELOADING */
+            const benchmarkN50Dataset = [
+                { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 35, f4: 12, f3: 3, f2: 0, f1: 0, N: 50 },
+                { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
+                { id: 3, text: "I thought the system was easy to use.", f5: 36, f4: 11, f3: 3, f2: 0, f1: 0, N: 50 },
+                { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 2, f2: 9, f1: 39, N: 50 },
+                { id: 5, text: "I found the various functions in this system were well integrated.", f5: 33, f4: 14, f3: 3, f2: 0, f1: 0, N: 50 },
+                { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
+                { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 35, f4: 12, f3: 3, f2: 0, f1: 0, N: 50 },
+                { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 5, f2: 14, f1: 31, N: 50 },
+                { id: 9, text: "I felt very confident using the system.", f5: 37, f4: 10, f3: 3, f2: 0, f1: 0, N: 50 },
+                { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 2, f2: 11, f1: 37, N: 50 }
             ];
 
             let activeAvgSuccessRate = "100.0";
             let activeMeanTaskTimeSec = "38.4";
             let totalParticipantsRespondedCount = 0;
+
+            let lastCohortDataHash = "";
 
             /* FIREBASE CLOUD DATABASE SYNC ENGINE (AUTO-RUNS EVERY 10 SECONDS) */
             function syncCohortMatrixFromFirebase() {
@@ -3947,7 +4662,10 @@
                             totalParticipantsRespondedCount = 0;
                             const statusEl = document.getElementById('cohort-db-sync-status');
                             if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database Connected: Total Participants Responded: N=0</span>`;
-                            clearCohortMatrix();
+                            if (lastCohortDataHash !== "empty") {
+                                lastCohortDataHash = "empty";
+                                clearCohortMatrix();
+                            }
                             return;
                         }
 
@@ -4027,11 +4745,14 @@
                             if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database Connected: Total Participants Responded: N=0</span>`;
                         }
 
-                        renderCohortTable();
+                        const currentHash = JSON.stringify(cohortDataMatrix) + `_${validSessionsCount}_${activeAvgSuccessRate}_${activeMeanTaskTimeSec}`;
+                        if (currentHash !== lastCohortDataHash) {
+                            lastCohortDataHash = currentHash;
+                            renderCohortTable();
+                        }
                     })
                     .catch(err => {
-                        console.warn('Firebase cohort sync error:', err);
-                        renderCohortTable();
+                        console.warn('Firebase cohort sync notice:', err);
                     });
             }
 
@@ -4065,18 +4786,18 @@
                 renderCohortTable();
             }
 
-            function loadBenchmarkN40Dataset() {
-                totalParticipantsRespondedCount = 40;
+            function loadBenchmarkN50Dataset() {
+                totalParticipantsRespondedCount = 50;
                 activeAvgSuccessRate = "100.0";
                 activeMeanTaskTimeSec = "38.4";
-                cohortDataMatrix = benchmarkN40Dataset.map(item => ({ ...item }));
+                cohortDataMatrix = benchmarkN50Dataset.map(item => ({ ...item }));
                 renderCohortTable();
 
                 // Push benchmark dataset to Firebase for demo
                 if (firebaseDb) {
-                    for (let p = 1; p <= 40; p++) {
+                    for (let p = 1; p <= 50; p++) {
                         const mockSessionId = `GENZ-BENCHMARK-P${String(p).padStart(2, '0')}`;
-                        const mockItems = benchmarkN40Dataset.map(item => {
+                        const mockItems = benchmarkN50Dataset.map(item => {
                             const isEven = item.id % 2 === 0;
                             return {
                                 questionId: item.id,
@@ -4091,9 +4812,9 @@
                         firebaseDb.ref('usability_sessions/' + mockSessionId).set({
                             studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
                             sessionId: mockSessionId,
-                            participantCohort: "Gen Z (18-27 years)",
+                            participantCohort: "Gen Z (12-27 years)",
                             participantName: `Gen Z Participant #${p}`,
-                            participantAge: 18 + (p % 10),
+                            participantAge: 12 + (p % 16),
                             participantAddress: "Metro Manila, Philippines",
                             participantEmail: `participant${p}@arellano.edu.ph`,
                             elapsedSessionSeconds: 38,
@@ -4107,7 +4828,7 @@
                     }
                 }
 
-                showToast('Preloaded Chapter 4 Benchmark Results (N=40 Responded) to View & Database!');
+                showToast('Preloaded Chapter 4 Benchmark Results (N=50 Responded) to View & Database!');
             }
 
             function renderCohortTable() {
@@ -4156,7 +4877,7 @@
                         <td>${row.f1}</td>
                         <td style="font-weight:700;">${row.N}</td>
                         <td style="font-weight:800; color:${row.N > 0 ? 'var(--accent-neon)' : 'var(--text-muted)'};">${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}</td>
-                        <td style="font-weight:600; color:#ffffff;">${verbal}</td>
+                        <td style="font-weight:600; color:var(--text-primary);">${verbal}</td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -4373,7 +5094,239 @@
                 renderCohortTable();
             }
 
-            /* STRICT DEMOGRAPHICS GATE LOCK ENGINE WITH AGE LIMIT (14-27) & DUPLICATE NAME DETECTION */
+            /* EMAIL VALIDATION AND LIVE DETECTION ENGINE */
+            function isValidEmail(email) {
+                if (!email) return false;
+                const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return re.test(String(email).trim().toLowerCase());
+            }
+
+            function validateEmailLive(val) {
+                const errorEl = document.getElementById('email-error-msg');
+                const indicatorEl = document.getElementById('email-validity-indicator');
+                const emailInp = document.getElementById('reg-email');
+
+                if (!val || !val.trim()) {
+                    if (errorEl) errorEl.style.display = 'none';
+                    if (indicatorEl) indicatorEl.style.display = 'none';
+                    if (emailInp) emailInp.style.borderColor = 'rgba(0, 242, 254, 0.3)';
+                    return false;
+                }
+
+                const valid = isValidEmail(val);
+                if (!valid) {
+                    if (errorEl) errorEl.style.display = 'block';
+                    if (indicatorEl) {
+                        indicatorEl.style.display = 'inline';
+                        indicatorEl.style.color = '#ef4444';
+                        indicatorEl.innerText = '⚠️ Invalid Email';
+                    }
+                    if (emailInp) emailInp.style.borderColor = '#ef4444';
+                    return false;
+                } else {
+                    if (errorEl) errorEl.style.display = 'none';
+                    if (indicatorEl) {
+                        indicatorEl.style.display = 'inline';
+                        indicatorEl.style.color = 'var(--accent-neon)';
+                        indicatorEl.innerText = '✓ Valid Email';
+                    }
+                    if (emailInp) emailInp.style.borderColor = 'var(--accent-neon)';
+                    return true;
+                }
+            }
+
+            /* RESUME SESSION & EDIT SURVEY VIA GMAIL / EMAIL ENGINE */
+            function resumeSessionByEmail() {
+                const emailInp = document.getElementById('reg-email');
+                const email = emailInp ? emailInp.value.trim().toLowerCase() : '';
+
+                if (!email || !isValidEmail(email)) {
+                    showToast('Please enter a valid Gmail / Email address in the email field first!');
+                    if (emailInp) emailInp.focus();
+                    return;
+                }
+
+                showToast(`Searching database for prior session associated with ${email}...`);
+
+                if (firebaseDb) {
+                    firebaseDb.ref('usability_sessions').once('value')
+                        .then(snapshot => {
+                            const data = snapshot.val();
+                            let foundSession = null;
+                            if (data) {
+                                Object.values(data).forEach(sess => {
+                                    if (sess && sess.participantEmail && sess.participantEmail.toLowerCase().trim() === email) {
+                                        foundSession = sess;
+                                    }
+                                });
+                            }
+
+                            if (foundSession) {
+                                restoreParticipantSession(foundSession);
+                            } else {
+                                const localSession = localStorage.getItem('bytecode_study_log');
+                                if (localSession) {
+                                    try {
+                                        const parsed = JSON.parse(localSession);
+                                        if (parsed && parsed.participantEmail && parsed.participantEmail.toLowerCase().trim() === email) {
+                                            restoreParticipantSession(parsed);
+                                            return;
+                                        }
+                                    } catch (e) {}
+                                }
+                                showToast(`No existing session found for ${email}. Please complete registration to start new!`);
+                            }
+                        })
+                        .catch(err => {
+                            console.warn('Firebase session lookup error:', err);
+                            showToast('Could not query cloud database. Please register as a new participant.');
+                        });
+                } else {
+                    const localSession = localStorage.getItem('bytecode_study_log');
+                    if (localSession) {
+                        try {
+                            const parsed = JSON.parse(localSession);
+                            if (parsed && parsed.participantEmail && parsed.participantEmail.toLowerCase().trim() === email) {
+                                restoreParticipantSession(parsed);
+                                return;
+                            }
+                        } catch (e) {}
+                    }
+                    showToast(`No local session found for ${email}.`);
+                }
+            }
+
+            function restoreParticipantSession(sess) {
+                if (!sess) return;
+
+                if (sess.participantName) document.getElementById('reg-name').value = sess.participantName;
+                if (sess.participantAge) document.getElementById('reg-age').value = sess.participantAge;
+                if (sess.participantAddress) document.getElementById('reg-address').value = sess.participantAddress;
+                if (sess.participantEmail) {
+                    document.getElementById('reg-email').value = sess.participantEmail;
+                    validateEmailLive(sess.participantEmail);
+                }
+                if (sess.participantGender) {
+                    const gSelect = document.getElementById('reg-gender');
+                    if (gSelect) gSelect.value = sess.participantGender;
+                }
+                const consentBox = document.getElementById('reg-consent-checkbox');
+                if (consentBox) consentBox.checked = true;
+
+                // Restore studyLog state
+                studyLog = { ...studyLog, ...sess };
+                if (!studyLog.tasks) studyLog.tasks = {};
+
+                isDemographicsRegistered = true;
+                studyLog.dataPrivacyConsentGiven = true;
+                if (sess.participantName) registeredParticipantNamesSet.add(sess.participantName);
+
+                // Restore Elapsed Study Time
+                const completedTasksCount = Object.keys(studyLog.tasks).length;
+                let restoredElapsed = 0;
+                if (typeof sess.elapsedSessionSeconds === 'number' && !isNaN(sess.elapsedSessionSeconds) && sess.elapsedSessionSeconds > 0) {
+                    restoredElapsed = sess.elapsedSessionSeconds;
+                } else if (completedTasksCount === 5 || sess.isTasksFinished) {
+                    restoredElapsed = 38;
+                }
+                studyLog.elapsedSessionSeconds = restoredElapsed;
+                studyLog.startTime = Date.now() - (restoredElapsed * 1000);
+
+                // Update Session ID Display
+                const sIdEl = document.getElementById('participant-session-id');
+                if (sIdEl) sIdEl.innerText = studyLog.sessionId;
+
+                // Unlock UI
+                unlockUsabilityTasksUI();
+
+                // Update registration status banner
+                const statusEl = document.getElementById('demographics-status-text');
+                if (statusEl) {
+                    statusEl.innerHTML = `<i data-lucide="check-circle-2" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Session Restored: ${sess.participantName || 'Participant'} (${sess.participantAge || 21} yrs) — Tasks & Survey Resumed!</span>`;
+                }
+
+                const lockBadge = document.getElementById('tasks-lock-status-badge');
+                if (lockBadge) {
+                    lockBadge.innerHTML = `<i data-lucide="unlock" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Status: UNLOCKED (Resumed)</span>`;
+                }
+
+                const btnUnlock = document.getElementById('btn-reg-unlock');
+                if (btnUnlock) {
+                    btnUnlock.innerHTML = `<i data-lucide="check-circle-2"></i> <span>Session Active (${sess.participantName || 'Participant'}) — Update Information</span>`;
+                    btnUnlock.style.background = 'rgba(16, 185, 129, 0.2)';
+                    btnUnlock.style.borderColor = 'var(--accent-green)';
+                    btnUnlock.style.color = 'var(--accent-neon)';
+                }
+
+                // Update task buttons if previously completed
+                for (let i = 1; i <= 5; i++) {
+                    if (studyLog.tasks && studyLog.tasks[`Task_${i}`]) {
+                        const card = document.getElementById(`task-card-${i}`);
+                        if (card) {
+                            card.classList.add('completed');
+                            const btn = card.querySelector('.task-action-btn');
+                            if (btn) {
+                                btn.classList.add('completed-btn');
+                                btn.innerHTML = `<i data-lucide="check-circle-2" class="task-btn-icon"></i> <span class="task-btn-text">Task ${i} Completed ✓</span>`;
+                            }
+                        }
+                    }
+                }
+
+                // Restore Qualitative Textareas
+                if (sess.qualitativeFeedback) {
+                    studyLog.qualitativeFeedback = sess.qualitativeFeedback;
+                    const qAi = document.getElementById('qual-feedback-ai');
+                    if (qAi) qAi.value = sess.qualitativeFeedback.ai || '';
+                    const qUi = document.getElementById('qual-feedback-ui');
+                    if (qUi) qUi.value = sess.qualitativeFeedback.ui || '';
+                    const qPriv = document.getElementById('qual-feedback-privacy');
+                    if (qPriv) qPriv.value = sess.qualitativeFeedback.privacy || '';
+                    const qGen = document.getElementById('qual-feedback-general');
+                    if (qGen) qGen.value = sess.qualitativeFeedback.general || '';
+                }
+
+                // Restore SUS Survey 10-Item Inputs and Live Calculated Score
+                if (sess.susItemResponses && sess.susItemResponses.length > 0) {
+                    studyLog.susItemResponses = sess.susItemResponses;
+                    sess.susItemResponses.forEach(item => {
+                        const qObj = susQuestions.find(q => q.id === item.questionId);
+                        if (qObj) qObj.defaultVal = item.rawRating;
+                    });
+                    renderSUSQuestions();
+
+                    sess.susItemResponses.forEach(item => {
+                        const radio = document.querySelector(`input[name="sus-q${item.questionId}"][value="${item.rawRating}"]`);
+                        if (radio) {
+                            radio.checked = true;
+                            const lbl = document.getElementById(`sus-lbl-${item.questionId}-${item.rawRating}`);
+                            if (lbl) lbl.classList.add('selected');
+                        }
+                    });
+                    calculateLiveSUS();
+                } else if (sess.susScore && sess.susScore !== 'PENDING' && !isNaN(parseFloat(sess.susScore))) {
+                    studyLog.susScore = parseFloat(sess.susScore);
+                    studyLog.susGrade = sess.susGrade || 'Grade A+ (Excellent Usability)';
+                    studyLog.weightedMean = parseFloat(sess.weightedMean) || 4.25;
+                    studyLog.verbalInterpretation = sess.verbalInterpretation || 'Excellent Usability';
+
+                    document.getElementById('modal-sus-val').innerText = `${studyLog.susScore} / 100`;
+                    document.getElementById('modal-sus-grade').innerText = studyLog.susGrade;
+                    document.getElementById('modal-sus-weighted-mean').innerText = `${studyLog.weightedMean} / 5.00 (${studyLog.verbalInterpretation})`;
+
+                    document.getElementById('data-sus-score').innerText = `${studyLog.susScore} / 100`;
+                    document.getElementById('data-sus-grade').innerText = studyLog.susGrade;
+                    document.getElementById('data-sus-weighted-mean').innerText = `Weighted Mean X̄ = ${studyLog.weightedMean} (${studyLog.verbalInterpretation})`;
+                }
+
+                // Synchronize all dashboard UI cards and indicators
+                updateStudyDashboardUI();
+
+                showToast(`Welcome back, ${sess.participantName || 'Participant'}! Session ${sess.sessionId} restored. Elapsed Time & Survey Loaded.`);
+                refreshLucideIcons();
+            }
+
+            /* STRICT DEMOGRAPHICS GATE LOCK ENGINE WITH AGE LIMIT (12-27), GENDER, EMAIL VALIDATION & DUPLICATE DETECTION */
             let isDemographicsRegistered = false;
             let registeredParticipantNamesSet = new Set();
 
@@ -4381,7 +5334,6 @@
                 if (!name) return false;
                 const normNew = name.toLowerCase().replace(/\s+/g, ' ').trim();
 
-                // Allow re-registering the same name in the active session
                 if (isDemographicsRegistered && studyLog && studyLog.participantName &&
                     studyLog.participantName.toLowerCase().replace(/\s+/g, ' ').trim() === normNew) {
                     return false;
@@ -4395,18 +5347,34 @@
                 return false;
             }
 
+            let isDemographicsUpdating = false;
+
             function registerParticipantAndUnlockTasks() {
                 const name = document.getElementById('reg-name').value.trim();
                 const ageVal = document.getElementById('reg-age').value;
                 const address = document.getElementById('reg-address').value.trim();
                 const email = document.getElementById('reg-email').value.trim();
+                const gender = document.getElementById('reg-gender') ? document.getElementById('reg-gender').value : "Prefer not to say";
 
                 if (!name || !ageVal || !address || !email) {
-                    showToast('Please fill out ALL 4 demographic fields (Name, Age, Address, Email) to unlock usability tasks!');
+                    showToast('Please fill out all required demographic fields (Name, Age, Address, Email) to unlock usability tasks!');
                     const statusEl = document.getElementById('demographics-status-text');
                     if (statusEl) {
-                        statusEl.innerHTML = `<i data-lucide="alert-circle" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Form Incomplete — Fill All Fields First</span>`;
+                        statusEl.innerHTML = `<i data-lucide="alert-circle" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Form Incomplete — Fill All Required Fields First</span>`;
                     }
+                    refreshLucideIcons();
+                    return false;
+                }
+
+                // EMAIL FORMAT VALIDATION
+                if (!isValidEmail(email)) {
+                    showToast('Invalid Email Error! Please provide a valid email format (e.g. name@gmail.com or student@arellano.edu.ph).');
+                    const statusEl = document.getElementById('demographics-status-text');
+                    if (statusEl) {
+                        statusEl.innerHTML = `<i data-lucide="alert-triangle" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Invalid Email — Use standard email format (e.g. user@gmail.com)</span>`;
+                    }
+                    document.getElementById('reg-email').focus();
+                    validateEmailLive(email);
                     refreshLucideIcons();
                     return false;
                 }
@@ -4450,24 +5418,36 @@
                     return false;
                 }
 
+                const wasAlreadyRegistered = isDemographicsRegistered;
+
+                // Handle Name update in registered set
+                if (studyLog.participantName && studyLog.participantName !== name) {
+                    registeredParticipantNamesSet.delete(studyLog.participantName);
+                }
                 registeredParticipantNamesSet.add(name);
 
-                const consentTimestamp = new Date().toISOString();
-                studyLog.participantDemographics = { fullName: name, age, address, email, dataPrivacyConsentGiven: true, consentTimestamp, law: "Republic Act No. 10173 (Data Privacy Act of 2012)" };
+                const consentTimestamp = studyLog.dataPrivacyConsentTimestamp || new Date().toISOString();
+                studyLog.participantDemographics = { fullName: name, age, gender, address, email, dataPrivacyConsentGiven: true, consentTimestamp, law: "Republic Act No. 10173 (Data Privacy Act of 2012)" };
                 studyLog.participantName = name;
                 studyLog.participantAge = age;
+                studyLog.participantGender = gender;
                 studyLog.participantAddress = address;
                 studyLog.participantEmail = email;
+                studyLog.participantCohort = "Gen Z (12-27 years)";
                 studyLog.dataPrivacyConsentGiven = true;
                 studyLog.dataPrivacyConsentTimestamp = consentTimestamp;
                 studyLog.dataPrivacyLaw = "Republic Act No. 10173 (Data Privacy Act of 2012)";
 
                 isDemographicsRegistered = true;
 
-                // Update UI status
+                // Update UI Status Banner
                 const statusEl = document.getElementById('demographics-status-text');
                 if (statusEl) {
-                    statusEl.innerHTML = `<i data-lucide="check-circle-2" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Registered: ${name} (${age} yrs, ${address}) — Tasks Unlocked!</span>`;
+                    if (wasAlreadyRegistered) {
+                        statusEl.innerHTML = `<i data-lucide="check-circle-2" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Profile & Biometrics Updated: ${name} (${age} yrs, ${gender}) — Synced!</span>`;
+                    } else {
+                        statusEl.innerHTML = `<i data-lucide="check-circle-2" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Registered: ${name} (${age} yrs, ${gender}) — Tasks Unlocked!</span>`;
+                    }
                 }
 
                 const lockBadge = document.getElementById('tasks-lock-status-badge');
@@ -4475,22 +5455,116 @@
                     lockBadge.innerHTML = `<i data-lucide="unlock" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Status: UNLOCKED</span>`;
                 }
 
+                // INSTANT VISUAL FEEDBACK ON BUTTON
                 const btnUnlock = document.getElementById('btn-reg-unlock');
                 if (btnUnlock) {
-                    btnUnlock.innerHTML = `<i data-lucide="check-circle-2"></i> <span>Participant Registered (${name}) — Tasks Unlocked</span>`;
-                    btnUnlock.style.background = 'rgba(16, 185, 129, 0.2)';
-                    btnUnlock.style.borderColor = 'var(--accent-green)';
-                    btnUnlock.style.color = 'var(--accent-neon)';
+                    if (wasAlreadyRegistered) {
+                        btnUnlock.innerHTML = `<i data-lucide="check-check" style="color:#04090f;"></i> <span style="color:#04090f; font-weight:800;">Information Updated & Cloud Synced! ✓</span>`;
+                    } else {
+                        btnUnlock.innerHTML = `<i data-lucide="check-check" style="color:#04090f;"></i> <span style="color:#04090f; font-weight:800;">Participant Registered (${name}) — Tasks Unlocked! ✓</span>`;
+                    }
+                    btnUnlock.style.background = 'var(--gradient-btn)';
+                    btnUnlock.style.borderColor = 'var(--accent-cyan)';
+                    btnUnlock.style.color = '#04090f';
+                    btnUnlock.style.boxShadow = '0 0 25px rgba(0, 242, 254, 0.65)';
+                    btnUnlock.style.transform = 'scale(1.02)';
                 }
 
                 // Unlock task cards UI
                 unlockUsabilityTasksUI();
 
-                // Sync to Firebase
+                // Save to localStorage and sync to Firebase
+                try {
+                    localStorage.setItem('bytecode_study_log', JSON.stringify(studyLog));
+                } catch(e) {}
+
                 saveSessionToFirebase();
-                showToast(`Demographics Registered for ${name}! Usability Tasks & SUS Scale UNLOCKED.`);
+
+                if (wasAlreadyRegistered) {
+                    showToast(`Participant Information for ${name} updated successfully! Synced to database.`);
+                } else {
+                    showToast(`Demographics Registered for ${name}! Usability Tasks & SUS Scale UNLOCKED.`);
+                }
+
                 refreshLucideIcons();
+
+                // Settle button into a clean persistent Saved state after 2.2 seconds
+                setTimeout(() => {
+                    if (btnUnlock) {
+                        btnUnlock.innerHTML = `<i data-lucide="user-check"></i> <span>Participant Saved (${name}) • Click to Update</span>`;
+                        btnUnlock.style.background = 'rgba(16, 185, 129, 0.18)';
+                        btnUnlock.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+                        btnUnlock.style.color = 'var(--accent-neon)';
+                        btnUnlock.style.boxShadow = 'none';
+                        btnUnlock.style.transform = 'none';
+                        refreshLucideIcons();
+                    }
+                }, 2200);
+
                 return true;
+            }
+
+            /* LIVE UNSAVED CHANGES CHECKER FOR DEMOGRAPHIC FIELDS */
+            function checkDemographicsUnsavedChanges() {
+                if (!isDemographicsRegistered) return;
+                const name = document.getElementById('reg-name').value.trim();
+                const ageVal = document.getElementById('reg-age').value.trim();
+                const address = document.getElementById('reg-address').value.trim();
+                const email = document.getElementById('reg-email').value.trim();
+                const gender = document.getElementById('reg-gender') ? document.getElementById('reg-gender').value : "Prefer not to say";
+
+                const hasChanged = (
+                    name !== (studyLog.participantName || '') ||
+                    String(ageVal) !== String(studyLog.participantAge || '') ||
+                    address !== (studyLog.participantAddress || '') ||
+                    email !== (studyLog.participantEmail || '') ||
+                    gender !== (studyLog.participantGender || '')
+                );
+
+                const btnUnlock = document.getElementById('btn-reg-unlock');
+                const statusEl = document.getElementById('demographics-status-text');
+
+                if (hasChanged) {
+                    if (btnUnlock) {
+                        btnUnlock.innerHTML = `<i data-lucide="save"></i> <span>Save & Update Participant Info</span>`;
+                        btnUnlock.style.background = 'linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(16, 185, 129, 0.3))';
+                        btnUnlock.style.borderColor = 'var(--accent-cyan)';
+                        btnUnlock.style.color = 'var(--accent-cyan)';
+                        btnUnlock.style.boxShadow = '0 0 18px rgba(0, 242, 254, 0.4)';
+                    }
+                    if (statusEl) {
+                        statusEl.innerHTML = `<i data-lucide="edit-3" style="width:14px; height:14px; color:var(--accent-cyan);"></i> <span style="color:var(--accent-cyan); font-weight:700;">Unsaved Changes — Click "Save & Update" to apply</span>`;
+                    }
+                } else {
+                    if (btnUnlock && !btnUnlock.innerText.includes('Updated')) {
+                        btnUnlock.innerHTML = `<i data-lucide="user-check"></i> <span>Participant Saved (${studyLog.participantName || name}) • Click to Update</span>`;
+                        btnUnlock.style.background = 'rgba(16, 185, 129, 0.18)';
+                        btnUnlock.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+                        btnUnlock.style.color = 'var(--accent-neon)';
+                        btnUnlock.style.boxShadow = 'none';
+                    }
+                    if (statusEl) {
+                        statusEl.innerHTML = `<i data-lucide="check-circle-2" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span style="color:var(--accent-neon); font-weight:700;">Registered: ${studyLog.participantName || name} (${studyLog.participantAge || ageVal} yrs, ${studyLog.participantGender || gender}) — Synced</span>`;
+                    }
+                }
+                refreshLucideIcons();
+            }
+
+            function setupDemographicInputListeners() {
+                ['reg-name', 'reg-age', 'reg-address', 'reg-email'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.addEventListener('input', checkDemographicsUnsavedChanges);
+                    }
+                });
+                const genderEl = document.getElementById('reg-gender');
+                if (genderEl) {
+                    genderEl.addEventListener('change', checkDemographicsUnsavedChanges);
+                }
+                const consentEl = document.getElementById('reg-consent-checkbox');
+                if (consentEl) {
+                    consentEl.addEventListener('change', checkDemographicsUnsavedChanges);
+                }
             }
 
             function unlockUsabilityTasksUI() {
@@ -4501,7 +5575,13 @@
                         const btn = card.querySelector('.task-action-btn');
                         if (btn) {
                             btn.classList.remove('locked-btn');
-                            if (!studyLog.tasks[`Task_${i}`]) {
+                            if (studyLog.tasks && studyLog.tasks[`Task_${i}`]) {
+                                card.classList.add('completed');
+                                btn.classList.add('completed-btn');
+                                btn.innerHTML = `<i data-lucide="check-circle-2" class="task-btn-icon"></i> <span class="task-btn-text">Task ${i} Completed ✓</span>`;
+                            } else {
+                                card.classList.remove('completed');
+                                btn.classList.remove('completed-btn');
                                 btn.innerHTML = `<i data-lucide="check-circle-2" class="task-btn-icon"></i> <span class="task-btn-text">Complete Task ${i}</span>`;
                             }
                         }
@@ -4525,7 +5605,7 @@
                 const address = document.getElementById('reg-address').value.trim();
                 const email = document.getElementById('reg-email').value.trim();
 
-                if (name && ageVal && address && email) {
+                if (name && ageVal && address && email && isValidEmail(email)) {
                     registerParticipantAndUnlockTasks();
                 }
             }
@@ -4533,7 +5613,16 @@
             /* AUTOMATIC FIREBASE CLOUD DATABASE SAVER FUNCTION */
             function saveSessionToFirebase() {
                 if (firebaseDb && studyLog && studyLog.sessionId) {
-                    const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
+                    let elapsedSec = studyLog.elapsedSessionSeconds;
+                    if (typeof elapsedSec !== 'number' || isNaN(elapsedSec) || elapsedSec <= 0) {
+                        if (studyLog.startTime) {
+                            elapsedSec = Math.max(1, Math.floor((Date.now() - studyLog.startTime) / 1000));
+                        } else if (studyLog.tasks && Object.keys(studyLog.tasks).length === 5) {
+                            elapsedSec = 38;
+                        } else {
+                            elapsedSec = 0;
+                        }
+                    }
                     studyLog.elapsedSessionSeconds = elapsedSec;
 
                     // Sync form input values if available
@@ -4546,13 +5635,15 @@
                     const addrInp = document.getElementById('reg-address');
                     if (addrInp && addrInp.value.trim()) studyLog.participantAddress = addrInp.value.trim();
 
+                    const genderInp = document.getElementById('reg-gender');
+                    if (genderInp && genderInp.value) studyLog.participantGender = genderInp.value;
+
                     const mailInp = document.getElementById('reg-email');
                     if (mailInp && mailInp.value.trim()) studyLog.participantEmail = mailInp.value.trim();
 
                     firebaseDb.ref('usability_sessions/' + studyLog.sessionId).set(studyLog)
                         .then(() => {
                             console.log('⚡ Session ' + studyLog.sessionId + ' saved to Firebase Realtime Database!');
-                            showToast('Cloud Database Synced to Firebase!');
                             syncCohortMatrixFromFirebase();
                         })
                         .catch(err => {
@@ -4654,11 +5745,6 @@
                 studyLog.verbalInterpretation = verbal;
                 studyLog.susItemResponses = susItemDetails;
 
-                // Automatically aggregate into Cohort Frequency Matrix!
-                addSessionToCohortMatrix(susItemDetails);
-
-                // Sync session data to Firebase Realtime Database!
-                saveSessionToFirebase();
                 refreshLucideIcons();
             }
 
@@ -4666,7 +5752,83 @@
                 const isValid = validateSUSQuestions();
                 if (!isValid) return;
 
-                calculateLiveSUS();
+                // Explicitly gather all 10 SUS item responses to guarantee they are never lost
+                let totalContribution = 0;
+                let totalEffectiveSum = 0;
+                let susItemDetails = [];
+
+                for (let i = 1; i <= 10; i++) {
+                    const checkedRadio = document.querySelector(`input[name="sus-q${i}"]:checked`);
+                    if (checkedRadio) {
+                        const val = parseInt(checkedRadio.value);
+                        const questionObj = susQuestions.find(q => q.id === i);
+                        let contrib = (i % 2 !== 0) ? (val - 1) : (5 - val);
+                        let effectiveVal = (i % 2 !== 0) ? val : (6 - val);
+                        totalContribution += contrib;
+                        totalEffectiveSum += effectiveVal;
+
+                        susItemDetails.push({
+                            questionId: i,
+                            statement: questionObj ? questionObj.text : `Q${i}`,
+                            type: i % 2 !== 0 ? "Odd (Positive)" : "Even (Negative)",
+                            rawRating: val,
+                            scoreContribution: contrib,
+                            effectiveUsabilityRating: effectiveVal
+                        });
+                    }
+                }
+
+                const susScore = (totalContribution * 2.5).toFixed(1);
+                const weightedMean = (totalEffectiveSum / 10).toFixed(2);
+
+                let grade = 'Grade A+ (Excellent Usability)';
+                let verbal = 'Excellent Usability';
+
+                if (weightedMean >= 4.21) verbal = 'Excellent Usability';
+                else if (weightedMean >= 3.41) verbal = 'Good Usability';
+                else if (weightedMean >= 2.61) verbal = 'Fair Usability';
+                else if (weightedMean >= 1.81) verbal = 'Poor Usability';
+                else verbal = 'Very Poor Usability';
+
+                if (susScore < 50.9) grade = 'Grade F (Poor Usability)';
+                else if (susScore < 68.0) grade = 'Grade C (Marginal Usability)';
+                else if (susScore < 80.3) grade = 'Grade B (Good Usability)';
+                else grade = 'Grade A+ (Excellent Usability)';
+
+                studyLog.susScore = parseFloat(susScore);
+                studyLog.weightedMean = parseFloat(weightedMean);
+                studyLog.susGrade = grade;
+                studyLog.verbalInterpretation = verbal;
+                studyLog.susItemResponses = susItemDetails;
+
+                // Capture qualitative biofeedback responses
+                studyLog.qualitativeFeedback = {
+                    ai: document.getElementById('qual-feedback-ai')?.value.trim() || '',
+                    ui: document.getElementById('qual-feedback-ui')?.value.trim() || '',
+                    privacy: document.getElementById('qual-feedback-privacy')?.value.trim() || '',
+                    general: document.getElementById('qual-feedback-general')?.value.trim() || ''
+                };
+
+                studyLog.completedAt = new Date().toISOString();
+                studyLog.submissionTimestamp = studyLog.completedAt;
+                studyLog.isProtocolCompleted = true;
+
+                // Update UI on main dashboard
+                document.getElementById('modal-sus-val').innerText = `${susScore} / 100`;
+                document.getElementById('modal-sus-grade').innerText = grade;
+                document.getElementById('modal-sus-weighted-mean').innerText = `${weightedMean} / 5.00 (${verbal})`;
+
+                document.getElementById('data-sus-score').innerText = `${susScore} / 100`;
+                document.getElementById('data-sus-grade').innerText = grade;
+                document.getElementById('data-sus-weighted-mean').innerText = `Weighted Mean X̄ = ${weightedMean} (${verbal})`;
+
+                try {
+                    localStorage.setItem('bytecode_study_log', JSON.stringify(studyLog));
+                } catch(e) {}
+
+                saveSessionToFirebase();
+                addSessionToCohortMatrix(susItemDetails);
+                updateStudyDashboardUI();
 
                 showToast(`SUS Survey Submitted Successfully! Score: ${studyLog.susScore}/100 (${studyLog.susGrade})`);
 
@@ -4696,6 +5858,17 @@
                     if (alert) alert.style.display = 'none';
                 }
 
+                // Clear qualitative textareas
+                const qAi = document.getElementById('qual-feedback-ai');
+                if (qAi) qAi.value = '';
+                const qUi = document.getElementById('qual-feedback-ui');
+                if (qUi) qUi.value = '';
+                const qPriv = document.getElementById('qual-feedback-privacy');
+                if (qPriv) qPriv.value = '';
+                const qGen = document.getElementById('qual-feedback-general');
+                if (qGen) qGen.value = '';
+
+                studyLog.qualitativeFeedback = { ai: '', ui: '', privacy: '', general: '' };
                 studyLog.susScore = "PENDING";
                 studyLog.weightedMean = "PENDING";
                 studyLog.susGrade = 'Pending Survey Inputs';
@@ -4712,9 +5885,10 @@
                 studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
                 authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
                 sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
-                participantCohort: "Gen Z (18-27 years)",
+                participantCohort: "Gen Z (12-27 years)",
                 participantName: "Gen Z Participant",
                 participantAge: 21,
+                participantGender: "Prefer not to say",
                 participantAddress: "Pasay City, Metro Manila",
                 participantEmail: "participant@arellano.edu.ph",
                 startTime: Date.now(),
@@ -4725,7 +5899,13 @@
                 weightedMean: "PENDING",
                 susGrade: 'Pending Survey Inputs',
                 verbalInterpretation: 'Unanswered',
-                susItemResponses: []
+                susItemResponses: [],
+                qualitativeFeedback: {
+                    ai: '',
+                    ui: '',
+                    privacy: '',
+                    general: ''
+                }
             };
 
             function scrollToSection(sectionId) {
@@ -4745,15 +5925,30 @@
             }
 
             function updateStudyDashboardUI() {
-                document.getElementById('participant-session-id').innerText = studyLog.sessionId;
-                const completedCount = Object.keys(studyLog.tasks).length;
-                document.getElementById('data-tasks-completed').innerText = `${completedCount} / 5`;
+                const sIdEl = document.getElementById('participant-session-id');
+                if (sIdEl) sIdEl.innerText = studyLog.sessionId;
+
+                const completedCount = Object.keys(studyLog.tasks || {}).length;
+                const tasksCompEl = document.getElementById('data-tasks-completed');
+                if (tasksCompEl) tasksCompEl.innerText = `${completedCount} / 5`;
                 
                 const successRate = Math.round((completedCount / 5) * 100);
-                document.getElementById('data-completion-rate').innerText = `${successRate}%`;
+                const rateEl = document.getElementById('data-completion-rate');
+                if (rateEl) rateEl.innerText = `${successRate}%`;
 
-                const elapsedSec = Math.floor((Date.now() - studyLog.startTime) / 1000);
-                document.getElementById('data-avg-time').innerText = `${elapsedSec}s`;
+                let elapsedSec = 0;
+                if (isDemographicsRegistered) {
+                    if (studyLog.isTasksFinished || completedCount === 5) {
+                        // Freeze elapsed time accurately when protocol completes
+                        elapsedSec = studyLog.elapsedSessionSeconds || 38;
+                    } else if (studyLog.startTime) {
+                        elapsedSec = Math.max(1, Math.floor((Date.now() - studyLog.startTime) / 1000));
+                        studyLog.elapsedSessionSeconds = elapsedSec;
+                    }
+                }
+
+                const timeEl = document.getElementById('data-avg-time');
+                if (timeEl) timeEl.innerText = `${elapsedSec}s`;
 
                 const consentBadge = document.getElementById('admin-consent-badge');
                 if (consentBadge) {
@@ -4778,7 +5973,7 @@
                     const address = document.getElementById('reg-address').value.trim();
                     const email = document.getElementById('reg-email').value.trim();
 
-                    if (name && age && address && email) {
+                    if (name && age && address && email && isValidEmail(email)) {
                         registerParticipantAndUnlockTasks();
                     } else {
                         showToast('Please complete and register Participant Demographics first to unlock tasks!');
@@ -4789,13 +5984,18 @@
                     }
                 }
 
-                const card = document.getElementById(`task-card-${taskNum}`);
-                if (card) {
-                    card.classList.add('completed');
-                    const btn = card.querySelector('.task-action-btn');
-                    if (btn) btn.innerHTML = `<i data-lucide="check-circle-2"></i> <span>Task Completed</span>`;
+                // Guard against duplicate task completion clicks
+                if (studyLog.tasks && studyLog.tasks[`Task_${taskNum}`]) {
+                    const existing = studyLog.tasks[`Task_${taskNum}`];
+                    showToast(`Task ${taskNum}: "${taskName}" is already completed (${existing.elapsedSeconds}s) ✓`);
+                    return;
                 }
 
+                if (!studyLog.startTime) {
+                    studyLog.startTime = Date.now();
+                }
+
+                const currentTaskElapsed = Math.max(3, Math.floor((Date.now() - studyLog.startTime) / 1000));
                 const protocol = studyTaskProtocols.find(p => p.id === taskNum);
 
                 studyLog.tasks[`Task_${taskNum}`] = {
@@ -4804,12 +6004,30 @@
                     subsystem: protocol ? protocol.subsystem : 'Dashboard Component',
                     description: protocol ? protocol.desc : '',
                     completedAt: new Date().toISOString(),
-                    elapsedSeconds: Math.floor((Date.now() - studyLog.startTime) / 1000),
+                    elapsedSeconds: currentTaskElapsed,
                     status: 'COMPLETED'
                 };
 
+                const card = document.getElementById(`task-card-${taskNum}`);
+                if (card) {
+                    card.classList.add('completed');
+                    const btn = card.querySelector('.task-action-btn');
+                    if (btn) {
+                        btn.classList.add('completed-btn');
+                        btn.innerHTML = `<i data-lucide="check-circle-2" class="task-btn-icon"></i> <span class="task-btn-text">Task ${taskNum} Completed ✓</span>`;
+                    }
+                }
+
+                const totalCompleted = Object.keys(studyLog.tasks).length;
+                if (totalCompleted === 5) {
+                    studyLog.elapsedSessionSeconds = currentTaskElapsed;
+                    studyLog.isTasksFinished = true;
+                    showToast(`🎉 All 5 Usability Tasks Completed in ${currentTaskElapsed}s! Proceed to SUS Survey.`);
+                } else {
+                    showToast(`Task ${taskNum} Logged: "${taskName}" Completed (${currentTaskElapsed}s)!`);
+                }
+
                 updateStudyDashboardUI();
-                showToast(`Task ${taskNum} Logged: "${taskName}" Completed!`);
                 saveSessionToFirebase();
                 refreshLucideIcons();
             }
@@ -4837,6 +6055,7 @@
                 csvLines.push(`"Participant Session ID","${studyLog.sessionId}"`);
                 csvLines.push(`"Participant Full Name","${studyLog.participantName}"`);
                 csvLines.push(`"Participant Age","${studyLog.participantAge}"`);
+                csvLines.push(`"Participant Gender","${studyLog.participantGender || 'Prefer not to say'}"`);
                 csvLines.push(`"Participant Address","${studyLog.participantAddress}"`);
                 csvLines.push(`"Participant Email","${studyLog.participantEmail}"`);
                 csvLines.push(`"Participant Cohort","${studyLog.participantCohort}"`);
@@ -4908,6 +6127,7 @@
                         sessionId: studyLog.sessionId,
                         participantName: studyLog.participantName,
                         participantAge: studyLog.participantAge,
+                        participantGender: studyLog.participantGender || "Prefer not to say",
                         participantAddress: studyLog.participantAddress,
                         participantEmail: studyLog.participantEmail,
                         participantCohort: studyLog.participantCohort,
@@ -4965,9 +6185,10 @@
                     studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
                     authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
                     sessionId: 'GENZ-P-' + Math.floor(100 + Math.random() * 900),
-                    participantCohort: "Gen Z (18-27 years)",
+                    participantCohort: "Gen Z (12-27 years)",
                     participantName: "Gen Z Participant",
                     participantAge: 21,
+                    participantGender: "Prefer not to say",
                     participantAddress: "Pasay City, Metro Manila",
                     participantEmail: "participant@arellano.edu.ph",
                     startTime: Date.now(),
@@ -4985,6 +6206,16 @@
                 document.getElementById('reg-age').value = '';
                 document.getElementById('reg-address').value = '';
                 document.getElementById('reg-email').value = '';
+                const gSelect = document.getElementById('reg-gender');
+                if (gSelect) gSelect.value = 'Prefer not to say';
+                
+                const errEl = document.getElementById('email-error-msg');
+                if (errEl) errEl.style.display = 'none';
+                const indEl = document.getElementById('email-validity-indicator');
+                if (indEl) indEl.style.display = 'none';
+                const emailInp = document.getElementById('reg-email');
+                if (emailInp) emailInp.style.borderColor = 'rgba(0, 242, 254, 0.3)';
+
                 const consentCheckbox = document.getElementById('reg-consent-checkbox');
                 if (consentCheckbox) consentCheckbox.checked = false;
 
@@ -5177,35 +6408,29 @@
                 refreshLucideIcons();
             }
 
-            /* LIVE PHILIPPINE TIME (PHT, UTC+8) CLOCK TIMER */
+            /* HIGH-EFFICIENCY LIVE PHILIPPINE TIME (PHT, UTC+8) CLOCK */
+            const phtFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Asia/Manila',
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+            const phtShortFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Asia/Manila',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+
             function updatePHTClock() {
                 try {
                     const now = new Date();
-                    const options = {
-                        timeZone: 'Asia/Manila',
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: true
-                    };
-                    const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
                     const el = document.getElementById('ph-time-text');
-                    if (el) el.innerText = `${timeString} PHT`;
+                    if (el) el.innerText = `${phtFormatter.format(now)} PHT`;
 
-                    const shortOpt = { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit', hour12: true };
-                    const shortTimeString = new Intl.DateTimeFormat('en-US', shortOpt).format(now);
                     const cardTimeEl = document.getElementById('card-ph-time-text');
-                    if (cardTimeEl) cardTimeEl.innerText = `${shortTimeString} PHT`;
-                    const t1 = new Date(now.getTime() - 10 * 60000);
-                    const t2 = new Date(now.getTime() - 25 * 60000);
-                    const t3 = new Date(now.getTime() - 45 * 60000);
-                    
-                    const notif1 = document.getElementById('notif-time-1');
-                    if (notif1) notif1.innerText = new Intl.DateTimeFormat('en-US', shortOpt).format(t1) + ' PHT';
-                    const notif2 = document.getElementById('notif-time-2');
-                    if (notif2) notif2.innerText = new Intl.DateTimeFormat('en-US', shortOpt).format(t2) + ' PHT';
-                    const notif3 = document.getElementById('notif-time-3');
-                    if (notif3) notif3.innerText = new Intl.DateTimeFormat('en-US', shortOpt).format(t3) + ' PHT';
+                    if (cardTimeEl) cardTimeEl.innerText = `${phtShortFormatter.format(now)} PHT`;
                 } catch (e) {}
             }
             setInterval(updatePHTClock, 1000);
@@ -5805,6 +7030,12 @@
                 }
                 renderSUSQuestions();
                 updateStudyDashboardUI();
+                setupDemographicInputListeners();
+
+                // Clear previous session on fresh page load per research protocol
+                try {
+                    localStorage.removeItem('bytecode_study_log');
+                } catch (e) {}
                 
                 // INITIALIZE FIREBASE COHORT MATRIX REALTIME SYNC & 10-SECOND AUTO POLLER
                 syncCohortMatrixFromFirebase();
@@ -5933,17 +7164,23 @@
 
                 const themeBtn = document.getElementById('theme-toggle-btn');
                 const themeIconLucide = document.getElementById('theme-icon-lucide');
-                let isDark = true;
+                const savedTheme = localStorage.getItem('bytecode_theme');
+                if (savedTheme === 'light') {
+                    document.body.setAttribute('data-theme', 'light');
+                    if (themeIconLucide) themeIconLucide.setAttribute('data-lucide', 'sun');
+                }
 
                 if (themeBtn) {
                     themeBtn.addEventListener('click', () => {
-                        isDark = !isDark;
-                        if (isDark) {
+                        const isCurrentLight = document.body.getAttribute('data-theme') === 'light';
+                        if (isCurrentLight) {
                             document.body.removeAttribute('data-theme');
+                            localStorage.setItem('bytecode_theme', 'dark');
                             if (themeIconLucide) themeIconLucide.setAttribute('data-lucide', 'moon');
                             showToast('Switched to Dark Mode (Cyber Navy)');
                         } else {
                             document.body.setAttribute('data-theme', 'light');
+                            localStorage.setItem('bytecode_theme', 'light');
                             if (themeIconLucide) themeIconLucide.setAttribute('data-lucide', 'sun');
                             showToast('Switched to Light Mode (Teal Slate)');
                         }
