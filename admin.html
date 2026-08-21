@@ -7,7 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    
+    <!-- KATEX MATHEMATICAL RENDERING LIBRARY CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+
     <!-- LUCIDE ICONS CDN LOGIC -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -58,6 +61,117 @@
             --gradient-btn: linear-gradient(135deg, #00f2fe 0%, #10b981 100%);
             --shadow-neon: 0 0 25px rgba(0, 242, 254, 0.35);
             --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-sub: #f1f5f9;
+            --border-card: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-heading: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            --accent-cyan: #0284c7;
+            --accent-green: #059669;
+            --accent-neon: #059669;
+            --accent-purple: #7c3aed;
+            --accent-pink: #db2777;
+            
+            --gradient-bytecode: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #059669 100%);
+            --gradient-btn: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+            --shadow-neon: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
+        }
+
+        [data-theme="light"] body {
+            background-color: #f8fafc !important;
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 75%, rgba(124, 58, 237, 0.05) 0%, transparent 40%) !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .navbar-wrapper {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+        }
+        [data-theme="light"] .logo-icon-wrap {
+            background: #ffffff !important;
+            border-color: #059669 !important;
+        }
+        [data-theme="light"] .btn-portal-switch {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #0284c7 !important;
+        }
+        [data-theme="light"] .stat-card,
+        [data-theme="light"] .actions-panel,
+        [data-theme="light"] .section-box {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .stat-card.alert-card {
+            background: #fef2f2 !important;
+            border-color: #fecaca !important;
+        }
+        [data-theme="light"] .table-wrapper {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        [data-theme="light"] .admin-table th {
+            background: #f1f5f9 !important;
+            color: #0284c7 !important;
+            border-bottom: 1.5px solid #cbd5e1 !important;
+        }
+        [data-theme="light"] .admin-table td {
+            color: #0f172a !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        [data-theme="light"] .admin-table tr:hover td {
+            background: #f0f9ff !important;
+            color: #0284c7 !important;
+        }
+        [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] b, [data-theme="light"] strong, [data-theme="light"] .page-title, [data-theme="light"] .section-h2 {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .filter-tab-btn {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #475569 !important;
+        }
+        [data-theme="light"] .filter-tab-btn.active {
+            background: #0284c7 !important;
+            color: #ffffff !important;
+            border-color: #0284c7 !important;
+        }
+        [data-theme="light"] .btn-secondary {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .qual-feedback-card {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+        }
+        [data-theme="light"] .qual-input-card {
+            background: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+        }
+        [data-theme="light"] #qual-search-input,
+        [data-theme="light"] #participant-search-input {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .modal-card {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15) !important;
         }
 
         * {
@@ -223,6 +337,24 @@
         .dot-glow {
             width: 8px; height: 8px; border-radius: 50%;
             background: var(--accent-neon); box-shadow: 0 0 10px var(--accent-neon);
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--accent-neon);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            vertical-align: middle;
+            white-space: nowrap;
         }
 
         .page-title {
@@ -241,52 +373,165 @@
             line-height: 1.55;
         }
 
-        /* 5 STAT CARDS GRID */
-        .stats-5grid {
+        /* 7 STAT CARDS GRID - ULTRA SLEEK GLASSMORPHIC CARDS */
+        .stats-6grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: 14px;
             margin-bottom: 28px;
         }
 
         .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 24px;
-            padding: 20px 16px;
+            background: linear-gradient(180deg, rgba(14, 23, 38, 0.88) 0%, rgba(8, 14, 25, 0.94) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.18);
+            border-top: 3px solid rgba(0, 242, 254, 0.8);
+            border-radius: 20px;
+            padding: 18px 14px 16px;
             text-align: center;
-            transition: var(--transition);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
         }
 
         .stat-card:hover {
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
-            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .stat-card.card-sample {
+            border-top-color: #00f2fe;
+        }
+        .stat-card.card-completed {
+            border-top-color: #10b981;
+        }
+        .stat-card.card-completed:hover {
+            border-color: #10b981;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .stat-card.alert-card {
+            background: linear-gradient(180deg, rgba(38, 14, 20, 0.88) 0%, rgba(26, 9, 14, 0.94) 100%);
+            border-color: rgba(239, 68, 68, 0.35);
+            border-top: 3px solid #ef4444;
+        }
+        .stat-card.alert-card:hover {
+            border-color: #ef4444;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .stat-card.card-effect {
+            border-top-color: #10b981;
+        }
+        .stat-card.card-efficiency {
+            border-top-color: var(--accent-cyan);
+        }
+        .stat-card.card-likert {
+            border-top-color: #c084fc;
+        }
+        .stat-card.card-likert:hover {
+            border-color: #c084fc;
+            box-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+        }
+        .stat-card.card-sus {
+            border-top-color: #f43f5e;
+        }
+        .stat-card.card-sus:hover {
+            border-color: #f43f5e;
+            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.3);
+        }
+
+        .table-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab-btn {
+            background: rgba(18, 28, 45, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            color: var(--text-secondary);
+            padding: 7px 14px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .filter-tab-btn.active {
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--accent-cyan);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+        .filter-tab-btn.alert.active {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.35);
         }
 
         .stat-num {
-            font-size: 1.7rem;
+            font-size: 1.85rem;
             font-weight: 800;
             color: var(--accent-neon);
             font-family: 'Space Grotesk', sans-serif;
             line-height: 1.1;
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
         }
 
         .stat-lbl {
             font-size: 0.76rem;
             color: var(--text-secondary);
             margin-top: 6px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 5px;
+            white-space: nowrap;
         }
 
         .stat-sub {
             font-size: 0.68rem;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 8px;
+            padding: 3px 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: inline-block;
+            font-weight: 600;
         }
 
         /* ACTION CONTROLS PANEL */
@@ -383,15 +628,19 @@
 
         .table-wrapper {
             overflow-x: auto;
-            border: 1px solid rgba(0, 242, 254, 0.2);
+            border: 1px solid rgba(0, 242, 254, 0.25);
             border-radius: 20px;
-            max-height: 440px;
+            max-height: 500px;
             overflow-y: auto;
+            background: rgba(8, 14, 24, 0.95);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+            position: relative;
         }
 
-        .table-wrapper::-webkit-scrollbar { width: 6px; height: 6px; }
-        .table-wrapper::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.8); }
-        .table-wrapper::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00f2fe, #10b981); border-radius: 10px; }
+        .table-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
+        .table-wrapper::-webkit-scrollbar-track { background: rgba(10, 18, 30, 0.9); border-radius: 10px; }
+        .table-wrapper::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #00f2fe, #10b981); border-radius: 10px; }
+        .table-wrapper::-webkit-scrollbar-thumb:hover { background: linear-gradient(90deg, #00f2fe, #a855f7); }
 
         .admin-table {
             width: 100%;
@@ -401,21 +650,24 @@
         }
 
         .admin-table th {
-            background: rgba(18, 30, 48, 0.95);
+            background: #0b1322 !important;
             color: var(--accent-cyan);
             font-weight: 700;
-            padding: 12px 10px;
-            border-bottom: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 14px 12px;
+            border-bottom: 1.5px solid rgba(0, 242, 254, 0.35);
             white-space: nowrap;
             position: sticky;
             top: 0;
-            z-index: 2;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
         .admin-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 13px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
             color: var(--text-heading);
+            white-space: nowrap;
+            vertical-align: middle;
         }
 
         .admin-table tr:hover td {
@@ -433,6 +685,254 @@
 
         .sus-type-tag.odd { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.4); }
         .sus-type-tag.even { background: rgba(236, 72, 153, 0.15); color: var(--accent-pink); border: 1px solid rgba(236, 72, 153, 0.4); }
+
+        /* MODAL AND CLOSE BUTTON STYLING */
+        .close-btn {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid rgba(0, 242, 254, 0.25) !important;
+            color: var(--text-secondary) !important;
+            width: 38px !important;
+            height: 38px !important;
+            border-radius: 50% !important;
+            cursor: pointer !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            outline: none !important;
+            padding: 0 !important;
+            flex-shrink: 0 !important;
+        }
+
+        .close-btn:hover {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+            color: #ef4444 !important;
+            transform: rotate(90deg) scale(1.1) !important;
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.45) !important;
+        }
+
+        .close-btn i, .close-btn svg {
+            width: 18px !important;
+            height: 18px !important;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .close-btn {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            color: #475569 !important;
+        }
+
+        [data-theme="light"] .close-btn:hover {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #dc2626 !important;
+        }
+
+        .qual-feedback-card {
+            background: rgba(14, 23, 38, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.22);
+            border-radius: 20px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qual-feedback-card:hover {
+            border-color: rgba(0, 242, 254, 0.55);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2);
+            background: rgba(18, 30, 50, 0.95);
+        }
+
+        .qual-item-box {
+            border-radius: 12px;
+            padding: 10px 14px;
+            transition: var(--transition);
+        }
+
+        .qual-item-box.ai-box {
+            background: rgba(0, 242, 254, 0.05);
+            border-left: 3px solid var(--accent-cyan);
+            border-top: 1px solid rgba(0, 242, 254, 0.12);
+            border-right: 1px solid rgba(0, 242, 254, 0.12);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.12);
+        }
+
+        .qual-item-box.ui-box {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 3px solid var(--accent-neon);
+            border-top: 1px solid rgba(16, 185, 129, 0.12);
+            border-right: 1px solid rgba(16, 185, 129, 0.12);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.12);
+        }
+
+        .qual-item-box.privacy-box {
+            background: rgba(168, 85, 247, 0.05);
+            border-left: 3px solid var(--accent-purple);
+            border-top: 1px solid rgba(168, 85, 247, 0.12);
+            border-right: 1px solid rgba(168, 85, 247, 0.12);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+        }
+
+        .qual-item-box.general-box {
+            background: rgba(244, 63, 94, 0.05);
+            border-left: 3px solid var(--accent-pink);
+            border-top: 1px solid rgba(244, 63, 94, 0.12);
+            border-right: 1px solid rgba(244, 63, 94, 0.12);
+            border-bottom: 1px solid rgba(244, 63, 94, 0.12);
+        }
+
+        /* RESEARCH ANALYTICS STEP-BY-STEP CALCULATION AUDIT MODAL */
+        .calc-modal-card {
+            max-width: 1040px;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(14, 23, 38, 0.98) 0%, rgba(8, 14, 25, 0.98) 100%);
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            border-radius: 26px;
+            padding: 28px;
+            box-shadow: 0 0 60px rgba(56, 189, 248, 0.22);
+            max-height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .calc-tabs-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .calc-tab-btn {
+            background: rgba(18, 28, 45, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .calc-tab-btn:hover {
+            border-color: #38bdf8;
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .calc-tab-btn.active {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(3, 105, 161, 0.3) 100%);
+            border-color: #38bdf8;
+            color: #ffffff;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+        }
+
+        .calc-step-card {
+            background: rgba(11, 19, 32, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .calc-formula-display {
+            background: rgba(4, 8, 15, 0.95);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-left: 4px solid #38bdf8;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin: 14px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            overflow-x: auto;
+        }
+
+        .calc-formula-display .katex-display {
+            margin: 6px 0 !important;
+            text-align: left !important;
+        }
+
+        .calc-formula-display .katex {
+            font-size: 1.22rem !important;
+            color: #bae6fd !important;
+        }
+
+        .calc-substitution-box {
+            background: rgba(16, 185, 129, 0.07);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-left: 4px solid #10b981;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin: 14px 0;
+            font-size: 0.86rem;
+            color: #f1f5f9;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .calc-substitution-box .katex-display {
+            margin: 8px 0 !important;
+            text-align: left !important;
+        }
+
+        .calc-substitution-box .katex {
+            font-size: 1.15rem !important;
+            color: #a7f3d0 !important;
+        }
+
+        .calc-number-highlight {
+            font-weight: 800;
+            color: var(--accent-neon);
+            font-family: 'Fira Code', monospace;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .calc-proof-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+            margin-top: 10px;
+        }
+
+        .calc-proof-table th {
+            background: #0d1726;
+            color: #38bdf8;
+            padding: 10px 8px;
+            border-bottom: 1.5px solid rgba(56, 189, 248, 0.3);
+            text-align: center;
+        }
+
+        .calc-proof-table td {
+            padding: 9px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+        }
+
+        .calc-proof-table tr:hover td {
+            background: rgba(56, 189, 248, 0.08);
+        }
 
         .toast-notification {
             position: fixed;
@@ -500,6 +1000,9 @@
             </a>
 
             <div class="nav-actions">
+                <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme" style="background:rgba(18, 28, 45, 0.85); border:1px solid rgba(0,242,254,0.3); width:38px; height:38px; border-radius:12px; color:var(--text-primary); cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
+                    <i data-lucide="moon" id="theme-icon-lucide"></i>
+                </button>
                 <a href="index.html" class="btn-portal-switch">
                     <i data-lucide="smartphone"></i> <span>Open Participant Portal</span>
                 </a>
@@ -523,39 +1026,138 @@
             </p>
         </div>
 
-        <!-- 5 METRIC CARDS SUMMARY GRID -->
-        <div class="stats-5grid">
-            <div class="stat-card">
-                <div class="stat-num" id="admin-total-n">N = 0</div>
-                <div class="stat-lbl"><i data-lucide="users"></i> Participants Responded</div>
+        <!-- 7 METRIC CARDS SUMMARY GRID (INCLUDES ISO 9241-11 EFFICIENCY MEAN COMPLETION TIME) -->
+        <div class="stats-6grid" style="grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));">
+            <div class="stat-card card-sample">
+                <div>
+                    <div class="stat-num" id="admin-total-n" style="color:var(--accent-neon);">N = 0</div>
+                    <div class="stat-lbl"><i data-lucide="users" style="width:14px; height:14px; color:var(--accent-neon);"></i> Sample Size (N)</div>
+                </div>
                 <div class="stat-sub">Active Sample Count</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-num" id="admin-task-succ">100.0%</div>
-                <div class="stat-lbl"><i data-lucide="check-circle-2"></i> Task Success Rate</div>
-                <div class="stat-sub">5 Protocol Tasks</div>
+            <div class="stat-card card-completed">
+                <div>
+                    <div class="stat-num" style="color:#10b981;" id="admin-complete-n">0</div>
+                    <div class="stat-lbl"><i data-lucide="check-circle-2" style="width:14px; height:14px; color:#10b981;"></i> Completed Sessions</div>
+                </div>
+                <div class="stat-sub" style="color:#6ee7b7; background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25);">5/5 Tasks & SUS Done</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-num" id="admin-mean-time">38.4s</div>
-                <div class="stat-lbl"><i data-lucide="clock"></i> Mean Task Time</div>
-                <div class="stat-sub">Average Seconds</div>
+            <div class="stat-card alert-card">
+                <div>
+                    <div class="stat-num" style="color:#ef4444;" id="admin-incomplete-n">0</div>
+                    <div class="stat-lbl" style="color:#ef4444;"><i data-lucide="alert-triangle" style="width:14px; height:14px; color:#ef4444;"></i> Incomplete (Red)</div>
+                </div>
+                <div class="stat-sub" style="color:#fca5a5; background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.3);">Follow-up Required</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-num" id="admin-overall-mean">0.00 / 5.00</div>
-                <div class="stat-lbl"><i data-lucide="bar-chart-2"></i> Likert Weighted Mean</div>
-                <div class="stat-sub" id="admin-overall-verbal">Unanswered</div>
+            <div class="stat-card card-effect">
+                <div>
+                    <div class="stat-num" id="admin-task-succ" style="color:#10b981;">0.0%</div>
+                    <div class="stat-lbl"><i data-lucide="target" style="width:14px; height:14px; color:#10b981;"></i> Task Success Rate (SR)</div>
+                </div>
+                <div class="stat-sub" style="color:#6ee7b7; background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25);">Effectiveness (Goal ≥90%)</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-num" id="admin-sus-score">Pending (N=0)</div>
-                <div class="stat-lbl"><i data-lucide="award"></i> Composite SUS Score</div>
-                <div class="stat-sub" id="admin-sus-grade">Brooke (1996) Benchmark</div>
+            <div class="stat-card card-efficiency">
+                <div>
+                    <div class="stat-num" style="color:var(--accent-cyan);" id="admin-mean-time">0.0s</div>
+                    <div class="stat-lbl"><i data-lucide="timer" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Mean Completion (T̄)</div>
+                </div>
+                <div class="stat-sub" style="color:#7dd3fc; background:rgba(0,242,254,0.1); border-color:rgba(0,242,254,0.25);">Efficiency (Speed Avg)</div>
+            </div>
+            <div class="stat-card card-likert">
+                <div>
+                    <div class="stat-num" id="admin-overall-mean" style="color:#d8b4fe;">0.00 / 5.00</div>
+                    <div class="stat-lbl"><i data-lucide="bar-chart-2" style="width:14px; height:14px; color:#c084fc;"></i> Likert Usability (X̄)</div>
+                </div>
+                <div class="stat-sub" id="admin-overall-verbal" style="color:#e9d5ff; background:rgba(168,85,247,0.12); border-color:rgba(168,85,247,0.3);">Goal X̄ ≥ 4.21</div>
+            </div>
+            <div class="stat-card card-sus">
+                <div>
+                    <div class="stat-num" id="admin-sus-score" style="color:#fb7185;">Pending (N=0)</div>
+                    <div class="stat-lbl"><i data-lucide="award" style="width:14px; height:14px; color:#f43f5e;"></i> Composite SUS Score</div>
+                </div>
+                <div class="stat-sub" id="admin-sus-grade" style="color:#fecdd3; background:rgba(244,63,94,0.12); border-color:rgba(244,63,94,0.3);">Goal SUS ≥ 80.3 (Grade A)</div>
+            </div>
+        </div>
+
+        <!-- TABLE 3.4: USABILITY METRICS FRAMEWORK (ISO 9241-11 ALIGNMENT) LIVE RESULTS PANEL -->
+        <div class="table-container" style="margin-bottom:28px; background:linear-gradient(135deg, rgba(14,23,38,0.92) 0%, rgba(8,14,24,0.92) 100%); border:1.5px solid rgba(0,242,254,0.3); border-radius:22px; padding:22px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:36px; height:36px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.35); display:inline-flex; align-items:center; justify-content:center;">
+                        <i data-lucide="calculator" style="color:var(--accent-cyan); width:18px; height:18px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:1.08rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk';">
+                            Table 3.4: Usability Metrics Framework (ISO 9241-11 Alignment) — Live Summary
+                        </div>
+                        <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:2px;">
+                            Empirical measurement formulas and real-time evaluation benchmarks for Gen Z wearable health dashboard.
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button onclick="openStepByStepCalculationModal()" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:6px 12px; border-radius:10px; font-size:0.75rem; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:5px; transition:var(--transition);" title="Open Step-by-Step Mathematical Calculations & Derivations Modal">
+                        <i data-lucide="calculator" style="width:13px; height:13px;"></i>
+                        <span>Step-by-Step Proofs</span>
+                    </button>
+                    <span class="badge-pill" style="font-size:0.7rem;"><span class="dot-glow"></span> ISO 9241-11 BENCHMARK</span>
+                </div>
+            </div>
+
+            <div class="table-wrapper" style="max-height:none; border-radius:16px;">
+                <table class="admin-table" style="font-size:0.82rem;">
+                    <thead>
+                        <tr>
+                            <th style="min-width:140px; text-align:left;">Usability Dimension</th>
+                            <th style="min-width:180px; text-align:left;">Operational Variable</th>
+                            <th style="min-width:240px; text-align:left;">Measurement Formula / Metric</th>
+                            <th style="min-width:160px; text-align:center;">Evaluation Goal</th>
+                            <th style="min-width:160px; text-align:center;">Current Study Result</th>
+                            <th style="min-width:140px; text-align:center;">Outcome Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight:800; color:var(--accent-cyan); text-align:left;"><i data-lucide="check-circle-2" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Effectiveness</td>
+                            <td style="text-align:left; font-weight:700;">Task Completion Success</td>
+                            <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">SR = (Successful Tasks / Total Attempted) × 100%</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">≥ 90.0% Success Rate</td>
+                            <td style="font-weight:800; color:var(--accent-neon); font-size:0.92rem;" id="framework-res-sr">0.0%</td>
+                            <td id="framework-status-sr"><span style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:800; color:var(--accent-neon); text-align:left;"><i data-lucide="timer" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Efficiency</td>
+                            <td style="text-align:left; font-weight:700;">Mean Task Completion Time</td>
+                            <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">T̄ = (1/N) × ∑(T_p) (Seconds)</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">Rapid, low-friction (≤ 60.0s)</td>
+                            <td style="font-weight:800; color:var(--accent-cyan); font-size:0.92rem;" id="framework-res-time">0.0s</td>
+                            <td id="framework-status-time"><span style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:800; color:var(--accent-purple); text-align:left;"><i data-lucide="bar-chart-2" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Satisfaction (Feature)</td>
+                            <td style="text-align:left; font-weight:700;">Likert Domain Mean</td>
+                            <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">X̄ = ∑(f · x) / n</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">X̄ ≥ 4.21 (Excellent Rating)</td>
+                            <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;" id="framework-res-mean">0.00 / 5.00</td>
+                            <td id="framework-status-mean"><span style="background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.4); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:800; color:var(--accent-pink); text-align:left;"><i data-lucide="award" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Satisfaction (Global)</td>
+                            <td style="text-align:left; font-weight:700;">Composite SUS Score</td>
+                            <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">SUS = (∑ Score Contributions) × 2.5</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">SUS ≥ 80.3 (Grade A Usability)</td>
+                            <td style="font-weight:800; color:var(--accent-pink); font-size:0.92rem;" id="framework-res-sus">Pending</td>
+                            <td id="framework-status-sus"><span style="background:rgba(244,63,94,0.15); border:1px solid rgba(244,63,94,0.4); color:var(--accent-pink); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
         <!-- EXPORTER CONTROLS & DATABASE ACTION PANEL -->
         <div class="actions-panel">
             <div class="actions-top-row">
-                <div style="font-size:1.05rem; font-weight:800; color:#ffffff; font-family:'Space Grotesk'; display:flex; align-items:center; gap:8px;">
+                <div style="font-size:1.05rem; font-weight:800; color:var(--text-primary); font-family:'Space Grotesk'; display:flex; align-items:center; gap:8px;">
                     <i data-lucide="download-cloud" style="color:var(--accent-cyan);"></i>
                     <span>Export Research Data & Database Sync Controls</span>
                 </div>
@@ -565,6 +1167,11 @@
             </div>
 
             <div class="actions-buttons-grid">
+                <!-- STEP-BY-STEP CALCULATION AUDIT CONSOLE -->
+                <button class="btn-secondary" style="border-color:#38bdf8; background:linear-gradient(135deg, rgba(56,189,248,0.18) 0%, rgba(3,105,161,0.22) 100%); color:#38bdf8; font-weight:800; box-shadow:0 0 20px rgba(56,189,248,0.25);" onclick="openStepByStepCalculationModal()">
+                    <i data-lucide="calculator" style="color:#38bdf8;"></i> <span>Step-by-Step Mathematical Calculations Audit</span>
+                </button>
+
                 <!-- EXPORTERS -->
                 <button class="btn-export-csv" onclick="exportChapter4ResultsCSV()">
                     <i data-lucide="file-spreadsheet"></i> <span>Export Chapter 4 Statistical Results (CSV)</span>
@@ -580,8 +1187,8 @@
                 <button class="btn-secondary" style="border-color:var(--accent-purple); color:var(--accent-purple);" onclick="syncAdminFromFirebase()">
                     <i data-lucide="refresh-cw"></i> <span>Sync Firebase Now</span>
                 </button>
-                <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="loadBenchmarkN40Dataset()">
-                    <i data-lucide="zap"></i> <span>Load Benchmark (N=40)</span>
+                <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="loadBenchmarkN50Dataset()">
+                    <i data-lucide="zap"></i> <span>Load Benchmark (N=50)</span>
                 </button>
                 <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearDatabaseParticipations()">
                     <i data-lucide="trash-2"></i> <span>Clear Database Participations</span>
@@ -597,7 +1204,7 @@
                     <span>Chapter 4 Statistical Usability Cohort Frequency Matrix</span>
                 </div>
                 <div style="font-size:0.78rem; color:var(--text-secondary);">
-                    Calculated via Brooke (1996) SUS Transformation Algorithm & ISO 9241-11 Usability Metrics
+                    Calculated via Brooke (1996) SUS Transformation Algorithm & ISO 9241-11 Usability Metrics (N=50)
                 </div>
             </div>
 
@@ -636,22 +1243,43 @@
                 </div>
             </div>
 
+            <!-- SEARCH AND FILTER CONTROLS BAR -->
+            <div class="table-controls-row">
+                <div class="filter-btn-group">
+                    <button class="filter-tab-btn active" id="filter-btn-all" onclick="setParticipantFilter('all')">
+                        <i data-lucide="users"></i> <span>All (N=<span id="filter-count-all">0</span>)</span>
+                    </button>
+                    <button class="filter-tab-btn" id="filter-btn-completed" onclick="setParticipantFilter('completed')">
+                        <i data-lucide="check-circle-2" style="color:var(--accent-neon);"></i> <span>Completed (<span id="filter-count-completed">0</span>)</span>
+                    </button>
+                    <button class="filter-tab-btn alert" id="filter-btn-incomplete" onclick="setParticipantFilter('incomplete')">
+                        <i data-lucide="alert-triangle" style="color:#ef4444;"></i> <span>Incomplete (<span id="filter-count-incomplete">0</span>) - RED</span>
+                    </button>
+                </div>
+                <div style="flex:1; max-width:340px;">
+                    <input type="text" id="participant-search-input" style="padding:8px 14px; font-size:0.8rem; border-radius:12px; background:rgba(6,12,20,0.85); border:1px solid rgba(0,242,254,0.3); color:var(--text-primary); width:100%; outline:none;" placeholder="🔍 Search name, email, gender, session..." oninput="onSearchInputChange(this.value)">
+                </div>
+            </div>
+
             <div class="table-wrapper">
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Session ID</th>
-                            <th>Full Name</th>
-                            <th>Age</th>
-                            <th>Location / Address</th>
-                            <th>Email Address</th>
-                            <th>Tasks Done</th>
-                            <th>Time (s)</th>
-                            <th>SUS Score</th>
-                            <th>Weighted Mean (X̄)</th>
-                            <th>Verbal Interpretation</th>
-                            <th>Action</th>
+                            <th style="min-width:45px;">#</th>
+                            <th style="min-width:165px;">Session ID</th>
+                            <th style="min-width:160px;">Full Name</th>
+                            <th style="min-width:55px;">Age</th>
+                            <th style="min-width:160px;">Gender</th>
+                            <th style="min-width:180px;">Location / Address</th>
+                            <th style="min-width:210px;">Email Address</th>
+                            <th style="min-width:130px;">R.A. 10173 Consent</th>
+                            <th style="min-width:95px;">Tasks Done</th>
+                            <th style="min-width:75px;">Time (s)</th>
+                            <th style="min-width:140px;">Completed At</th>
+                            <th style="min-width:85px;">SUS Score</th>
+                            <th style="min-width:130px;">Weighted Mean (X̄)</th>
+                            <th style="min-width:200px;">Progress Status</th>
+                            <th style="min-width:125px;">Action</th>
                         </tr>
                     </thead>
                     <tbody id="participants-table-body">
@@ -661,6 +1289,142 @@
             </div>
         </div>
 
+        <!-- QUALITATIVE BIOFEEDBACK TRANSCRIPTS LIBRARY -->
+        <div class="table-container" style="margin-top:28px;">
+            <div class="table-header-row" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:18px;">
+                <div style="flex:1; min-width:280px;">
+                    <div style="font-size:1.18rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; display:flex; align-items:center; gap:10px;">
+                        <div style="width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg, rgba(0,242,254,0.18), rgba(16,185,129,0.14)); border:1px solid rgba(0,242,254,0.35); display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0 14px rgba(0,242,254,0.22); flex-shrink:0;">
+                            <i data-lucide="library" style="color:var(--accent-cyan); width:19px; height:19px;"></i>
+                        </div>
+                        <span>Qualitative Biofeedback Transcripts Library</span>
+                        <span class="badge-pill" style="font-size:0.68rem; margin-left:4px;"><span class="dot-glow"></span> QUALITATIVE STREAM</span>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px; line-height:1.4;">
+                        Subjective participant diagnostic feedback categorized across AI Guidance (XAI), Visual Ergonomics, Privacy (R.A. 10173), and Feature Suggestions.
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.28); padding:7px 14px; border-radius:12px; font-size:0.78rem; font-weight:700; color:var(--accent-cyan); display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="message-square" style="width:14px; height:14px;"></i> <span id="qual-total-count-badge">Total Logs: N = 0</span>
+                    </div>
+                    <button class="btn-export-csv" style="padding:8px 18px; font-size:0.82rem; border-radius:14px;" onclick="exportQualitativeFeedbackCSV()">
+                        <i data-lucide="download"></i> <span>Export Transcripts (CSV)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- QUALITATIVE DOMAIN FILTER BUTTONS AND SEARCH BAR -->
+            <div class="table-controls-row" style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:20px; background:rgba(8,14,24,0.6); padding:10px 14px; border-radius:16px; border:1px solid rgba(0,242,254,0.18);">
+                <div class="filter-btn-group" style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="filter-tab-btn active" id="qual-filter-all" onclick="setQualFilter('all')">
+                        <i data-lucide="library"></i> <span>All Comments</span>
+                    </button>
+                    <button class="filter-tab-btn" id="qual-filter-ai" onclick="setQualFilter('ai')">
+                        <i data-lucide="bot" style="color:var(--accent-cyan);"></i> <span>AI Guidance & XAI</span>
+                    </button>
+                    <button class="filter-tab-btn" id="qual-filter-ui" onclick="setQualFilter('ui')">
+                        <i data-lucide="sun-medium" style="color:var(--accent-neon);"></i> <span>Visual & Themes</span>
+                    </button>
+                    <button class="filter-tab-btn" id="qual-filter-privacy" onclick="setQualFilter('privacy')">
+                        <i data-lucide="shield-check" style="color:var(--accent-purple);"></i> <span>Privacy (R.A. 10173)</span>
+                    </button>
+                    <button class="filter-tab-btn" id="qual-filter-general" onclick="setQualFilter('general')">
+                        <i data-lucide="sparkles" style="color:var(--accent-pink);"></i> <span>Suggestions</span>
+                    </button>
+                </div>
+                <div style="flex:1; max-width:340px; min-width:240px; position:relative;">
+                    <i data-lucide="search" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--text-secondary); pointer-events:none;"></i>
+                    <input type="text" id="qual-search-input" style="padding:9px 14px 9px 36px; font-size:0.8rem; border-radius:12px; background:rgba(6,12,20,0.85); border:1px solid rgba(0,242,254,0.3); color:var(--text-primary); width:100%; outline:none;" placeholder="Search quotes, names, session ID..." oninput="onQualSearchChange(this.value)">
+                </div>
+            </div>
+
+            <div class="qual-feedback-grid" id="qual-feedback-container" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:18px;">
+                <!-- Dynamically Rendered -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- INDIVIDUAL PARTICIPANT QUALITATIVE DETAIL MODAL -->
+    <div class="modal-overlay" id="qual-detail-modal-overlay" onclick="if(event.target===this) closeQualDetailModal()" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(4,7,13,0.92); backdrop-filter:blur(20px); z-index:28000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; visibility:hidden; transition:opacity 0.25s ease, visibility 0.25s ease; padding:20px;">
+        <div class="modal-card" style="max-width:720px; width:100%; background:linear-gradient(135deg, rgba(14,23,38,0.98) 0%, rgba(8,14,24,0.98) 100%); border:1.5px solid rgba(0,242,254,0.4); border-radius:24px; padding:28px; box-shadow:0 0 50px rgba(0,242,254,0.22); max-height:88vh; overflow-y:auto;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(0,242,254,0.2); gap:16px;">
+                <div style="flex:1;">
+                    <div style="font-size:1.22rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; display:flex; align-items:center; gap:10px;">
+                        <div style="width:36px; height:36px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.35); display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <i data-lucide="library" style="color:var(--accent-cyan); width:18px; height:18px;"></i>
+                        </div>
+                        <span id="modal-qual-name">Participant Qualitative Transcript</span>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;" id="modal-qual-meta">
+                        Session ID: GENZ-P-xxx • Age: 21 • Score: 90.0/100
+                    </div>
+                </div>
+                <button class="close-btn" onclick="closeQualDetailModal()" title="Close Qualitative Modal" aria-label="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div id="modal-qual-content" style="display:flex; flex-direction:column; gap:16px;">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- RESEARCH DATA STEP-BY-STEP CALCULATION AUDIT & PROOFS MODAL -->
+    <div class="modal-overlay" id="calculation-audit-modal-overlay" onclick="if(event.target===this) closeStepByStepCalculationModal()" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(4,7,13,0.94); backdrop-filter:blur(24px); z-index:29000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; visibility:hidden; transition:opacity 0.25s ease, visibility 0.25s ease; padding:20px;">
+        <div class="calc-modal-card">
+            <!-- MODAL HEADER -->
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; padding-bottom:16px; border-bottom:1px solid rgba(56,189,248,0.25); gap:16px;">
+                <div style="flex:1;">
+                    <div style="font-size:1.3rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; display:flex; align-items:center; gap:10px;">
+                        <div style="width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg, rgba(56,189,248,0.2) 0%, rgba(3,105,161,0.3) 100%); border:1.5px solid rgba(56,189,248,0.45); display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <i data-lucide="calculator" style="color:#38bdf8; width:20px; height:20px;"></i>
+                        </div>
+                        <span>Research Data Step-by-Step Calculations & Mathematical Proofs</span>
+                    </div>
+                    <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:6px; line-height:1.45;" id="modal-calc-subtitle">
+                        Analytical verification and arithmetic derivations for Chapter 4 (ISO 9241-11 Usability Metrics & Brooke 1996 System Usability Scale).
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button onclick="printCalculationAuditReport()" style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); color:#38bdf8; padding:8px 14px; border-radius:12px; font-size:0.78rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" title="Print or Save Mathematical Proof Report">
+                        <i data-lucide="printer" style="width:14px; height:14px;"></i> <span>Print Proof Sheet</span>
+                    </button>
+                    <button class="close-btn" onclick="closeStepByStepCalculationModal()" title="Close Calculation Modal" aria-label="Close">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABS BAR -->
+            <div class="calc-tabs-bar">
+                <button class="calc-tab-btn active" id="calc-tab-btn-all" onclick="switchCalcAuditTab('all')">
+                    <i data-lucide="layers"></i> <span>All-in-One Framework Proofs</span>
+                </button>
+                <button class="calc-tab-btn" id="calc-tab-btn-step1" onclick="switchCalcAuditTab('step1')">
+                    <i data-lucide="users"></i> <span>Step 1: Demographics (%)</span>
+                </button>
+                <button class="calc-tab-btn" id="calc-tab-btn-step2" onclick="switchCalcAuditTab('step2')">
+                    <i data-lucide="target"></i> <span>Step 2: Effectiveness (SR)</span>
+                </button>
+                <button class="calc-tab-btn" id="calc-tab-btn-step3" onclick="switchCalcAuditTab('step3')">
+                    <i data-lucide="timer"></i> <span>Step 3: Efficiency (T̄ Speed)</span>
+                </button>
+                <button class="calc-tab-btn" id="calc-tab-btn-step4" onclick="switchCalcAuditTab('step4')">
+                    <i data-lucide="bar-chart-2"></i> <span>Step 4: Likert Means (X̄)</span>
+                </button>
+                <button class="calc-tab-btn" id="calc-tab-btn-step5" onclick="switchCalcAuditTab('step5')">
+                    <i data-lucide="award"></i> <span>Step 5: Composite SUS</span>
+                </button>
+            </div>
+
+            <!-- DYNAMIC CALCULATION CONTENT -->
+            <div id="calc-audit-modal-body">
+                <!-- Dynamically Rendered -->
+            </div>
+        </div>
     </div>
 
     <!-- TOAST BANNER -->
@@ -670,10 +1434,16 @@
 
     <!-- SCRIPT -->
     <script>
+        let isLucidePending = false;
         function refreshLucideIcons() {
-            if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                window.lucide.createIcons();
-            }
+            if (isLucidePending) return;
+            isLucidePending = true;
+            requestAnimationFrame(() => {
+                if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                    window.lucide.createIcons();
+                }
+                isLucidePending = false;
+            });
         }
 
         const susQuestions = [
@@ -689,17 +1459,17 @@
             { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", type: "even" }
         ];
 
-        const benchmarkN40Dataset = [
-            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
-            { id: 3, text: "I thought the system was easy to use.", f5: 29, f4: 9, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 1, f2: 7, f1: 32, N: 40 },
-            { id: 5, text: "I found the various functions in this system were well integrated.", f5: 26, f4: 11, f3: 3, f2: 0, f1: 0, N: 40 },
-            { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 2, f2: 8, f1: 30, N: 40 },
-            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 28, f4: 10, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 4, f2: 11, f1: 25, N: 40 },
-            { id: 9, text: "I felt very confident using the system.", f5: 30, f4: 8, f3: 2, f2: 0, f1: 0, N: 40 },
-            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 1, f2: 9, f1: 30, N: 40 }
+        const benchmarkN50Dataset = [
+            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 35, f4: 12, f3: 3, f2: 0, f1: 0, N: 50 },
+            { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
+            { id: 3, text: "I thought the system was easy to use.", f5: 36, f4: 11, f3: 3, f2: 0, f1: 0, N: 50 },
+            { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 2, f2: 9, f1: 39, N: 50 },
+            { id: 5, text: "I found the various functions in this system were well integrated.", f5: 33, f4: 14, f3: 3, f2: 0, f1: 0, N: 50 },
+            { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
+            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 35, f4: 12, f3: 3, f2: 0, f1: 0, N: 50 },
+            { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 5, f2: 14, f1: 31, N: 50 },
+            { id: 9, text: "I felt very confident using the system.", f5: 37, f4: 10, f3: 3, f2: 0, f1: 0, N: 50 },
+            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 2, f2: 11, f1: 37, N: 50 }
         ];
 
         let cohortDataMatrix = susQuestions.map(q => ({
@@ -707,22 +1477,71 @@
         }));
 
         let rawParticipantSessions = [];
+        let currentParticipantFilter = 'all';
+        let participantSearchQuery = '';
+        let lastAdminDataHash = '';
+
+        function setParticipantFilter(filterType) {
+            currentParticipantFilter = filterType;
+            
+            document.querySelectorAll('.filter-tab-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`filter-btn-${filterType}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            renderAllAdminTables();
+        }
+
+        function onSearchInputChange(val) {
+            participantSearchQuery = (val || '').toLowerCase().trim();
+            renderAllAdminTables();
+        }
+
+        function copyParticipantEmail(email) {
+            if (!email || email === 'N/A') {
+                showToast('No email address found for this participant');
+                return;
+            }
+            navigator.clipboard.writeText(email)
+                .then(() => showToast(`Copied Email: ${email} (Send reminder link!)`))
+                .catch(() => showToast(`Participant Email: ${email}`));
+        }
+
+        let hasInitialized = false;
 
         function syncAdminFromFirebase() {
             if (!firebaseDb) {
-                renderAllAdminTables();
+                if (!hasInitialized && rawParticipantSessions.length === 0) {
+                    hasInitialized = true;
+                    loadBenchmarkN50Dataset();
+                } else {
+                    renderAllAdminTables();
+                }
                 return;
             }
 
             firebaseDb.ref('usability_sessions').once('value')
                 .then(snapshot => {
                     const data = snapshot.val();
-                    if (!data) {
+                    if (!data || Object.keys(data).length === 0) {
+                        // Firebase database is clean / empty (N=0)
                         rawParticipantSessions = [];
                         cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
-                        renderAllAdminTables();
+                        
+                        const statusEl = document.getElementById('admin-db-status');
+                        if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Database: Clean / Empty (N=0) • Ready for Live Study Data</span>`;
+
+                        if (lastAdminDataHash !== "empty") {
+                            lastAdminDataHash = "empty";
+                            renderAllAdminTables();
+                        }
                         return;
                     }
+
+                    const currentHash = JSON.stringify(data);
+                    if (currentHash === lastAdminDataHash) {
+                        return; // Data has not changed; skip redundant DOM rebuild
+                    }
+                    lastAdminDataHash = currentHash;
 
                     rawParticipantSessions = Object.values(data);
 
@@ -757,82 +1576,236 @@
                     });
 
                     const statusEl = document.getElementById('admin-db-status');
-                    if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database Synced! (Total Responded: N=${rawParticipantSessions.length})</span>`;
+                    if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Database Synced! (Total Responded: N=${rawParticipantSessions.length})</span>`;
 
                     renderAllAdminTables();
                 })
                 .catch(err => {
                     console.warn('Admin sync notice:', err);
-                    renderAllAdminTables();
                 });
         }
 
-        function loadBenchmarkN40Dataset() {
-            cohortDataMatrix = benchmarkN40Dataset.map(item => ({ ...item }));
+        const sampleAiQuotes = [
+            "The caffeine cutoff explanation at 2:30 PM was practical and relatable; the chatbot gave personalized advice.",
+            "I like how the 5-axis radar chart visualizes multi-metric recovery and explains why my HRV is optimal today.",
+            "The AI diagnostic recommendations were straightforward and did not feel like generic medical jargon.",
+            "Chatbot responses were fast, informative, and encouraging when asking about post-workout nutrition.",
+            "The predictive tooltips clearly explained what PPG telemetry and autonomic stress mean without jargon.",
+            "AI guidance helped me connect my sleep score with my morning cognitive energy peak.",
+            "The conversational interface felt friendly and easy to query compared to typical FAQ menus.",
+            "The AI explanation mode made me trust why specific exercise and recovery prompts appeared."
+        ];
+
+        const sampleUiQuotes = [
+            "The Cyber Navy dark mode is super sleek, and switching to light mode was seamless and crisp.",
+            "Love the pulsing biometric rings and the live PPG pulse waveform graphic. Clean modern typography.",
+            "The single-page mission control layout is intuitive; I found all metric cards without digging through menus.",
+            "High-contrast text, glowing badges, and smooth card hover animations make the dashboard engaging.",
+            "The circadian clock circle gave an instant overview of my entire 24-hour biorhythm at a glance.",
+            "Light mode had great contrast and readability when tested under bright room lighting.",
+            "The metric cards are well-spaced and collapsed nicely on mobile screen views.",
+            "Visual aesthetics feel gamified and modern, well suited for Gen Z users."
+        ];
+
+        const samplePrivacyQuotes = [
+            "Seeing R.A. 10173 consent right at the start gave me peace of mind about my data security.",
+            "I appreciate that I can turn off biometric data sharing with a single toggle switch on the front panel.",
+            "Transparent privacy controls make me trust this dashboard much more than closed commercial apps.",
+            "Clear explanation of why PPG, sleep, and motion telemetry are collected and anonymized.",
+            "The downloadable consent report and privacy shield status made data governance tangible.",
+            "Felt completely safe knowing telemetry can be anonymized with one click.",
+            "Explicit compliance with the Philippine Data Privacy Act was reassuring.",
+            "Granular sensor access toggles provide genuine user autonomy."
+        ];
+
+        const sampleGeneralQuotes = [
+            "The box breathing coach was amazing for quick relaxation between college study sessions.",
+            "Would love to see smartwatch vibration haptics synced with the breathing ring in future versions.",
+            "Overall an excellent, responsive, and motivating health dashboard!",
+            "Great gamified daily vitality streaks that encourage healthy habits.",
+            "Adding a widget for Spotify music sync during workouts would be awesome.",
+            "Very smooth animations and fast page loads without lag.",
+            "The SUS survey and data gathering console were very convenient to complete.",
+            "A fantastic prototype that bridges biometric hardware with youth-centered UI design."
+        ];
+
+        function generateParticipantSUSResponses(p) {
+            let responses = [];
+            let totalContribution = 0;
+            let totalEffective = 0;
+
+            for (let q = 1; q <= 10; q++) {
+                const questionObj = susQuestions.find(item => item.id === q);
+                const isOdd = (q % 2 !== 0);
+                let rawRating;
+
+                // Calibrated distribution matching Chapter 4 research benchmark Table 4.1
+                const hash = (p * 17 + q * 31 + 7) % 100;
+                
+                if (isOdd) {
+                    // Positive questions: ~72% Strongly Agree (5), ~22% Agree (4), ~6% Neutral (3)
+                    if (hash < 72) rawRating = 5;
+                    else if (hash < 94) rawRating = 4;
+                    else rawRating = 3;
+                } else {
+                    // Negative questions: ~74% Strongly Disagree (1), ~20% Disagree (2), ~6% Neutral (3)
+                    if (hash < 74) rawRating = 1;
+                    else if (hash < 94) rawRating = 2;
+                    else rawRating = 3;
+                }
+
+                const scoreContrib = isOdd ? (rawRating - 1) : (5 - rawRating);
+                const effectiveRating = isOdd ? rawRating : (6 - rawRating);
+
+                totalContribution += scoreContrib;
+                totalEffective += effectiveRating;
+
+                responses.push({
+                    questionId: q,
+                    statement: questionObj ? questionObj.text : `SUS Question ${q}`,
+                    type: isOdd ? "Odd (Positive)" : "Even (Negative)",
+                    rawRating: rawRating,
+                    scoreContribution: scoreContrib,
+                    effectiveUsabilityRating: effectiveRating
+                });
+            }
+
+            const susScore = Number((totalContribution * 2.5).toFixed(1));
+            const weightedMean = Number((totalEffective / 10).toFixed(2));
+            let verbal = "Excellent Usability";
+            let grade = "Grade A+ (Excellent Usability)";
+            if (susScore < 50.9) { verbal = "Poor Usability"; grade = "Grade F (Poor Usability)"; }
+            else if (susScore < 68.0) { verbal = "Marginal Usability"; grade = "Grade C (Marginal Usability)"; }
+            else if (susScore < 80.3) { verbal = "Good Usability"; grade = "Grade B (Good Usability)"; }
+
+            return { responses, susScore, weightedMean, verbal, grade };
+        }
+
+        function loadBenchmarkN50Dataset() {
+            cohortDataMatrix = benchmarkN50Dataset.map(item => ({ ...item }));
+            const genders = ["Male", "Female", "Non-Binary / Third Gender", "Prefer not to say"];
+            const addresses = [
+                "Pasay City, Metro Manila",
+                "Makati City, Metro Manila",
+                "Manila City, Metro Manila",
+                "Quezon City, Metro Manila",
+                "Taguig City, Metro Manila"
+            ];
             
             rawParticipantSessions = [];
-            for (let p = 1; p <= 40; p++) {
+            
+            // Generate 50 participants: 46 Completed + 4 Incomplete (marked in RED)
+            const incompleteIndices = [4, 12, 27, 48]; // Participants needing follow-up
+
+            for (let p = 1; p <= 50; p++) {
                 const mockSessionId = `GENZ-BENCHMARK-P${String(p).padStart(2, '0')}`;
-                rawParticipantSessions.push({
-                    sessionId: mockSessionId,
-                    participantName: `Gen Z Participant #${p}`,
-                    participantAge: 18 + (p % 10),
-                    participantAddress: "Metro Manila, Philippines",
-                    participantEmail: `participant${p}@arellano.edu.ph`,
-                    elapsedSessionSeconds: 38,
-                    tasks: { Task1: true, Task2: true, Task3: true, Task4: true, Task5: true },
-                    susScore: 88.5,
-                    weightedMean: 4.54,
-                    verbalInterpretation: "Excellent Usability"
-                });
+                const gender = genders[p % 4];
+                const address = addresses[p % 5];
+                const isIncomplete = incompleteIndices.includes(p);
+
+                let sessionObj = {};
+
+                const qAi = sampleAiQuotes[(p - 1) % sampleAiQuotes.length];
+                const qUi = sampleUiQuotes[(p - 1) % sampleUiQuotes.length];
+                const qPriv = samplePrivacyQuotes[(p - 1) % samplePrivacyQuotes.length];
+                const qGen = sampleGeneralQuotes[(p - 1) % sampleGeneralQuotes.length];
+
+                if (isIncomplete) {
+                    // INCOMPLETE SESSION (RED ALERT): Partially completed tasks, SUS Pending
+                    sessionObj = {
+                        sessionId: mockSessionId,
+                        participantName: `Gen Z Participant #${p}`,
+                        participantAge: 12 + (p % 16),
+                        participantGender: gender,
+                        participantAddress: address,
+                        participantEmail: `participant${p}@gmail.com`,
+                        participantCohort: "Gen Z (12-27 years)",
+                        dataPrivacyConsentGiven: true,
+                        dataPrivacyConsentTimestamp: new Date().toISOString(),
+                        elapsedSessionSeconds: 19,
+                        tasks: { Task_1: { taskId: 1, name: "View metrics" }, Task_2: { taskId: 2, name: "Read tooltips" } }, // Only 2/5 tasks done
+                        susScore: "PENDING",
+                        weightedMean: "PENDING",
+                        susGrade: "Pending Survey Inputs",
+                        verbalInterpretation: "Unanswered",
+                        susItemResponses: [],
+                        qualitativeFeedback: {
+                            ai: "",
+                            ui: "",
+                            privacy: "",
+                            general: ""
+                        }
+                    };
+                } else {
+                    // COMPLETED SESSION (GREEN): 5/5 tasks + Valid distributed SUS responses
+                    const susData = generateParticipantSUSResponses(p);
+
+                    sessionObj = {
+                        sessionId: mockSessionId,
+                        participantName: `Gen Z Participant #${p}`,
+                        participantAge: 12 + (p % 16),
+                        participantGender: gender,
+                        participantAddress: address,
+                        participantEmail: `participant${p}@gmail.com`,
+                        participantCohort: "Gen Z (12-27 years)",
+                        dataPrivacyConsentGiven: true,
+                        dataPrivacyConsentTimestamp: new Date(Date.now() - (51 - p) * 1800000).toISOString(),
+                        completedAt: new Date(Date.now() - (50 - p) * 1800000).toISOString(),
+                        submissionTimestamp: new Date(Date.now() - (50 - p) * 1800000).toISOString(),
+                        elapsedSessionSeconds: 38 + (p % 10),
+                        tasks: { Task_1: true, Task_2: true, Task_3: true, Task_4: true, Task_5: true },
+                        susScore: susData.susScore,
+                        weightedMean: susData.weightedMean,
+                        susGrade: susData.grade,
+                        verbalInterpretation: susData.verbal,
+                        susItemResponses: susData.responses,
+                        qualitativeFeedback: {
+                            ai: qAi,
+                            ui: qUi,
+                            privacy: qPriv,
+                            general: qGen
+                        }
+                    };
+                }
+
+                rawParticipantSessions.push(sessionObj);
 
                 if (firebaseDb) {
-                    const mockItems = benchmarkN40Dataset.map(item => ({
-                        questionId: item.id,
-                        statement: item.text,
-                        type: item.id % 2 !== 0 ? "Odd (Positive)" : "Even (Negative)",
-                        rawRating: item.id % 2 !== 0 ? 5 : 1,
-                        scoreContribution: 4,
-                        effectiveUsabilityRating: 5
-                    }));
-
                     firebaseDb.ref('usability_sessions/' + mockSessionId).set({
                         studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
-                        sessionId: mockSessionId,
-                        participantCohort: "Gen Z (18-27 years)",
-                        participantName: `Gen Z Participant #${p}`,
-                        participantAge: 18 + (p % 10),
-                        participantAddress: "Metro Manila, Philippines",
-                        participantEmail: `participant${p}@arellano.edu.ph`,
-                        elapsedSessionSeconds: 38,
-                        tasks: { Task1: true, Task2: true, Task3: true, Task4: true, Task5: true },
-                        susScore: 88.5,
-                        weightedMean: 4.54,
-                        susGrade: "Grade A+ (Excellent Usability)",
-                        verbalInterpretation: "Excellent Usability",
-                        susItemResponses: mockItems
+                        ...sessionObj
                     });
                 }
             }
 
             renderAllAdminTables();
-            showToast('Loaded Benchmark N=40 Research Dataset into Admin Portal!');
+            showToast('Loaded Benchmark N=50 Dataset: 46 Completed (Green) + 4 Incomplete (Red Alert)!');
         }
 
         function clearDatabaseParticipations() {
+            if (!confirm("Are you sure you want to permanently clear all participant records from the database? (Sample count will reset to N=0)")) {
+                return;
+            }
+
+            hasInitialized = true;
+            rawParticipantSessions = [];
+            cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
+            renderAllAdminTables();
+
+            const statusEl = document.getElementById('admin-db-status');
+            if (statusEl) statusEl.innerHTML = `<i data-lucide="trash-2" style="width:14px; height:14px; color:#ef4444;"></i> <span style="color:#ef4444;">Database Cleared (N=0) • Ready for Live Participants</span>`;
+
             if (firebaseDb) {
                 firebaseDb.ref('usability_sessions').remove()
                     .then(() => {
-                        rawParticipantSessions = [];
-                        cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
-                        renderAllAdminTables();
-                        showToast('Database Participations Cleared!');
+                        showToast('Database Participations Permanently Cleared (N=0)!');
+                    })
+                    .catch(err => {
+                        console.error('Firebase clear error:', err);
+                        showToast('Local database cleared (N=0)!');
                     });
             } else {
-                rawParticipantSessions = [];
-                cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
-                renderAllAdminTables();
-                showToast('Cleared Participations!');
+                showToast('Cleared Participations (N=0)!');
             }
         }
 
@@ -854,11 +1827,19 @@
                         sumMeans += weightedMean;
                         maxN = Math.max(maxN, row.N);
 
-                        if (rawMean >= 4.21) verbal = "Strongly Agree";
-                        else if (rawMean >= 3.41) verbal = "Agree";
-                        else if (rawMean >= 2.61) verbal = "Neutral";
-                        else if (rawMean >= 1.81) verbal = "Disagree";
-                        else verbal = "Strongly Disagree";
+                        if (row.id % 2 !== 0) {
+                            if (rawMean >= 4.21) verbal = "Strongly Agree";
+                            else if (rawMean >= 3.41) verbal = "Agree";
+                            else if (rawMean >= 2.61) verbal = "Neutral";
+                            else if (rawMean >= 1.81) verbal = "Disagree";
+                            else verbal = "Strongly Disagree";
+                        } else {
+                            if (rawMean <= 1.80) verbal = "Strongly Disagree";
+                            else if (rawMean <= 2.60) verbal = "Disagree";
+                            else if (rawMean <= 3.40) verbal = "Neutral";
+                            else if (rawMean <= 4.20) verbal = "Agree";
+                            else verbal = "Strongly Agree";
+                        }
                     }
 
                     const typeBadge = (row.id % 2 !== 0)
@@ -876,44 +1857,98 @@
                         <td>${row.f1}</td>
                         <td style="font-weight:700;">${row.N}</td>
                         <td style="font-weight:800; color:${row.N > 0 ? 'var(--accent-neon)' : 'var(--text-muted)'};">${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}</td>
-                        <td style="font-weight:600; color:#ffffff;">${verbal}</td>
+                        <td style="font-weight:600; color:var(--text-primary);">${verbal}</td>
                     `;
                     matrixTbody.appendChild(tr);
                 });
 
-                // COMPUTE DYNAMIC TASK SUCCESS RATE & MEAN TASK TIME ACROSS ACTIVE SESSIONS
+                // COMPUTE COUNTERS & STATS
                 let totalTasksDone = 0;
                 let totalPossibleTasks = rawParticipantSessions.length * 5;
                 let totalElapsedSec = 0;
+                let completeCount = 0;
+                let incompleteCount = 0;
 
                 rawParticipantSessions.forEach(sess => {
-                    let tCount = 5;
-                    if (sess.tasks) {
-                        tCount = Object.keys(sess.tasks).length;
-                    }
+                    let tCount = sess.tasks ? Object.keys(sess.tasks).length : 5;
                     totalTasksDone += tCount;
 
-                    let sec = 38;
-                    if (sess.elapsedSessionSeconds) {
-                        sec = parseInt(sess.elapsedSessionSeconds);
-                    }
+                    let sec = sess.elapsedSessionSeconds ? parseInt(sess.elapsedSessionSeconds) : 38;
                     totalElapsedSec += sec;
+
+                    const score = sess.susScore;
+                    const isUnfin = tCount < 5 || score === 'PENDING' || isNaN(parseFloat(score));
+                    if (isUnfin) incompleteCount++;
+                    else completeCount++;
                 });
 
                 const dynamicTaskSuccRate = totalPossibleTasks > 0 
                     ? ((totalTasksDone / totalPossibleTasks) * 100).toFixed(1) 
                     : "0.0";
-                
-                const dynamicMeanTaskTime = rawParticipantSessions.length > 0 
-                    ? (totalElapsedSec / rawParticipantSessions.length).toFixed(1) 
-                    : "0.0";
-
-                document.getElementById('admin-task-succ').innerText = `${dynamicTaskSuccRate}%`;
-                document.getElementById('admin-mean-time').innerText = `${dynamicMeanTaskTime}s`;
 
                 const totalN = Math.max(maxN, rawParticipantSessions.length);
+
+                // Calculate Mean Task Completion Time (T_bar = (1/N) * sum(T_p))
+                let totalCompletedTime = 0;
+                let validCompletedTimeCount = 0;
+
+                rawParticipantSessions.forEach(sess => {
+                    const tCount = sess.tasks ? Object.keys(sess.tasks).length : 5;
+                    const score = sess.susScore;
+                    const isUnfin = tCount < 5 || score === 'PENDING' || isNaN(parseFloat(score));
+                    if (!isUnfin && sess.elapsedSessionSeconds && !isNaN(Number(sess.elapsedSessionSeconds))) {
+                        totalCompletedTime += Number(sess.elapsedSessionSeconds);
+                        validCompletedTimeCount++;
+                    }
+                });
+
+                const meanTaskCompletionTime = validCompletedTimeCount > 0
+                    ? (totalCompletedTime / validCompletedTimeCount).toFixed(1)
+                    : "0.0";
+                
+                // Update Stat Cards
                 document.getElementById('admin-total-n').innerText = `N = ${totalN}`;
-                document.getElementById('participant-count-badge').innerText = `Total Registered Participants: N = ${totalN}`;
+                document.getElementById('admin-complete-n').innerText = `${completeCount}`;
+                document.getElementById('admin-incomplete-n').innerText = `${incompleteCount}`;
+                document.getElementById('admin-task-succ').innerText = `${dynamicTaskSuccRate}%`;
+                const meanTimeCard = document.getElementById('admin-mean-time');
+                if (meanTimeCard) meanTimeCard.innerText = `${meanTaskCompletionTime}s`;
+                document.getElementById('participant-count-badge').innerText = `Total Registered Participants: N = ${totalN} (${incompleteCount} Incomplete / Action Required)`;
+
+                // Update Table 3.4 ISO 9241-11 Framework Live Results
+                const fwSr = document.getElementById('framework-res-sr');
+                if (fwSr) fwSr.innerText = `${dynamicTaskSuccRate}%`;
+                const fwSrStatus = document.getElementById('framework-status-sr');
+                if (fwSrStatus) {
+                    const srNum = parseFloat(dynamicTaskSuccRate);
+                    if (srNum >= 90.0) {
+                        fwSrStatus.innerHTML = `<span style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥90%)</span>`;
+                    } else {
+                        fwSrStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="x" style="width:11px; height:11px;"></i> Below Goal</span>`;
+                    }
+                }
+
+                const fwTime = document.getElementById('framework-res-time');
+                if (fwTime) fwTime.innerText = `${meanTaskCompletionTime}s`;
+                const fwTimeStatus = document.getElementById('framework-status-time');
+                if (fwTimeStatus) {
+                    const tNum = parseFloat(meanTaskCompletionTime);
+                    if (tNum > 0 && tNum <= 60.0) {
+                        fwTimeStatus.innerHTML = `<span style="background:rgba(0,242,254,0.18); border:1px solid rgba(0,242,254,0.5); color:var(--accent-cyan); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (Rapid)</span>`;
+                    } else if (tNum > 60.0) {
+                        fwTimeStatus.innerHTML = `<span style="background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.5); color:#f59e0b; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="alert-triangle" style="width:11px; height:11px;"></i> Moderate Friction</span>`;
+                    } else {
+                        fwTimeStatus.innerHTML = `<span style="background:rgba(148,163,184,0.18); border:1px solid rgba(148,163,184,0.4); color:var(--text-muted); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Pending Data</span>`;
+                    }
+                }
+
+                // Update Filter tab counter numbers
+                const cntAll = document.getElementById('filter-count-all');
+                if (cntAll) cntAll.innerText = totalN;
+                const cntComp = document.getElementById('filter-count-completed');
+                if (cntComp) cntComp.innerText = completeCount;
+                const cntIncomp = document.getElementById('filter-count-incomplete');
+                if (cntIncomp) cntIncomp.innerText = incompleteCount;
 
                 if (totalN > 0) {
                     const overallMean = (sumMeans / 10).toFixed(2);
@@ -935,6 +1970,30 @@
                     document.getElementById('admin-overall-verbal').innerText = verbal;
                     document.getElementById('admin-sus-score').innerText = `${susScore} / 100`;
                     document.getElementById('admin-sus-grade').innerText = grade;
+
+                    const fwMean = document.getElementById('framework-res-mean');
+                    if (fwMean) fwMean.innerText = `${overallMean} / 5.00 (${verbal})`;
+                    const fwMeanStatus = document.getElementById('framework-status-mean');
+                    if (fwMeanStatus) {
+                        const mNum = parseFloat(overallMean);
+                        if (mNum >= 4.21) {
+                            fwMeanStatus.innerHTML = `<span style="background:rgba(168,85,247,0.18); border:1px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥4.21)</span>`;
+                        } else {
+                            fwMeanStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Below Target</span>`;
+                        }
+                    }
+
+                    const fwSus = document.getElementById('framework-res-sus');
+                    if (fwSus) fwSus.innerText = `${susScore} / 100 (${grade.split(' ')[0]} ${grade.split(' ')[1]})`;
+                    const fwSusStatus = document.getElementById('framework-status-sus');
+                    if (fwSusStatus) {
+                        const sNum = parseFloat(susScore);
+                        if (sNum >= 80.3) {
+                            fwSusStatus.innerHTML = `<span style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥80.3 Grade A)</span>`;
+                        } else {
+                            fwSusStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Below Target</span>`;
+                        }
+                    }
                 } else {
                     document.getElementById('admin-overall-mean').innerText = `0.00 / 5.00`;
                     document.getElementById('admin-overall-verbal').innerText = `Unanswered`;
@@ -943,49 +2002,497 @@
                 }
             }
 
-            // Render Participants Table
+            // Filter and Render Participants Table
             const partTbody = document.getElementById('participants-table-body');
             if (partTbody) {
                 partTbody.innerHTML = '';
-                if (rawParticipantSessions.length === 0) {
-                    partTbody.innerHTML = `<tr><td colspan="12" style="color:var(--text-muted); padding:20px;">No registered participants in database yet.</td></tr>`;
+                
+                // Filter sessions based on tab & search query
+                const filteredSessions = rawParticipantSessions.filter((sess, idx) => {
+                    const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
+                    const score = sess.susScore;
+                    const isUnfinished = tasksDone < 5 || score === 'PENDING' || isNaN(parseFloat(score));
+
+                    if (currentParticipantFilter === 'completed' && isUnfinished) return false;
+                    if (currentParticipantFilter === 'incomplete' && !isUnfinished) return false;
+
+                    if (participantSearchQuery) {
+                        const name = (sess.participantName || '').toLowerCase();
+                        const email = (sess.participantEmail || '').toLowerCase();
+                        const gender = (sess.participantGender || '').toLowerCase();
+                        const sId = (sess.sessionId || '').toLowerCase();
+                        const addr = (sess.participantAddress || '').toLowerCase();
+                        if (!name.includes(participantSearchQuery) && 
+                            !email.includes(participantSearchQuery) && 
+                            !gender.includes(participantSearchQuery) && 
+                            !sId.includes(participantSearchQuery) &&
+                            !addr.includes(participantSearchQuery)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+
+                if (filteredSessions.length === 0) {
+                    partTbody.innerHTML = `<tr><td colspan="14" style="color:var(--text-muted); padding:28px; font-size:0.9rem;">No participant records match current filter "${currentParticipantFilter}".</td></tr>`;
                 } else {
-                    let index = 1;
-                    rawParticipantSessions.forEach(sess => {
+                    filteredSessions.forEach((sess, idx) => {
                         const tr = document.createElement('tr');
                         const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
                         const timeSec = sess.elapsedSessionSeconds || 38;
                         const score = sess.susScore || 'PENDING';
                         const meanVal = sess.weightedMean || '0.00';
                         const verbal = sess.verbalInterpretation || 'Unanswered';
-                        const sId = sess.sessionId || `GENZ-P-${String(index).padStart(3, '0')}`;
+                        const sId = sess.sessionId || `GENZ-P-${String(idx + 1).padStart(3, '0')}`;
                         const name = sess.participantName || 'N/A';
+                        const gender = sess.participantGender || 'Prefer not to say';
+                        const email = sess.participantEmail || 'N/A';
+                        const consented = sess.dataPrivacyConsentGiven !== false;
+                        
+                        const isUnfinished = tasksDone < 5 || score === 'PENDING' || isNaN(parseFloat(score));
+
+                        // BRIGHT HIGH-CONTRAST RED HIGHLIGHT FOR INCOMPLETE SESSIONS
+                        if (isUnfinished) {
+                            tr.style.background = 'rgba(239, 68, 68, 0.16)';
+                            tr.style.borderLeft = '5px solid #ef4444';
+                            tr.style.boxShadow = 'inset 0 0 15px rgba(239, 68, 68, 0.12)';
+                        }
+
+                        const consentBadge = consented 
+                            ? `<span style="color:var(--accent-neon); font-weight:700; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:4px 10px; border-radius:10px; font-size:0.74rem; display:inline-flex; align-items:center; gap:5px; white-space:nowrap;"><i data-lucide="shield-check" style="width:12px; height:12px;"></i> Consented</span>`
+                            : `<span style="color:#f59e0b; font-weight:700; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); padding:4px 10px; border-radius:10px; font-size:0.74rem; display:inline-flex; align-items:center; gap:5px; white-space:nowrap;"><i data-lucide="shield-alert" style="width:12px; height:12px;"></i> Pending</span>`;
+
+                        const statusBadge = isUnfinished
+                            ? `<span style="color:#ef4444; font-weight:800; background:rgba(239,68,68,0.28); border:1.5px solid #ef4444; padding:5px 12px; border-radius:12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:5px; box-shadow:0 0 14px rgba(239,68,68,0.45); white-space:nowrap;"><i data-lucide="alert-triangle" style="width:14px; height:14px;"></i> Incomplete (${tasksDone}/5, SUS Pending)</span>`
+                            : `<span style="color:var(--accent-neon); font-weight:800; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); padding:5px 12px; border-radius:12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:5px; white-space:nowrap;"><i data-lucide="check-circle-2" style="width:14px; height:14px;"></i> Completed (5/5)</span>`;
+
+                        const genderBadge = `<span style="background:rgba(168,85,247,0.18); border:1.5px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:4px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; white-space:nowrap; display:inline-block;">${gender}</span>`;
+
+                        let completedTimeStr = 'In Progress';
+                        const rawTs = sess.completedAt || sess.submissionTimestamp || sess.dataPrivacyConsentTimestamp || sess.startTime;
+                        if (!isUnfinished && rawTs) {
+                            const d = new Date(rawTs);
+                            completedTimeStr = !isNaN(d.getTime()) 
+                                ? `<span style="font-family:'Fira Code', monospace; font-size:0.75rem; color:var(--accent-cyan); white-space:nowrap;">${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })} <span style="color:var(--text-secondary); font-size:0.7rem;">(${d.toLocaleDateString([], { month: 'short', day: 'numeric' })})</span></span>`
+                                : '<span style="color:var(--accent-neon); font-size:0.75rem; font-weight:700;">Completed</span>';
+                        } else if (isUnfinished) {
+                            completedTimeStr = `<span style="color:#ef4444; font-size:0.73rem; font-weight:700; background:rgba(239,68,68,0.12); padding:3px 8px; border-radius:8px; border:1px solid rgba(239,68,68,0.3); white-space:nowrap;"><i data-lucide="clock" style="width:11px; height:11px; display:inline-block; vertical-align:middle;"></i> In Progress</span>`;
+                        }
 
                         tr.innerHTML = `
-                            <td style="font-weight:800; color:var(--accent-neon);">${index}</td>
-                            <td style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace;">${sId}</td>
-                            <td style="font-weight:700; color:#ffffff;">${name}</td>
+                            <td style="font-weight:800; color:var(--accent-neon);">${idx + 1}</td>
+                            <td style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace; white-space:nowrap;">${sId}</td>
+                            <td style="font-weight:700; color:var(--text-primary); white-space:nowrap;">${name}</td>
                             <td>${sess.participantAge || 'N/A'}</td>
-                            <td>${sess.participantAddress || 'N/A'}</td>
-                            <td>${sess.participantEmail || 'N/A'}</td>
-                            <td><span style="color:var(--accent-neon); font-weight:700;">${tasksDone} / 5</span></td>
-                            <td>${timeSec}s</td>
-                            <td style="font-weight:800; color:var(--accent-cyan);">${score}</td>
-                            <td style="font-weight:800; color:var(--accent-neon);">${meanVal}</td>
-                            <td style="font-weight:600;">${verbal}</td>
+                            <td style="white-space:nowrap;">${genderBadge}</td>
+                            <td style="white-space:nowrap;">${sess.participantAddress || 'N/A'}</td>
+                            <td style="font-family:'Fira Code', monospace; font-size:0.78rem; white-space:nowrap;">${email}</td>
+                            <td style="white-space:nowrap;">${consentBadge}</td>
+                            <td style="white-space:nowrap;"><span style="color:${tasksDone === 5 ? 'var(--accent-neon)' : '#ef4444'}; font-weight:800;">${tasksDone} / 5</span></td>
+                            <td style="white-space:nowrap;">${timeSec}s</td>
+                            <td style="white-space:nowrap;">${completedTimeStr}</td>
+                            <td style="font-weight:800; color:${score !== 'PENDING' ? 'var(--accent-cyan)' : '#ef4444'}; white-space:nowrap;">${score}</td>
+                            <td style="font-weight:800; color:${score !== 'PENDING' ? 'var(--accent-neon)' : 'var(--text-muted)'}; white-space:nowrap;">${meanVal}</td>
+                            <td style="white-space:nowrap;">${statusBadge}</td>
                             <td>
-                                <button onclick="deleteParticipantSession('${sId}', '${name.replace(/'/g, "\\'")}')" style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:5px 10px; border-radius:12px; font-size:0.75rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px;" title="Delete record from database">
-                                    <i data-lucide="trash-2" style="width:12px; height:12px;"></i> Delete
-                                </button>
+                                <div style="display:flex; align-items:center; gap:6px; justify-content:center;">
+                                    <button onclick="viewParticipantQualitative('${sId}')" style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:5px 9px; border-radius:10px; font-size:0.75rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;" title="View 10-Item SUS Survey Responses & Qualitative Biofeedback Notes">
+                                        <i data-lucide="file-check" style="width:12px; height:12px;"></i> Survey & Notes
+                                    </button>
+                                    <button onclick="copyParticipantEmail('${email}')" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:5px 8px; border-radius:10px; font-size:0.75rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px;" title="Copy Gmail/Email to send follow-up survey resume link">
+                                        <i data-lucide="mail" style="width:12px; height:12px;"></i> Copy
+                                    </button>
+                                    <button onclick="deleteParticipantSession('${sId}', '${name.replace(/'/g, "\\'")}')" style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:5px 8px; border-radius:10px; font-size:0.75rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px;" title="Delete record from database">
+                                        <i data-lucide="trash-2" style="width:12px; height:12px;"></i>
+                                    </button>
+                                </div>
                             </td>
                         `;
                         partTbody.appendChild(tr);
-                        index++;
                     });
                 }
             }
 
+            renderQualitativeBiofeedback();
             refreshLucideIcons();
+        }
+
+        /* QUALITATIVE BIOFEEDBACK FILTERING & RENDERING */
+        let currentQualFilter = 'all';
+        let qualSearchQuery = '';
+
+        function setQualFilter(filter) {
+            currentQualFilter = filter;
+            ['all', 'ai', 'ui', 'privacy', 'general'].forEach(f => {
+                const btn = document.getElementById(`qual-filter-${f}`);
+                if (btn) {
+                    if (f === filter) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                }
+            });
+            renderQualitativeBiofeedback();
+        }
+
+        function onQualSearchChange(query) {
+            qualSearchQuery = query.toLowerCase().trim();
+            renderQualitativeBiofeedback();
+        }
+
+        function renderQualitativeBiofeedback() {
+            const container = document.getElementById('qual-feedback-container');
+            const totalBadge = document.getElementById('qual-total-count-badge');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            let matchedSessions = rawParticipantSessions.filter(sess => {
+                if (!sess.qualitativeFeedback) return false;
+                const fb = sess.qualitativeFeedback;
+                const hasAny = (fb.ai || fb.ui || fb.privacy || fb.general);
+                if (!hasAny) return false;
+
+                if (currentQualFilter === 'ai' && !fb.ai) return false;
+                if (currentQualFilter === 'ui' && !fb.ui) return false;
+                if (currentQualFilter === 'privacy' && !fb.privacy) return false;
+                if (currentQualFilter === 'general' && !fb.general) return false;
+
+                if (qualSearchQuery) {
+                    const textAi = (fb.ai || '').toLowerCase();
+                    const textUi = (fb.ui || '').toLowerCase();
+                    const textPriv = (fb.privacy || '').toLowerCase();
+                    const textGen = (fb.general || '').toLowerCase();
+                    const name = (sess.participantName || '').toLowerCase();
+                    const sId = (sess.sessionId || '').toLowerCase();
+
+                    if (!textAi.includes(qualSearchQuery) && 
+                        !textUi.includes(qualSearchQuery) && 
+                        !textPriv.includes(qualSearchQuery) && 
+                        !textGen.includes(qualSearchQuery) &&
+                        !name.includes(qualSearchQuery) &&
+                        !sId.includes(qualSearchQuery)) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+            if (totalBadge) {
+                totalBadge.innerText = `Total Logs: N = ${matchedSessions.length}`;
+            }
+
+            if (matchedSessions.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; padding: 36px 20px; text-align: center; color: var(--text-muted); background: rgba(16,26,42,0.6); border-radius: 20px; border: 1.5px dashed rgba(0,242,254,0.25);">
+                        <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(0,242,254,0.1); border: 1px solid rgba(0,242,254,0.3); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                            <i data-lucide="library" style="width: 24px; height: 24px; color: var(--accent-cyan);"></i>
+                        </div>
+                        <p style="font-size: 0.95rem; font-weight: 700; color: var(--text-heading);">No qualitative transcripts match filter "${currentQualFilter}".</p>
+                        <p style="font-size: 0.8rem; margin-top: 6px; color: var(--text-secondary);">Click "Load Research Benchmark Dataset (N=50)" or submit survey feedback via the dashboard.</p>
+                    </div>
+                `;
+            } else {
+                matchedSessions.forEach((sess, idx) => {
+                    const fb = sess.qualitativeFeedback;
+                    const sId = sess.sessionId || `GENZ-P-${idx + 1}`;
+                    const name = sess.participantName || 'Gen Z Participant';
+                    const score = sess.susScore || 'PENDING';
+                    const age = sess.participantAge || 21;
+                    const gender = sess.participantGender || 'Prefer not to say';
+
+                    const card = document.createElement('div');
+                    card.className = 'qual-feedback-card';
+
+                    let innerSections = '';
+
+                    if ((currentQualFilter === 'all' || currentQualFilter === 'ai') && fb.ai) {
+                        innerSections += `
+                            <div class="qual-item-box ai-box">
+                                <div style="font-size:0.75rem; font-weight:800; color:var(--accent-cyan); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                                    <i data-lucide="bot" style="width:13px; height:13px;"></i> <span>AI Guidance & XAI</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-primary); line-height:1.45; font-style:italic;">"${fb.ai}"</div>
+                            </div>
+                        `;
+                    }
+
+                    if ((currentQualFilter === 'all' || currentQualFilter === 'ui') && fb.ui) {
+                        innerSections += `
+                            <div class="qual-item-box ui-box">
+                                <div style="font-size:0.75rem; font-weight:800; color:var(--accent-neon); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                                    <i data-lucide="sun-medium" style="width:13px; height:13px;"></i> <span>Visual & Themes</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-primary); line-height:1.45; font-style:italic;">"${fb.ui}"</div>
+                            </div>
+                        `;
+                    }
+
+                    if ((currentQualFilter === 'all' || currentQualFilter === 'privacy') && fb.privacy) {
+                        innerSections += `
+                            <div class="qual-item-box privacy-box">
+                                <div style="font-size:0.75rem; font-weight:800; color:var(--accent-purple); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                                    <i data-lucide="shield-check" style="width:13px; height:13px;"></i> <span>Data Privacy (R.A. 10173)</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-primary); line-height:1.45; font-style:italic;">"${fb.privacy}"</div>
+                            </div>
+                        `;
+                    }
+
+                    if ((currentQualFilter === 'all' || currentQualFilter === 'general') && fb.general) {
+                        innerSections += `
+                            <div class="qual-item-box general-box">
+                                <div style="font-size:0.75rem; font-weight:800; color:var(--accent-pink); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                                    <i data-lucide="sparkles" style="width:13px; height:13px;"></i> <span>Suggestions & Features</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-primary); line-height:1.45; font-style:italic;">"${fb.general}"</div>
+                            </div>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        <div style="display:flex; align-items:flex-start; justify-content:space-between; border-bottom:1px solid rgba(0,242,254,0.15); padding-bottom:10px; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <div style="width:34px; height:34px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.35); display:flex; align-items:center; justify-content:center; color:var(--accent-cyan); font-weight:800; font-size:0.85rem; flex-shrink:0;">
+                                    ${name.charAt(0)}
+                                </div>
+                                <div>
+                                    <div style="font-size:0.92rem; font-weight:800; color:var(--text-heading); font-family:'Inter', sans-serif;">${name}</div>
+                                    <div style="font-size:0.72rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px; margin-top:2px;">
+                                        <span style="font-family:'Fira Code', monospace; color:var(--accent-cyan);">${sId}</span>
+                                        <span>•</span>
+                                        <span>Age: ${age}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span style="font-size:0.75rem; font-weight:800; color:var(--accent-neon); background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.45); padding:4px 9px; border-radius:10px; white-space:nowrap;">
+                                SUS: ${score}/100
+                            </span>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:9px;">
+                            ${innerSections}
+                        </div>
+                        <div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:flex-end;">
+                            <button onclick="viewParticipantQualitative('${sId}')" style="background:rgba(0,242,254,0.1); border:1px solid rgba(0,242,254,0.3); color:var(--accent-cyan); font-size:0.76rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:5px; padding:6px 12px; border-radius:10px; transition:var(--transition);" title="Open full transcript modal">
+                                <i data-lucide="book-open" style="width:13px; height:13px;"></i>
+                                <span>Expand Transcript</span>
+                                <i data-lucide="arrow-right" style="width:12px; height:12px;"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+            }
+
+            refreshLucideIcons();
+        }
+
+        /* VIEW INDIVIDUAL PARTICIPANT QUALITATIVE & 10-ITEM SUS SURVEY DETAIL MODAL */
+        function viewParticipantQualitative(sessionId) {
+            const sess = rawParticipantSessions.find(s => s.sessionId === sessionId);
+            if (!sess) return;
+
+            const modal = document.getElementById('qual-detail-modal-overlay');
+            const nameEl = document.getElementById('modal-qual-name');
+            const metaEl = document.getElementById('modal-qual-meta');
+            const contentEl = document.getElementById('modal-qual-content');
+
+            if (!modal || !contentEl) return;
+
+            const name = sess.participantName || 'Gen Z Participant';
+            const sId = sess.sessionId || 'N/A';
+            const age = sess.participantAge || 'N/A';
+            const gender = sess.participantGender || 'Prefer not to say';
+            const score = sess.susScore || 'PENDING';
+            const grade = sess.susGrade || 'Pending Survey';
+            const mean = sess.weightedMean || '0.00';
+            const verbal = sess.verbalInterpretation || 'Unanswered';
+            const timeSec = sess.elapsedSessionSeconds || 38;
+            const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
+
+            nameEl.innerText = `${name} — Usability Survey & Qualitative Dossier`;
+            metaEl.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px;">
+                    <span style="font-family:'Fira Code', monospace; color:var(--accent-cyan); background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.3); padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">${sId}</span>
+                    <span style="background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.35); color:#d8b4fe; padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">${gender} • Age: ${age}</span>
+                    <span style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:var(--accent-neon); padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">SUS Score: ${score}/100 (${grade})</span>
+                    <span style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); color:#38bdf8; padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">Tasks: ${tasksDone}/5 (${timeSec}s)</span>
+                    <span style="color:var(--text-secondary); font-size:0.75rem; font-weight:600;">Mean X̄: ${mean}/5.00 (${verbal})</span>
+                </div>
+            `;
+
+            const likertLabels = {
+                1: '1 - Strongly Disagree',
+                2: '2 - Disagree',
+                3: '3 - Neutral',
+                4: '4 - Agree',
+                5: '5 - Strongly Agree'
+            };
+
+            // Build 10-Item SUS Survey Rows
+            let susItemsHtml = '';
+            const items = (sess.susItemResponses && sess.susItemResponses.length === 10) 
+                ? sess.susItemResponses 
+                : null;
+
+            if (items) {
+                susItemsHtml = `
+                    <div style="background:rgba(8,16,28,0.85); border:1.5px solid rgba(0,242,254,0.3); border-radius:16px; padding:16px; margin-bottom:16px;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid rgba(0,242,254,0.2); padding-bottom:8px;">
+                            <div style="font-size:0.92rem; font-weight:800; color:var(--accent-cyan); display:flex; align-items:center; gap:8px;">
+                                <i data-lucide="file-check-2" style="width:16px; height:16px;"></i> <span>10-Item System Usability Scale (SUS) Survey Responses</span>
+                            </div>
+                            <span style="font-size:0.72rem; font-weight:700; color:var(--accent-neon); background:rgba(16,185,129,0.15); padding:3px 8px; border-radius:8px;">All 10 Items Submitted ✓</span>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto; padding-right:4px;">
+                            ${items.map(it => {
+                                const isOdd = it.questionId % 2 !== 0;
+                                const tagColor = isOdd ? 'var(--accent-cyan)' : 'var(--accent-pink)';
+                                const tagBg = isOdd ? 'rgba(0,242,254,0.12)' : 'rgba(244,63,94,0.12)';
+                                const tagBorder = isOdd ? 'rgba(0,242,254,0.35)' : 'rgba(244,63,94,0.35)';
+                                return `
+                                    <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(12,22,36,0.6); padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); gap:10px; font-size:0.78rem;">
+                                        <div style="flex:1;">
+                                            <span style="font-weight:700; color:var(--text-heading); margin-right:6px;">Q${it.questionId}.</span>
+                                            <span style="color:var(--text-primary);">${it.statement || (susQuestions[it.questionId - 1] ? susQuestions[it.questionId - 1].text : `Item Q${it.questionId}`)}</span>
+                                            <span style="font-size:0.65rem; font-weight:700; color:${tagColor}; background:${tagBg}; border:1px solid ${tagBorder}; padding:1px 6px; border-radius:6px; margin-left:6px;">${isOdd ? 'Odd (X-1)' : 'Even (5-X)'}</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                                            <span style="font-weight:800; color:var(--accent-neon); background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); padding:2px 8px; border-radius:8px; font-size:0.75rem;">${likertLabels[it.rawRating] || `Rating: ${it.rawRating}`}</span>
+                                            <span style="font-size:0.7rem; color:var(--text-secondary); font-family:'Fira Code', monospace;">Score: +${it.scoreContribution !== undefined ? it.scoreContribution : (isOdd ? it.rawRating - 1 : 5 - it.rawRating)}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                susItemsHtml = `
+                    <div style="background:rgba(239,68,68,0.08); border:1.5px dashed rgba(239,68,68,0.3); border-radius:16px; padding:14px 16px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i data-lucide="alert-circle" style="width:20px; height:20px; color:#ef4444;"></i>
+                            <div>
+                                <div style="font-size:0.86rem; font-weight:700; color:#ef4444;">10-Item SUS Scale Survey: Incomplete / Pending</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:2px;">Participant has not submitted their 10 SUS scale rating items yet.</div>
+                            </div>
+                        </div>
+                        <button onclick="copyParticipantEmail('${sess.participantEmail}')" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:5px 10px; border-radius:10px; font-size:0.75rem; font-weight:700; cursor:pointer;" title="Send follow up email">
+                            Copy Email
+                        </button>
+                    </div>
+                `;
+            }
+
+            const fb = sess.qualitativeFeedback || { ai: '', ui: '', privacy: '', general: '' };
+
+            contentEl.innerHTML = `
+                <!-- SECTION 1: 10-ITEM SUS SURVEY BREAKDOWN -->
+                ${susItemsHtml}
+
+                <!-- SECTION 2: 4-DOMAIN QUALITATIVE BIOFEEDBACK TRANSCRIPTS -->
+                <div style="font-size:0.92rem; font-weight:800; color:var(--text-heading); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="message-square" style="width:16px; height:16px; color:var(--accent-neon);"></i> <span>Qualitative Biofeedback & User Feedback (4 Research Domains)</span>
+                </div>
+
+                <!-- DOMAIN 1: AI GUIDANCE & EXPLAINABILITY -->
+                <div class="qual-input-card" style="border-color:rgba(0,242,254,0.3);">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+                        <div class="qual-label" style="color:var(--accent-cyan); font-size:0.88rem;">
+                            <i data-lucide="bot" style="width:16px; height:16px;"></i> <span>1. AI Guidance & Explainability (XAI)</span>
+                        </div>
+                        <span style="font-size:0.68rem; font-weight:700; color:var(--accent-cyan); background:rgba(0,242,254,0.12); padding:2px 7px; border-radius:6px;">DOMAIN 1</span>
+                    </div>
+                    <div style="font-size:0.74rem; color:var(--text-secondary); margin-bottom:8px;">Clarity, trustworthiness, and actionable utility of AI predictive biofeedback & conversational advice.</div>
+                    <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.5; background:rgba(6,12,20,0.7); padding:12px 16px; border-radius:12px; border:1px solid rgba(0,242,254,0.22); font-style:italic;">
+                        ${fb.ai ? `“${fb.ai}”` : '<em style="color:var(--text-muted);">No specific comments submitted for this category.</em>'}
+                    </div>
+                </div>
+
+                <!-- DOMAIN 2: VISUAL DESIGN & THEMES -->
+                <div class="qual-input-card" style="border-color:rgba(16,185,129,0.3);">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+                        <div class="qual-label" style="color:var(--accent-neon); font-size:0.88rem;">
+                            <i data-lucide="sun-medium" style="width:16px; height:16px;"></i> <span>2. Visual Design & Theme Ergonomics</span>
+                        </div>
+                        <span style="font-size:0.68rem; font-weight:700; color:var(--accent-neon); background:rgba(16,185,129,0.12); padding:2px 7px; border-radius:6px;">DOMAIN 2</span>
+                    </div>
+                    <div style="font-size:0.74rem; color:var(--text-secondary); margin-bottom:8px;">Cyber Navy Dark Mode vs. Light Mode ergonomics, contrast levels, typography, and card layouts.</div>
+                    <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.5; background:rgba(6,12,20,0.7); padding:12px 16px; border-radius:12px; border:1px solid rgba(16,185,129,0.22); font-style:italic;">
+                        ${fb.ui ? `“${fb.ui}”` : '<em style="color:var(--text-muted);">No specific comments submitted for this category.</em>'}
+                    </div>
+                </div>
+
+                <!-- DOMAIN 3: DATA PRIVACY & AUTONOMY -->
+                <div class="qual-input-card" style="border-color:rgba(168,85,247,0.3);">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+                        <div class="qual-label" style="color:var(--accent-purple); font-size:0.88rem;">
+                            <i data-lucide="shield-check" style="width:16px; height:16px;"></i> <span>3. Data Privacy & Autonomy (R.A. 10173)</span>
+                        </div>
+                        <span style="font-size:0.68rem; font-weight:700; color:var(--accent-purple); background:rgba(168,85,247,0.12); padding:2px 7px; border-radius:6px;">DOMAIN 3</span>
+                    </div>
+                    <div style="font-size:0.74rem; color:var(--text-secondary); margin-bottom:8px;">Participant autonomy, front-panel sensor toggles, and Philippine Data Privacy Act compliance.</div>
+                    <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.5; background:rgba(6,12,20,0.7); padding:12px 16px; border-radius:12px; border:1px solid rgba(168,85,247,0.22); font-style:italic;">
+                        ${fb.privacy ? `“${fb.privacy}”` : '<em style="color:var(--text-muted);">No specific comments submitted for this category.</em>'}
+                    </div>
+                </div>
+
+                <!-- DOMAIN 4: GENERAL SUGGESTIONS -->
+                <div class="qual-input-card" style="border-color:rgba(244,63,94,0.3);">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+                        <div class="qual-label" style="color:var(--accent-pink); font-size:0.88rem;">
+                            <i data-lucide="sparkles" style="width:16px; height:16px;"></i> <span>4. General Suggestions & Feature Recommendations</span>
+                        </div>
+                        <span style="font-size:0.68rem; font-weight:700; color:var(--accent-pink); background:rgba(244,63,94,0.12); padding:2px 7px; border-radius:6px;">DOMAIN 4</span>
+                    </div>
+                    <div style="font-size:0.74rem; color:var(--text-secondary); margin-bottom:8px;">Participant recommendations for future iterations, box breathing coach, and wearable sync.</div>
+                    <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.5; background:rgba(6,12,20,0.7); padding:12px 16px; border-radius:12px; border:1px solid rgba(244,63,94,0.22); font-style:italic;">
+                        ${fb.general ? `“${fb.general}”` : '<em style="color:var(--text-muted);">No specific comments submitted for this category.</em>'}
+                    </div>
+                </div>
+            `;
+
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            modal.style.pointerEvents = 'auto';
+            refreshLucideIcons();
+        }
+
+        function closeQualDetailModal() {
+            const modal = document.getElementById('qual-detail-modal-overlay');
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                modal.style.visibility = 'hidden';
+            }
+        }
+
+        function exportQualitativeFeedbackCSV() {
+            let lines = [];
+            lines.push(`"QUALITATIVE BIOFEEDBACK TRANSCRIPTS DATASET"`);
+            lines.push(`"Paper Title","Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z"`);
+            lines.push(`"Authors","Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)"`);
+            lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
+            lines.push(``);
+            lines.push(`"Session ID","Participant Name","Age","Gender","SUS Score","AI Guidance & XAI Feedback","Visual Ergonomics & Theme Feedback","Data Privacy & Autonomy (R.A. 10173) Feedback","General Suggestions & Recommendations"`);
+
+            rawParticipantSessions.forEach(sess => {
+                const fb = sess.qualitativeFeedback || { ai: '', ui: '', privacy: '', general: '' };
+                const score = sess.susScore || 'PENDING';
+                const sId = sess.sessionId || 'N/A';
+                const name = sess.participantName || 'N/A';
+                const age = sess.participantAge || 'N/A';
+                const gender = sess.participantGender || 'Prefer not to say';
+
+                const cleanAi = (fb.ai || '').replace(/"/g, '""');
+                const cleanUi = (fb.ui || '').replace(/"/g, '""');
+                const cleanPriv = (fb.privacy || '').replace(/"/g, '""');
+                const cleanGen = (fb.general || '').replace(/"/g, '""');
+
+                lines.push(`"${sId}","${name}","${age}","${gender}","${score}","${cleanAi}","${cleanUi}","${cleanPriv}","${cleanGen}"`);
+            });
+
+            downloadCSV(lines.join('\n'), 'qualitative_biofeedback_transcripts.csv');
+            showToast('Downloaded Qualitative Biofeedback CSV!');
         }
 
         function deleteParticipantSession(sessionId, name) {
@@ -1045,11 +2552,34 @@
             const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
             const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(1) : '0.00';
 
+            // Calculate Mean Task Completion Time for CSV
+            let totalCompTime = 0;
+            let validCompCount = 0;
+            let totalTasksCompleted = 0;
+            let totalTasksAttempted = 0;
+
+            rawParticipantSessions.forEach(sess => {
+                const tCount = sess.tasks ? Object.keys(sess.tasks).length : 5;
+                totalTasksCompleted += tCount;
+                totalTasksAttempted += 5;
+                const score = sess.susScore;
+                const isUnfin = tCount < 5 || score === 'PENDING' || isNaN(parseFloat(score));
+                if (!isUnfin && sess.elapsedSessionSeconds && !isNaN(Number(sess.elapsedSessionSeconds))) {
+                    totalCompTime += Number(sess.elapsedSessionSeconds);
+                    validCompCount++;
+                }
+            });
+
+            const meanTaskCompTime = validCompCount > 0 ? (totalCompTime / validCompCount).toFixed(1) : '0.0';
+            const taskSuccRate = totalTasksAttempted > 0 ? ((totalTasksCompleted / totalTasksAttempted) * 100).toFixed(1) : '0.0';
+
             lines.push(``);
-            lines.push(`"OVERALL SUMMARY STATISTICAL METRICS"`);
-            lines.push(`"Total Participants Responded (N)","${totalCohortN}"`);
-            lines.push(`"Overall Cohort Weighted Mean (Xbar)","${overallMean} / 5.00"`);
-            lines.push(`"Composite SUS Cohort Score","${cohortSUS} / 100"`);
+            lines.push(`"TABLE 3.4: USABILITY METRICS FRAMEWORK (ISO 9241-11 ALIGNMENT)"`);
+            lines.push(`"Usability Dimension","Operational Variable","Measurement Formula / Metric","Evaluation Goal","Current Study Result","Outcome Status"`);
+            lines.push(`"Effectiveness","Task Completion Success","SR = (Successful Tasks / Total Attempted) * 100%","Goal >= 90.0% Success Rate","${taskSuccRate}%","${parseFloat(taskSuccRate) >= 90.0 ? 'Goal Met' : 'Evaluating'}"`);
+            lines.push(`"Efficiency","Mean Task Completion Time","Tbar = (1/N) * sum(T_p) (Seconds)","Rapid, low-friction (<= 60.0s)","${meanTaskCompTime}s","${parseFloat(meanTaskCompTime) <= 60.0 && parseFloat(meanTaskCompTime) > 0 ? 'Goal Met (Rapid)' : 'Evaluating'}"`);
+            lines.push(`"Satisfaction (Feature)","Likert Domain Mean","Xbar = sum(f * x) / n","Goal Xbar >= 4.21 (Excellent Rating)","${overallMean} / 5.00","${parseFloat(overallMean) >= 4.21 ? 'Goal Met' : 'Evaluating'}"`);
+            lines.push(`"Satisfaction (Global)","Composite SUS Score","SUS = (sum Score Contributions) * 2.5","Goal SUS >= 80.3 (Grade A)","${cohortSUS} / 100","${parseFloat(cohortSUS) >= 80.3 ? 'Goal Met (Grade A)' : 'Evaluating'}"`);
 
             downloadCSV(lines.join('\n'), 'chapter4_statistical_results.csv');
             showToast('Downloaded Chapter 4 Results CSV!');
@@ -1060,12 +2590,24 @@
             lines.push(`"PARTICIPANT DEMOGRAPHICS REGISTRY TABLE"`);
             lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
             lines.push(``);
-            lines.push(`"Session ID","Full Name","Age","Address / Location","Email Address","Tasks Completed","Session Time (s)","Composite SUS Score","Weighted Mean (Xbar)","Verbal Interpretation"`);
+            lines.push(`"Session ID","Full Name","Age","Gender","Address / Location","Email Address","R.A. 10173 Consent Status","Tasks Completed","Session Time (s)","Completed At / Timestamp","Composite SUS Score","Weighted Mean (Xbar)","Progress Status","Qual_AI_Explainability","Qual_UI_Ergonomics","Qual_Privacy_Autonomy","Qual_General_Suggestions"`);
 
             rawParticipantSessions.forEach(sess => {
                 const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
                 const timeSec = sess.elapsedSessionSeconds || 38;
-                lines.push(`"${sess.sessionId || 'N/A'}","${sess.participantName || 'N/A'}","${sess.participantAge || 'N/A'}","${sess.participantAddress || 'N/A'}","${sess.participantEmail || 'N/A'}","${tasksDone} of 5","${timeSec}s","${sess.susScore || 'PENDING'}","${sess.weightedMean || '0.00'}","${sess.verbalInterpretation || 'Unanswered'}"`);
+                const consentStr = sess.dataPrivacyConsentGiven !== false ? "Consented (R.A. 10173)" : "Pending Consent";
+                const score = sess.susScore || 'PENDING';
+                const isUnfinished = tasksDone < 5 || score === 'PENDING' || isNaN(parseFloat(score));
+                const statusStr = isUnfinished ? `Incomplete (${tasksDone}/5 tasks, SUS Pending)` : "Completed (5/5 tasks, SUS Submitted)";
+                const completionTs = (!isUnfinished && (sess.completedAt || sess.submissionTimestamp || sess.dataPrivacyConsentTimestamp || sess.startTime)) ? (sess.completedAt || sess.submissionTimestamp || sess.dataPrivacyConsentTimestamp || sess.startTime) : "In Progress";
+
+                const fb = sess.qualitativeFeedback || { ai: '', ui: '', privacy: '', general: '' };
+                const cleanAi = (fb.ai || '').replace(/"/g, '""');
+                const cleanUi = (fb.ui || '').replace(/"/g, '""');
+                const cleanPriv = (fb.privacy || '').replace(/"/g, '""');
+                const cleanGen = (fb.general || '').replace(/"/g, '""');
+
+                lines.push(`"${sess.sessionId || 'N/A'}","${sess.participantName || 'N/A'}","${sess.participantAge || 'N/A'}","${sess.participantGender || 'Prefer not to say'}","${sess.participantAddress || 'N/A'}","${sess.participantEmail || 'N/A'}","${consentStr}","${tasksDone} of 5","${timeSec}s","${completionTs}","${score}","${sess.weightedMean || '0.00'}","${statusStr}","${cleanAi}","${cleanUi}","${cleanPriv}","${cleanGen}"`);
             });
 
             downloadCSV(lines.join('\n'), 'participant_demographics_registry.csv');
@@ -1102,7 +2644,532 @@
             }
         }
 
+        /* =========================================================================
+           RESEARCH DATA STEP-BY-STEP MATHEMATICAL CALCULATIONS AUDIT ENGINE (KATEX)
+           ========================================================================= */
+        function kMath(latex, isBlock = false) {
+            if (window.katex && typeof window.katex.renderToString === 'function') {
+                try {
+                    return window.katex.renderToString(latex, { throwOnError: false, displayMode: isBlock });
+                } catch (e) {
+                    console.warn("KaTeX render error:", e);
+                }
+            }
+            return isBlock 
+                ? `<div style="font-family:'Fira Code', monospace; padding:8px 0; color:#bae6fd;">${latex}</div>` 
+                : `<span style="font-family:'Fira Code', monospace; color:#bae6fd;">${latex}</span>`;
+        }
+
+        function getVerbalInterpretation(score) {
+            const s = parseFloat(score);
+            if (isNaN(s) || s <= 0) return "Unanswered";
+            if (s >= 4.21) return "Strongly Agree";
+            if (s >= 3.41) return "Agree";
+            if (s >= 2.61) return "Neutral";
+            if (s >= 1.81) return "Disagree";
+            return "Strongly Disagree";
+        }
+
+        let currentCalcAuditTab = 'all';
+
+        function openStepByStepCalculationModal() {
+            const modal = document.getElementById('calculation-audit-modal-overlay');
+            if (!modal) return;
+            
+            try {
+                renderStepByStepCalculations();
+            } catch (err) {
+                console.error("Calculation render error:", err);
+            }
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            modal.style.pointerEvents = 'auto';
+            refreshLucideIcons();
+        }
+
+        function closeStepByStepCalculationModal() {
+            const modal = document.getElementById('calculation-audit-modal-overlay');
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                modal.style.visibility = 'hidden';
+            }
+        }
+
+        window.kMath = kMath;
+        window.getVerbalInterpretation = getVerbalInterpretation;
+        window.openStepByStepCalculationModal = openStepByStepCalculationModal;
+        window.closeStepByStepCalculationModal = closeStepByStepCalculationModal;
+
+        function switchCalcAuditTab(tabId) {
+            currentCalcAuditTab = tabId;
+            const tabButtons = document.querySelectorAll('.calc-tab-btn');
+            tabButtons.forEach(btn => {
+                if (btn.id === `calc-tab-btn-${tabId}`) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderStepByStepCalculations();
+        }
+
+        function renderStepByStepCalculations() {
+            const container = document.getElementById('calc-audit-modal-body');
+            if (!container) return;
+
+            const totalN = rawParticipantSessions.length;
+            const completedSessions = rawParticipantSessions.filter(s => s && s.susScore && s.susScore !== 'PENDING' && !isNaN(Number(s.susScore)));
+            const incompleteSessions = rawParticipantSessions.filter(s => !s || s.susScore === 'PENDING' || isNaN(Number(s.susScore)));
+            
+            const nCompleted = completedSessions.length;
+            const nIncomplete = incompleteSessions.length;
+
+            if (totalN === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:40px 20px; background:rgba(14,23,38,0.6); border:1px dashed rgba(56,189,248,0.3); border-radius:20px;">
+                        <div style="width:50px; height:50px; border-radius:14px; background:rgba(56,189,248,0.12); display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px;">
+                            <i data-lucide="info" style="color:#38bdf8; width:24px; height:24px;"></i>
+                        </div>
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--text-heading);">Database Is Currently Empty (N = 0)</div>
+                        <div style="font-size:0.84rem; color:var(--text-secondary); max-width:520px; margin:8px auto 16px;">
+                            No active participant telemetry sessions were detected in the database. You can load the standard N=50 empirical dataset or complete a live usability test from the main website.
+                        </div>
+                        <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan); display:inline-flex; align-items:center; gap:8px;" onclick="closeStepByStepCalculationModal(); loadBenchmarkN50Dataset();">
+                            <i data-lucide="zap"></i> <span>Load Benchmark (N=50) Dataset</span>
+                        </button>
+                    </div>
+                `;
+                refreshLucideIcons();
+                return;
+            }
+
+            // Demographic Counts
+            let genderCounts = { "Male": 0, "Female": 0, "Non-Binary / Third Gender": 0, "Prefer not to say": 0 };
+            let totalAge = 0;
+            rawParticipantSessions.forEach(s => {
+                const g = s.participantGender || "Prefer not to say";
+                if (genderCounts[g] !== undefined) genderCounts[g]++;
+                else genderCounts["Prefer not to say"]++;
+                totalAge += (Number(s.participantAge) || 20);
+            });
+            const meanAge = (totalAge / totalN).toFixed(1);
+
+            // Step 2: Task Effectiveness SR
+            let totalPossibleTasks = totalN * 5;
+            let totalSuccessfulTasks = 0;
+            rawParticipantSessions.forEach(s => {
+                if (s.tasks) {
+                    if (s.tasks.Task_1) totalSuccessfulTasks++;
+                    if (s.tasks.Task_2) totalSuccessfulTasks++;
+                    if (s.tasks.Task_3) totalSuccessfulTasks++;
+                    if (s.tasks.Task_4) totalSuccessfulTasks++;
+                    if (s.tasks.Task_5) totalSuccessfulTasks++;
+                }
+            });
+            const successRate = ((totalSuccessfulTasks / totalPossibleTasks) * 100).toFixed(1);
+            const srGoalMet = parseFloat(successRate) >= 90.0;
+
+            // Step 3: Task Efficiency Mean Time T̄
+            let sumElapsedSeconds = completedSessions.reduce((acc, s) => acc + (Number(s.elapsedSessionSeconds) || 0), 0);
+            const meanCompletionTime = nCompleted > 0 ? (sumElapsedSeconds / nCompleted).toFixed(1) : "0.0";
+            const timeGoalMet = parseFloat(meanCompletionTime) <= 60.0;
+
+            // Step 4: Likert Item Matrix & Means
+            let matrixCalcs = [];
+            let sumWeightedMeans = 0;
+            let sumContributions = 0;
+
+            susQuestions.forEach(q => {
+                const row = cohortDataMatrix.find(r => r.id === q.id) || { f5:0, f4:0, f3:0, f2:0, f1:0, N:0 };
+                const N = row.N > 0 ? row.N : totalN;
+                const prodSum = (5 * row.f5) + (4 * row.f4) + (3 * row.f3) + (2 * row.f2) + (1 * row.f1);
+                const rawMean = N > 0 ? (prodSum / N) : 0;
+                
+                // Likert Usability Inversion for Negative Items
+                const isOdd = (q.type === 'odd');
+                const weightedMean = isOdd ? rawMean : (6.00 - rawMean);
+                const contribution = isOdd ? (rawMean - 1.0) : (5.0 - rawMean);
+                const verbal = getVerbalInterpretation(weightedMean);
+
+                sumWeightedMeans += weightedMean;
+                sumContributions += contribution;
+
+                matrixCalcs.push({
+                    id: q.id,
+                    text: q.text,
+                    type: q.type,
+                    isOdd: isOdd,
+                    f5: row.f5, f4: row.f4, f3: row.f3, f2: row.f2, f1: row.f1,
+                    N: N,
+                    prodSum: prodSum,
+                    rawMean: rawMean.toFixed(2),
+                    weightedMean: weightedMean.toFixed(2),
+                    contribution: contribution.toFixed(2),
+                    verbal: verbal
+                });
+            });
+
+            const overallUsabilityMean = (sumWeightedMeans / 10).toFixed(2);
+            const meanGoalMet = parseFloat(overallUsabilityMean) >= 4.21;
+            const overallVerbal = getVerbalInterpretation(parseFloat(overallUsabilityMean));
+
+            // Step 5: Composite SUS
+            const compositeSUS = (sumContributions * 2.5).toFixed(1);
+            const shortcutSUS = ((parseFloat(overallUsabilityMean) - 1.0) * 25.0).toFixed(1);
+            const susScoreNum = parseFloat(compositeSUS);
+            const susGoalMet = susScoreNum >= 80.3;
+            let susGrade = "Grade A+ (Excellent Usability)";
+            if (susScoreNum < 50.9) susGrade = "Grade F (Poor Usability)";
+            else if (susScoreNum < 68.0) susGrade = "Grade C (Marginal Usability)";
+            else if (susScoreNum < 80.3) susGrade = "Grade B (Good Usability)";
+
+            let html = '';
+
+            // ----------------------------------------------------
+            // SECTION 1: ALL-IN-ONE SUMMARY PROOF / TABLE 3.4
+            // ----------------------------------------------------
+            if (currentCalcAuditTab === 'all') {
+                html += `
+                    <div class="calc-step-card" style="border-color:rgba(0,242,254,0.4); background:linear-gradient(135deg, rgba(14,23,38,0.95) 0%, rgba(6,12,22,0.95) 100%);">
+                        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="badge-pill" style="font-size:0.75rem; background:rgba(0,242,254,0.15); color:var(--accent-cyan); border-color:rgba(0,242,254,0.35);">
+                                    <i data-lucide="check-circle" style="width:13px; height:13px;"></i> ISO 9241-11 USABILITY METRICS ALIGNMENT
+                                </span>
+                                <span style="font-size:0.86rem; font-weight:800; color:var(--text-heading);">Current Sample Size: ${kMath(`N = ${totalN}`)}</span>
+                            </div>
+                            <span class="badge-pill" style="font-size:0.72rem; color:${susGoalMet ? 'var(--accent-neon)' : '#fb7185'};">
+                                ${susGoalMet ? 'ALL EVALUATION BENCHMARKS MET ✓' : 'PARTIAL COMPLETION'}
+                            </span>
+                        </div>
+
+                        <div class="table-wrapper" style="border-radius:14px; max-height:none;">
+                            <table class="calc-proof-table">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:left;">Dimension</th>
+                                        <th style="text-align:left;">Operational Variable</th>
+                                        <th style="text-align:left;">Formula</th>
+                                        <th>Evaluation Goal</th>
+                                        <th>Calculated Result</th>
+                                        <th>Analytical Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:800; color:var(--accent-cyan);">Effectiveness</td>
+                                        <td style="text-align:left;">Task Completion Rate</td>
+                                        <td style="text-align:left;">${kMath("SR = \\left(\\frac{\\text{Successful Tasks}}{\\text{Total Attempted}}\\right) \\times 100\\%")}</td>
+                                        <td>${kMath("SR \\ge 90.0\\%")}</td>
+                                        <td style="font-weight:800; color:var(--accent-neon); font-size:0.92rem;">${successRate}%</td>
+                                        <td><span class="badge-pill" style="color:${srGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${srGoalMet ? 'Goal Met ✓' : 'Below Goal'}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:800; color:#38bdf8;">Efficiency</td>
+                                        <td style="text-align:left;">Mean Task Completion Time</td>
+                                        <td style="text-align:left;">${kMath("\\bar{T} = \\frac{1}{N} \\sum_{p=1}^{N} T_p \\quad (\\text{s})")}</td>
+                                        <td>${kMath("\\bar{T} \\le 60.0\\text{s}")}</td>
+                                        <td style="font-weight:800; color:#38bdf8; font-size:0.92rem;">${meanCompletionTime}s</td>
+                                        <td><span class="badge-pill" style="color:${timeGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${timeGoalMet ? 'Goal Met ✓' : 'Exceeds Goal'}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:800; color:#c084fc;">Satisfaction (Feature)</td>
+                                        <td style="text-align:left;">Likert Domain Usability Mean</td>
+                                        <td style="text-align:left;">${kMath("\\bar{X} = \\frac{\\sum (f \\cdot x)}{N}")}</td>
+                                        <td>${kMath("\\bar{X} \\ge 4.21")}</td>
+                                        <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;">${overallUsabilityMean} / 5.00</td>
+                                        <td><span class="badge-pill" style="color:${meanGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${meanGoalMet ? 'Goal Met ✓' : 'Needs Review'}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:800; color:#fb7185;">Satisfaction (Global)</td>
+                                        <td style="text-align:left;">Composite System Usability Scale</td>
+                                        <td style="text-align:left;">${kMath("\\overline{\\text{SUS}} = \\left(\\sum_{i=1}^{10} \\text{Contribution}_i\\right) \\times 2.5")}</td>
+                                        <td>${kMath("\\overline{\\text{SUS}} \\ge 80.3")}</td>
+                                        <td style="font-weight:800; color:#fb7185; font-size:0.92rem;">${compositeSUS} / 100</td>
+                                        <td><span class="badge-pill" style="color:${susGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${susGoalMet ? 'Grade A+ Met ✓' : 'Below Grade A'}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ----------------------------------------------------
+            // STEP 1: DEMOGRAPHICS & SAMPLING (%)
+            // ----------------------------------------------------
+            if (currentCalcAuditTab === 'all' || currentCalcAuditTab === 'step1') {
+                const pMale = ((genderCounts["Male"] / totalN) * 100).toFixed(1);
+                const pFemale = ((genderCounts["Female"] / totalN) * 100).toFixed(1);
+                const pNB = ((genderCounts["Non-Binary / Third Gender"] / totalN) * 100).toFixed(1);
+                const pOther = ((genderCounts["Prefer not to say"] / totalN) * 100).toFixed(1);
+                const pComp = ((nCompleted / totalN) * 100).toFixed(1);
+                const pIncomp = ((nIncomplete / totalN) * 100).toFixed(1);
+
+                html += `
+                    <div class="calc-step-card">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                            <div style="font-size:1.05rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
+                                <span class="calc-number-highlight">STEP 1</span>
+                                <span>Sample Percentage & Demographic Distribution</span>
+                            </div>
+                            <span style="font-size:0.78rem; color:var(--text-secondary);">Section III.F.1 Formulation</span>
+                        </div>
+
+                        <div class="calc-formula-display">
+                            <div style="font-size:0.82rem; font-weight:700; color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.5px;">Standard Percentage Equation:</div>
+                            ${kMath("P = \\left( \\frac{f}{n} \\right) \\times 100\\%", true)}
+                            <div style="color:var(--text-secondary); font-size:0.8rem; margin-top:4px;">
+                                ${kMath("\\text{Where: } f = \\text{Frequency count, } n = \\text{Total sample size } (N = " + totalN + ")")}
+                            </div>
+                        </div>
+
+                        <div class="calc-substitution-box">
+                            <div style="font-weight:700; color:var(--accent-neon); margin-bottom:10px; font-size:0.88rem;">Live Empirical Arithmetic Substitutions:</div>
+                            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; font-size:0.84rem;">
+                                <div>• <b>Completed Protocol Sessions:</b> ${kMath(`\\left(\\frac{${nCompleted}}{${totalN}}\\right) \\times 100 = \\mathbf{${pComp}\\%}`)}</div>
+                                <div>• <b>Incomplete Sessions:</b> ${kMath(`\\left(\\frac{${nIncomplete}}{${totalN}}\\right) \\times 100 = \\mathbf{${pIncomp}\\%}`)}</div>
+                                <div>• <b>Male Participants:</b> ${kMath(`\\left(\\frac{${genderCounts["Male"]}}{${totalN}}\\right) \\times 100 = \\mathbf{${pMale}\\%}`)}</div>
+                                <div>• <b>Female Participants:</b> ${kMath(`\\left(\\frac{${genderCounts["Female"]}}{${totalN}}\\right) \\times 100 = \\mathbf{${pFemale}\\%}`)}</div>
+                                <div>• <b>Non-Binary Participants:</b> ${kMath(`\\left(\\frac{${genderCounts["Non-Binary / Third Gender"]}}{${totalN}}\\right) \\times 100 = \\mathbf{${pNB}\\%}`)}</div>
+                                <div>• <b>Mean Participant Age:</b> <span class="calc-number-highlight">${meanAge} Years</span> (Gen Z Cohort: Ages 12–27)</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ----------------------------------------------------
+            // STEP 2: EFFECTIVENESS (SR)
+            // ----------------------------------------------------
+            if (currentCalcAuditTab === 'all' || currentCalcAuditTab === 'step2') {
+                html += `
+                    <div class="calc-step-card">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                            <div style="font-size:1.05rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
+                                <span class="calc-number-highlight" style="color:#10b981; border-color:#10b981;">STEP 2</span>
+                                <span>ISO 9241-11 Effectiveness: Task Completion Success Rate (SR)</span>
+                            </div>
+                            <span style="font-size:0.78rem; color:var(--text-secondary);">Table 3.4 Alignment</span>
+                        </div>
+
+                        <div class="calc-formula-display">
+                            <div style="font-size:0.82rem; font-weight:700; color:#10b981; text-transform:uppercase; letter-spacing:0.5px;">Task Success Rate Equation:</div>
+                            ${kMath("SR = \\left( \\frac{\\text{Total Successful Tasks Completed}}{\\text{Total Standardized Tasks Attempted}} \\right) \\times 100\\%", true)}
+                        </div>
+
+                        <div class="calc-substitution-box">
+                            <div style="font-weight:700; color:var(--accent-neon); margin-bottom:6px; font-size:0.88rem;">Step-by-Step Mathematical Derivation:</div>
+                            <div style="margin:10px 0;">
+                                ${kMath(`SR = \\left( \\frac{${totalSuccessfulTasks}}{${totalPossibleTasks}} \\right) \\times 100\\% = \\mathbf{${successRate}\\%}`, true)}
+                            </div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
+                                • <b>Total Protocol Tasks Attempted:</b> ${totalN} participants × 5 usability tasks = <b>${totalPossibleTasks} tasks</b><br>
+                                • <b>Total Successfully Executed Tasks:</b> <b>${totalSuccessfulTasks} tasks</b><br>
+                                • <b>Evaluation Goal Verification:</b> <b>${successRate}% ≥ 90.0% Goal</b> → <b style="color:${srGoalMet ? '#10b981' : '#fb7185'};">${srGoalMet ? 'SUCCESS: Evaluation Goal Met ✓ (High Usability Effectiveness)' : 'BELOW GOAL'}</b>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ----------------------------------------------------
+            // STEP 3: EFFICIENCY (MEAN TIME T̄)
+            // ----------------------------------------------------
+            if (currentCalcAuditTab === 'all' || currentCalcAuditTab === 'step3') {
+                html += `
+                    <div class="calc-step-card">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                            <div style="font-size:1.05rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
+                                <span class="calc-number-highlight" style="color:#38bdf8; border-color:#38bdf8;">STEP 3</span>
+                                <span>ISO 9241-11 Efficiency: Mean Task Completion Time (T̄)</span>
+                            </div>
+                            <span style="font-size:0.78rem; color:var(--text-secondary);">Table 3.4 Alignment</span>
+                        </div>
+
+                        <div class="calc-formula-display">
+                            <div style="font-size:0.82rem; font-weight:700; color:#38bdf8; text-transform:uppercase; letter-spacing:0.5px;">Mean Task Completion Time Equation:</div>
+                            ${kMath("\\bar{T} = \\frac{1}{N_{\\text{completed}}} \\sum_{p=1}^{N} T_p \\quad (\\text{Seconds})", true)}
+                        </div>
+
+                        <div class="calc-substitution-box">
+                            <div style="font-weight:700; color:#38bdf8; margin-bottom:6px; font-size:0.88rem;">Step-by-Step Mathematical Derivation:</div>
+                            <div style="margin:10px 0;">
+                                ${kMath(`\\bar{T} = \\frac{${sumElapsedSeconds.toFixed(1)}\\text{ Seconds}}{${nCompleted}\\text{ Completed Participants}} = \\mathbf{${meanCompletionTime}\\text{ Seconds}}`, true)}
+                            </div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
+                                • <b>Cumulative Usability Protocol Time:</b> <b>${sumElapsedSeconds.toFixed(1)}s</b> across ${nCompleted} finalized evaluations.<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${meanCompletionTime}s ≤ 60.0s Goal</b> → <b style="color:${timeGoalMet ? '#10b981' : '#fb7185'};">${timeGoalMet ? 'SUCCESS: Low-Friction Rapid Navigation Standard Met ✓' : 'EXCEEDS THRESHOLD'}</b>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ----------------------------------------------------
+            // STEP 4: LIKERT WEIGHTED MEANS (X̄)
+            // ----------------------------------------------------
+            if (currentCalcAuditTab === 'all' || currentCalcAuditTab === 'step4') {
+                let rowsHtml = '';
+                matrixCalcs.forEach(c => {
+                    rowsHtml += `
+                        <tr>
+                            <td style="font-weight:800; font-family:'Fira Code';">${c.id}</td>
+                            <td style="text-align:left; max-width:280px; white-space:normal; font-size:0.75rem;">
+                                ${c.text}
+                                <div style="margin-top:2px;">
+                                    <span class="sus-type-tag ${c.isOdd ? 'odd' : 'even'}">${c.isOdd ? 'Odd (Positive)' : 'Even (Negative Inverted)'}</span>
+                                </div>
+                            </td>
+                            <td>${c.f5}</td>
+                            <td>${c.f4}</td>
+                            <td>${c.f3}</td>
+                            <td>${c.f2}</td>
+                            <td>${c.f1}</td>
+                            <td style="font-family:'Fira Code'; color:var(--accent-cyan); font-weight:700;">${c.prodSum}</td>
+                            <td style="font-family:'Fira Code'; font-weight:800; color:#d8b4fe; font-size:0.88rem;">${c.weightedMean}</td>
+                            <td style="font-size:0.72rem;"><span class="badge-pill" style="font-size:0.65rem;">${c.verbal}</span></td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                    <div class="calc-step-card">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                            <div style="font-size:1.05rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
+                                <span class="calc-number-highlight" style="color:#c084fc; border-color:#c084fc;">STEP 4</span>
+                                <span>5-Point Likert Continuum Rating & Weighted Means (X̄_i)</span>
+                            </div>
+                            <span style="font-size:0.78rem; color:var(--text-secondary);">Section III.F.2 & Table 3.3</span>
+                        </div>
+
+                        <div class="calc-formula-display">
+                            <div style="font-size:0.82rem; font-weight:700; color:#c084fc; text-transform:uppercase; letter-spacing:0.5px;">Likert Item Weighted Mean Equation:</div>
+                            ${kMath("\\bar{X}_i = \\frac{\\sum (f \\cdot x)}{N} = \\frac{5(f_5) + 4(f_4) + 3(f_3) + 2(f_2) + 1(f_1)}{N}", true)}
+                        </div>
+
+                        <div class="table-wrapper" style="border-radius:14px; margin:14px 0;">
+                            <table class="calc-proof-table">
+                                <thead>
+                                    <tr>
+                                        <th>Q#</th>
+                                        <th style="text-align:left;">Usability Statement & Polarity</th>
+                                        <th>5 (SA)</th>
+                                        <th>4 (A)</th>
+                                        <th>3 (N)</th>
+                                        <th>2 (D)</th>
+                                        <th>1 (SD)</th>
+                                        <th>∑(f · x)</th>
+                                        <th>Weighted Mean (X̄)</th>
+                                        <th>Interpretation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${rowsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="calc-substitution-box">
+                            <div style="font-weight:700; color:#c084fc; margin-bottom:6px; font-size:0.88rem;">Overall Feature Usability Mean Calculation:</div>
+                            <div style="margin:10px 0;">
+                                ${kMath(`\\bar{X}_{\\text{overall}} = \\frac{1}{10} \\sum_{i=1}^{10} \\bar{X}_i = \\frac{${sumWeightedMeans.toFixed(2)}}{10} = \\mathbf{${overallUsabilityMean} / 5.00}`, true)}
+                            </div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
+                                • <b>Continuum Classification (Table 3.3):</b> <b>${overallUsabilityMean}</b> falls in <b>4.21 – 5.00 (Strongly Agree / Excellent Usability)</b>.<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${overallUsabilityMean} ≥ 4.21 Goal</b> → <b style="color:${meanGoalMet ? '#10b981' : '#fb7185'};">${meanGoalMet ? 'SUCCESS: Evaluation Goal Met ✓' : 'BELOW BENCHMARK'}</b>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ----------------------------------------------------
+            // STEP 5: COMPOSITE SUS SCORE (BROOKE 1996)
+            // ----------------------------------------------------
+            if (currentCalcAuditTab === 'all' || currentCalcAuditTab === 'step5') {
+                html += `
+                    <div class="calc-step-card">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                            <div style="font-size:1.05rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
+                                <span class="calc-number-highlight" style="color:#f43f5e; border-color:#f43f5e;">STEP 5</span>
+                                <span>Brooke (1996) System Usability Scale (SUS) Score Transformation</span>
+                            </div>
+                            <span style="font-size:0.78rem; color:var(--text-secondary);">Section III.F.3 & Brooke (1996)</span>
+                        </div>
+
+                        <div class="calc-formula-display">
+                            <div style="font-size:0.82rem; font-weight:700; color:#f43f5e; text-transform:uppercase; letter-spacing:0.5px;">1. Item Score Contribution Piecewise Function:</div>
+                            ${kMath("\\text{Contribution}_i = \\begin{cases} x_i - 1, & \\text{for odd items } (1, 3, 5, 7, 9) \\\\[6pt] 5 - x_i, & \\text{for even items } (2, 4, 6, 8, 10) \\end{cases}", true)}
+                            
+                            <div style="font-size:0.82rem; font-weight:700; color:#f43f5e; text-transform:uppercase; letter-spacing:0.5px; margin-top:8px;">2. Brooke Global SUS Score Composite Equation:</div>
+                            ${kMath("\\overline{\\text{SUS}} = \\left( \\sum_{i=1}^{10} \\text{Contribution}_i \\right) \\times 2.5", true)}
+                        </div>
+
+                        <div class="calc-substitution-box">
+                            <div style="font-weight:700; color:#fb7185; margin-bottom:6px; font-size:0.88rem;">Step-by-Step Mathematical Derivations:</div>
+                            <div style="margin:10px 0; display:flex; flex-direction:column; gap:8px;">
+                                <div>• <b>Cumulative Score Contributions:</b> ${kMath(`\\sum_{i=1}^{10} \\text{Contribution}_i = \\mathbf{${sumContributions.toFixed(2)}}`)}</div>
+                                <div>• <b>Composite SUS Transformation:</b> ${kMath(`\\overline{\\text{SUS}} = ${sumContributions.toFixed(2)} \\times 2.5 = \\mathbf{${compositeSUS} / 100}`)}</div>
+                                <div>• <b>Alternative Shortcut Cohort Mean Proof:</b> ${kMath(`\\overline{\\text{SUS}} = (${overallUsabilityMean} - 1) \\times 25 = \\mathbf{${shortcutSUS} / 100}`)}</div>
+                            </div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; margin-top:8px;">
+                                • <b>Brooke (1996) & Bangor et al. (2008) Grade Scale:</b><br>
+                                &nbsp;&nbsp;- Current Score: <b>${compositeSUS} / 100</b> → <span style="color:#10b981; font-weight:800;">${susGrade}</span><br>
+                                &nbsp;&nbsp;- Top 10% Industry Percentile benchmark exceeds the Grade A requirement (${kMath("\\overline{\\text{SUS}} \\ge 80.3")}).<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${compositeSUS} ≥ 80.3 Goal</b> → <b style="color:${susGoalMet ? '#10b981' : '#fb7185'};">${susGoalMet ? 'SUCCESS: Grade A Usability Benchmark Met ✓' : 'BELOW GRADE A'}</b>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+            refreshLucideIcons();
+        }
+
+        function printCalculationAuditReport() {
+            window.print();
+        }
+
+        window.switchCalcAuditTab = switchCalcAuditTab;
+        window.renderStepByStepCalculations = renderStepByStepCalculations;
+        window.printCalculationAuditReport = printCalculationAuditReport;
+
         document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('bytecode_theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+                const themeIcon = document.getElementById('theme-icon-lucide');
+                if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+            }
+
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    const currentTheme = document.body.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    if (newTheme === 'light') {
+                        document.body.setAttribute('data-theme', 'light');
+                    } else {
+                        document.body.removeAttribute('data-theme');
+                    }
+                    localStorage.setItem('bytecode_theme', newTheme);
+                    const themeIcon = document.getElementById('theme-icon-lucide');
+                    if (themeIcon) themeIcon.setAttribute('data-lucide', newTheme === 'light' ? 'sun' : 'moon');
+                    refreshLucideIcons();
+                    showToast(`Switched to ${newTheme === 'light' ? 'Light' : 'Dark'} Mode`);
+                });
+            }
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeQualDetailModal();
+                    closeStepByStepCalculationModal();
+                }
+            });
+
             refreshLucideIcons();
             syncAdminFromFirebase();
             setInterval(syncAdminFromFirebase, 10000);
