@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 // Signal Lost — BYTECODE AI Health</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-cyan: #00f2fe;
+            --accent-neon: #00ff88;
+            --accent-purple: #a855f7;
+            --bg-primary: #05080e;
+            --text-heading: #cbd5e1;
+            --text-secondary: #94a3b8;
+            --gradient-bytecode: linear-gradient(135deg, #00f2fe 0%, #a855f7 50%, #00ff88 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html, body { height: 100%; }
+        body {
+            background-color: var(--bg-primary);
+            background-image:
+                radial-gradient(42rem 42rem at 10% 6%, rgba(0,242,254,0.10), transparent 60%),
+                radial-gradient(40rem 40rem at 90% 14%, rgba(168,85,247,0.12), transparent 60%),
+                radial-gradient(46rem 46rem at 50% 102%, rgba(0,255,136,0.09), transparent 60%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            overflow: hidden;
+        }
+        .wrap { text-align: center; max-width: 640px; }
+        .code {
+            font-family: 'Fira Code', monospace;
+            font-size: clamp(4rem, 14vw, 8rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 4px;
+            background: var(--gradient-bytecode);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: flicker 3s ease-in-out infinite;
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.4; }
+            94% { opacity: 1; }
+            97% { opacity: 0.6; }
+            98% { opacity: 1; }
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0,242,254,0.35);
+            background: rgba(0,242,254,0.08);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+        }
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent-neon);
+            box-shadow: 0 0 10px var(--accent-neon);
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+        h1 { font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 700; color: var(--text-heading); margin-bottom: 12px; }
+        p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px; }
+        .binary {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-cyan);
+            opacity: 0.4;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            word-break: break-all;
+        }
+        .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #00f2fe 0%, #10b981 100%);
+            color: #04090f;
+            box-shadow: 0 0 24px rgba(0,242,254,0.35);
+        }
+        .btn-ghost {
+            border: 1px solid rgba(0,242,254,0.3);
+            color: var(--accent-cyan);
+            background: rgba(0,242,254,0.06);
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary:hover { box-shadow: 0 0 34px rgba(0,242,254,0.55); }
+        .btn-ghost:hover { background: rgba(0,242,254,0.14); }
+        footer { margin-top: 40px; font-size: 0.72rem; color: #64748b; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="tag"><span class="dot"></span> BYTECODE // SIGNAL LOST</div>
+        <div class="code">404</div>
+        <div class="binary">01001110 01101111 00100000 01110100 01100101 01101100 01100101 01101101 01100101 01110100 01110010 01111001 00100000 01100110 01101111 01110101 01101110 01100100</div>
+        <h1>Telemetry link not found.</h1>
+        <p>The page you requested is out of range — it may have been moved, renamed, or is still syncing from the wearable uplink.</p>
+        <div class="actions">
+            <a class="btn btn-primary" href="index.html">← Back to Participant Dashboard</a>
+            <a class="btn btn-ghost" href="admin.html">Researcher Admin Portal</a>
+        </div>
+        <footer>ARELLANO UNIVERSITY • HCI 2 RESEARCH PROTOCOL</footer>
+    </div>
+</body>
+</html>
