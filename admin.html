@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Researcher Admin Portal - Chapter 4 Results & Data Gathering Engine</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -17,6 +18,7 @@
     <!-- GOOGLE FIREBASE CLOUD DATABASE COMPAT SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBTARZZSEIU0inIHGFKtnItYXggLhdkJ7g",
@@ -34,6 +36,7 @@
             if (typeof firebase !== 'undefined') {
                 firebase.initializeApp(firebaseConfig);
                 firebaseDb = firebase.database();
+        window.firebaseAuth = firebase.auth();
                 console.log('⚡ Firebase Realtime Database Initialized Successfully in Admin Portal!');
             }
         } catch (err) {
@@ -60,7 +63,7 @@
             --gradient-bytecode: linear-gradient(135deg, #00f2fe 0%, #a855f7 50%, #00ff88 100%);
             --gradient-btn: linear-gradient(135deg, #00f2fe 0%, #10b981 100%);
             --shadow-neon: 0 0 25px rgba(0, 242, 254, 0.35);
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
         [data-theme="light"] {
@@ -168,10 +171,68 @@
             border-color: #cbd5e1 !important;
             color: #0f172a !important;
         }
-        [data-theme="light"] .modal-card {
+        [data-theme="light"] .modal-card,
+        [data-theme="light"] .calc-modal-card,
+        [data-theme="light"] .qual-modal-card {
             background: #ffffff !important;
             border-color: #cbd5e1 !important;
             box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15) !important;
+            color: #0f172a !important;
+        }
+
+        /* CALCULATION AUDIT MODAL IN LIGHT MODE */
+        [data-theme="light"] .calc-tabs-bar {
+            background: #f1f5f9 !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        [data-theme="light"] .calc-tab-btn {
+            color: #475569 !important;
+        }
+        [data-theme="light"] .calc-tab-btn:hover {
+            color: #0284c7 !important;
+            background: rgba(2, 132, 199, 0.08) !important;
+        }
+        [data-theme="light"] .calc-tab-btn.active {
+            background: #0284c7 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25) !important;
+        }
+        [data-theme="light"] .calc-step-card {
+            background: #ffffff !important;
+            border: 1.5px solid #e2e8f0 !important;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+        }
+        [data-theme="light"] .calc-formula-display {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .calc-substitution-box {
+            background: #f0fdf4 !important;
+            border: 1.5px solid #bbf7d0 !important;
+            color: #1e293b !important;
+        }
+        [data-theme="light"] .calc-proof-table th {
+            background: #f1f5f9 !important;
+            color: #0284c7 !important;
+            border-bottom: 1.5px solid #cbd5e1 !important;
+        }
+        [data-theme="light"] .calc-proof-table td {
+            color: #0f172a !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        [data-theme="light"] .katex {
+            color: #0f172a !important;
+        }
+
+        /* QUALITATIVE DOSSIER IN LIGHT MODE */
+        [data-theme="light"] .qual-modal-card div[style*="background:linear-gradient"] {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.06) 0%, rgba(5, 150, 105, 0.06) 100%) !important;
+            border: 1.5px solid #bae6fd !important;
+        }
+        [data-theme="light"] .qual-modal-card div[style*="background:rgba(8, 14, 24"] {
+            background: #f8fafc !important;
+            border-color: #e2e8f0 !important;
         }
 
         * {
@@ -242,8 +303,7 @@
             top: 0;
             left: 0;
             z-index: 10000;
-            background: rgba(4, 7, 13, 0.96);
-            backdrop-filter: blur(16px);
+            background: rgba(4, 7, 13, 0.98);
             border-bottom: 1px solid rgba(0, 242, 254, 0.2);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
         }
@@ -264,7 +324,7 @@
             width: 42px; height: 42px; border-radius: 50%;
             background: #060c14; border: 2px solid var(--accent-cyan);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 0 18px rgba(0, 242, 254, 0.45); flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06); flex-shrink: 0;
         }
 
         .logo-brand {
@@ -300,7 +360,7 @@
         .btn-portal-switch:hover {
             background: var(--gradient-btn);
             color: #04090f;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.45);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
 
         /* MAIN CONTAINER */
@@ -389,7 +449,6 @@
             padding: 18px 14px 16px;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(16px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
             position: relative;
             overflow: hidden;
@@ -491,13 +550,13 @@
             background: rgba(0, 242, 254, 0.15);
             border-color: var(--accent-cyan);
             color: #ffffff;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
         .filter-tab-btn.alert.active {
             background: rgba(239, 68, 68, 0.2);
             border-color: #ef4444;
             color: #ffffff;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
 
         .stat-num {
@@ -541,7 +600,7 @@
             border-radius: 28px;
             padding: 24px;
             margin-bottom: 32px;
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
 
         .actions-top-row {
@@ -571,13 +630,13 @@
             font-weight: 700;
             font-size: 0.86rem;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
             transition: var(--transition);
         }
 
         .btn-export-csv:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.55);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
 
         .btn-secondary {
@@ -709,7 +768,7 @@
             border-color: #ef4444 !important;
             color: #ef4444 !important;
             transform: rotate(90deg) scale(1.1) !important;
-            box-shadow: 0 0 18px rgba(239, 68, 68, 0.45) !important;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.06) !important;
         }
 
         .close-btn i, .close-btn svg {
@@ -797,7 +856,7 @@
             border: 1.5px solid rgba(56, 189, 248, 0.45);
             border-radius: 26px;
             padding: 28px;
-            box-shadow: 0 0 60px rgba(56, 189, 248, 0.22);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
             max-height: 90vh;
             overflow-y: auto;
             display: flex;
@@ -840,7 +899,7 @@
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(3, 105, 161, 0.3) 100%);
             border-color: #38bdf8;
             color: #ffffff;
-            box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
 
         .calc-step-card {
@@ -975,9 +1034,27 @@
         @media (max-width: 480px) {
             .stats-5grid { grid-template-columns: 1fr; }
         }
+
+        /* SCROLL REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+
+        /* PRELOADER */
+        .preloader { position: fixed; inset: 0; z-index: 40000; display: flex; align-items: center; justify-content: center; background: var(--bg-primary); transition: opacity 0.6s ease, visibility 0.6s ease; }
+        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader-core { font-family: 'Fira Code', monospace; font-size: 1.4rem; letter-spacing: 6px; color: var(--accent-cyan); text-shadow: 0 0 18px rgba(0,242,254,0.6); animation: preloaderPulse 1.4s ease-in-out infinite; }
+        @keyframes preloaderPulse { 0%,100% { opacity: 0.4; transform: scale(0.96); } 50% { opacity: 1; transform: scale(1.04); } }
     </style>
 </head>
 <body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-core">BYTECODE // 01010</div>
+    </div>
 
     <!-- AMBIENT WATERMARK -->
     <div class="bg-binary-watermark">
@@ -1065,17 +1142,17 @@
             </div>
             <div class="stat-card card-likert">
                 <div>
-                    <div class="stat-num" id="admin-overall-mean" style="color:#d8b4fe;">0.00 / 5.00</div>
+                    <div class="stat-num" id="admin-overall-mean" style="color:#d8b4fe;">0.00 / 4.00</div>
                     <div class="stat-lbl"><i data-lucide="bar-chart-2" style="width:14px; height:14px; color:#c084fc;"></i> Likert Usability (X̄)</div>
                 </div>
-                <div class="stat-sub" id="admin-overall-verbal" style="color:#e9d5ff; background:rgba(168,85,247,0.12); border-color:rgba(168,85,247,0.3);">Goal X̄ ≥ 4.21</div>
+                <div class="stat-sub" id="admin-overall-verbal" style="color:#e9d5ff; background:rgba(168,85,247,0.12); border-color:rgba(168,85,247,0.3);">Goal X̄ ≥ 3.36</div>
             </div>
             <div class="stat-card card-sus">
                 <div>
                     <div class="stat-num" id="admin-sus-score" style="color:#fb7185;">Pending (N=0)</div>
                     <div class="stat-lbl"><i data-lucide="award" style="width:14px; height:14px; color:#f43f5e;"></i> Composite SUS Score</div>
                 </div>
-                <div class="stat-sub" id="admin-sus-grade" style="color:#fecdd3; background:rgba(244,63,94,0.12); border-color:rgba(244,63,94,0.3);">Goal SUS ≥ 80.3 (Grade A)</div>
+                <div class="stat-sub" id="admin-sus-grade" style="color:#fecdd3; background:rgba(244,63,94,0.12); border-color:rgba(244,63,94,0.3);">Goal SUS ≥ 80.0 (Grade A+)</div>
             </div>
         </div>
 
@@ -1137,15 +1214,15 @@
                             <td style="font-weight:800; color:var(--accent-purple); text-align:left;"><i data-lucide="bar-chart-2" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Satisfaction (Feature)</td>
                             <td style="text-align:left; font-weight:700;">Likert Domain Mean</td>
                             <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">X̄ = ∑(f · x) / n</td>
-                            <td style="font-weight:700; color:var(--text-secondary);">X̄ ≥ 4.21 (Excellent Rating)</td>
-                            <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;" id="framework-res-mean">0.00 / 5.00</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">X̄ ≥ 3.36 (Excellent Rating)</td>
+                            <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;" id="framework-res-mean">0.00 / 4.00</td>
                             <td id="framework-status-mean"><span style="background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.4); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
                         </tr>
                         <tr>
                             <td style="font-weight:800; color:var(--accent-pink); text-align:left;"><i data-lucide="award" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Satisfaction (Global)</td>
                             <td style="text-align:left; font-weight:700;">Composite SUS Score</td>
                             <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">SUS = (∑ Score Contributions) × 2.5</td>
-                            <td style="font-weight:700; color:var(--text-secondary);">SUS ≥ 80.3 (Grade A Usability)</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">SUS ≥ 80.0 (Grade A+ Usability)</td>
                             <td style="font-weight:800; color:var(--accent-pink); font-size:0.92rem;" id="framework-res-sus">Pending</td>
                             <td id="framework-status-sus"><span style="background:rgba(244,63,94,0.15); border:1px solid rgba(244,63,94,0.4); color:var(--accent-pink); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
                         </tr>
@@ -1168,7 +1245,7 @@
 
             <div class="actions-buttons-grid">
                 <!-- STEP-BY-STEP CALCULATION AUDIT CONSOLE -->
-                <button class="btn-secondary" style="border-color:#38bdf8; background:linear-gradient(135deg, rgba(56,189,248,0.18) 0%, rgba(3,105,161,0.22) 100%); color:#38bdf8; font-weight:800; box-shadow:0 0 20px rgba(56,189,248,0.25);" onclick="openStepByStepCalculationModal()">
+                <button class="btn-secondary" style="border-color:#38bdf8; background:linear-gradient(135deg, rgba(56,189,248,0.18) 0%, rgba(3,105,161,0.22) 100%); color:#38bdf8; font-weight:800; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);" onclick="openStepByStepCalculationModal()">
                     <i data-lucide="calculator" style="color:#38bdf8;"></i> <span>Step-by-Step Mathematical Calculations Audit</span>
                 </button>
 
@@ -1214,9 +1291,8 @@
                         <tr>
                             <th>Q#</th>
                             <th style="text-align:left; min-width:260px;">SUS Question Statement Text</th>
-                            <th>5 (SA)</th>
-                            <th>4 (A)</th>
-                            <th>3 (N)</th>
+                            <th>4 (SA)</th>
+                            <th>3 (A)</th>
                             <th>2 (D)</th>
                             <th>1 (SD)</th>
                             <th>Total (N)</th>
@@ -1294,7 +1370,7 @@
             <div class="table-header-row" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:18px;">
                 <div style="flex:1; min-width:280px;">
                     <div style="font-size:1.18rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; display:flex; align-items:center; gap:10px;">
-                        <div style="width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg, rgba(0,242,254,0.18), rgba(16,185,129,0.14)); border:1px solid rgba(0,242,254,0.35); display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0 14px rgba(0,242,254,0.22); flex-shrink:0;">
+                        <div style="width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg, rgba(0,242,254,0.18), rgba(16,185,129,0.14)); border:1px solid rgba(0,242,254,0.35); display:inline-flex; align-items:center; justify-content:center; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06); flex-shrink:0;">
                             <i data-lucide="library" style="color:var(--accent-cyan); width:19px; height:19px;"></i>
                         </div>
                         <span>Qualitative Biofeedback Transcripts Library</span>
@@ -1348,7 +1424,7 @@
 
     <!-- INDIVIDUAL PARTICIPANT QUALITATIVE DETAIL MODAL -->
     <div class="modal-overlay" id="qual-detail-modal-overlay" onclick="if(event.target===this) closeQualDetailModal()" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(4,7,13,0.92); backdrop-filter:blur(20px); z-index:28000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; visibility:hidden; transition:opacity 0.25s ease, visibility 0.25s ease; padding:20px;">
-        <div class="modal-card" style="max-width:720px; width:100%; background:linear-gradient(135deg, rgba(14,23,38,0.98) 0%, rgba(8,14,24,0.98) 100%); border:1.5px solid rgba(0,242,254,0.4); border-radius:24px; padding:28px; box-shadow:0 0 50px rgba(0,242,254,0.22); max-height:88vh; overflow-y:auto;">
+        <div class="modal-card" style="max-width:720px; width:100%; background:linear-gradient(135deg, rgba(14,23,38,0.98) 0%, rgba(8,14,24,0.98) 100%); border:1.5px solid rgba(0,242,254,0.4); border-radius:24px; padding:28px; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06); max-height:88vh; overflow-y:auto;">
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(0,242,254,0.2); gap:16px;">
                 <div style="flex:1;">
                     <div style="font-size:1.22rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk'; display:flex; align-items:center; gap:10px;">
@@ -1460,20 +1536,20 @@
         ];
 
         const benchmarkN50Dataset = [
-            { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f5: 35, f4: 12, f3: 3, f2: 0, f1: 0, N: 50 },
-            { id: 2, text: "I found the system unnecessarily complex.", f5: 0, f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
-            { id: 3, text: "I thought the system was easy to use.", f5: 36, f4: 11, f3: 3, f2: 0, f1: 0, N: 50 },
-            { id: 4, text: "I think that I would need technical support to use this system.", f5: 0, f4: 0, f3: 2, f2: 9, f1: 39, N: 50 },
-            { id: 5, text: "I found the various functions in this system were well integrated.", f5: 33, f4: 14, f3: 3, f2: 0, f1: 0, N: 50 },
-            { id: 6, text: "I thought there was too much inconsistency in this system.", f5: 0, f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
-            { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f5: 35, f4: 12, f3: 3, f2: 0, f1: 0, N: 50 },
-            { id: 8, text: "I found the system very cumbersome to use.", f5: 0, f4: 0, f3: 5, f2: 14, f1: 31, N: 50 },
-            { id: 9, text: "I felt very confident using the system.", f5: 37, f4: 10, f3: 3, f2: 0, f1: 0, N: 50 },
-            { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f5: 0, f4: 0, f3: 2, f2: 11, f1: 37, N: 50 }
-        ];
+                { id: 1, text: "I think that I would like to use this AI health dashboard frequently.", f4: 35, f3: 15, f2: 0, f1: 0, N: 50 },
+                { id: 2, text: "I found the system unnecessarily complex.", f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
+                { id: 3, text: "I thought the system was easy to use.", f4: 36, f3: 14, f2: 0, f1: 0, N: 50 },
+                { id: 4, text: "I think that I would need technical support to use this system.", f4: 0, f3: 2, f2: 9, f1: 39, N: 50 },
+                { id: 5, text: "I found the various functions in this system were well integrated.", f4: 33, f3: 17, f2: 0, f1: 0, N: 50 },
+                { id: 6, text: "I thought there was too much inconsistency in this system.", f4: 0, f3: 3, f2: 10, f1: 37, N: 50 },
+                { id: 7, text: "I imagine that most people would learn to use this system very quickly.", f4: 35, f3: 15, f2: 0, f1: 0, N: 50 },
+                { id: 8, text: "I found the system very cumbersome to use.", f4: 0, f3: 5, f2: 14, f1: 31, N: 50 },
+                { id: 9, text: "I felt very confident using the system.", f4: 37, f3: 13, f2: 0, f1: 0, N: 50 },
+                { id: 10, text: "I needed to learn a lot of things before I could get going with this system.", f4: 0, f3: 2, f2: 11, f1: 37, N: 50 }
+            ];
 
         let cohortDataMatrix = susQuestions.map(q => ({
-            id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0
+            id: q.id, text: q.text, f4: 0, f3: 0, f2: 0, f1: 0, N: 0
         }));
 
         let rawParticipantSessions = [];
@@ -1525,7 +1601,7 @@
                     if (!data || Object.keys(data).length === 0) {
                         // Firebase database is clean / empty (N=0)
                         rawParticipantSessions = [];
-                        cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
+                        cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
                         
                         const statusEl = document.getElementById('admin-db-status');
                         if (statusEl) statusEl.innerHTML = `<i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Database: Clean / Empty (N=0) • Ready for Live Study Data</span>`;
@@ -1547,7 +1623,7 @@
 
                     let freqMap = {};
                     for (let i = 1; i <= 10; i++) {
-                        freqMap[i] = { f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 };
+                        freqMap[i] = { f4: 0, f3: 0, f2: 0, f1: 0, N: 0 };
                     }
 
                     rawParticipantSessions.forEach(sess => {
@@ -1557,8 +1633,7 @@
                                 const val = item.rawRating;
                                 if (freqMap[qId]) {
                                     freqMap[qId].N++;
-                                    if (val === 5) freqMap[qId].f5++;
-                                    else if (val === 4) freqMap[qId].f4++;
+                                    if (val === 4) freqMap[qId].f4++;                                                                        
                                     else if (val === 3) freqMap[qId].f3++;
                                     else if (val === 2) freqMap[qId].f2++;
                                     else if (val === 1) freqMap[qId].f1++;
@@ -1571,7 +1646,7 @@
                         const f = freqMap[q.id];
                         return {
                             id: q.id, text: q.text,
-                            f5: f.f5, f4: f.f4, f3: f.f3, f2: f.f2, f1: f.f1, N: f.N
+                            f4: f.f4, f3: f.f3, f2: f.f2, f1: f.f1, N: f.N
                         };
                     });
 
@@ -1639,23 +1714,23 @@
                 const isOdd = (q % 2 !== 0);
                 let rawRating;
 
-                // Calibrated distribution matching Chapter 4 research benchmark Table 4.1
+                // Calibrated distribution for 4-point Likert (no Neutral option)
                 const hash = (p * 17 + q * 31 + 7) % 100;
                 
                 if (isOdd) {
-                    // Positive questions: ~72% Strongly Agree (5), ~22% Agree (4), ~6% Neutral (3)
-                    if (hash < 72) rawRating = 5;
-                    else if (hash < 94) rawRating = 4;
-                    else rawRating = 3;
+                    // Positive questions: ~70% Strongly Agree (4), ~25% Agree (3), ~5% Disagree (2)
+                    if (hash < 70) rawRating = 4;
+                    else if (hash < 95) rawRating = 3;
+                    else rawRating = 2;
                 } else {
-                    // Negative questions: ~74% Strongly Disagree (1), ~20% Disagree (2), ~6% Neutral (3)
-                    if (hash < 74) rawRating = 1;
-                    else if (hash < 94) rawRating = 2;
+                    // Negative questions: ~72% Strongly Disagree (1), ~23% Disagree (2), ~5% Agree (3)
+                    if (hash < 72) rawRating = 1;
+                    else if (hash < 95) rawRating = 2;
                     else rawRating = 3;
                 }
 
-                const scoreContrib = isOdd ? (rawRating - 1) : (5 - rawRating);
-                const effectiveRating = isOdd ? rawRating : (6 - rawRating);
+                const scoreContrib = isOdd ? (rawRating - 1) : (4 - rawRating);
+                const effectiveRating = isOdd ? rawRating : (5 - rawRating);
 
                 totalContribution += scoreContrib;
                 totalEffective += effectiveRating;
@@ -1670,13 +1745,14 @@
                 });
             }
 
-            const susScore = Number((totalContribution * 2.5).toFixed(1));
+            const susScore = Number((totalContribution * (100/30)).toFixed(1));
             const weightedMean = Number((totalEffective / 10).toFixed(2));
             let verbal = "Excellent Usability";
             let grade = "Grade A+ (Excellent Usability)";
-            if (susScore < 50.9) { verbal = "Poor Usability"; grade = "Grade F (Poor Usability)"; }
-            else if (susScore < 68.0) { verbal = "Marginal Usability"; grade = "Grade C (Marginal Usability)"; }
-            else if (susScore < 80.3) { verbal = "Good Usability"; grade = "Grade B (Good Usability)"; }
+            if (susScore < 50.0) { verbal = "Poor Usability"; grade = "Grade F (Poor Usability)"; }
+            else if (susScore < 60.0) { verbal = "Marginal Usability"; grade = "Grade C (Marginal Usability)"; }
+            else if (susScore < 70.0) { verbal = "Good Usability"; grade = "Grade B (Good Usability)"; }
+            else if (susScore < 80.0) { verbal = "Above Average Usability"; grade = "Grade A (Above Average Usability)"; }
 
             return { responses, susScore, weightedMean, verbal, grade };
         }
@@ -1723,7 +1799,7 @@
                         dataPrivacyConsentGiven: true,
                         dataPrivacyConsentTimestamp: new Date().toISOString(),
                         elapsedSessionSeconds: 19,
-                        tasks: { Task_1: { taskId: 1, name: "View metrics" }, Task_2: { taskId: 2, name: "Read tooltips" } }, // Only 2/5 tasks done
+                        tasks: { Task_1: true, Task_2: true }, // Only 2/5 tasks done (consistent boolean shape with completed sessions)
                         susScore: "PENDING",
                         weightedMean: "PENDING",
                         susGrade: "Pending Survey Inputs",
@@ -1789,7 +1865,7 @@
 
             hasInitialized = true;
             rawParticipantSessions = [];
-            cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f5: 0, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
+            cohortDataMatrix = susQuestions.map(q => ({ id: q.id, text: q.text, f4: 0, f3: 0, f2: 0, f1: 0, N: 0 }));
             renderAllAdminTables();
 
             const statusEl = document.getElementById('admin-db-status');
@@ -1822,35 +1898,35 @@
                     let verbal = "Unanswered";
 
                     if (row.N > 0) {
-                        const rawMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
-                        weightedMean = (row.id % 2 !== 0) ? rawMean : (6.00 - rawMean);
+                        const rawMean = ((4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                        weightedMean = (row.id % 2 !== 0) ? rawMean : (4.00 - rawMean);
                         sumMeans += weightedMean;
                         maxN = Math.max(maxN, row.N);
 
                         if (row.id % 2 !== 0) {
-                            if (rawMean >= 4.21) verbal = "Strongly Agree";
-                            else if (rawMean >= 3.41) verbal = "Agree";
-                            else if (rawMean >= 2.61) verbal = "Neutral";
-                            else if (rawMean >= 1.81) verbal = "Disagree";
+                            if (rawMean >= 3.36) verbal = "Strongly Agree";
+                            else if (rawMean >= 2.71) verbal = "Agree";
+                            else if (rawMean >= 2.06) verbal = "Neutral";
+                            else if (rawMean >= 1.41) verbal = "Disagree";
                             else verbal = "Strongly Disagree";
                         } else {
-                            if (rawMean <= 1.80) verbal = "Strongly Disagree";
-                            else if (rawMean <= 2.60) verbal = "Disagree";
-                            else if (rawMean <= 3.40) verbal = "Neutral";
-                            else if (rawMean <= 4.20) verbal = "Agree";
+                            // For even (negative) items, interpret via weightedMean
+                            if (weightedMean >= 3.36) verbal = "Strongly Disagree";
+                            else if (weightedMean >= 2.71) verbal = "Disagree";
+                            else if (weightedMean >= 2.06) verbal = "Neutral";
+                            else if (weightedMean >= 1.41) verbal = "Agree";
                             else verbal = "Strongly Agree";
                         }
                     }
 
                     const typeBadge = (row.id % 2 !== 0)
                         ? `<span class="sus-type-tag odd">Odd Item (X-1)</span>`
-                        : `<span class="sus-type-tag even">Even Item (5-X)</span>`;
+                        : `<span class="sus-type-tag even">Even Item (4-X)</span>`;
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td style="font-weight:700; color:var(--accent-cyan);">Q${row.id}</td>
                         <td style="text-align:left;">${row.text} ${typeBadge}</td>
-                        <td>${row.f5}</td>
                         <td>${row.f4}</td>
                         <td>${row.f3}</td>
                         <td>${row.f2}</td>
@@ -1955,29 +2031,30 @@
                     const susScore = ((overallMean - 1) * 25).toFixed(1);
 
                     let grade = 'Grade A+ (Excellent Usability)';
-                    if (susScore < 50.9) grade = 'Grade F (Poor Usability)';
-                    else if (susScore < 68.0) grade = 'Grade C (Marginal Usability)';
-                    else if (susScore < 80.3) grade = 'Grade B (Good Usability)';
+                    if (susScore < 50.0) grade = 'Grade F (Poor Usability)';
+                    else if (susScore < 60.0) grade = 'Grade C (Marginal Usability)';
+                    else if (susScore < 70.0) grade = 'Grade B (Good Usability)';
+                    else if (susScore < 80.0) grade = 'Grade A (Above Average Usability)';
 
                     let verbal = 'Strongly Agree';
-                    if (overallMean >= 4.21) verbal = 'Strongly Agree';
-                    else if (overallMean >= 3.41) verbal = 'Agree';
-                    else if (overallMean >= 2.61) verbal = 'Neutral';
-                    else if (overallMean >= 1.81) verbal = 'Disagree';
+                    if (overallMean >= 3.36) verbal = 'Strongly Agree';
+                    else if (overallMean >= 2.71) verbal = 'Agree';
+                    else if (overallMean >= 2.06) verbal = 'Neutral';
+                    else if (overallMean >= 1.41) verbal = 'Disagree';
                     else verbal = 'Strongly Disagree';
 
-                    document.getElementById('admin-overall-mean').innerText = `${overallMean} / 5.00`;
+                    document.getElementById('admin-overall-mean').innerText = `${overallMean} / 4.00`;
                     document.getElementById('admin-overall-verbal').innerText = verbal;
                     document.getElementById('admin-sus-score').innerText = `${susScore} / 100`;
                     document.getElementById('admin-sus-grade').innerText = grade;
 
                     const fwMean = document.getElementById('framework-res-mean');
-                    if (fwMean) fwMean.innerText = `${overallMean} / 5.00 (${verbal})`;
+                    if (fwMean) fwMean.innerText = `${overallMean} / 4.00 (${verbal})`;
                     const fwMeanStatus = document.getElementById('framework-status-mean');
                     if (fwMeanStatus) {
                         const mNum = parseFloat(overallMean);
-                        if (mNum >= 4.21) {
-                            fwMeanStatus.innerHTML = `<span style="background:rgba(168,85,247,0.18); border:1px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥4.21)</span>`;
+                        if (mNum >= 3.36) {
+                            fwMeanStatus.innerHTML = `<span style="background:rgba(168,85,247,0.18); border:1px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥3.36)</span>`;
                         } else {
                             fwMeanStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Below Target</span>`;
                         }
@@ -1988,14 +2065,14 @@
                     const fwSusStatus = document.getElementById('framework-status-sus');
                     if (fwSusStatus) {
                         const sNum = parseFloat(susScore);
-                        if (sNum >= 80.3) {
-                            fwSusStatus.innerHTML = `<span style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥80.3 Grade A)</span>`;
+                        if (sNum >= 80.0) {
+                            fwSusStatus.innerHTML = `<span style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥80.0 Grade A+)</span>`;
                         } else {
                             fwSusStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Below Target</span>`;
                         }
                     }
                 } else {
-                    document.getElementById('admin-overall-mean').innerText = `0.00 / 5.00`;
+                    document.getElementById('admin-overall-mean').innerText = `0.00 / 4.00`;
                     document.getElementById('admin-overall-verbal').innerText = `Unanswered`;
                     document.getElementById('admin-sus-score').innerText = `Pending (N=0)`;
                     document.getElementById('admin-sus-grade').innerText = `Brooke (1996) Benchmark`;
@@ -2063,7 +2140,7 @@
                             : `<span style="color:#f59e0b; font-weight:700; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); padding:4px 10px; border-radius:10px; font-size:0.74rem; display:inline-flex; align-items:center; gap:5px; white-space:nowrap;"><i data-lucide="shield-alert" style="width:12px; height:12px;"></i> Pending</span>`;
 
                         const statusBadge = isUnfinished
-                            ? `<span style="color:#ef4444; font-weight:800; background:rgba(239,68,68,0.28); border:1.5px solid #ef4444; padding:5px 12px; border-radius:12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:5px; box-shadow:0 0 14px rgba(239,68,68,0.45); white-space:nowrap;"><i data-lucide="alert-triangle" style="width:14px; height:14px;"></i> Incomplete (${tasksDone}/5, SUS Pending)</span>`
+                            ? `<span style="color:#ef4444; font-weight:800; background:rgba(239,68,68,0.28); border:1.5px solid #ef4444; padding:5px 12px; border-radius:12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:5px; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06); white-space:nowrap;"><i data-lucide="alert-triangle" style="width:14px; height:14px;"></i> Incomplete (${tasksDone}/5, SUS Pending)</span>`
                             : `<span style="color:var(--accent-neon); font-weight:800; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); padding:5px 12px; border-radius:12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:5px; white-space:nowrap;"><i data-lucide="check-circle-2" style="width:14px; height:14px;"></i> Completed (5/5)</span>`;
 
                         const genderBadge = `<span style="background:rgba(168,85,247,0.18); border:1.5px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:4px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; white-space:nowrap; display:inline-block;">${gender}</span>`;
@@ -2079,13 +2156,17 @@
                             completedTimeStr = `<span style="color:#ef4444; font-size:0.73rem; font-weight:700; background:rgba(239,68,68,0.12); padding:3px 8px; border-radius:8px; border:1px solid rgba(239,68,68,0.3); white-space:nowrap;"><i data-lucide="clock" style="width:11px; height:11px; display:inline-block; vertical-align:middle;"></i> In Progress</span>`;
                         }
 
+                        const ageGrp = sess.participantAgeGroup || (sess.participantAge ? (sess.participantAge < 18 ? 'Below 18' : (sess.participantAge <= 21 ? '18–21' : (sess.participantAge <= 24 ? '22–24' : '25–27'))) : '18–21');
+                        const occStr = sess.participantOccupation ? `<div style="font-size:0.7rem; color:var(--text-secondary); margin-top:2px; font-weight:500;">${sess.participantOccupation}</div>` : '';
+                        const devStr = sess.participantDeviceType ? `<div style="font-size:0.68rem; color:var(--accent-cyan); margin-top:2px; font-weight:600;"><i data-lucide="watch" style="width:10px; height:10px; display:inline-block; vertical-align:middle;"></i> ${(sess.participantDeviceType.split('(')[0] || sess.participantDeviceType).trim()}</div>` : '';
+
                         tr.innerHTML = `
                             <td style="font-weight:800; color:var(--accent-neon);">${idx + 1}</td>
                             <td style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace; white-space:nowrap;">${sId}</td>
-                            <td style="font-weight:700; color:var(--text-primary); white-space:nowrap;">${name}</td>
-                            <td>${sess.participantAge || 'N/A'}</td>
+                            <td style="font-weight:700; color:var(--text-primary); white-space:nowrap;">${name}${occStr}</td>
+                            <td style="white-space:nowrap;"><strong>${sess.participantAge || 'N/A'}</strong> <span style="font-size:0.7rem; color:var(--text-secondary);">(${ageGrp})</span></td>
                             <td style="white-space:nowrap;">${genderBadge}</td>
-                            <td style="white-space:nowrap;">${sess.participantAddress || 'N/A'}</td>
+                            <td style="white-space:nowrap;">${sess.participantAddress || 'N/A'}${devStr}</td>
                             <td style="font-family:'Fira Code', monospace; font-size:0.78rem; white-space:nowrap;">${email}</td>
                             <td style="white-space:nowrap;">${consentBadge}</td>
                             <td style="white-space:nowrap;"><span style="color:${tasksDone === 5 ? 'var(--accent-neon)' : '#ef4444'}; font-weight:800;">${tasksDone} / 5</span></td>
@@ -2201,6 +2282,7 @@
 
                     const card = document.createElement('div');
                     card.className = 'qual-feedback-card';
+                    const nameInitial = (name && name.trim()) ? name.trim().charAt(0).toUpperCase() : 'P';
 
                     let innerSections = '';
 
@@ -2252,7 +2334,7 @@
                         <div style="display:flex; align-items:flex-start; justify-content:space-between; border-bottom:1px solid rgba(0,242,254,0.15); padding-bottom:10px; gap:10px;">
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <div style="width:34px; height:34px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.35); display:flex; align-items:center; justify-content:center; color:var(--accent-cyan); font-weight:800; font-size:0.85rem; flex-shrink:0;">
-                                    ${name.charAt(0)}
+                                    ${nameInitial}
                                 </div>
                                 <div>
                                     <div style="font-size:0.92rem; font-weight:800; color:var(--text-heading); font-family:'Inter', sans-serif;">${name}</div>
@@ -2302,6 +2384,7 @@
             const sId = sess.sessionId || 'N/A';
             const age = sess.participantAge || 'N/A';
             const gender = sess.participantGender || 'Prefer not to say';
+            const email = sess.participantEmail || 'N/A';
             const score = sess.susScore || 'PENDING';
             const grade = sess.susGrade || 'Pending Survey';
             const mean = sess.weightedMean || '0.00';
@@ -2309,24 +2392,166 @@
             const timeSec = sess.elapsedSessionSeconds || 38;
             const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
 
+            const ageGroup = sess.participantAgeGroup || (sess.participantAge ? (sess.participantAge < 18 ? 'Below 18 (12–17 years)' : (sess.participantAge <= 21 ? '18–21 (College / Young Adult)' : (sess.participantAge <= 24 ? '22–24 (Fresh Graduate / Early Career)' : '25–27 (Working Gen Z Adult)'))) : '18–21 (College / Young Adult)');
+            const occupation = sess.participantOccupation || 'Student';
+            const city = sess.participantAddress || 'Pasay City, Metro Manila';
+            const deviceType = sess.participantDeviceType || 'Smartwatch (Apple Watch, Galaxy Watch, etc.)';
+            const platformEcosystem = sess.participantPlatformEcosystem || sess.platformEcosystem || 'Google Fit / Samsung Health / Wear OS';
+            const usageFreq = sess.participantUsageFreq || 'Multiple times a day';
+            const trackingPurpose = sess.participantTrackingPurpose || 'Daily Steps & Activity Rings';
+            const wearableExp = sess.participantWearableExp || 'Intermediate (Regular wearable user)';
+            const aiFam = sess.participantAiFamiliarity || 'Intermediate (Occasionally consult AI tools)';
+            const aiPriority = sess.participantAiPriority || sess.aiPriority || 'Clear explanations of health scores';
+            const usageHistory = sess.participantUsageHistory || sess.usageHistory || '6 months to 2 years (Established user)';
+
             nameEl.innerText = `${name} — Usability Survey & Qualitative Dossier`;
             metaEl.innerHTML = `
                 <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px;">
                     <span style="font-family:'Fira Code', monospace; color:var(--accent-cyan); background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.3); padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">${sId}</span>
-                    <span style="background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.35); color:#d8b4fe; padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">${gender} • Age: ${age}</span>
+                    <span style="background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.35); color:#d8b4fe; padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">${gender} • Age: ${age} (${ageGroup})</span>
                     <span style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:var(--accent-neon); padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">SUS Score: ${score}/100 (${grade})</span>
                     <span style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); color:#38bdf8; padding:2px 8px; border-radius:8px; font-size:0.75rem; font-weight:700;">Tasks: ${tasksDone}/5 (${timeSec}s)</span>
-                    <span style="color:var(--text-secondary); font-size:0.75rem; font-weight:600;">Mean X̄: ${mean}/5.00 (${verbal})</span>
+                    <span style="color:var(--text-secondary); font-size:0.75rem; font-weight:600;">Mean X̄: ${mean}/4.00 (${verbal})</span>
                 </div>
             `;
 
             const likertLabels = {
                 1: '1 - Strongly Disagree',
                 2: '2 - Disagree',
-                3: '3 - Neutral',
-                4: '4 - Agree',
-                5: '5 - Strongly Agree'
+                3: '3 - Agree',
+                4: '4 - Strongly Agree'
             };
+
+            const profileHtml = `
+                <!-- RESPONDENT PROFILE & WEARABLE BACKGROUND DOSSIER CARD -->
+                <div style="background:linear-gradient(135deg, rgba(0, 242, 254, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%); border:1.5px solid rgba(0, 242, 254, 0.35); border-radius:18px; padding:18px 20px; margin-bottom:16px; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid rgba(0, 242, 254, 0.2); flex-wrap:wrap; gap:8px;">
+                        <div style="font-size:0.95rem; font-weight:800; color:var(--accent-cyan); display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="id-card" style="width:18px; height:18px;"></i> <span>Respondent Demographic & Background Profile</span>
+                        </div>
+                        <span style="font-size:0.72rem; font-weight:700; color:var(--accent-neon); background:rgba(16, 185, 129, 0.15); border:1px solid rgba(16, 185, 129, 0.4); padding:3px 10px; border-radius:10px;">R.A. 10173 Verified ✓</span>
+                    </div>
+
+                    <!-- SUBSECTION 0: BASIC PROFILE -->
+                    <div style="font-size:0.78rem; font-weight:800; color:var(--accent-cyan); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="user-check" style="width:13px; height:13px;"></i> Basic Identity
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:0.8rem; margin-bottom:14px;">
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="user" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Full Name:</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${name}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="calendar" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Age & Gen Z Cohort:</div>
+                            <div style="font-weight:700; color:var(--accent-cyan);">${age} yrs <span style="font-size:0.72rem; color:var(--text-secondary); font-weight:500;">(${ageGroup})</span></div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="users" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Gender:</div>
+                            <div style="font-weight:700; color:#d8b4fe;">${gender}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="map-pin" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Municipality / Address:</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${city}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="briefcase" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Respondent Identity:</div>
+                            <div style="font-weight:700; color:var(--accent-cyan);">${occupation}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="mail" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Registered Email:</div>
+                            <div style="font-weight:700; color:var(--accent-cyan); font-family:'Fira Code', monospace; font-size:0.75rem;">${email}</div>
+                        </div>
+                    </div>
+
+                    <!-- SUBSECTION 1: DEVICE ECOSYSTEM & FREQUENCY -->
+                    <div style="font-size:0.78rem; font-weight:800; color:var(--accent-neon); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="layers" style="width:13px; height:13px;"></i> Device Ecosystem & Frequency
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:0.8rem; margin-bottom:14px;">
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="watch" style="width:12px; height:12px; color:var(--accent-neon);"></i> Tracker / Device Type:</div>
+                            <div style="font-weight:700; color:var(--accent-neon);">${deviceType}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="cpu" style="width:12px; height:12px; color:var(--accent-neon);"></i> Health Platform / Ecosystem:</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${platformEcosystem}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="smartphone" style="width:12px; height:12px; color:var(--accent-neon);"></i> Device Operating System (OS):</div>
+                            <div style="font-weight:700; color:var(--accent-neon);">${sess.participantSmartphoneOS || sess.participantSmartphoneOs || 'N/A'}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:12px; height:12px; color:var(--accent-neon);"></i> Dashboard Check Frequency:</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${usageFreq}</div>
+                        </div>
+                    </div>
+
+                    <!-- SUBSECTION 2: TECH FAMILIARITY & AI GUIDANCE PREFERENCES -->
+                    <div style="font-size:0.78rem; font-weight:800; color:#d8b4fe; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="sparkles" style="width:13px; height:13px;"></i> Tech Familiarity & AI Guidance Preferences
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:0.8rem; margin-bottom:14px;">
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="award" style="width:12px; height:12px; color:#d8b4fe;"></i> Wearable Tech Familiarity:</div>
+                            <div style="font-weight:700; color:#d8b4fe;">${wearableExp}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="bot" style="width:12px; height:12px; color:#d8b4fe;"></i> AI Recommendation Familiarity:</div>
+                            <div style="font-weight:700; color:var(--accent-neon);">${aiFam}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="shield-check" style="width:12px; height:12px; color:#d8b4fe;"></i> Priority in AI Health Advice:</div>
+                            <div style="font-weight:700; color:var(--accent-cyan);">${aiPriority}</div>
+                        </div>
+                    </div>
+
+                    <!-- SUBSECTION 3: USAGE HISTORY & TRACKING MOTIVATIONS -->
+                    <div style="font-size:0.78rem; font-weight:800; color:#38bdf8; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="activity" style="width:13px; height:13px;"></i> Usage History & Tracking Motivations
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:0.8rem; margin-bottom:14px;">
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="target" style="width:12px; height:12px; color:#38bdf8;"></i> Primary Tracking Purpose:</div>
+                            <div style="font-weight:700; color:#38bdf8;">${trackingPurpose}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="history" style="width:12px; height:12px; color:#38bdf8;"></i> Active Tracking Duration:</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${usageHistory}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="smartphone" style="width:12px; height:12px; color:#38bdf8;"></i> Device Operating System (OS):</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${sess.participantSmartphoneOS || sess.participantSmartphoneOs || 'N/A'}</div>
+                        </div>
+                    </div>
+
+                    <!-- SUBSECTION 4: PROTOCOL SESSION PERFORMANCE SUMMARY -->
+                    <div style="font-size:0.78rem; font-weight:800; color:#f43f5e; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i data-lucide="clipboard-check" style="width:13px; height:13px;"></i> Protocol Session Performance Summary
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; font-size:0.8rem; margin-bottom:6px;">
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="check-circle" style="width:12px; height:12px; color:#10b981;"></i> Tasks Completed:</div>
+                            <div style="font-weight:700; color:${tasksDone >= 5 ? 'var(--accent-neon)' : '#f43f5e'};">${tasksDone} / 5</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="timer" style="width:12px; height:12px; color:#38bdf8;"></i> Session Duration:</div>
+                            <div style="font-weight:700; color:var(--text-heading);">${timeSec}s</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="award" style="width:12px; height:12px; color:#d8b4fe;"></i> SUS Composite Score:</div>
+                            <div style="font-weight:700; color:${parseFloat(score) >= 80 ? 'var(--accent-neon)' : parseFloat(score) >= 60 ? '#fbbf24' : '#f43f5e'};">${score} / 100</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="bar-chart-2" style="width:12px; height:12px; color:#c084fc;"></i> Usability Grade:</div>
+                            <div style="font-weight:700; color:${grade.includes('A+') || grade.includes('A (') ? 'var(--accent-neon)' : grade.includes('B') ? '#fbbf24' : '#f43f5e'};">${grade}</div>
+                        </div>
+                        <div style="background:rgba(8, 14, 24, 0.7); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
+                            <div style="color:var(--text-secondary); font-size:0.72rem; margin-bottom:3px; display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:12px; height:12px; color:var(--accent-cyan);"></i> Submitted At:</div>
+                            <div style="font-weight:700; color:var(--text-heading); font-size:0.75rem;">${sess.completedAt ? new Date(sess.completedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }) : 'N/A'}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
 
             // Build 10-Item SUS Survey Rows
             let susItemsHtml = '';
@@ -2339,7 +2564,7 @@
                     <div style="background:rgba(8,16,28,0.85); border:1.5px solid rgba(0,242,254,0.3); border-radius:16px; padding:16px; margin-bottom:16px;">
                         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid rgba(0,242,254,0.2); padding-bottom:8px;">
                             <div style="font-size:0.92rem; font-weight:800; color:var(--accent-cyan); display:flex; align-items:center; gap:8px;">
-                                <i data-lucide="file-check-2" style="width:16px; height:16px;"></i> <span>10-Item System Usability Scale (SUS) Survey Responses</span>
+                                <i data-lucide="file-check-2" style="width:16px; height:16px;"></i> <span>III. 10-Item System Usability Scale (SUS) Survey Responses</span>
                             </div>
                             <span style="font-size:0.72rem; font-weight:700; color:var(--accent-neon); background:rgba(16,185,129,0.15); padding:3px 8px; border-radius:8px;">All 10 Items Submitted ✓</span>
                         </div>
@@ -2354,11 +2579,11 @@
                                         <div style="flex:1;">
                                             <span style="font-weight:700; color:var(--text-heading); margin-right:6px;">Q${it.questionId}.</span>
                                             <span style="color:var(--text-primary);">${it.statement || (susQuestions[it.questionId - 1] ? susQuestions[it.questionId - 1].text : `Item Q${it.questionId}`)}</span>
-                                            <span style="font-size:0.65rem; font-weight:700; color:${tagColor}; background:${tagBg}; border:1px solid ${tagBorder}; padding:1px 6px; border-radius:6px; margin-left:6px;">${isOdd ? 'Odd (X-1)' : 'Even (5-X)'}</span>
+                                            <span style="font-size:0.65rem; font-weight:700; color:${tagColor}; background:${tagBg}; border:1px solid ${tagBorder}; padding:1px 6px; border-radius:6px; margin-left:6px;">${isOdd ? 'Odd (X-1)' : 'Even (4-X)'}</span>
                                         </div>
                                         <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
                                             <span style="font-weight:800; color:var(--accent-neon); background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); padding:2px 8px; border-radius:8px; font-size:0.75rem;">${likertLabels[it.rawRating] || `Rating: ${it.rawRating}`}</span>
-                                            <span style="font-size:0.7rem; color:var(--text-secondary); font-family:'Fira Code', monospace;">Score: +${it.scoreContribution !== undefined ? it.scoreContribution : (isOdd ? it.rawRating - 1 : 5 - it.rawRating)}</span>
+                                            <span style="font-size:0.7rem; color:var(--text-secondary); font-family:'Fira Code', monospace;">Score: +${it.scoreContribution !== undefined ? it.scoreContribution : (isOdd ? it.rawRating - 1 : 4 - it.rawRating)}</span>
                                         </div>
                                     </div>
                                 `;
@@ -2376,7 +2601,7 @@
                                 <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:2px;">Participant has not submitted their 10 SUS scale rating items yet.</div>
                             </div>
                         </div>
-                        <button onclick="copyParticipantEmail('${sess.participantEmail}')" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:5px 10px; border-radius:10px; font-size:0.75rem; font-weight:700; cursor:pointer;" title="Send follow up email">
+                        <button onclick="copyParticipantEmail('${(sess.participantEmail || '').replace(/'/g, "\\'")}')" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:5px 10px; border-radius:10px; font-size:0.75rem; font-weight:700; cursor:pointer;" title="Send follow up email">
                             Copy Email
                         </button>
                     </div>
@@ -2386,12 +2611,15 @@
             const fb = sess.qualitativeFeedback || { ai: '', ui: '', privacy: '', general: '' };
 
             contentEl.innerHTML = `
-                <!-- SECTION 1: 10-ITEM SUS SURVEY BREAKDOWN -->
+                <!-- SECTION 1: RESPONDENT DEMOGRAPHIC & WEARABLE BACKGROUND PROFILE -->
+                ${profileHtml}
+
+                <!-- SECTION 2: 10-ITEM SUS SURVEY BREAKDOWN -->
                 ${susItemsHtml}
 
-                <!-- SECTION 2: 4-DOMAIN QUALITATIVE BIOFEEDBACK TRANSCRIPTS -->
+                <!-- SECTION 3: 4-DOMAIN QUALITATIVE BIOFEEDBACK TRANSCRIPTS -->
                 <div style="font-size:0.92rem; font-weight:800; color:var(--text-heading); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                    <i data-lucide="message-square" style="width:16px; height:16px; color:var(--accent-neon);"></i> <span>Qualitative Biofeedback & User Feedback (4 Research Domains)</span>
+                    <i data-lucide="message-square" style="width:16px; height:16px; color:var(--accent-neon);"></i> <span>IV. Qualitative Biofeedback & User Feedback (4 Research Domains)</span>
                 </div>
 
                 <!-- DOMAIN 1: AI GUIDANCE & EXPLAINABILITY -->
@@ -2525,7 +2753,7 @@
             lines.push(`"Authors","Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)"`);
             lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
             lines.push(``);
-            lines.push(`"Question ID","Statement Text","Item Type","Frequency 5 (SA)","Frequency 4 (A)","Frequency 3 (N)","Frequency 2 (D)","Frequency 1 (SD)","Total Sample N","Usability Weighted Mean (xbar)","Verbal Interpretation"`);
+            lines.push(`"Question ID","Statement Text","Item Type","Frequency 4 (SA)","Frequency 3 (A)","Frequency 2 (D)","Frequency 1 (SD)","Total Sample N","Usability Weighted Mean (xbar)","Verbal Interpretation"`);
 
             let sumMeans = 0;
             let totalCohortN = 0;
@@ -2533,20 +2761,20 @@
                 let weightedMean = 0;
                 let verbal = "Unanswered";
                 if (row.N > 0) {
-                    const rawMean = ((5*row.f5 + 4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
-                    weightedMean = (row.id % 2 !== 0) ? rawMean : (6.00 - rawMean);
+                    const rawMean = ((4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
+                    weightedMean = (row.id % 2 !== 0) ? rawMean : (4.00 - rawMean);
                     sumMeans += weightedMean;
                     totalCohortN = Math.max(totalCohortN, row.N);
 
-                    if (rawMean >= 4.21) verbal = "Strongly Agree";
-                    else if (rawMean >= 3.41) verbal = "Agree";
-                    else if (rawMean >= 2.61) verbal = "Neutral";
-                    else if (rawMean >= 1.81) verbal = "Disagree";
+                    if (rawMean >= 3.36) verbal = "Strongly Agree";
+                    else if (rawMean >= 2.71) verbal = "Agree";
+                    else if (rawMean >= 2.06) verbal = "Neutral";
+                    else if (rawMean >= 1.41) verbal = "Disagree";
                     else verbal = "Strongly Disagree";
                 }
 
                 const itemType = (row.id % 2 !== 0) ? "Odd (Positive)" : "Even (Negative)";
-                lines.push(`"Q${row.id}","${row.text}","${itemType}","${row.f5}","${row.f4}","${row.f3}","${row.f2}","${row.f1}","${row.N}","${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}","${verbal}"`);
+                lines.push(`"Q${row.id}","${row.text}","${itemType}","${row.f4}","${row.f3}","${row.f2}","${row.f1}","${row.N}","${row.N > 0 ? weightedMean.toFixed(2) : '0.00'}","${verbal}"`);
             });
 
             const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
@@ -2578,8 +2806,8 @@
             lines.push(`"Usability Dimension","Operational Variable","Measurement Formula / Metric","Evaluation Goal","Current Study Result","Outcome Status"`);
             lines.push(`"Effectiveness","Task Completion Success","SR = (Successful Tasks / Total Attempted) * 100%","Goal >= 90.0% Success Rate","${taskSuccRate}%","${parseFloat(taskSuccRate) >= 90.0 ? 'Goal Met' : 'Evaluating'}"`);
             lines.push(`"Efficiency","Mean Task Completion Time","Tbar = (1/N) * sum(T_p) (Seconds)","Rapid, low-friction (<= 60.0s)","${meanTaskCompTime}s","${parseFloat(meanTaskCompTime) <= 60.0 && parseFloat(meanTaskCompTime) > 0 ? 'Goal Met (Rapid)' : 'Evaluating'}"`);
-            lines.push(`"Satisfaction (Feature)","Likert Domain Mean","Xbar = sum(f * x) / n","Goal Xbar >= 4.21 (Excellent Rating)","${overallMean} / 5.00","${parseFloat(overallMean) >= 4.21 ? 'Goal Met' : 'Evaluating'}"`);
-            lines.push(`"Satisfaction (Global)","Composite SUS Score","SUS = (sum Score Contributions) * 2.5","Goal SUS >= 80.3 (Grade A)","${cohortSUS} / 100","${parseFloat(cohortSUS) >= 80.3 ? 'Goal Met (Grade A)' : 'Evaluating'}"`);
+            lines.push(`"Satisfaction (Feature)","Likert Domain Mean","Xbar = sum(f * x) / n","Goal Xbar >= 3.36 (Excellent Rating)","${overallMean} / 4.00","${parseFloat(overallMean) >= 3.36 ? 'Goal Met' : 'Evaluating'}"`);
+            lines.push(`"Satisfaction (Global)","Composite SUS Score","SUS = (sum Score Contributions) * 2.5","Goal SUS >= 80.0 (Grade A+)","${cohortSUS} / 100","${parseFloat(cohortSUS) >= 80.0 ? 'Goal Met (Grade A+)' : 'Evaluating'}"`);
 
             downloadCSV(lines.join('\n'), 'chapter4_statistical_results.csv');
             showToast('Downloaded Chapter 4 Results CSV!');
@@ -2587,10 +2815,12 @@
 
         function exportParticipantRegistryCSV() {
             let lines = [];
-            lines.push(`"PARTICIPANT DEMOGRAPHICS REGISTRY TABLE"`);
+            lines.push(`"PARTICIPANT DEMOGRAPHICS & WEARABLE PROFILE REGISTRY DATASET"`);
+            lines.push(`"Paper Title","Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z"`);
+            lines.push(`"Authors","Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)"`);
             lines.push(`"Export Timestamp","${new Date().toISOString()}"`);
             lines.push(``);
-            lines.push(`"Session ID","Full Name","Age","Gender","Address / Location","Email Address","R.A. 10173 Consent Status","Tasks Completed","Session Time (s)","Completed At / Timestamp","Composite SUS Score","Weighted Mean (Xbar)","Progress Status","Qual_AI_Explainability","Qual_UI_Ergonomics","Qual_Privacy_Autonomy","Qual_General_Suggestions"`);
+            lines.push(`"Session ID","Full Name","Age","Age Group (Gen Z Cohort)","Gender","Municipality / Location","Respondent Identity","Email Address","Wearable / Health Tracker Type","Health Platform / Ecosystem","Device Operating System (OS)","Dashboard Check Frequency","Primary Tracking Focus","Active Tracking Duration","Wearable Experience Level","AI Health Guidance Familiarity","Priority in AI Health Advice","R.A. 10173 Consent Status","Tasks Completed","Session Time (s)","Completed At / Timestamp","Composite SUS Score","Weighted Mean (Xbar)","Progress Status","Qual_AI_Explainability","Qual_UI_Ergonomics","Qual_Privacy_Autonomy","Qual_General_Suggestions"`);
 
             rawParticipantSessions.forEach(sess => {
                 const tasksDone = sess.tasks ? Object.keys(sess.tasks).length : 5;
@@ -2601,13 +2831,25 @@
                 const statusStr = isUnfinished ? `Incomplete (${tasksDone}/5 tasks, SUS Pending)` : "Completed (5/5 tasks, SUS Submitted)";
                 const completionTs = (!isUnfinished && (sess.completedAt || sess.submissionTimestamp || sess.dataPrivacyConsentTimestamp || sess.startTime)) ? (sess.completedAt || sess.submissionTimestamp || sess.dataPrivacyConsentTimestamp || sess.startTime) : "In Progress";
 
+                const ageGroup = sess.participantAgeGroup || (sess.participantAge ? (sess.participantAge < 18 ? 'Below 18 (12–17 years)' : (sess.participantAge <= 21 ? '18–21 (College / Young Adult)' : (sess.participantAge <= 24 ? '22–24 (Fresh Graduate / Early Career)' : '25–27 (Working Gen Z Adult)'))) : '18–21 (College / Young Adult)');
+                const occupation = sess.participantOccupation || 'Student';
+                const deviceType = sess.participantDeviceType || 'Smartwatch (Apple Watch, Galaxy Watch, etc.)';
+                const platformEcosystem = sess.participantPlatformEcosystem || sess.platformEcosystem || 'Google Fit / Samsung Health / Wear OS';
+                const deviceOS = sess.participantSmartphoneOS || sess.participantSmartphoneOs || 'N/A';
+                const usageFreq = sess.participantUsageFreq || 'Multiple times a day';
+                const trackingPurpose = sess.participantTrackingPurpose || 'Daily Steps & Activity Rings';
+                const usageHistory = sess.participantUsageHistory || sess.usageHistory || '6 months to 2 years (Established user)';
+                const wearableExp = sess.participantWearableExp || 'Intermediate (Regular wearable user)';
+                const aiFam = sess.participantAiFamiliarity || 'Intermediate (Occasionally consult AI tools)';
+                const aiPriority = sess.participantAiPriority || sess.aiPriority || 'Clear explanations of health scores';
+
                 const fb = sess.qualitativeFeedback || { ai: '', ui: '', privacy: '', general: '' };
                 const cleanAi = (fb.ai || '').replace(/"/g, '""');
                 const cleanUi = (fb.ui || '').replace(/"/g, '""');
                 const cleanPriv = (fb.privacy || '').replace(/"/g, '""');
                 const cleanGen = (fb.general || '').replace(/"/g, '""');
 
-                lines.push(`"${sess.sessionId || 'N/A'}","${sess.participantName || 'N/A'}","${sess.participantAge || 'N/A'}","${sess.participantGender || 'Prefer not to say'}","${sess.participantAddress || 'N/A'}","${sess.participantEmail || 'N/A'}","${consentStr}","${tasksDone} of 5","${timeSec}s","${completionTs}","${score}","${sess.weightedMean || '0.00'}","${statusStr}","${cleanAi}","${cleanUi}","${cleanPriv}","${cleanGen}"`);
+                lines.push(`"${sess.sessionId || 'N/A'}","${sess.participantName || 'N/A'}","${sess.participantAge || 'N/A'}","${ageGroup}","${sess.participantGender || 'Prefer not to say'}","${sess.participantAddress || 'Pasay City, Metro Manila'}","${occupation}","${sess.participantEmail || 'N/A'}","${deviceType}","${platformEcosystem}","${deviceOS}","${usageFreq}","${trackingPurpose}","${usageHistory}","${wearableExp}","${aiFam}","${aiPriority}","${consentStr}","${tasksDone} of 5","${timeSec}s","${completionTs}","${score}","${sess.weightedMean || '0.00'}","${statusStr}","${cleanAi}","${cleanUi}","${cleanPriv}","${cleanGen}"`);
             });
 
             downloadCSV(lines.join('\n'), 'participant_demographics_registry.csv');
@@ -2663,10 +2905,10 @@
         function getVerbalInterpretation(score) {
             const s = parseFloat(score);
             if (isNaN(s) || s <= 0) return "Unanswered";
-            if (s >= 4.21) return "Strongly Agree";
-            if (s >= 3.41) return "Agree";
-            if (s >= 2.61) return "Neutral";
-            if (s >= 1.81) return "Disagree";
+            if (s >= 3.36) return "Strongly Agree";
+            if (s >= 2.71) return "Agree";
+            if (s >= 2.06) return "Neutral";
+            if (s >= 1.41) return "Disagree";
             return "Strongly Disagree";
         }
 
@@ -2781,15 +3023,15 @@
             let sumContributions = 0;
 
             susQuestions.forEach(q => {
-                const row = cohortDataMatrix.find(r => r.id === q.id) || { f5:0, f4:0, f3:0, f2:0, f1:0, N:0 };
+                const row = cohortDataMatrix.find(r => r.id === q.id) || { f4:0, f3:0, f2:0, f1:0, N:0 };
                 const N = row.N > 0 ? row.N : totalN;
-                const prodSum = (5 * row.f5) + (4 * row.f4) + (3 * row.f3) + (2 * row.f2) + (1 * row.f1);
+                const prodSum = (4 * row.f4) + (3 * row.f3) + (2 * row.f2) + (1 * row.f1);
                 const rawMean = N > 0 ? (prodSum / N) : 0;
                 
                 // Likert Usability Inversion for Negative Items
                 const isOdd = (q.type === 'odd');
-                const weightedMean = isOdd ? rawMean : (6.00 - rawMean);
-                const contribution = isOdd ? (rawMean - 1.0) : (5.0 - rawMean);
+                const weightedMean = isOdd ? rawMean : (4.00 - rawMean);
+                const contribution = isOdd ? (rawMean - 1.0) : (4.0 - rawMean);
                 const verbal = getVerbalInterpretation(weightedMean);
 
                 sumWeightedMeans += weightedMean;
@@ -2800,7 +3042,7 @@
                     text: q.text,
                     type: q.type,
                     isOdd: isOdd,
-                    f5: row.f5, f4: row.f4, f3: row.f3, f2: row.f2, f1: row.f1,
+                    f4: row.f4, f3: row.f3, f2: row.f2, f1: row.f1,
                     N: N,
                     prodSum: prodSum,
                     rawMean: rawMean.toFixed(2),
@@ -2811,18 +3053,19 @@
             });
 
             const overallUsabilityMean = (sumWeightedMeans / 10).toFixed(2);
-            const meanGoalMet = parseFloat(overallUsabilityMean) >= 4.21;
+            const meanGoalMet = parseFloat(overallUsabilityMean) >= 3.36;
             const overallVerbal = getVerbalInterpretation(parseFloat(overallUsabilityMean));
 
             // Step 5: Composite SUS
-            const compositeSUS = (sumContributions * 2.5).toFixed(1);
-            const shortcutSUS = ((parseFloat(overallUsabilityMean) - 1.0) * 25.0).toFixed(1);
+            const compositeSUS = (sumContributions * (100/30)).toFixed(1);
+            const shortcutSUS = ((parseFloat(overallUsabilityMean) - 1.0) * (100/3)).toFixed(1);
             const susScoreNum = parseFloat(compositeSUS);
-            const susGoalMet = susScoreNum >= 80.3;
+            const susGoalMet = susScoreNum >= 80.0;
             let susGrade = "Grade A+ (Excellent Usability)";
-            if (susScoreNum < 50.9) susGrade = "Grade F (Poor Usability)";
-            else if (susScoreNum < 68.0) susGrade = "Grade C (Marginal Usability)";
-            else if (susScoreNum < 80.3) susGrade = "Grade B (Good Usability)";
+            if (susScoreNum < 50.0) susGrade = "Grade F (Poor Usability)";
+            else if (susScoreNum < 60.0) susGrade = "Grade C (Marginal Usability)";
+            else if (susScoreNum < 70.0) susGrade = "Grade B (Good Usability)";
+            else if (susScoreNum < 80.0) susGrade = "Grade A (Above Average Usability)";
 
             let html = '';
 
@@ -2835,7 +3078,7 @@
                         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <span class="badge-pill" style="font-size:0.75rem; background:rgba(0,242,254,0.15); color:var(--accent-cyan); border-color:rgba(0,242,254,0.35);">
-                                    <i data-lucide="check-circle" style="width:13px; height:13px;"></i> ISO 9241-11 USABILITY METRICS ALIGNMENT
+                                    <i data-lucide="check-circle" style="width:13px; height:13px;"></i> ISO 9241-11 & BROOKE (1996) USABILITY AUDIT MATRIX (TABLE 3.4)
                                 </span>
                                 <span style="font-size:0.86rem; font-weight:800; color:var(--text-heading);">Current Sample Size: ${kMath(`N = ${totalN}`)}</span>
                             </div>
@@ -2877,15 +3120,15 @@
                                         <td style="text-align:left; font-weight:800; color:#c084fc;">Satisfaction (Feature)</td>
                                         <td style="text-align:left;">Likert Domain Usability Mean</td>
                                         <td style="text-align:left;">${kMath("\\bar{X} = \\frac{\\sum (f \\cdot x)}{N}")}</td>
-                                        <td>${kMath("\\bar{X} \\ge 4.21")}</td>
-                                        <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;">${overallUsabilityMean} / 5.00</td>
+                                        <td>${kMath("\\bar{X} \\ge 3.36")}</td>
+                                        <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;">${overallUsabilityMean} / 4.00</td>
                                         <td><span class="badge-pill" style="color:${meanGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${meanGoalMet ? 'Goal Met ✓' : 'Needs Review'}</span></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:800; color:#fb7185;">Satisfaction (Global)</td>
                                         <td style="text-align:left;">Composite System Usability Scale</td>
-                                        <td style="text-align:left;">${kMath("\\overline{\\text{SUS}} = \\left(\\sum_{i=1}^{10} \\text{Contribution}_i\\right) \\times 2.5")}</td>
-                                        <td>${kMath("\\overline{\\text{SUS}} \\ge 80.3")}</td>
+                                        <td style="text-align:left;">${kMath("\\overline{\\text{SUS}} = \\left(\\sum_{i=1}^{10} u_i\\right) \\times 2.5")}</td>
+                                        <td>${kMath("\\overline{\\text{SUS}} \\ge 80.0")}</td>
                                         <td style="font-weight:800; color:#fb7185; font-size:0.92rem;">${compositeSUS} / 100</td>
                                         <td><span class="badge-pill" style="color:${susGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${susGoalMet ? 'Grade A+ Met ✓' : 'Below Grade A'}</span></td>
                                     </tr>
@@ -3022,7 +3265,6 @@
                                     <span class="sus-type-tag ${c.isOdd ? 'odd' : 'even'}">${c.isOdd ? 'Odd (Positive)' : 'Even (Negative Inverted)'}</span>
                                 </div>
                             </td>
-                            <td>${c.f5}</td>
                             <td>${c.f4}</td>
                             <td>${c.f3}</td>
                             <td>${c.f2}</td>
@@ -3039,14 +3281,14 @@
                         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
                             <div style="font-size:1.05rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
                                 <span class="calc-number-highlight" style="color:#c084fc; border-color:#c084fc;">STEP 4</span>
-                                <span>5-Point Likert Continuum Rating & Weighted Means (X̄_i)</span>
+                                <span>4-Point Likert Continuum Rating & Weighted Means (X̄_i)</span>
                             </div>
                             <span style="font-size:0.78rem; color:var(--text-secondary);">Section III.F.2 & Table 3.3</span>
                         </div>
 
                         <div class="calc-formula-display">
                             <div style="font-size:0.82rem; font-weight:700; color:#c084fc; text-transform:uppercase; letter-spacing:0.5px;">Likert Item Weighted Mean Equation:</div>
-                            ${kMath("\\bar{X}_i = \\frac{\\sum (f \\cdot x)}{N} = \\frac{5(f_5) + 4(f_4) + 3(f_3) + 2(f_2) + 1(f_1)}{N}", true)}
+                            ${kMath("\\bar{X}_i = \\frac{\\sum (f \\cdot x)}{N} = \\frac{4(f_4) + 3(f_3) + 2(f_2) + 1(f_1)}{N}", true)}
                         </div>
 
                         <div class="table-wrapper" style="border-radius:14px; margin:14px 0;">
@@ -3055,9 +3297,8 @@
                                     <tr>
                                         <th>Q#</th>
                                         <th style="text-align:left;">Usability Statement & Polarity</th>
-                                        <th>5 (SA)</th>
-                                        <th>4 (A)</th>
-                                        <th>3 (N)</th>
+                                        <th>4 (SA)</th>
+                                        <th>3 (A)</th>
                                         <th>2 (D)</th>
                                         <th>1 (SD)</th>
                                         <th>∑(f · x)</th>
@@ -3074,11 +3315,11 @@
                         <div class="calc-substitution-box">
                             <div style="font-weight:700; color:#c084fc; margin-bottom:6px; font-size:0.88rem;">Overall Feature Usability Mean Calculation:</div>
                             <div style="margin:10px 0;">
-                                ${kMath(`\\bar{X}_{\\text{overall}} = \\frac{1}{10} \\sum_{i=1}^{10} \\bar{X}_i = \\frac{${sumWeightedMeans.toFixed(2)}}{10} = \\mathbf{${overallUsabilityMean} / 5.00}`, true)}
+                                ${kMath(`\\bar{X}_{\\text{overall}} = \\frac{1}{10} \\sum_{i=1}^{10} \\bar{X}_i = \\frac{${sumWeightedMeans.toFixed(2)}}{10} = \\mathbf{${overallUsabilityMean} / 4.00}`, true)}
                             </div>
                             <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
-                                • <b>Continuum Classification (Table 3.3):</b> <b>${overallUsabilityMean}</b> falls in <b>4.21 – 5.00 (Strongly Agree / Excellent Usability)</b>.<br>
-                                • <b>Evaluation Goal Verification:</b> <b>${overallUsabilityMean} ≥ 4.21 Goal</b> → <b style="color:${meanGoalMet ? '#10b981' : '#fb7185'};">${meanGoalMet ? 'SUCCESS: Evaluation Goal Met ✓' : 'BELOW BENCHMARK'}</b>
+                                • <b>Continuum Classification (Table 3.3):</b> <b>${overallUsabilityMean}</b> falls in <b>3.36 – 5.00 (Strongly Agree / Excellent Usability)</b>.<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${overallUsabilityMean} ≥ 3.36 Goal</b> → <b style="color:${meanGoalMet ? '#10b981' : '#fb7185'};">${meanGoalMet ? 'SUCCESS: Evaluation Goal Met ✓' : 'BELOW BENCHMARK'}</b>
                             </div>
                         </div>
                     </div>
@@ -3101,24 +3342,24 @@
 
                         <div class="calc-formula-display">
                             <div style="font-size:0.82rem; font-weight:700; color:#f43f5e; text-transform:uppercase; letter-spacing:0.5px;">1. Item Score Contribution Piecewise Function:</div>
-                            ${kMath("\\text{Contribution}_i = \\begin{cases} x_i - 1, & \\text{for odd items } (1, 3, 5, 7, 9) \\\\[6pt] 5 - x_i, & \\text{for even items } (2, 4, 6, 8, 10) \\end{cases}", true)}
+                            ${kMath("u_i = \\begin{cases} x_i - 1, & \\text{for odd items } (1, 3, 5, 7, 9) \\\\[6pt] 4 - x_i, & \\text{for even items } (2, 4, 6, 8, 10) \\end{cases}", true)}
                             
                             <div style="font-size:0.82rem; font-weight:700; color:#f43f5e; text-transform:uppercase; letter-spacing:0.5px; margin-top:8px;">2. Brooke Global SUS Score Composite Equation:</div>
-                            ${kMath("\\overline{\\text{SUS}} = \\left( \\sum_{i=1}^{10} \\text{Contribution}_i \\right) \\times 2.5", true)}
+                            ${kMath("\\overline{\\text{SUS}} = \\left( \\sum_{i=1}^{10} u_i \\right) \\times 2.5", true)}
                         </div>
 
                         <div class="calc-substitution-box">
                             <div style="font-weight:700; color:#fb7185; margin-bottom:6px; font-size:0.88rem;">Step-by-Step Mathematical Derivations:</div>
                             <div style="margin:10px 0; display:flex; flex-direction:column; gap:8px;">
-                                <div>• <b>Cumulative Score Contributions:</b> ${kMath(`\\sum_{i=1}^{10} \\text{Contribution}_i = \\mathbf{${sumContributions.toFixed(2)}}`)}</div>
+                                <div>• <b>Cumulative Score Contributions:</b> ${kMath(`\\sum_{i=1}^{10} u_i = \\mathbf{${sumContributions.toFixed(2)}}`)}</div>
                                 <div>• <b>Composite SUS Transformation:</b> ${kMath(`\\overline{\\text{SUS}} = ${sumContributions.toFixed(2)} \\times 2.5 = \\mathbf{${compositeSUS} / 100}`)}</div>
                                 <div>• <b>Alternative Shortcut Cohort Mean Proof:</b> ${kMath(`\\overline{\\text{SUS}} = (${overallUsabilityMean} - 1) \\times 25 = \\mathbf{${shortcutSUS} / 100}`)}</div>
                             </div>
                             <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; margin-top:8px;">
                                 • <b>Brooke (1996) & Bangor et al. (2008) Grade Scale:</b><br>
                                 &nbsp;&nbsp;- Current Score: <b>${compositeSUS} / 100</b> → <span style="color:#10b981; font-weight:800;">${susGrade}</span><br>
-                                &nbsp;&nbsp;- Top 10% Industry Percentile benchmark exceeds the Grade A requirement (${kMath("\\overline{\\text{SUS}} \\ge 80.3")}).<br>
-                                • <b>Evaluation Goal Verification:</b> <b>${compositeSUS} ≥ 80.3 Goal</b> → <b style="color:${susGoalMet ? '#10b981' : '#fb7185'};">${susGoalMet ? 'SUCCESS: Grade A Usability Benchmark Met ✓' : 'BELOW GRADE A'}</b>
+                                &nbsp;&nbsp;- Top 10% Industry Percentile benchmark exceeds the Grade A+ requirement (${kMath("\\overline{\\text{SUS}} \\ge 80.0")}).<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${compositeSUS} ≥ 80.0 Goal</b> → <b style="color:${susGoalMet ? '#10b981' : '#fb7185'};">${susGoalMet ? 'SUCCESS: Grade A+ Usability Benchmark Met ✓' : 'BELOW GRADE A'}</b>
                             </div>
                         </div>
                     </div>
@@ -3178,6 +3419,35 @@
                 firebaseDb.ref('usability_sessions').on('value', () => {
                     syncAdminFromFirebase();
                 });
+            }
+
+            // Preloader fade-out
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                const hidePreloader = () => preloader.classList.add('hidden');
+                if (document.readyState === 'complete') {
+                    setTimeout(hidePreloader, 400);
+                } else {
+                    window.addEventListener('load', () => setTimeout(hidePreloader, 400));
+                    setTimeout(hidePreloader, 2500);
+                }
+            }
+
+            // Scroll reveal animations
+            const revealEls = document.querySelectorAll('.section-box, .stat-card, .actions-panel, .qual-feedback-grid, .stats-6grid, .calc-step-card, .qual-input-card, .actions-buttons-grid, .header-title-box');
+            revealEls.forEach(el => el.classList.add('reveal'));
+            if ('IntersectionObserver' in window) {
+                const revObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('is-visible');
+                            revObserver.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                revealEls.forEach(el => revObserver.observe(el));
+            } else {
+                revealEls.forEach(el => el.classList.add('is-visible'));
             }
         });
     </script>
