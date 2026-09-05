@@ -19,6 +19,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBTARZZSEIU0inIHGFKtnItYXggLhdkJ7g",
@@ -639,6 +640,11 @@
             box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);
         }
 
+        .exp-t { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1.3; text-align: left; }
+        .exp-t b { font-weight: 800; font-size: 0.86rem; }
+        .exp-t small { font-weight: 500; font-size: 0.68rem; opacity: 0.75; }
+        .actions-buttons-grid button { display: inline-flex; align-items: center; gap: 8px; }
+
         .btn-secondary {
             background: rgba(18, 28, 45, 0.85);
             border: 1px solid var(--border-card);
@@ -1035,6 +1041,11 @@
             .stats-5grid { grid-template-columns: 1fr; }
         }
 
+        /* MOBILE OVERFLOW SAFETY: kill sideways scroll, stop grid blowout */
+        html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+        img, table { max-width: 100%; }
+        .stats-5grid > *, .actions-buttons-grid > * { min-width: 0; }
+
         /* SCROLL REVEAL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
         .reveal.is-visible { opacity: 1; transform: none; }
@@ -1093,7 +1104,7 @@
         <!-- HEADER TITLE BOX -->
         <div class="header-title-box">
             <div class="page-badge">
-                <div class="dot-glow"></div> <i data-lucide="database"></i> CHAPTER 4 STATISTICAL DATA GATHERING & RESULTS ENGINE
+                <div class="dot-glow"></div> <i data-lucide="database"></i> Chapter 4 Results
             </div>
             <h1 class="page-title">
                 Interactive Design & Usability Testing of AI-Enhanced Wearable Dashboards for Gen Z
@@ -1110,49 +1121,49 @@
                     <div class="stat-num" id="admin-total-n" style="color:var(--accent-neon);">N = 0</div>
                     <div class="stat-lbl"><i data-lucide="users" style="width:14px; height:14px; color:var(--accent-neon);"></i> Sample Size (N)</div>
                 </div>
-                <div class="stat-sub">Active Sample Count</div>
+                <div class="stat-sub">Total people counted</div>
             </div>
             <div class="stat-card card-completed">
                 <div>
                     <div class="stat-num" style="color:#10b981;" id="admin-complete-n">0</div>
                     <div class="stat-lbl"><i data-lucide="check-circle-2" style="width:14px; height:14px; color:#10b981;"></i> Completed Sessions</div>
                 </div>
-                <div class="stat-sub" style="color:#6ee7b7; background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25);">5/5 Tasks & SUS Done</div>
+                <div class="stat-sub" style="color:#6ee7b7; background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25);">Finished all 5 tasks and survey</div>
             </div>
             <div class="stat-card alert-card">
                 <div>
                     <div class="stat-num" style="color:#ef4444;" id="admin-incomplete-n">0</div>
                     <div class="stat-lbl" style="color:#ef4444;"><i data-lucide="alert-triangle" style="width:14px; height:14px; color:#ef4444;"></i> Incomplete (Red)</div>
                 </div>
-                <div class="stat-sub" style="color:#fca5a5; background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.3);">Follow-up Required</div>
+                <div class="stat-sub" style="color:#fca5a5; background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.3);">Needs follow-up</div>
             </div>
             <div class="stat-card card-effect">
                 <div>
                     <div class="stat-num" id="admin-task-succ" style="color:#10b981;">0.0%</div>
                     <div class="stat-lbl"><i data-lucide="target" style="width:14px; height:14px; color:#10b981;"></i> Task Success Rate (SR)</div>
                 </div>
-                <div class="stat-sub" style="color:#6ee7b7; background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25);">Effectiveness (Goal ≥90%)</div>
+                <div class="stat-sub" style="color:#6ee7b7; background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25);">Goal: at least 90%</div>
             </div>
             <div class="stat-card card-efficiency">
                 <div>
                     <div class="stat-num" style="color:var(--accent-cyan);" id="admin-mean-time">0.0s</div>
                     <div class="stat-lbl"><i data-lucide="timer" style="width:14px; height:14px; color:var(--accent-cyan);"></i> Mean Completion (T̄)</div>
                 </div>
-                <div class="stat-sub" style="color:#7dd3fc; background:rgba(0,242,254,0.1); border-color:rgba(0,242,254,0.25);">Efficiency (Speed Avg)</div>
+                <div class="stat-sub" style="color:#7dd3fc; background:rgba(0,242,254,0.1); border-color:rgba(0,242,254,0.25);">Average speed</div>
             </div>
             <div class="stat-card card-likert">
                 <div>
                     <div class="stat-num" id="admin-overall-mean" style="color:#d8b4fe;">0.00 / 4.00</div>
                     <div class="stat-lbl"><i data-lucide="bar-chart-2" style="width:14px; height:14px; color:#c084fc;"></i> Likert Usability (X̄)</div>
                 </div>
-                <div class="stat-sub" id="admin-overall-verbal" style="color:#e9d5ff; background:rgba(168,85,247,0.12); border-color:rgba(168,85,247,0.3);">Goal X̄ ≥ 3.36</div>
+                <div class="stat-sub" id="admin-overall-verbal" style="color:#e9d5ff; background:rgba(168,85,247,0.12); border-color:rgba(168,85,247,0.3);">Goal X̄ ≥ 3.26</div>
             </div>
             <div class="stat-card card-sus">
                 <div>
                     <div class="stat-num" id="admin-sus-score" style="color:#fb7185;">Pending (N=0)</div>
-                    <div class="stat-lbl"><i data-lucide="award" style="width:14px; height:14px; color:#f43f5e;"></i> Composite SUS Score</div>
+                    <div class="stat-lbl"><i data-lucide="award" style="width:14px; height:14px; color:#f43f5e;"></i> Overall SUS score</div>
                 </div>
-                <div class="stat-sub" id="admin-sus-grade" style="color:#fecdd3; background:rgba(244,63,94,0.12); border-color:rgba(244,63,94,0.3);">Goal SUS ≥ 80.0 (Grade A+)</div>
+                <div class="stat-sub" id="admin-sus-grade" style="color:#fecdd3; background:rgba(244,63,94,0.12); border-color:rgba(244,63,94,0.3);">Goal SUS ≥ 80.3 (Grade A)</div>
             </div>
         </div>
 
@@ -1165,17 +1176,17 @@
                     </div>
                     <div>
                         <div style="font-size:1.08rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk';">
-                            Table 3.4: Usability Metrics Framework (ISO 9241-11 Alignment) — Live Summary
+                            Table 3.4: Usability scores — live summary
                         </div>
                         <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:2px;">
-                            Empirical measurement formulas and real-time evaluation benchmarks for Gen Z wearable health dashboard.
+                            Live scores and goals for the Gen Z health dashboard.
                         </div>
                     </div>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
                     <button onclick="openStepByStepCalculationModal()" style="background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); color:var(--accent-cyan); padding:6px 12px; border-radius:10px; font-size:0.75rem; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:5px; transition:var(--transition);" title="Open Step-by-Step Mathematical Calculations & Derivations Modal">
                         <i data-lucide="calculator" style="width:13px; height:13px;"></i>
-                        <span>Step-by-Step Proofs</span>
+                        <span>Show the math step by step</span>
                     </button>
                     <span class="badge-pill" style="font-size:0.7rem;"><span class="dot-glow"></span> ISO 9241-11 BENCHMARK</span>
                 </div>
@@ -1214,15 +1225,15 @@
                             <td style="font-weight:800; color:var(--accent-purple); text-align:left;"><i data-lucide="bar-chart-2" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Satisfaction (Feature)</td>
                             <td style="text-align:left; font-weight:700;">Likert Domain Mean</td>
                             <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">X̄ = ∑(f · x) / n</td>
-                            <td style="font-weight:700; color:var(--text-secondary);">X̄ ≥ 3.36 (Excellent Rating)</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">X̄ ≥ 3.26 (Excellent Rating)</td>
                             <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;" id="framework-res-mean">0.00 / 4.00</td>
                             <td id="framework-status-mean"><span style="background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.4); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
                         </tr>
                         <tr>
                             <td style="font-weight:800; color:var(--accent-pink); text-align:left;"><i data-lucide="award" style="width:14px; height:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Satisfaction (Global)</td>
-                            <td style="text-align:left; font-weight:700;">Composite SUS Score</td>
+                            <td style="text-align:left; font-weight:700;">Overall SUS score</td>
                             <td style="text-align:left; font-family:'Fira Code', monospace; font-size:0.75rem; color:#bae6fd;">SUS = (∑ Score Contributions) × 2.5</td>
-                            <td style="font-weight:700; color:var(--text-secondary);">SUS ≥ 80.0 (Grade A+ Usability)</td>
+                            <td style="font-weight:700; color:var(--text-secondary);">SUS ≥ 80.3 (Grade A Usability)</td>
                             <td style="font-weight:800; color:var(--accent-pink); font-size:0.92rem;" id="framework-res-sus">Pending</td>
                             <td id="framework-status-sus"><span style="background:rgba(244,63,94,0.15); border:1px solid rgba(244,63,94,0.4); color:var(--accent-pink); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Evaluating</span></td>
                         </tr>
@@ -1236,39 +1247,42 @@
             <div class="actions-top-row">
                 <div style="font-size:1.05rem; font-weight:800; color:var(--text-primary); font-family:'Space Grotesk'; display:flex; align-items:center; gap:8px;">
                     <i data-lucide="download-cloud" style="color:var(--accent-cyan);"></i>
-                    <span>Export Research Data & Database Sync Controls</span>
+                    <span>Download data and manage answers</span>
                 </div>
                 <div style="font-size:0.8rem; color:var(--accent-neon); font-weight:700; display:flex; align-items:center; gap:6px;" id="admin-db-status">
-                    <i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Firebase Realtime Database: Synced Automatically</span>
+                    <i data-lucide="cloud-lightning" style="width:14px; height:14px;"></i> <span>Data saved automatically</span>
                 </div>
             </div>
 
             <div class="actions-buttons-grid">
                 <!-- STEP-BY-STEP CALCULATION AUDIT CONSOLE -->
                 <button class="btn-secondary" style="border-color:#38bdf8; background:linear-gradient(135deg, rgba(56,189,248,0.18) 0%, rgba(3,105,161,0.22) 100%); color:#38bdf8; font-weight:800; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06);" onclick="openStepByStepCalculationModal()">
-                    <i data-lucide="calculator" style="color:#38bdf8;"></i> <span>Step-by-Step Mathematical Calculations Audit</span>
+                    <i data-lucide="calculator" style="color:#38bdf8;"></i> <span class="exp-t"><b>Check the Math</b><small>See each calculation, step by step</small></span>
                 </button>
 
                 <!-- EXPORTERS -->
                 <button class="btn-export-csv" onclick="exportChapter4ResultsCSV()">
-                    <i data-lucide="file-spreadsheet"></i> <span>Export Chapter 4 Statistical Results (CSV)</span>
+                    <i data-lucide="file-spreadsheet"></i> <span class="exp-t"><b>Chapter 4 Results (.csv)</b><small>Summary table for the paper</small></span>
+                </button>
+                <button class="btn-export-csv" style="border-color:#10b981; background:linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(4,120,87,0.22) 100%); color:#10b981;" onclick="exportFullWorkbookXLSX()">
+                    <i data-lucide="file-spreadsheet"></i> <span class="exp-t"><b>Full Workbook (.xlsx)</b><small>All answers + formulas — check by hand</small></span>
                 </button>
                 <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="exportParticipantRegistryCSV()">
-                    <i data-lucide="users"></i> <span>Export Participant Demographics (CSV)</span>
+                    <i data-lucide="users"></i> <span class="exp-t"><b>Participants (.csv)</b><small>Profiles only, no answers</small></span>
                 </button>
                 <button class="btn-secondary" style="border-color:var(--accent-neon); color:var(--accent-neon);" onclick="exportAllRawSessionsJSON()">
-                    <i data-lucide="file-json"></i> <span>Export All Raw Logs (JSON)</span>
+                    <i data-lucide="file-json"></i> <span class="exp-t"><b>Raw Backup (.json)</b><small>Everything, for safekeeping</small></span>
                 </button>
 
                 <!-- DATABASE CONTROLS -->
                 <button class="btn-secondary" style="border-color:var(--accent-purple); color:var(--accent-purple);" onclick="syncAdminFromFirebase()">
-                    <i data-lucide="refresh-cw"></i> <span>Sync Firebase Now</span>
+                    <i data-lucide="refresh-cw"></i> <span class="exp-t"><b>Sync Now</b><small>Reload fresh data</small></span>
                 </button>
                 <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="loadBenchmarkN50Dataset()">
-                    <i data-lucide="zap"></i> <span>Load Benchmark (N=50)</span>
+                    <i data-lucide="zap"></i> <span class="exp-t"><b>Sample Data (N=50)</b><small>Fill with test answers</small></span>
                 </button>
                 <button class="btn-secondary" style="border-color:var(--accent-pink); color:var(--accent-pink);" onclick="clearDatabaseParticipations()">
-                    <i data-lucide="trash-2"></i> <span>Clear Database Participations</span>
+                    <i data-lucide="trash-2"></i> <span class="exp-t"><b>Clear All Data</b><small>Delete every answer</small></span>
                 </button>
             </div>
         </div>
@@ -1278,10 +1292,10 @@
             <div class="section-title-row">
                 <div class="section-h2">
                     <i data-lucide="trending-up" style="color:var(--accent-neon);"></i>
-                    <span>Chapter 4 Statistical Usability Cohort Frequency Matrix</span>
+                    <span>Chapter 4: Answers per question</span>
                 </div>
                 <div style="font-size:0.78rem; color:var(--text-secondary);">
-                    Calculated via Brooke (1996) SUS Transformation Algorithm & ISO 9241-11 Usability Metrics (N=50)
+                    Math from SUS and ISO 9241-11 (N=50)
                 </div>
             </div>
 
@@ -1312,7 +1326,7 @@
             <div class="section-title-row">
                 <div class="section-h2">
                     <i data-lucide="users" style="color:var(--accent-cyan);"></i>
-                    <span>Registered Participants Demographics & Individual Session Logs</span>
+                    <span>Participants and their results</span>
                 </div>
                 <div style="font-size:0.78rem; color:var(--text-secondary);" id="participant-count-badge">
                     Total Registered Participants: N = 0
@@ -1373,11 +1387,11 @@
                         <div style="width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg, rgba(0,242,254,0.18), rgba(16,185,129,0.14)); border:1px solid rgba(0,242,254,0.35); display:inline-flex; align-items:center; justify-content:center; box-shadow: 0 4px 12px rgba(0, 242, 254, 0.06); flex-shrink:0;">
                             <i data-lucide="library" style="color:var(--accent-cyan); width:19px; height:19px;"></i>
                         </div>
-                        <span>Qualitative Biofeedback Transcripts Library</span>
+                        <span>Written feedback from participants</span>
                         <span class="badge-pill" style="font-size:0.68rem; margin-left:4px;"><span class="dot-glow"></span> QUALITATIVE STREAM</span>
                     </div>
                     <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px; line-height:1.4;">
-                        Subjective participant diagnostic feedback categorized across AI Guidance (XAI), Visual Ergonomics, Privacy (R.A. 10173), and Feature Suggestions.
+                        What people said, grouped by AI help, looks, privacy, and ideas.
                     </div>
                 </div>
                 <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
@@ -1458,10 +1472,10 @@
                         <div style="width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg, rgba(56,189,248,0.2) 0%, rgba(3,105,161,0.3) 100%); border:1.5px solid rgba(56,189,248,0.45); display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">
                             <i data-lucide="calculator" style="color:#38bdf8; width:20px; height:20px;"></i>
                         </div>
-                        <span>Research Data Step-by-Step Calculations & Mathematical Proofs</span>
+                        <span>Math used, step by step</span>
                     </div>
                     <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:6px; line-height:1.45;" id="modal-calc-subtitle">
-                        Analytical verification and arithmetic derivations for Chapter 4 (ISO 9241-11 Usability Metrics & Brooke 1996 System Usability Scale).
+                        Math checks for Chapter 4.
                     </div>
                 </div>
                 <div style="display:flex; align-items:center; gap:10px;">
@@ -1477,7 +1491,7 @@
             <!-- TABS BAR -->
             <div class="calc-tabs-bar">
                 <button class="calc-tab-btn active" id="calc-tab-btn-all" onclick="switchCalcAuditTab('all')">
-                    <i data-lucide="layers"></i> <span>All-in-One Framework Proofs</span>
+                    <i data-lucide="layers"></i> <span>All results in one place</span>
                 </button>
                 <button class="calc-tab-btn" id="calc-tab-btn-step1" onclick="switchCalcAuditTab('step1')">
                     <i data-lucide="users"></i> <span>Step 1: Demographics (%)</span>
@@ -1748,11 +1762,10 @@
             const susScore = Number((totalContribution * (100/30)).toFixed(1));
             const weightedMean = Number((totalEffective / 10).toFixed(2));
             let verbal = "Excellent Usability";
-            let grade = "Grade A+ (Excellent Usability)";
-            if (susScore < 50.0) { verbal = "Poor Usability"; grade = "Grade F (Poor Usability)"; }
-            else if (susScore < 60.0) { verbal = "Marginal Usability"; grade = "Grade C (Marginal Usability)"; }
-            else if (susScore < 70.0) { verbal = "Good Usability"; grade = "Grade B (Good Usability)"; }
-            else if (susScore < 80.0) { verbal = "Above Average Usability"; grade = "Grade A (Above Average Usability)"; }
+            let grade = "Grade A (Excellent Usability)";
+            if (susScore < 50.9) { verbal = "Poor Usability"; grade = "Grade F (Poor Usability)"; }
+            else if (susScore < 68.0) { verbal = "Marginal Usability"; grade = "Grade C (Marginal Usability)"; }
+            else if (susScore < 80.3) { verbal = "Good Usability"; grade = "Grade B (Good Usability)"; }
 
             return { responses, susScore, weightedMean, verbal, grade };
         }
@@ -1899,22 +1912,20 @@
 
                     if (row.N > 0) {
                         const rawMean = ((4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
-                        weightedMean = (row.id % 2 !== 0) ? rawMean : (4.00 - rawMean);
+                        weightedMean = (row.id % 2 !== 0) ? rawMean : (5.00 - rawMean);
                         sumMeans += weightedMean;
                         maxN = Math.max(maxN, row.N);
 
                         if (row.id % 2 !== 0) {
-                            if (rawMean >= 3.36) verbal = "Strongly Agree";
-                            else if (rawMean >= 2.71) verbal = "Agree";
-                            else if (rawMean >= 2.06) verbal = "Neutral";
-                            else if (rawMean >= 1.41) verbal = "Disagree";
+                            if (rawMean >= 3.26) verbal = "Strongly Agree";
+                            else if (rawMean >= 2.51) verbal = "Agree";
+                            else if (rawMean >= 1.76) verbal = "Disagree";
                             else verbal = "Strongly Disagree";
                         } else {
                             // For even (negative) items, interpret via weightedMean
-                            if (weightedMean >= 3.36) verbal = "Strongly Disagree";
-                            else if (weightedMean >= 2.71) verbal = "Disagree";
-                            else if (weightedMean >= 2.06) verbal = "Neutral";
-                            else if (weightedMean >= 1.41) verbal = "Agree";
+                            if (weightedMean >= 3.26) verbal = "Strongly Disagree";
+                            else if (weightedMean >= 2.51) verbal = "Disagree";
+                            else if (weightedMean >= 1.76) verbal = "Agree";
                             else verbal = "Strongly Agree";
                         }
                     }
@@ -2028,19 +2039,17 @@
 
                 if (totalN > 0) {
                     const overallMean = (sumMeans / 10).toFixed(2);
-                    const susScore = ((overallMean - 1) * 25).toFixed(1);
+                    const susScore = ((overallMean - 1) * (100/3)).toFixed(1);
 
-                    let grade = 'Grade A+ (Excellent Usability)';
-                    if (susScore < 50.0) grade = 'Grade F (Poor Usability)';
-                    else if (susScore < 60.0) grade = 'Grade C (Marginal Usability)';
-                    else if (susScore < 70.0) grade = 'Grade B (Good Usability)';
-                    else if (susScore < 80.0) grade = 'Grade A (Above Average Usability)';
+                    let grade = 'Grade A (Excellent Usability)';
+                    if (susScore < 50.9) grade = 'Grade F (Poor Usability)';
+                    else if (susScore < 68.0) grade = 'Grade C (Marginal Usability)';
+                    else if (susScore < 80.3) grade = 'Grade B (Good Usability)';
 
                     let verbal = 'Strongly Agree';
-                    if (overallMean >= 3.36) verbal = 'Strongly Agree';
-                    else if (overallMean >= 2.71) verbal = 'Agree';
-                    else if (overallMean >= 2.06) verbal = 'Neutral';
-                    else if (overallMean >= 1.41) verbal = 'Disagree';
+                    if (overallMean >= 3.26) verbal = 'Strongly Agree';
+                    else if (overallMean >= 2.51) verbal = 'Agree';
+                    else if (overallMean >= 1.76) verbal = 'Disagree';
                     else verbal = 'Strongly Disagree';
 
                     document.getElementById('admin-overall-mean').innerText = `${overallMean} / 4.00`;
@@ -2053,8 +2062,8 @@
                     const fwMeanStatus = document.getElementById('framework-status-mean');
                     if (fwMeanStatus) {
                         const mNum = parseFloat(overallMean);
-                        if (mNum >= 3.36) {
-                            fwMeanStatus.innerHTML = `<span style="background:rgba(168,85,247,0.18); border:1px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥3.36)</span>`;
+                        if (mNum >= 3.26) {
+                            fwMeanStatus.innerHTML = `<span style="background:rgba(168,85,247,0.18); border:1px solid rgba(168,85,247,0.5); color:#d8b4fe; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥3.26)</span>`;
                         } else {
                             fwMeanStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Below Target</span>`;
                         }
@@ -2065,8 +2074,8 @@
                     const fwSusStatus = document.getElementById('framework-status-sus');
                     if (fwSusStatus) {
                         const sNum = parseFloat(susScore);
-                        if (sNum >= 80.0) {
-                            fwSusStatus.innerHTML = `<span style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥80.0 Grade A+)</span>`;
+                        if (sNum >= 80.3) {
+                            fwSusStatus.innerHTML = `<span style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.5); color:var(--accent-neon); padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem; display:inline-flex; align-items:center; gap:4px;"><i data-lucide="check" style="width:11px; height:11px;"></i> Goal Met (≥80.3 Grade A)</span>`;
                         } else {
                             fwSusStatus.innerHTML = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; padding:3px 10px; border-radius:10px; font-weight:700; font-size:0.72rem;">Below Target</span>`;
                         }
@@ -2746,6 +2755,188 @@
             }
         }
 
+        function exportFullWorkbookXLSX() {
+            if (typeof XLSX === 'undefined') {
+                showToast('Excel library not loaded (offline?). Use the CSV export instead.');
+                return;
+            }
+            const wb = XLSX.utils.book_new();
+            const stamp = new Date().toISOString();
+            const N = rawParticipantSessions.length;
+
+            // ---------- COVER ----------
+            const cover = [
+                ["BYTECODE — Full Research Workbook (Manual Analysis Copy)"],
+                ["Paper", "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z"],
+                ["Authors", "Misola, Prendingue, Omnes, Prof. Albina (Arellano University)"],
+                ["Exported", stamp],
+                ["Sessions in file (N)", N],
+                [""],
+                ["Sheet", "Contents"],
+                ["01 Respondents", "One row per session: profile (01-04 modules), tasks, Q1-Q10 raw answers, SUS, mean, verbal, grade"],
+                ["02 SUS Item Matrix", "Frequency table per item with LIVE Excel formulas (columns I-L compute from D-H). Check the formulas yourself."],
+                ["03 Task Metrics", "One row per session per task + formula-driven Success Rate and Mean Task Time"],
+                ["04 Chapter4 Summary", "Table 3.4 framework: goal vs result vs status"],
+                ["05 Formula Audit", "Every equation, paper reference, code location, and hand-checked test vectors"]
+            ];
+            const wsCover = XLSX.utils.aoa_to_sheet(cover);
+            wsCover['!cols'] = [{ wch: 22 }, { wch: 110 }];
+            XLSX.utils.book_append_sheet(wb, wsCover, "Cover");
+
+            // ---------- 01 RESPONDENTS ----------
+            const rHead = ["SessionID", "Name", "Age", "AgeGroup", "Gender", "Address", "Email", "Occupation",
+                "DeviceType", "Platform", "SmartphoneOS", "UsageFreq", "WearableExp", "AIFamiliarity", "AIPriority",
+                "TrackingPurpose", "UsageHistory", "Tasks done (/5)", "Time (s)",
+                "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10",
+                "SUS (/100)", "Mean (/4.00)", "Verbal", "Grade", "CompletedAt"];
+            const rRows = rawParticipantSessions.map(s => {
+                const ans = ["", "", "", "", "", "", "", "", "", ""];
+                (s.susItemResponses || []).forEach(it => { if (it.questionId >= 1 && it.questionId <= 10) ans[it.questionId - 1] = it.rawRating; });
+                const tKeys = s.tasks ? Object.keys(s.tasks) : [];
+                return [s.sessionId || "", s.participantName || "", s.participantAge || "", s.participantAgeGroup || "",
+                    s.participantGender || "", s.participantAddress || "", s.participantEmail || "", s.participantOccupation || "",
+                    s.participantDeviceType || "", s.participantPlatform || "", s.participantSmartphoneOs || "", s.participantUsageFreq || "",
+                    s.participantWearableExp || "", s.participantAiFamiliarity || "", s.participantAiPriority || "",
+                    s.participantTrackingPurpose || "", s.participantUsageHistory || "",
+                    tKeys.length + "/5", s.elapsedSessionSeconds || 0].concat(ans, [s.susScore || "", s.weightedMean || "",
+                    s.verbalInterpretation || "", s.susGrade || "", s.completedAt || ""]);
+            });
+            const wsR = XLSX.utils.aoa_to_sheet([rHead].concat(rRows));
+            wsR['!cols'] = rHead.map(() => ({ wch: 18 }));
+            XLSX.utils.book_append_sheet(wb, wsR, "01 Respondents");
+
+            // ---------- 02 SUS ITEM MATRIX (step-by-step, plain labels) ----------
+            const mTitle = ["SUS ITEM MATRIX — answer counts per question + automatic math  (Brooke 1996, 4-point scale:  4 = Strongly Agree … 1 = Strongly Disagree)"];
+            const mNote = ["How to read: columns D–G are the answer counts. Columns I–L fill themselves in from D–H — click any cell to see its formula. Bottom rows are the totals."];
+            const mHead = ["Q#", "Question", "Type",
+                "Answers of 4 (Strongly Agree)", "Answers of 3 (Agree)", "Answers of 2 (Disagree)", "Answers of 1 (Strongly Disagree)", "People (N)",
+                "Raw mean   x̄ = (4·f₄ + 3·f₃ + 2·f₂ + 1·f₁) ÷ N",
+                "Usability mean   (odd questions = raw,  even questions = 5 − raw)",
+                "SUS points   (odd = raw − 1,  even = 4 − raw)",
+                "Verdict (Table 3.3)",
+                "LaTeX — copy straight into the paper"];
+            const mRows = cohortDataMatrix.map(row => [row.id, row.text, (row.id % 2 !== 0) ? "Odd (positive)" : "Even (negative)",
+                row.f4, row.f3, row.f2, row.f1, row.N, "", "", "", "", ""]);
+            const wsM = XLSX.utils.aoa_to_sheet([mTitle, mNote, mHead].concat(mRows,
+                [[""], ["OVERALL MEAN  x̄ = average of column J", "", "", "", "", "", "", "", "", "", "", ""],
+                ["COMPOSITE SUS = total of column K × (100 ÷ 30)", "", "", "", "", "", "", "", "", "", "", ""],
+                ["SUS GRADE  (F below 50.9 · C below 68.0 · B below 80.3 · otherwise A)", "", "", "", "", "", "", "", "", "", "", ""],
+                ["MEAN VERDICT  (Table 3.3 bands)", "", "", "", "", "", "", "", "", "", "", ""]]));
+            wsM['!autofilter'] = { ref: "A3:M13" };
+            let sumW = 0, nW = 0, sumK = 0;
+            for (let r = 4; r <= 13; r++) {
+                const row = cohortDataMatrix[r - 4];
+                let Iv = "", Jv = "", Kv = "", Lv = "Unanswered", latex = "";
+                if (row && row.N > 0) {
+                    const raw = (4 * row.f4 + 3 * row.f3 + 2 * row.f2 + row.f1) / row.N;
+                    const w = (row.id % 2 !== 0) ? raw : (5 - raw);
+                    const cb = (row.id % 2 !== 0) ? (raw - 1) : (4 - raw);
+                    Iv = +raw.toFixed(2); Jv = +w.toFixed(2); Kv = +cb.toFixed(2);
+                    Lv = w >= 3.26 ? "Strongly Agree (Excellent)" : w >= 2.51 ? "Agree (Good)" : w >= 1.76 ? "Disagree (Fair)" : "Strongly Disagree (Poor)";
+                    latex = "$\\bar{x}_{" + row.id + "} = \\frac{4 \\times " + row.f4 + " + 3 \\times " + row.f3 + " + 2 \\times " + row.f2 + " + 1 \\times " + row.f1 + "}{" + row.N + "} = " + Iv.toFixed(2) + "$";
+                    sumW += w; nW++; sumK += cb;
+                }
+                wsM['I' + r] = Iv === "" ? { f: 'IF(H' + r + '=0,"",(4*D' + r + '+3*E' + r + '+2*F' + r + '+1*G' + r + ')/H' + r + ')' } : { t: 'n', v: Iv, f: 'IF(H' + r + '=0,"",(4*D' + r + '+3*E' + r + '+2*F' + r + '+1*G' + r + ')/H' + r + ')' };
+                wsM['J' + r] = Jv === "" ? { f: 'IF(H' + r + '=0,"",IF(MOD(A' + r + ',2)=1,I' + r + ',5-I' + r + '))' } : { t: 'n', v: Jv, f: 'IF(H' + r + '=0,"",IF(MOD(A' + r + ',2)=1,I' + r + ',5-I' + r + '))' };
+                wsM['K' + r] = Kv === "" ? { f: 'IF(H' + r + '=0,"",IF(MOD(A' + r + ',2)=1,I' + r + '-1,4-I' + r + '))' } : { t: 'n', v: Kv, f: 'IF(H' + r + '=0,"",IF(MOD(A' + r + ',2)=1,I' + r + '-1,4-I' + r + '))' };
+                wsM['L' + r] = { t: 's', v: Lv, f: 'IF(H' + r + '=0,"Unanswered",IF(J' + r + '>=3.26,"Strongly Agree (Excellent)",IF(J' + r + '>=2.51,"Agree (Good)",IF(J' + r + '>=1.76,"Disagree (Fair)","Strongly Disagree (Poor)")))' };
+                wsM['M' + r] = { t: 's', v: latex };
+            }
+            const mMean = nW > 0 ? +(sumW / nW).toFixed(2) : "";
+            const mSUS = nW > 0 ? +((sumK) * (100 / 30)).toFixed(1) : "";
+            const mGrade = mSUS === "" ? "No data" : (mSUS < 50.9 ? "Grade F (Poor Usability)" : mSUS < 68 ? "Grade C (Marginal Usability)" : mSUS < 80.3 ? "Grade B (Good Usability)" : "Grade A (Excellent Usability)");
+            const mVerb = mMean === "" ? "No data" : (mMean >= 3.26 ? "Strongly Agree (Excellent Usability)" : mMean >= 2.51 ? "Agree (Good Usability)" : mMean >= 1.76 ? "Disagree (Fair Usability)" : "Strongly Disagree (Poor Usability)");
+            wsM['J15'] = { t: mMean === "" ? 's' : 'n', v: mMean === "" ? "No data" : mMean, f: 'IF(COUNT(J4:J13)=0,"No data",AVERAGE(J4:J13))' };
+            wsM['J16'] = { t: mSUS === "" ? 's' : 'n', v: mSUS === "" ? "No data" : mSUS, f: 'IF(COUNT(K4:K13)=0,"No data",SUM(K4:K13)*(100/30))' };
+            wsM['J17'] = { t: 's', v: mGrade, f: 'IF(J16="No data","No data",IF(J16<50.9,"Grade F (Poor Usability)",IF(J16<68,"Grade C (Marginal Usability)",IF(J16<80.3,"Grade B (Good Usability)","Grade A (Excellent Usability)"))))' };
+            wsM['J18'] = { t: 's', v: mVerb, f: 'IF(J15="No data","No data",IF(J15>=3.26,"Strongly Agree (Excellent Usability)",IF(J15>=2.51,"Agree (Good Usability)",IF(J15>=1.76,"Disagree (Fair Usability)","Strongly Disagree (Poor Usability)"))))' };
+            wsM['M15'] = { t: 's', v: mMean === "" ? "" : "$\\bar{X} = \\frac{1}{10} \\sum_{i=1}^{10} \\bar{x}_i = " + mMean.toFixed(2) + "$" };
+            wsM['M16'] = { t: 's', v: mSUS === "" ? "" : "$SUS = (\\sum_{i=1}^{10} u_i) \\times \\frac{100}{30} = " + mSUS.toFixed(1) + "$" };
+            wsM['!cols'] = [{ wch: 6 }, { wch: 55 }, { wch: 16 }, { wch: 20 }, { wch: 20 }, { wch: 20 }, { wch: 20 }, { wch: 12 }, { wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 30 }, { wch: 62 }];
+            XLSX.utils.book_append_sheet(wb, wsM, "02 SUS Item Matrix");
+
+            // ---------- 03 TASK METRICS ----------
+            const tHead = ["SessionID", "Name", "TaskID", "TaskName", "Time (s)", "Status"];
+            const tRows = [];
+            rawParticipantSessions.forEach(s => {
+                for (let i = 1; i <= 5; i++) {
+                    const t = s.tasks ? (s.tasks['Task_' + i] || s.tasks['Task' + i]) : null;
+                    tRows.push([s.sessionId || "", s.participantName || "", "Task " + i,
+                        (t && t.name) || "", (t && t.elapsedSeconds) || 0, t ? "COMPLETED" : "NOT DONE"]);
+                }
+            });
+            const lastT = tRows.length + 1;
+            const wsT = XLSX.utils.aoa_to_sheet([tHead].concat(tRows,
+                [[""], ["TASKS COMPLETED (formula)", "", "", "", "", ""],
+                ["TASKS ATTEMPTED = sessions x 5", N * 5, "", "", "", ""],
+                ["SUCCESS RATE % = completed/attempted x 100 (goal >= 90%)", "", "", "", "", ""],
+                ["MEAN TASK TIME s = AVERAGEIF completed (goal: rapid, low-friction)", "", "", "", "", ""]]));
+            let tDone = 0, tTime = 0;
+            tRows.forEach(tr => { if (tr[5] === "COMPLETED") { tDone++; tTime += Number(tr[4]) || 0; } });
+            const tAttempt = N * 5;
+            const tSR = tAttempt > 0 ? +((tDone / tAttempt) * 100).toFixed(1) : "";
+            const tAvg = tDone > 0 ? +((tTime / tDone).toFixed(1)) : "";
+            wsT['B' + (lastT + 2)] = { t: 'n', v: tDone, f: 'COUNTIF(F2:F' + lastT + ',"COMPLETED")' };
+            wsT['B' + (lastT + 4)] = { t: tSR === "" ? 's' : 'n', v: tSR === "" ? "No data" : tSR, f: 'IF(B' + (lastT + 3) + '=0,"No data",B' + (lastT + 2) + '/B' + (lastT + 3) + '*100)' };
+            wsT['B' + (lastT + 5)] = { t: tAvg === "" ? 's' : 'n', v: tAvg === "" ? "No data" : tAvg, f: 'IF(B' + (lastT + 2) + '=0,"No data",AVERAGEIF(F2:F' + lastT + ',"COMPLETED",E2:E' + lastT + '))' };
+            wsT['!cols'] = [{ wch: 18 }, { wch: 20 }, { wch: 10 }, { wch: 42 }, { wch: 16 }, { wch: 12 }];
+            XLSX.utils.book_append_sheet(wb, wsT, "03 Task Metrics");
+
+            // ---------- 04 CHAPTER 4 SUMMARY ----------
+            let sumMeans = 0, totalN = 0, compTime = 0, compN = 0, done = 0;
+            cohortDataMatrix.forEach(row => {
+                if (row.N > 0) {
+                    const raw = (4 * row.f4 + 3 * row.f3 + 2 * row.f2 + row.f1) / row.N;
+                    sumMeans += (row.id % 2 !== 0) ? raw : (5 - raw);
+                    totalN = Math.max(totalN, row.N);
+                }
+            });
+            rawParticipantSessions.forEach(s => {
+                const c = s.tasks ? Object.keys(s.tasks).length : 0;
+                done += Math.min(c, 5);
+                if (c >= 5 && s.elapsedSessionSeconds && !isNaN(Number(s.elapsedSessionSeconds))) { compTime += Number(s.elapsedSessionSeconds); compN++; }
+            });
+            const oMean = totalN > 0 ? +(sumMeans / 10).toFixed(2) : 0;
+            const cSUS = totalN > 0 ? +(((oMean - 1) * (100 / 3)).toFixed(1)) : 0;
+            const sRate = N > 0 ? +((done / (N * 5)) * 100).toFixed(1) : 0;
+            const mTime = compN > 0 ? +((compTime / compN).toFixed(1)) : 0;
+            const sGrade = cSUS < 50.9 ? "Grade F" : cSUS < 68 ? "Grade C" : cSUS < 80.3 ? "Grade B" : "Grade A";
+            const sVerb = oMean >= 3.26 ? "Strongly Agree (Excellent)" : oMean >= 2.51 ? "Agree (Good)" : oMean >= 1.76 ? "Disagree (Fair)" : "Strongly Disagree (Poor)";
+            const ws4 = XLSX.utils.aoa_to_sheet([
+                ["Usability Dimension", "Operational Variable", "Formula", "Evaluation Goal", "Result", "Status"],
+                ["Effectiveness", "Task Completion Success", "SR = Successful / Attempted x 100%", ">= 90.0%", sRate + "%", sRate >= 90 ? "Goal Met" : "Evaluating"],
+                ["Efficiency", "Mean Task Completion Time", "Tbar = (1/N) SUM(T)", "Rapid, low-friction", mTime + "s", (mTime > 0 && mTime <= 60) ? "Goal Met (Rapid)" : "Evaluating"],
+                ["Satisfaction (Feature)", "Likert Domain Mean", "Xbar = SUM(f.x) / n", "Xbar >= 3.26 (Excellent)", oMean + " / 4.00", oMean >= 3.26 ? "Goal Met" : "Evaluating"],
+                ["Satisfaction (Global)", "Composite SUS", "SUS = (SUM contributions) x (100/30)", "SUS >= 80.3 (Grade A)", cSUS + " / 100", cSUS >= 80.3 ? "Goal Met (Grade A)" : "Evaluating"],
+                ["Satisfaction (Global)", "SUS Grade", "F<50.9, C<68.0, B<80.3, else A", "Grade A", sGrade, cSUS >= 80.3 ? "Goal Met" : "Evaluating"],
+                ["Satisfaction (Feature)", "Xbar Verbal (Table 3.3)", "3.26-4.00 / 2.51-3.25 / 1.76-2.50 / 1.00-1.75", "Excellent", sVerb, oMean >= 3.26 ? "Goal Met" : "Evaluating"]
+            ]);
+            ws4['!cols'] = [{ wch: 24 }, { wch: 26 }, { wch: 40 }, { wch: 28 }, { wch: 22 }, { wch: 18 }];
+            XLSX.utils.book_append_sheet(wb, ws4, "04 Chapter4 Summary");
+
+            // ---------- 05 FORMULA AUDIT ----------
+            const ws5 = XLSX.utils.aoa_to_sheet([
+                ["#", "What", "Formula (plain math)", "LaTeX — copy into the paper", "Code location", "Hand-checked test", "Expected", "Workbook shows"],
+                ["1", "SUS odd-item points", "u = answer − 1  (questions 1, 3, 5, 7, 9)", "$u_i = x_i - 1$", "survey.html scoreOf; admin contribution", "Q1 answer 4 → 3", "3", "Col K formula"],
+                ["2", "SUS even-item points", "u = 4 − answer  (questions 2, 4, 6, 8, 10)", "$u_i = 4 - x_i$", "survey.html scoreOf; admin contribution", "Q2 answer 1 → 3", "3", "Col K formula"],
+                ["3", "Composite SUS", "SUS = (total points) × 100 ÷ 30,  range 0–100", "$SUS = (\\sum_{i=1}^{10} u_i) \\times \\frac{100}{30}$", "survey scoreOf; admin compositeSUS", "Best-case answers", "100.0", "J16 formula"],
+                ["4", "Worst-case SUS", "Same", "Same", "Same", "Worst-case answers", "0.0", "J16 formula"],
+                ["5", "Mixed-case SUS", "Same", "Same", "Same", "[4,4,3,3,4,2,3,2,4,1] → 21 × 100/30", "70.0", "J16 formula"],
+                ["6", "Usability mean per question", "odd = answer,  even = 5 − answer  (stays on 1–4 scale)", "$\\bar{x} = x$ (odd), $\\bar{x} = 5 - x$ (even)", "survey effectiveUsabilityRating; admin 5.00-rawMean", "Even answer 4 → 1", "1", "Col J formula"],
+                ["7", "Weighted mean", "X̄ = total(f × weight) ÷ people", "$\\bar{X} = \\frac{\\sum (f \\cdot x)}{n}$", "survey e/10; admin sumMeans/10", "Mixed case → 31/10", "3.10", "J15 formula"],
+                ["8", "Cohort SUS shortcut", "(X̄ − 1) × 100 ÷ 3  — proven equal to composite", "$SUS = (\\bar{X}-1) \\times \\frac{100}{3}$", "admin/index cohortSUS", "X̄ 3.5 → 83.3", "83.3", "Cross-check J15/J16"],
+                ["9", "Likert bands (Table 3.3)", "3.26–4.00 Strongly Agree/Excellent · 2.51–3.25 Agree/Good · 1.76–2.50 Disagree/Fair · 1.00–1.75 Strongly Disagree/Poor", "See Ch.3 Table 3.3", "All verbal functions", "3.25→Agree; 2.50→Disagree", "Agree / Disagree", "Col L formula"],
+                ["10", "SUS benchmark", "80.3 and up = Grade A / Excellent", "$\\overline{SUS} \\ge 80.3$", "All grade functions", "80.2→B; 80.3→A", "B / A", "J17 formula"],
+                ["11", "Success rate", "SR = finished ÷ assigned × 100%,  goal ≥ 90%", "$SR = \\frac{\\text{Successful}}{\\text{Attempted}} \\times 100\\%$", "admin/index SR", "45/50", "90.0%", "03 sheet formula"],
+                ["12", "Mean task time", "T̄ = total seconds ÷ people", "$\\bar{T} = \\frac{1}{N}\\sum T_p$", "admin/index mean time", "300s/5", "60.0s", "03 sheet formula"]
+            ]);
+            ws5['!cols'] = [{ wch: 4 }, { wch: 26 }, { wch: 46 }, { wch: 52 }, { wch: 40 }, { wch: 34 }, { wch: 16 }, { wch: 18 }];
+            XLSX.utils.book_append_sheet(wb, ws5, "05 Formula Audit");
+
+            XLSX.writeFile(wb, 'bytecode_full_workbook_N' + N + '.xlsx');
+            showToast('Downloaded Excel workbook (6 sheets, N=' + N + ')!');
+        }
+
         function exportChapter4ResultsCSV() {
             let lines = [];
             lines.push(`"CHAPTER 4 RESULTS STATISTICAL SUMMARY TABLE"`);
@@ -2762,14 +2953,13 @@
                 let verbal = "Unanswered";
                 if (row.N > 0) {
                     const rawMean = ((4*row.f4 + 3*row.f3 + 2*row.f2 + 1*row.f1) / row.N);
-                    weightedMean = (row.id % 2 !== 0) ? rawMean : (4.00 - rawMean);
+                    weightedMean = (row.id % 2 !== 0) ? rawMean : (5.00 - rawMean);
                     sumMeans += weightedMean;
                     totalCohortN = Math.max(totalCohortN, row.N);
 
-                    if (rawMean >= 3.36) verbal = "Strongly Agree";
-                    else if (rawMean >= 2.71) verbal = "Agree";
-                    else if (rawMean >= 2.06) verbal = "Neutral";
-                    else if (rawMean >= 1.41) verbal = "Disagree";
+                    if (rawMean >= 3.26) verbal = "Strongly Agree";
+                    else if (rawMean >= 2.51) verbal = "Agree";
+                    else if (rawMean >= 1.76) verbal = "Disagree";
                     else verbal = "Strongly Disagree";
                 }
 
@@ -2778,7 +2968,7 @@
             });
 
             const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
-            const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(1) : '0.00';
+            const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * (100/3)).toFixed(1) : '0.00';
 
             // Calculate Mean Task Completion Time for CSV
             let totalCompTime = 0;
@@ -2806,8 +2996,8 @@
             lines.push(`"Usability Dimension","Operational Variable","Measurement Formula / Metric","Evaluation Goal","Current Study Result","Outcome Status"`);
             lines.push(`"Effectiveness","Task Completion Success","SR = (Successful Tasks / Total Attempted) * 100%","Goal >= 90.0% Success Rate","${taskSuccRate}%","${parseFloat(taskSuccRate) >= 90.0 ? 'Goal Met' : 'Evaluating'}"`);
             lines.push(`"Efficiency","Mean Task Completion Time","Tbar = (1/N) * sum(T_p) (Seconds)","Rapid, low-friction (<= 60.0s)","${meanTaskCompTime}s","${parseFloat(meanTaskCompTime) <= 60.0 && parseFloat(meanTaskCompTime) > 0 ? 'Goal Met (Rapid)' : 'Evaluating'}"`);
-            lines.push(`"Satisfaction (Feature)","Likert Domain Mean","Xbar = sum(f * x) / n","Goal Xbar >= 3.36 (Excellent Rating)","${overallMean} / 4.00","${parseFloat(overallMean) >= 3.36 ? 'Goal Met' : 'Evaluating'}"`);
-            lines.push(`"Satisfaction (Global)","Composite SUS Score","SUS = (sum Score Contributions) * 2.5","Goal SUS >= 80.0 (Grade A+)","${cohortSUS} / 100","${parseFloat(cohortSUS) >= 80.0 ? 'Goal Met (Grade A+)' : 'Evaluating'}"`);
+            lines.push(`"Satisfaction (Feature)","Likert Domain Mean","Xbar = sum(f * x) / n","Goal Xbar >= 3.26 (Excellent Rating)","${overallMean} / 4.00","${parseFloat(overallMean) >= 3.26 ? 'Goal Met' : 'Evaluating'}"`);
+            lines.push(`"Satisfaction (Global)","Composite SUS Score","SUS = (sum Score Contributions) x (100/30)","Goal SUS >= 80.3 (Grade A)","${cohortSUS} / 100","${parseFloat(cohortSUS) >= 80.3 ? 'Goal Met (Grade A)' : 'Evaluating'}"`);
 
             downloadCSV(lines.join('\n'), 'chapter4_statistical_results.csv');
             showToast('Downloaded Chapter 4 Results CSV!');
@@ -2905,10 +3095,9 @@
         function getVerbalInterpretation(score) {
             const s = parseFloat(score);
             if (isNaN(s) || s <= 0) return "Unanswered";
-            if (s >= 3.36) return "Strongly Agree";
-            if (s >= 2.71) return "Agree";
-            if (s >= 2.06) return "Neutral";
-            if (s >= 1.41) return "Disagree";
+            if (s >= 3.26) return "Strongly Agree";
+            if (s >= 2.51) return "Agree";
+            if (s >= 1.76) return "Disagree";
             return "Strongly Disagree";
         }
 
@@ -3030,7 +3219,7 @@
                 
                 // Likert Usability Inversion for Negative Items
                 const isOdd = (q.type === 'odd');
-                const weightedMean = isOdd ? rawMean : (4.00 - rawMean);
+                const weightedMean = isOdd ? rawMean : (5.00 - rawMean);
                 const contribution = isOdd ? (rawMean - 1.0) : (4.0 - rawMean);
                 const verbal = getVerbalInterpretation(weightedMean);
 
@@ -3053,19 +3242,18 @@
             });
 
             const overallUsabilityMean = (sumWeightedMeans / 10).toFixed(2);
-            const meanGoalMet = parseFloat(overallUsabilityMean) >= 3.36;
+            const meanGoalMet = parseFloat(overallUsabilityMean) >= 3.26;
             const overallVerbal = getVerbalInterpretation(parseFloat(overallUsabilityMean));
 
             // Step 5: Composite SUS
             const compositeSUS = (sumContributions * (100/30)).toFixed(1);
             const shortcutSUS = ((parseFloat(overallUsabilityMean) - 1.0) * (100/3)).toFixed(1);
             const susScoreNum = parseFloat(compositeSUS);
-            const susGoalMet = susScoreNum >= 80.0;
-            let susGrade = "Grade A+ (Excellent Usability)";
-            if (susScoreNum < 50.0) susGrade = "Grade F (Poor Usability)";
-            else if (susScoreNum < 60.0) susGrade = "Grade C (Marginal Usability)";
-            else if (susScoreNum < 70.0) susGrade = "Grade B (Good Usability)";
-            else if (susScoreNum < 80.0) susGrade = "Grade A (Above Average Usability)";
+            const susGoalMet = susScoreNum >= 80.3;
+            let susGrade = "Grade A (Excellent Usability)";
+            if (susScoreNum < 50.9) susGrade = "Grade F (Poor Usability)";
+            else if (susScoreNum < 68.0) susGrade = "Grade C (Marginal Usability)";
+            else if (susScoreNum < 80.3) susGrade = "Grade B (Good Usability)";
 
             let html = '';
 
@@ -3120,17 +3308,17 @@
                                         <td style="text-align:left; font-weight:800; color:#c084fc;">Satisfaction (Feature)</td>
                                         <td style="text-align:left;">Likert Domain Usability Mean</td>
                                         <td style="text-align:left;">${kMath("\\bar{X} = \\frac{\\sum (f \\cdot x)}{N}")}</td>
-                                        <td>${kMath("\\bar{X} \\ge 3.36")}</td>
+                                        <td>${kMath("\\bar{X} \\ge 3.26")}</td>
                                         <td style="font-weight:800; color:#d8b4fe; font-size:0.92rem;">${overallUsabilityMean} / 4.00</td>
                                         <td><span class="badge-pill" style="color:${meanGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${meanGoalMet ? 'Goal Met ✓' : 'Needs Review'}</span></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:800; color:#fb7185;">Satisfaction (Global)</td>
                                         <td style="text-align:left;">Composite System Usability Scale</td>
-                                        <td style="text-align:left;">${kMath("\\overline{\\text{SUS}} = \\left(\\sum_{i=1}^{10} u_i\\right) \\times 2.5")}</td>
-                                        <td>${kMath("\\overline{\\text{SUS}} \\ge 80.0")}</td>
+                                        <td style="text-align:left;">${kMath("\\overline{\\text{SUS}} = \\left(\\sum_{i=1}^{10} u_i\\right) \\times (100/30)")}</td>
+                                        <td>${kMath("\\overline{\\text{SUS}} \\ge 80.3")}</td>
                                         <td style="font-weight:800; color:#fb7185; font-size:0.92rem;">${compositeSUS} / 100</td>
-                                        <td><span class="badge-pill" style="color:${susGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${susGoalMet ? 'Grade A+ Met ✓' : 'Below Grade A'}</span></td>
+                                        <td><span class="badge-pill" style="color:${susGoalMet ? 'var(--accent-neon)' : '#fb7185'}; font-size:0.68rem;">${susGoalMet ? 'Grade A Met ✓' : 'Below Grade A'}</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -3318,8 +3506,8 @@
                                 ${kMath(`\\bar{X}_{\\text{overall}} = \\frac{1}{10} \\sum_{i=1}^{10} \\bar{X}_i = \\frac{${sumWeightedMeans.toFixed(2)}}{10} = \\mathbf{${overallUsabilityMean} / 4.00}`, true)}
                             </div>
                             <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
-                                • <b>Continuum Classification (Table 3.3):</b> <b>${overallUsabilityMean}</b> falls in <b>3.36 – 5.00 (Strongly Agree / Excellent Usability)</b>.<br>
-                                • <b>Evaluation Goal Verification:</b> <b>${overallUsabilityMean} ≥ 3.36 Goal</b> → <b style="color:${meanGoalMet ? '#10b981' : '#fb7185'};">${meanGoalMet ? 'SUCCESS: Evaluation Goal Met ✓' : 'BELOW BENCHMARK'}</b>
+                                • <b>Continuum Classification (Table 3.3):</b> <b>${overallUsabilityMean}</b> falls in <b>3.26 – 4.00 (Strongly Agree / Excellent Usability)</b>.<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${overallUsabilityMean} ≥ 3.26 Goal</b> → <b style="color:${meanGoalMet ? '#10b981' : '#fb7185'};">${meanGoalMet ? 'SUCCESS: Evaluation Goal Met ✓' : 'BELOW BENCHMARK'}</b>
                             </div>
                         </div>
                     </div>
@@ -3358,8 +3546,8 @@
                             <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; margin-top:8px;">
                                 • <b>Brooke (1996) & Bangor et al. (2008) Grade Scale:</b><br>
                                 &nbsp;&nbsp;- Current Score: <b>${compositeSUS} / 100</b> → <span style="color:#10b981; font-weight:800;">${susGrade}</span><br>
-                                &nbsp;&nbsp;- Top 10% Industry Percentile benchmark exceeds the Grade A+ requirement (${kMath("\\overline{\\text{SUS}} \\ge 80.0")}).<br>
-                                • <b>Evaluation Goal Verification:</b> <b>${compositeSUS} ≥ 80.0 Goal</b> → <b style="color:${susGoalMet ? '#10b981' : '#fb7185'};">${susGoalMet ? 'SUCCESS: Grade A+ Usability Benchmark Met ✓' : 'BELOW GRADE A'}</b>
+                                &nbsp;&nbsp;- Top 10% Industry Percentile benchmark exceeds the Grade A requirement (${kMath("\\overline{\\text{SUS}} \\ge 80.3")}).<br>
+                                • <b>Evaluation Goal Verification:</b> <b>${compositeSUS} ≥ 80.3 Goal</b> → <b style="color:${susGoalMet ? '#10b981' : '#fb7185'};">${susGoalMet ? 'SUCCESS: Grade A Usability Benchmark Met ✓' : 'BELOW GRADE A'}</b>
                             </div>
                         </div>
                     </div>
