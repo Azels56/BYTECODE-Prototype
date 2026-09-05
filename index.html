@@ -595,9 +595,88 @@
             [data-theme="light"] .tasks-flow-section p,
             [data-theme="light"] .step2-header-title,
             [data-theme="light"] .step2-header-title span,
-            [data-theme="light"] .step2-header-title div,
-            [data-theme="light"] .step2-header-row div {
+            [data-theme="light"] .step2-header-title div {
                 color: #0f172a !important;
+            }
+
+            /* Survey Portal card: readable white-mode layout */
+            .step2-header-row {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto !important;
+                align-items: center !important;
+                gap: 18px !important;
+                margin: 14px 0 !important;
+                padding: 16px 18px !important;
+                border-radius: 14px !important;
+            }
+            .step2-header-row > .step2-header-content {
+                display: flex !important;
+                align-items: center !important;
+                gap: 12px !important;
+                min-width: 0 !important;
+            }
+            .step2-header-row .step2-header-copy {
+                min-width: 0 !important;
+            }
+            .step2-header-row .step2-header-copy .step2-header-title {
+                line-height: 1.25 !important;
+            }
+            .step2-header-row .step2-header-copy .step2-header-desc {
+                line-height: 1.45 !important;
+                margin-top: 4px !important;
+            }
+            .step2-header-row .step2-header-icon {
+                width: 40px !important;
+                height: 40px !important;
+                border-radius: 11px !important;
+                flex: 0 0 40px !important;
+            }
+            .step2-header-row .step2-header-action {
+                white-space: nowrap !important;
+                flex: 0 0 auto !important;
+            }
+            [data-theme="light"] .step2-header-row {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06) !important;
+            }
+            [data-theme="light"] .step2-header-row .step2-header-title { color: #0f172a !important; }
+            [data-theme="light"] .step2-header-row .step2-header-desc { color: #475569 !important; }
+            [data-theme="light"] .step2-header-row .step2-header-icon {
+                background: linear-gradient(135deg, #0ea5e9 0%, #059669 100%) !important;
+            }
+            [data-theme="light"] .step2-header-row .step2-header-icon svg { color: #ffffff !important; }
+            [data-theme="light"] .step2-header-row .step2-header-action {
+                background: linear-gradient(135deg, #0369a1, #047857) !important;
+                color: #ffffff !important;
+                border-color: transparent !important;
+                box-shadow: 0 4px 12px rgba(3, 105, 161, 0.22) !important;
+            }
+            @media (max-width: 640px) {
+                .step2-header-row {
+                    grid-template-columns: 1fr !important;
+                    gap: 12px !important;
+                    padding: 14px !important;
+                }
+                .step2-header-row .step2-header-action {
+                    width: 100% !important;
+                }
+            }
+
+            [data-theme="light"] .step2-header-row > div > div:first-child {
+                background: linear-gradient(135deg, #0ea5e9 0%, #059669 100%) !important;
+            }
+
+            [data-theme="light"] .step2-header-row > div > div:first-child svg,
+            [data-theme="light"] .step2-header-row > div > div:first-child i {
+                color: #ffffff !important;
+            }
+
+            [data-theme="light"] .step2-header-row button {
+                background: linear-gradient(135deg, #0369a1, #047857) !important;
+                color: #ffffff !important;
+                border-color: transparent !important;
+                box-shadow: 0 4px 12px rgba(3, 105, 161, 0.22) !important;
             }
 
             [data-theme="light"] #tasks-lock-status-badge {
@@ -1639,7 +1718,7 @@
                 padding-bottom: 8px;
                 margin-bottom: 8px;
             }
-            .navbar-wrapper.collapsed .logo-icon-wrap {
+            .navbar-wrapper.collapsed .logo-svg {
                 margin: 0;
             }
             .navbar-wrapper.collapsed .nav-actions {
@@ -1704,6 +1783,8 @@
             }
 
             .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; margin-bottom: 8px; }
+            .logo-svg { width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0; display: block; }
+            .preloader-svg { width: 56px; height: 56px; border-radius: 16px; display: block; }
             .logo-icon-wrap {
                 position: relative; width: 36px; height: 36px; border-radius: 10px;
                 background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.25);
@@ -2541,6 +2622,8 @@
             
             .btn-secondary { background: rgba(18, 28, 45, 0.5); border: 1px solid rgba(0, 242, 254, 0.1); color: var(--text-secondary); padding: 9px 18px; border-radius: 8px; font-weight: 600; font-size: 0.78rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 7px; }
             .btn-secondary:hover { border-color: var(--accent-cyan); background: rgba(22, 34, 54, 0.8); }
+            .hero-ctas .btn-ai-action, .hero-ctas .btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 10px 24px; font-size: 0.8rem; border-radius: 10px; }
+            .hero-ctas .btn-ai-action svg, .hero-ctas .btn-secondary svg { width: 15px; height: 15px; flex-shrink: 0; }
 
             .quick-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
             .stat-box { position: relative; overflow: hidden; background: linear-gradient(160deg, rgba(255,255,255,0.02), rgba(255,255,255,0) 40%), var(--bg-card); border: 1px solid var(--border-card); padding: 12px 14px; border-radius: 10px; transition: border-color 0.2s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 90px; }
@@ -3048,16 +3131,27 @@
             @keyframes sleepPulse { 0%, 100% { opacity: 0.75; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.08); } }
             .anim-sleep-bars { animation: sleepPulse 3s ease-in-out infinite; transform-origin: bottom;  }
 
-            .histogram-container { display: flex; align-items: flex-end; gap: 5px; width: 100%; height: 100%; padding: 6px 0 2px; }
+            .histogram-container { display: flex; align-items: flex-end; gap: 5px; width: 100%; height: 100%; padding: 6px 0 4px; border-bottom: 2px solid rgba(0, 242, 254, 0.3); }
             .histo-bar { flex: 1; background: linear-gradient(180deg, #00f2fe 0%, rgba(0, 242, 254, 0.2) 100%); border-radius: 4px; transform-origin: bottom; will-change: auto; }
 
             @keyframes histoGrow { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.22); } }
             .histo-bar.active { animation: histoGrow 2s ease-in-out infinite alternate; will-change: auto; }
-            .histo-bar:nth-child(3) { animation-delay: 0.1s; }
-            .histo-bar:nth-child(4) { animation-delay: 0.4s; }
-            .histo-bar:nth-child(6) { animation-delay: 0.2s; }
-            .histo-bar:nth-child(8) { animation-delay: 0.5s; }
-            .histo-bar:nth-child(10) { animation-delay: 0.3s; }
+            .histo-col:nth-child(2) .histo-bar { animation-delay: 0.1s; }
+            .histo-col:nth-child(3) .histo-bar { animation-delay: 0.4s; }
+            .histo-col:nth-child(4) .histo-bar { animation-delay: 0.2s; }
+            .histo-col:nth-child(6) .histo-bar { animation-delay: 0.5s; }
+            .histo-col:nth-child(7) .histo-bar { animation-delay: 0.3s; }
+            .histo-col { flex: 1; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end; gap: 3px; min-width: 0; }
+            .histo-col .histo-bar { flex: 0 0 auto; width: 100%; }
+            .histo-day { font-size: 0.55rem; font-weight: 700; color: var(--text-secondary); text-align: center; }
+            /* Radar draw-in + vertex hover */
+            #radar-active-polygon { stroke-dasharray: 640; stroke-dashoffset: 640; animation: radarDraw 1.6s ease-out forwards; }
+            @keyframes radarDraw { to { stroke-dashoffset: 0; } }
+            .radar-vertex { transform-box: fill-box; transform-origin: center; transition: transform 0.18s ease; cursor: pointer; }
+            .radar-vertex:hover { transform: scale(1.7); }
+            /* ECG live end-dot pulse */
+            .ecg-live-dot { animation: ecgPulse 1.8s ease-in-out infinite; }
+            @keyframes ecgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 
             @keyframes breathFlow { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-180px, 0, 0); } }
             .anim-breath { animation: breathFlow 4.5s linear infinite; will-change: auto; }
@@ -3076,6 +3170,18 @@
 
             /* USABILITY TASKS & DATA GATHERING CONTROL PANEL */
             .tasks-flow-section { margin-bottom: 12px; }
+            /* Metrics header layout + unified section rhythm — text untouched */
+            #metrics .section-header-row { flex-direction: row; align-items: flex-end; justify-content: space-between; text-align: left; gap: 32px; margin-bottom: 22px; }
+            #metrics .section-title { max-width: 580px; }
+            #metrics .section-desc { max-width: 440px; margin-top: 0; padding-bottom: 4px; }
+            @media (max-width: 768px) {
+                #metrics .section-header-row { flex-direction: column; align-items: stretch; gap: 8px; }
+            }
+            #overview, #metrics, #insights, #privacy, #assistant, #usability-logger { margin-bottom: 30px; scroll-margin-top: 84px; }
+            #metrics { margin-top: 8px; }
+            @media (max-width: 768px) {
+                #overview, #metrics, #insights, #privacy, #assistant, #usability-logger { margin-bottom: 22px; }
+            }
             .tasks-5grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 12px; margin-bottom: 16px; }
 
             .task-step-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 16px; transition: all 0.2s ease; cursor: pointer; text-align: left; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
@@ -3277,9 +3383,10 @@
                     transition-duration: 0.01ms !important;
                     scroll-behavior: auto !important;
                 }
-                .anim-ecg, .anim-sleep-bars, .anim-breath, .histo-bar, .bar-pill {
+                .anim-ecg, .anim-sleep-bars, .anim-breath, .histo-bar, .bar-pill, .ecg-live-dot, #radar-active-polygon, .radar-vertex {
                     animation: none !important;
                 }
+                #radar-active-polygon { stroke-dashoffset: 0 !important; }
                 .will-change, .bg-binary-watermark, .radar-card-container, .circadian-card-container, .metric-card, .badge-streak-card, .ai-chat-window {
                     
                     transform: none !important;
@@ -4070,6 +4177,18 @@
                 }
             }
 
+            /* MOBILE OVERFLOW SAFETY: kill sideways scroll, stop grid blowout */
+            html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+            img { max-width: 100%; }
+            .metrics-4grid > *, .research-metrics-grid > *, .tasks-5grid > *, .vitality-badges-grid > *,
+            .two-col-section > *, .demo-grid-3col > *, .demo-grid-2col > *, .hero-section > * { min-width: 0; }
+            @media (max-width: 640px) {
+                .cohort-summary-5col { grid-template-columns: repeat(2, 1fr) !important; }
+                .sus-calc-summary-box { padding: 12px 10px !important; }
+            }
+            @media (max-width: 400px) {
+                .cohort-summary-5col { grid-template-columns: 1fr !important; }
+            }
             @media (max-width: 640px) {
                 .demo-grid-3col,
                 .demo-grid-2col {
@@ -5079,17 +5198,18 @@
         <div class="preloader" id="preloader">
             <div class="preloader-inner">
                 <div class="preloader-logo">
-                    <div class="preloader-logo-icon">
-                        <div class="binary-digits">0100<br>0010</div>
-                        <div class="logo-b">B</div>
-                    </div>
+                    <img src="favicon.svg" class="preloader-svg" alt="BYTECODE AI Health logo">
                 </div>
                 <div class="preloader-brand">BYTECODE <span style="opacity:0.7;">AI Health</span></div>
                 <div class="preloader-core">INITIALIZING TELEMETRY<span class="preloader-dots"><span>.</span><span>.</span><span>.</span></span></div>
                 <div class="preloader-progress-track"><div class="preloader-progress-fill" id="preloader-progress-fill"></div></div>
-                <div class="preloader-subtext">Connecting wearable biosensors & loading AI engine</div>
+                <div class="preloader-subtext">Connecting your watch and starting the AI</div>
             </div>
         </div>
+        <script>
+        /* Skip the preloader when arriving from a Survey Portal protocol task (?from=survey) */
+        try { if (new URLSearchParams(location.search).get('from') === 'survey') { document.getElementById('preloader').style.display = 'none'; } } catch (e) {}
+        </script>
 
         <!-- SUBTLE AMBIENT BINARY WATERMARK OVERLAY -->
         <div class="bg-binary-watermark">
@@ -5116,10 +5236,7 @@
                 </button>
                 <nav class="navbar" role="navigation" aria-label="Main navigation">
                     <a href="#" class="logo" aria-label="BYTECODE AI Health - Home">
-                    <div class="logo-icon-wrap">
-                        <div class="binary-digits">0100<br>0010</div>
-                        <div class="logo-b">B</div>
-                    </div>
+                    <img src="favicon.svg" class="logo-svg" alt="BYTECODE AI Health logo">
                     <div class="logo-text">
                         <span class="logo-brand">BYTECODE <span class="logo-brand-sub-text">AI Health</span></span>
                         <span class="logo-sub">GEN Z AI WEARABLE RESEARCH</span>
@@ -5132,8 +5249,8 @@
                         <a href="#metrics" class="nav-pill" role="menuitem"><i data-lucide="activity" class="nav-pill-icon"></i><span class="nav-pill-label">Metrics</span></a>
                         <a href="#insights" class="nav-pill" role="menuitem"><i data-lucide="sparkles" class="nav-pill-icon"></i><span class="nav-pill-label">Insights</span></a>
                         <a href="#privacy" class="nav-pill" role="menuitem"><i data-lucide="shield-check" class="nav-pill-icon"></i><span class="nav-pill-label">Privacy</span></a>
-                        <a href="#usability-logger" class="nav-pill" role="menuitem"><i data-lucide="clipboard-check" class="nav-pill-icon"></i><span class="nav-pill-label">Usability Tasks</span></a>
                         <a href="#assistant" class="nav-pill" role="menuitem"><i data-lucide="bot" class="nav-pill-icon"></i><span class="nav-pill-label">Assistant</span></a>
+                        <a href="#usability-logger" class="nav-pill" role="menuitem"><i data-lucide="clipboard-check" class="nav-pill-icon"></i><span class="nav-pill-label">Survey Portal</span></a>
                     </div>
 
                 <!-- SIDEBAR BOTTOM ACTIONS: Device + Notifications -->
@@ -5182,15 +5299,17 @@
             <a href="#privacy" class="mobile-nav-link" onclick="closeMobileDrawer()">
                 <span><i data-lucide="shield-check"></i> Privacy Controls</span> <i data-lucide="chevron-right"></i>
             </a>
-                <a href="#usability-logger" class="mobile-nav-link" onclick="closeMobileDrawer()">
-                    <span><i data-lucide="clipboard-list"></i> Data Gathering Tasks</span> <i data-lucide="chevron-right"></i>
-                </a>
-
                 <a href="#assistant" class="mobile-nav-link" onclick="closeMobileDrawer()">
                     <span><i data-lucide="bot"></i> AI Assistant Engine</span> <i data-lucide="chevron-right"></i>
                 </a>
+                <a href="#usability-logger" class="mobile-nav-link" onclick="closeMobileDrawer()">
+                    <span><i data-lucide="clipboard-list"></i> Survey Portal</span> <i data-lucide="chevron-right"></i>
+                </a>
 
                 <div class="mobile-drawer-actions-box">
+                    <button class="mobile-drawer-btn green" onclick="window.location.href='survey.html';">
+                        <span><i data-lucide="clipboard-list"></i> Take Survey (Registration & SUS)</span> <i data-lucide="chevron-right"></i>
+                    </button>
                     <button class="mobile-drawer-btn green" onclick="scrollToDataGathering(); closeMobileDrawer();">
                         <span><i data-lucide="bar-chart-3"></i> Data Gathering Mode & Console</span> <i data-lucide="chevron-right"></i>
                     </button>
@@ -5219,7 +5338,7 @@
             <div class="dashboard-top-bar">
                 <div class="dashboard-top-bar-left">
                     <div class="badge-pill" style="margin:0;"><div class="dot-glow"></div> <i data-lucide="activity" style="width:12px; height:12px;"></i> LIVE DASHBOARD</div>
-                    <span style="font-size:0.82rem; color:var(--text-secondary); font-weight:500;">Real-time biometric telemetry & AI-enhanced health insights</span>
+                    <span style="font-size:0.82rem; color:var(--text-secondary); font-weight:500;">Live body data and AI health tips</span>
                 </div>
                 <div class="dashboard-top-bar-right">
                     <div style="font-size:0.78rem; color:var(--accent-neon); font-weight:700; display:flex; align-items:center; gap:4px;"><div class="dot-glow" style="width:6px; height:6px;"></div> SYSTEM ONLINE</div>
@@ -5231,16 +5350,16 @@
             <section id="overview" class="hero-section">
                 <div>
                     <div style="width:60px; height:3px; background:linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); border-radius:3px; margin-bottom:10px;"></div>
-                    <div class="hero-subtitle">Research Project — Human-Computer Interaction & Wearable Technology Study</div>
+                    <div class="hero-subtitle">Research Project — HCI Study on Easy-to-Use Watch Apps</div>
                     <h1 class="hero-title">
                         Interactive Design & Usability Testing of <span class="gradient-text">AI-Enhanced Wearable Dashboards</span> for Gen Z
                     </h1>
                     <p class="hero-desc">
-                        A comprehensive interactive research prototype exploring AI-enhanced wearable health dashboards designed, developed, and usability-tested with Gen Z participants — integrating real-time biometric telemetry, adaptive visualization, and automated usability data gathering for privacy-first personalized health monitoring.
+                        A test version of an AI health watch dashboard made with Gen Z students. It shows live body data in clear charts and keeps your data private. It tracks heart rate, sleep, steps, and stress in one place, with AI health tips explained in a clear and simple way.
                     </p>
                     <div class="hero-ctas">
+                        <button class="btn-ai-action" onclick="window.location.href='survey.html'"><i data-lucide="clipboard-list"></i> <span>Take Survey</span></button>
                         <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Ask BYTECODE AI</span></button>
-                        <button class="btn-secondary" onclick="scrollToDataGathering()"><i data-lucide="terminal"></i> <span>Open Usability Data Console</span></button>
                     </div>
 
                     <div class="quick-stats-row">
@@ -5419,8 +5538,8 @@
             <!-- METRICS SECTION -->
             <section id="metrics">
                 <div class="section-header-row">
-                    <h2 class="section-title">Interactive Biometric Telemetry & AI-Enhanced Health Dashboards.</h2>
-                    <p class="section-desc">Designed and evaluated for Gen Z usability, combining PPG heart rate variability, sleep stages, activity goals, and stress biofeedback with high-contrast accessibility.</p>
+                    <h2 class="section-title">Live Body Data and AI Health Dashboards.</h2>
+                    <p class="section-desc">Made and tested for Gen Z. It shows heart rate, sleep, steps, and stress in clear, easy-to-read cards.</p>
                 </div>
 
                 <div class="metrics-4grid">
@@ -5430,14 +5549,22 @@
                             <span class="card-pill-tag"><i data-lucide="heart-pulse" style="width:12px; height:12px;"></i> PPG Sensor</span>
                             <div class="card-heading-title">Heart Rate Variability</div>
                             <div class="card-big-number"><span id="live-hrv-card">68</span> <span style="font-size:1rem; color:var(--text-secondary); font-weight:400;">ms</span></div>
-                            <p class="card-body-text" id="hrv-card-text">High recovery signal measured from PPG telemetry.</p>
+                            <p class="card-body-text" id="hrv-card-text">Your body has rested well, based on your watch heart reading.</p>
                         </div>
                         <div class="wave-bottom-tile" aria-hidden="true">
                             <svg viewBox="0 0 200 48" style="width:100%; height:100%; overflow:hidden;" role="img" aria-label="Heart rate variability ECG waveform animation">
+                                <defs>
+                                    <linearGradient id="ecg-area-grad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.35"/>
+                                        <stop offset="100%" stop-color="#00f2fe" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
                                 <g class="anim-ecg">
+                                    <path d="M 0,28 L 30,28 L 36,12 L 42,40 L 48,6 L 54,34 L 60,28 L 90,28 L 100,28 L 106,12 L 112,40 L 118,6 L 124,34 L 130,28 L 160,28 L 170,28 L 176,12 L 182,40 L 188,6 L 194,34 L 200,28 L 240,28 L 246,12 L 252,40 L 258,6 L 264,34 L 270,28 L 340,28 L 340,48 L 0,48 Z" fill="url(#ecg-area-grad)"/>
                                     <path d="M 0,28 L 30,28 L 36,12 L 42,40 L 48,6 L 54,34 L 60,28 L 90,28 L 100,28 L 106,12 L 112,40 L 118,6 L 124,34 L 130,28 L 160,28 L 170,28 L 176,12 L 182,40 L 188,6 L 194,34 L 200,28 L 240,28 L 246,12 L 252,40 L 258,6 L 264,34 L 270,28 L 340,28" stroke="#00f2fe" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path transform="translate(340,0)" d="M 0,28 L 30,28 L 36,12 L 42,40 L 48,6 L 54,34 L 60,28 L 90,28 L 100,28 L 106,12 L 112,40 L 118,6 L 124,34 L 130,28 L 160,28 L 170,28 L 176,12 L 182,40 L 188,6 L 194,34 L 200,28 L 240,28 L 246,12 L 252,40 L 258,6 L 264,34 L 270,28 L 340,28" stroke="#00f2fe" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                                 </g>
+                                <circle cx="196" cy="28" r="3" fill="#00f2fe" class="ecg-live-dot" filter="drop-shadow(0 0 5px #00f2fe)"/>
             </svg>
                         </div>
                     </div>
@@ -5448,7 +5575,7 @@
                             <span class="card-pill-tag"><i data-lucide="moon" style="width:12px; height:12px;"></i> Sleep Lab</span>
                             <div class="card-heading-title">Sleep Quality Score</div>
                             <div class="card-big-number"><span id="live-sleep-card">88</span> <span style="font-size:1rem; color:var(--text-secondary); font-weight:400;">/100</span></div>
-                            <p class="card-body-text" id="sleep-card-text">Deep sleep reached 2h 4m with optimal REM stages.</p>
+                            <p class="card-body-text" id="sleep-card-text">You got 2h 4m of deep sleep with good dream sleep.</p>
                         </div>
                         <div class="wave-bottom-tile" aria-hidden="true">
                             <svg viewBox="0 0 200 48" style="width:100%; height:100%;" role="img" aria-label="Sleep stages waveform animation">
@@ -5472,22 +5599,17 @@
                             <span class="card-pill-tag"><i data-lucide="flame" style="width:12px; height:12px;"></i> Move Goal</span>
                             <div class="card-heading-title">Daily Activity</div>
                             <div class="card-big-number"><span id="live-move-card">76</span>%</div>
-                            <p class="card-body-text" id="activity-card-text">Step target tracking active via accelerometer.</p>
+                            <p class="card-body-text" id="activity-card-text">Step goal tracking is on using your watch motion sensor.</p>
                         </div>
                         <div class="wave-bottom-tile" aria-hidden="true">
-                            <div class="histogram-container" role="img" aria-label="Activity histogram showing daily movement patterns">
-                                <div class="histo-bar" style="height:30%;"></div>
-                                <div class="histo-bar" style="height:45%;"></div>
-                                <div class="histo-bar active" style="height:70%;"></div>
-                                <div class="histo-bar active" style="height:90%;"></div>
-                                <div class="histo-bar" style="height:60%;"></div>
-                                <div class="histo-bar active" style="height:100%;"></div>
-                                <div class="histo-bar" style="height:75%;"></div>
-                                <div class="histo-bar active" style="height:85%;"></div>
-                                <div class="histo-bar" style="height:50%;"></div>
-                                <div class="histo-bar active" style="height:95%;"></div>
-                                <div class="histo-bar" style="height:40%;"></div>
-                                <div class="histo-bar" style="height:65%;"></div>
+                            <div class="histogram-container" role="img" aria-label="Activity histogram showing movement for each day of the week">
+                                <div class="histo-col"><div class="histo-bar" style="height:45%;"></div><div class="histo-day">M</div></div>
+                                <div class="histo-col"><div class="histo-bar" style="height:60%;"></div><div class="histo-day">T</div></div>
+                                <div class="histo-col"><div class="histo-bar" style="height:70%;"></div><div class="histo-day">W</div></div>
+                                <div class="histo-col"><div class="histo-bar active" style="height:90%;"></div><div class="histo-day">T</div></div>
+                                <div class="histo-col"><div class="histo-bar active" style="height:100%;"></div><div class="histo-day">F</div></div>
+                                <div class="histo-col"><div class="histo-bar" style="height:75%;"></div><div class="histo-day">S</div></div>
+                                <div class="histo-col"><div class="histo-bar" style="height:55%;"></div><div class="histo-day">S</div></div>
                             </div>
                         </div>
                     </div>
@@ -5498,7 +5620,7 @@
                             <span class="card-pill-tag"><i data-lucide="wind" style="width:12px; height:12px;"></i> Biofeedback</span>
                             <div class="card-heading-title">Stress Index</div>
                             <div class="card-big-number"><span id="live-stress-card">22</span> <span style="font-size:1rem; color:var(--text-secondary); font-weight:400;">/100</span></div>
-                            <p class="card-body-text" id="stress-card-text">Low stress state with balanced autonomic patterns.</p>
+                            <p class="card-body-text" id="stress-card-text">Stress is low and your body feels calm and steady.</p>
                         </div>
                         <div class="wave-bottom-tile" aria-hidden="true">
                             <svg viewBox="0 0 200 48" style="width:100%; height:100%;" role="img" aria-label="Stress biofeedback breathing waveform animation">
@@ -5536,6 +5658,12 @@
                                 <circle cx="190" cy="125" r="78.75" fill="rgba(0, 242, 254, 0.04)" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1.5"/>
                                 <circle cx="190" cy="125" r="52.5" fill="rgba(0, 242, 254, 0.05)" stroke="rgba(0, 242, 254, 0.25)" stroke-width="1.5"/>
                                 <circle cx="190" cy="125" r="26.25" fill="rgba(0, 242, 254, 0.08)" stroke="rgba(0, 242, 254, 0.3)" stroke-width="1.5"/>
+
+                                <!-- Ring Scale Labels -->
+                                <text x="195" y="23" fill="rgba(0,242,254,0.55)" font-size="8" font-weight="700">100%</text>
+                                <text x="195" y="49" fill="rgba(0,242,254,0.55)" font-size="8" font-weight="700">75%</text>
+                                <text x="195" y="75" fill="rgba(0,242,254,0.55)" font-size="8" font-weight="700">50%</text>
+                                <text x="195" y="101" fill="rgba(0,242,254,0.55)" font-size="8" font-weight="700">25%</text>
                                 
                                 <!-- Radar Polygon Grids -->
                                 <polygon points="190,20 290,95 252,210 128,210 90,95" fill="none" stroke="rgba(0, 242, 254, 0.15)" stroke-width="1.5"/>
@@ -5553,11 +5681,11 @@
                                 <polygon id="radar-active-polygon" points="190,28 282,100 244,200 138,200 98,100" fill="rgba(0, 242, 254, 0.22)" stroke="#00f2fe" stroke-width="3" filter="drop-shadow(0 0 10px rgba(0,242,254,0.6))"/>
                                 
                                 <!-- Vertex Glowing Dots -->
-                                <circle id="radar-dot-1" cx="190" cy="28" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"/>
-                                <circle id="radar-dot-2" cx="282" cy="100" r="4.5" fill="#10b981" filter="drop-shadow(0 0 6px #10b981)"/>
-                                <circle id="radar-dot-3" cx="244" cy="200" r="4.5" fill="#a855f7" filter="drop-shadow(0 0 6px #a855f7)"/>
-                                <circle id="radar-dot-4" cx="138" cy="200" r="4.5" fill="#f43f5e" filter="drop-shadow(0 0 6px #f43f5e)"/>
-                                <circle id="radar-dot-5" cx="98" cy="100" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"/>
+                                <circle id="radar-dot-1" cx="190" cy="28" class="radar-vertex" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"><title id="radar-tip-1">Recovery 92%</title></circle>
+                                <circle id="radar-dot-2" cx="282" cy="100" class="radar-vertex" r="4.5" fill="#10b981" filter="drop-shadow(0 0 6px #10b981)"><title id="radar-tip-2">HRV 84%</title></circle>
+                                <circle id="radar-dot-3" cx="244" cy="200" class="radar-vertex" r="4.5" fill="#a855f7" filter="drop-shadow(0 0 6px #a855f7)"><title id="radar-tip-3">Sleep 88%</title></circle>
+                                <circle id="radar-dot-4" cx="138" cy="200" class="radar-vertex" r="4.5" fill="#f43f5e" filter="drop-shadow(0 0 6px #f43f5e)"><title id="radar-tip-4">Activity 76%</title></circle>
+                                <circle id="radar-dot-5" cx="98" cy="100" class="radar-vertex" r="4.5" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)"><title id="radar-tip-5">Stress 85%</title></circle>
                                 
                                 <!-- Axis Labels (Adjusted inwards to prevent mobile boundary clipping) -->
                                 <text id="radar-txt-rec" x="190" y="12" fill="#00f2fe" font-size="11" font-weight="800" text-anchor="middle">Recovery (92%)</text>
@@ -5594,30 +5722,38 @@
                                 <!-- Realistic 24H Clock Wheel -->
                                 <div style="width:130px; height:130px; flex-shrink:0; position:relative; display:flex; align-items:center; justify-content:center; margin:0 auto;">
                                     <svg viewBox="0 0 100 100" style="width:100%; height:100%; transform:rotate(-90deg);" role="img" aria-label="24-hour circadian energy clock showing peak focus periods">
-                                        <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.06)" stroke-width="12" fill="none"/>
-                                        <circle cx="50" cy="50" r="42" stroke="#a855f7" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="180" stroke-linecap="round"/>
-                                        <circle cx="50" cy="50" r="42" stroke="#00f2fe" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="100" stroke-linecap="round"/>
-                                        <circle cx="50" cy="50" r="42" stroke="#10b981" stroke-width="12" fill="none" stroke-dasharray="263.8" stroke-dashoffset="35" stroke-linecap="round"/>
+                                        <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.06)" stroke-width="7" fill="none"/>
+                                        <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.22)" stroke-width="7" fill="none" stroke-dasharray="1 9.995"/>
+                                        <circle cx="50" cy="50" r="42" stroke="#a855f7" stroke-width="7" fill="none" stroke-dasharray="263.9" stroke-dashoffset="180" stroke-linecap="round"/>
+                                        <circle cx="50" cy="50" r="33" stroke="rgba(255,255,255,0.06)" stroke-width="7" fill="none"/>
+                                        <circle cx="50" cy="50" r="33" stroke="#00f2fe" stroke-width="7" fill="none" stroke-dasharray="207.3" stroke-dashoffset="79" stroke-linecap="round"/>
+                                        <circle cx="50" cy="50" r="24" stroke="rgba(255,255,255,0.06)" stroke-width="7" fill="none"/>
+                                        <circle cx="50" cy="50" r="24" stroke="#10b981" stroke-width="7" fill="none" stroke-dasharray="150.8" stroke-dashoffset="20" stroke-linecap="round"/>
                                     </svg>
                                     <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
                                         <div style="font-size:1.15rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk';" id="clock-center-time">10:30</div>
                                         <div style="font-size:0.58rem; color:var(--accent-neon); font-weight:800; letter-spacing:0.5px;" id="clock-center-lbl">PEAK FOCUS</div>
                                     </div>
                                 </div>
+                                <div style="display:flex; justify-content:center; gap:12px; margin-top:6px; font-size:0.66rem; font-weight:700; color:var(--text-secondary);">
+                                    <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; border-radius:50%; background:#00f2fe; display:inline-block;"></span> Focus</span>
+                                    <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; border-radius:50%; background:#10b981; display:inline-block;"></span> Active</span>
+                                    <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; border-radius:50%; background:#a855f7; display:inline-block;"></span> Rest</span>
+                                </div>
 
                                 <!-- Centered Biorhythm 3 Prediction Boxes -->
                                 <div style="flex:1; display:flex; flex-direction:column; gap:8px; width:100%;">
                                     <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.25); border-left:3px solid var(--accent-cyan); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
-                                        <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="zap" style="width:13px; height:13px; color:var(--accent-cyan);"></i> Cognitive Energy Peak</div>
-                                        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-1">10:30 AM – 1:00 PM (Heavy cognition)</div>
+                                        <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="zap" style="width:13px; height:13px; color:var(--accent-cyan);"></i> Best focus time</div>
+                                        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-1">10:30 AM – 1:00 PM (best time for hard thinking)</div>
                                     </div>
                                     <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--accent-neon); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
                                         <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="activity" style="width:13px; height:13px; color:var(--accent-neon);"></i> Physical Strain Window</div>
-                                        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-2">4:30 PM – 6:45 PM (Optimal muscle temp)</div>
+                                        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-2">4:30 PM – 6:45 PM (best time to move and exercise)</div>
                                     </div>
                                     <div style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-left:3px solid var(--accent-purple); padding:8px 12px; border-radius:12px; width:100%; box-sizing:border-box;">
                                         <div style="font-size:0.8rem; font-weight:800; color:var(--text-heading); display:flex; align-items:center; gap:6px;"><i data-lucide="moon" style="width:13px; height:13px; color:var(--accent-purple);"></i> Sleep & Caffeine Cutoff</div>
-                                        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-3">2:30 PM Cutoff • Dim screens by 10 PM</div>
+                                        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px; font-weight:500;" id="pred-box-3">No caffeine after 2:30 PM • Dim screens by 10 PM</div>
                                     </div>
                                 </div>
                             </div>
@@ -5632,10 +5768,10 @@
                     <div style="flex:1; min-width:280px;">
                         <div class="badge-pill" style="margin-bottom:12px;"><div class="dot-glow"></div> <i data-lucide="sparkles" style="width:14px; height:14px;"></i> BYTECODE AI INSIGHT ENGINE</div>
                         <h2 style="font-size:1.4rem; font-weight:700; font-family:'Inter'; margin-bottom:8px; color:var(--text-heading);" id="ai-insight-title">
-                            Optimal recovery reached — HRV up 12%
+                            Well rested — heart score up 12%
                         </h2>
                         <p style="color:var(--text-secondary); font-size:0.95rem; max-width:700px; font-weight:400; margin-bottom:18px;" id="ai-insight-desc">
-                            Your sleep score was 88% last night via Samsung Galaxy Watch. BYTECODE AI predicts peak energy between 10:30 AM and 1:00 PM. Recommended action: 30-minute moderate cardio session and one mindful cool-down block.
+                            You slept well last night, score 88%. Your best energy is 10:30 AM to 1:00 PM. Try: 30 minutes of light cardio and one short rest.
                         </p>
                         <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan);" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Open AI Guidance Console</span></button>
                     </div>
@@ -5734,6 +5870,52 @@
             </section>
 
             <!-- USABILITY TASKS & REAL-TIME DATA GATHERING SECTION -->
+            <!-- AI ASSISTANT CONSOLE SECTION -->
+            <section id="assistant" class="two-col-section">
+                <div class="big-feature-panel" style="display:flex; flex-direction:column; gap:14px; padding:18px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="badge-pill" style="margin:0;"><div class="dot-glow"></div> <i data-lucide="bot" style="width:14px; height:14px;"></i> AI ASSISTANT ENGINE</div>
+                        <span style="font-size:0.65rem; color:var(--text-muted); font-weight:600;">v2.1</span>
+                    </div>
+                    <h2 class="panel-heading" style="margin:0; font-size:1.1rem; line-height:1.3;">Guidance that feels useful, not noisy.</h2>
+                    <p style="color:var(--text-secondary); line-height:1.55; font-size:0.82rem; font-weight:400; margin:0;">
+                        BYTECODE AI tells you what changed, why it matters, and what to try next. It uses your heart, sleep, and move data to give clear tips without too many numbers. You control your privacy.
+                    </p>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <div style="display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--accent-neon); background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); border-radius:8px; padding:4px 10px; font-weight:600;"><i data-lucide="sparkles" style="width:12px; height:12px;"></i> Auto-Insights</div>
+                        <div style="display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--accent-cyan); background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.15); border-radius:8px; padding:4px 10px; font-weight:600;"><i data-lucide="shield-check" style="width:12px; height:12px;"></i> Privacy First</div>
+                        <div style="display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--accent-purple); background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.15); border-radius:8px; padding:4px 10px; font-weight:600;"><i data-lucide="zap" style="width:12px; height:12px;"></i> Real-time</div>
+                    </div>
+                    <div style="display:flex; gap:8px; align-items:center; margin-top:2px;">
+                        <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan); font-size:0.78rem; padding:8px 14px;" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Open Chat</span></button>
+                        <span style="font-size:0.65rem; color:var(--text-muted);">Powered by BYTECODE AI</span>
+                    </div>
+                </div>
+
+                <div class="cmd-box">
+                    <div class="cmd-top-header">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div class="dot-glow"></div>
+                            <i data-lucide="terminal" style="color:var(--accent-cyan);"></i>
+                            <span class="cmd-title-text">BYTECODE COMMAND CONSOLE</span>
+                        </div>
+                        <div class="cmd-status-tag">STATUS: ONLINE</div>
+                    </div>
+
+                    <div class="msg msg-ai" style="margin-bottom:16px; max-width:100%; border-color:rgba(0,242,254,0.35);" id="cmd-ai-bubble">
+                        Connected to <b>Samsung Galaxy Watch 6</b>. Your HRV is currently <b>68ms</b> (+12% lift), sleep quality reached <b>88/100</b>, and stress remains low (22/100).
+                    </div>
+
+                    <div class="msg msg-user" style="align-self:flex-end; max-width:85%; margin-left:auto;">
+                        What workout should I do today?
+                    </div>
+
+                    <div style="display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;">
+                        <button class="cmd-action-btn" onclick="sendQuickPrompt('Generate Workout Plan')"><i data-lucide="play" style="width:14px; height:14px;"></i> <span>Run AI Diagnostic</span></button>
+                    </div>
+                </div>
+            </section>
+
             <section id="usability-logger" class="tasks-flow-section">
                 <!-- GEN Z DAILY VITALITY STREAK & ACHIEVEMENT BADGES BAR -->
                 <div class="vitality-badges-grid">
@@ -5779,7 +5961,7 @@
                 </div>
 
                 <!-- STEP 1: MANDATORY PARTICIPANT DEMOGRAPHICS & WEARABLE BACKGROUND REGISTRATION FORM -->
-                <div id="demographics-reg-box" style="background:rgba(11,18,30,0.9); border:1px solid rgba(0,242,254,0.15); border-radius:14px; padding:20px 22px; margin-bottom:20px;">
+                <div id="demographics-reg-box" style="display:none; background:rgba(11,18,30,0.9); border:1px solid rgba(0,242,254,0.15); border-radius:14px; padding:20px 22px; margin-bottom:20px;">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:12px; padding-bottom:14px; border-bottom:1px solid rgba(0,242,254,0.15);">
                         <div style="font-size:1.1rem; font-weight:800; color:var(--text-heading); font-family:'Inter'; display:flex; align-items:center; gap:10px;">
                             <div style="width:32px; height:32px; border-radius:10px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.4); display:flex; align-items:center; justify-content:center; color:var(--accent-cyan);">
@@ -5857,23 +6039,23 @@
                             </div>
 
                             <p style="margin-bottom:14px; text-align:justify; text-indent:2em;">
-                                This research investigation aims to evaluate the usability, ergonomics, predictive explainability (XAI), and interface design efficacy of a web-based artificial intelligence health telemetry dashboard tailored to the behavioral preferences and physiological habits of the Generation Z cohort (ages 12 to 27).
+                                This study tests how easy, comfy, and clear our web health dashboard is for Gen Z (ages 12 to 27).
                             </p>
 
                             <p style="margin-bottom:14px; text-align:justify; text-indent:2em;">
-                                In connection with this, we are conducting a structured usability evaluation protocol and standardized survey utilizing the <strong>System Usability Scale (SUS)</strong> and qualitative biofeedback measures. Your candid feedback, objective ratings, and experiential insights as a Gen Z participant will be of paramount significance in determining the success and practical validity of this study.
+                                In connection with this, we are conducting a structured usability evaluation protocol and standardized survey utilizing the <strong>System Usability Scale (SUS)</strong> and qualitative biofeedback measures. Your honest answers as a Gen Z student will help decide if this study works.
                             </p>
 
                             <!-- PRIVACY NOTICE BOX -->
                             <div style="background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:10px; padding:12px 16px; margin:16px 0; display:flex; align-items:flex-start; gap:10px;">
                                 <i data-lucide="shield-check" style="width:16px; height:16px; color:var(--accent-neon); flex-shrink:0; margin-top:2px;"></i>
                                 <p style="margin:0; font-size:0.8rem; text-align:justify; line-height:1.6; color:rgba(225,235,245,0.85);">
-                                    Please be assured that all information, demographic data, and responses provided in this evaluation will be handled with utmost confidentiality and strict compliance with the provisions of <strong>Republic Act No. 10173 (Philippine Data Privacy Act of 2012)</strong>. Your participation is entirely voluntary, and your responses will be used solely for academic research and interface optimization.
+                                    Your info and answers will stay private and follow the rules of <strong>Republic Act No. 10173 (Philippine Data Privacy Act of 2012)</strong>. Your participation is entirely voluntary, and your responses will be used solely for academic research and interface optimization.
                                 </p>
                             </div>
 
                             <p style="margin-bottom:14px; text-align:justify; text-indent:2em;">
-                                Thank you very much for your valuable time, cooperation, and meaningful contribution to this scholarly pursuit.
+                                Thank you for your time and help with our school study.
                             </p>
 
                             <!-- CLOSING -->
@@ -6219,74 +6401,30 @@
 
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:16px; border-top:1px solid rgba(0,242,254,0.15); flex-wrap:wrap; gap:12px;">
                         <div style="font-size:0.78rem; color:var(--text-secondary); display:flex; align-items:center; gap:8px;">
-                            <i data-lucide="shield-check" style="width:16px; height:16px; color:var(--accent-neon);"></i> <span>Registration & R.A. 10173 consent unlock the 5 usability protocol tasks & 10-Item SUS Scale survey.</span>
+                            <i data-lucide="shield-check" style="width:16px; height:16px; color:var(--accent-neon);"></i> <span>Registration & R.A. 10173 consent unlock the Survey Portal (5 protocol tasks & 10-item SUS questionnaire).</span>
                         </div>
                         <button class="btn-ai-action" style="padding:12px 28px; font-size:0.88rem; border-radius:12px; cursor:pointer; letter-spacing:0.3px;" onclick="registerParticipantAndUnlockTasks()" id="btn-reg-unlock">
-                            <i data-lucide="lock" id="btn-lock-icon"></i> <span id="btn-lock-text">Register Participant & Unlock Usability Tasks</span>
+                            <i data-lucide="lock" id="btn-lock-icon"></i> <span id="btn-lock-text">Register Participant & Unlock Survey</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- STEP 2: USABILITY TASK PROTOCOL CARDS (LOCKED UNTIL STEP 1 IS COMPLETED) -->
-                <div class="step2-header-row" style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
-                    <div class="step2-header-title" style="font-size:0.95rem; font-weight:700; font-family:'Inter'; display:flex; align-items:center; gap:8px;">
-                        <i data-lucide="clipboard-list" style="color:var(--accent-cyan);"></i>
-                        <span>Step 2: Usability Protocol Tasks (5 Protocol Items)</span>
+                <!-- USABILITY TASKS & SURVEY — moved to the dedicated Survey Portal page -->
+                <div class="step2-header-row" style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px; background:rgba(11,18,30,0.9); border:1px solid rgba(0,242,254,0.15); border-radius:14px; padding:16px 20px;">
+                    <div class="step2-header-content" style="display:flex; align-items:center; gap:12px;">
+                        <div class="step2-header-icon" style="width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg, #00f2fe 0%, #10b981 100%); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <i data-lucide="clipboard-list" style="width:19px; height:19px; color:#04121a;"></i>
+                        </div>
+                        <div class="step2-header-copy">
+                            <div class="step2-header-title" style="font-size:0.95rem; font-weight:800; color:var(--text-heading); font-family:'Inter';">Survey Portal</div>
+                            <div class="step2-header-desc" style="font-size:0.76rem; color:var(--text-secondary); margin-top:2px;">Registration, 5 protocol tasks & the 10-item questionnaire now live on a dedicated page.</div>
+                        </div>
                     </div>
-                    <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:600; display:flex; align-items:center; gap:6px;" id="tasks-lock-status-badge">
-                        <i data-lucide="lock" style="width:14px; height:14px;"></i> <span>Status: Locked (Complete Registration Above)</span>
-                    </div>
+                    <button class="step2-header-action btn-ai-action" style="padding:10px 22px; font-size:0.85rem; border-radius:10px;" onclick="window.location.href='survey.html'"><i data-lucide="arrow-right"></i> <span>Open Survey Portal</span></button>
                 </div>
 
-                <div class="tasks-5grid">
-                    <div class="task-step-card locked" id="task-card-1">
-                        <div>
-                            <div class="step-num-bubble">1</div>
-                            <div class="step-title"><i data-lucide="activity" style="width:16px; height:16px; color:var(--accent-cyan);"></i> View metrics</div>
-                            <p class="step-desc">Review HRV, sleep, activity, and stress cards.</p>
-                        </div>
-                        <button class="task-action-btn locked-btn" onclick="completeStudyTask(1, 'View metrics')" aria-label="Task 1: View metrics, currently locked until registration is complete"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
-                    </div>
-
-                    <div class="task-step-card locked" id="task-card-2">
-                        <div>
-                            <div class="step-num-bubble">2</div>
-                            <div class="step-title"><i data-lucide="help-circle" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Read tooltips</div>
-                            <p class="step-desc">Understand sensor definitions and AI confidence.</p>
-                        </div>
-                        <button class="task-action-btn locked-btn" onclick="completeStudyTask(2, 'Read tooltips')" aria-label="Task 2: Read tooltips, currently locked until registration is complete"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
-                    </div>
-
-                    <div class="task-step-card locked" id="task-card-3">
-                        <div>
-                            <div class="step-num-bubble">3</div>
-                            <div class="step-title"><i data-lucide="sun-medium" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Toggle theme</div>
-                            <p class="step-desc">Check legibility across light and dark preferences.</p>
-                        </div>
-                        <button class="task-action-btn locked-btn" onclick="completeStudyTask(3, 'Toggle theme')" aria-label="Task 3: Toggle theme, currently locked until registration is complete"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
-                    </div>
-
-                    <div class="task-step-card locked" id="task-card-4">
-                        <div>
-                            <div class="step-num-bubble">4</div>
-                            <div class="step-title"><i data-lucide="shield-check" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Set privacy</div>
-                            <p class="step-desc">Adjust consent, explanations, and data sharing.</p>
-                        </div>
-                        <button class="task-action-btn locked-btn" onclick="completeStudyTask(4, 'Set privacy')" aria-label="Task 4: Set privacy, currently locked until registration is complete"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
-                    </div>
-
-                    <div class="task-step-card locked" id="task-card-5">
-                        <div>
-                            <div class="step-num-bubble">5</div>
-                            <div class="step-title"><i data-lucide="bot" style="width:16px; height:16px; color:var(--accent-cyan);"></i> Ask assistant</div>
-                            <p class="step-desc">Request a plain-language recommendation.</p>
-                        </div>
-                        <button class="task-action-btn locked-btn" onclick="completeStudyTask(5, 'Ask assistant')" aria-label="Task 5: Ask assistant, currently locked until registration is complete"><i data-lucide="lock" class="task-btn-icon"></i> <span class="task-btn-text">Complete Reg First</span></button>
-                    </div>
-                </div>
-
-                <!-- RESEARCH DATA GATHERING CONTROL PANEL -->
-                <div class="researcher-data-panel">
+                <!-- RESEARCH DATA GATHERING CONTROL PANEL (hidden — data gathering moved to the Survey Portal page) -->
+                <div class="researcher-data-panel" style="display:none;">
                     <div class="researcher-top-row">
                         <div>
                             <div style="font-size:1rem; font-weight:800; color:var(--text-heading); font-family:'Inter'; display:flex; align-items:center; gap:7px;">
@@ -6326,63 +6464,19 @@
                         <div class="res-stat-card locked" id="data-sus-card" onclick="toggleSUSModal()" style="cursor:pointer;" title="Click to view 10-Item SUS Scale Survey">
                             <div class="res-stat-num" id="data-sus-score">Pending (0/10)</div>
                             <div class="res-stat-lbl"><i data-lucide="file-text" style="width:14px; height:14px;"></i> Calculated SUS Score</div>
-                            <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px;" id="data-sus-grade"><i data-lucide="lock" style="width:12px; height:12px;"></i> <span>Register to Take SUS Survey</span></div>
+                            <div style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px;" id="data-sus-grade"><i data-lucide="lock" style="width:12px; height:12px;"></i> <span>Take the Survey in the Survey Portal</span></div>
                             <div style="font-size:0.7rem; color:var(--text-secondary); font-weight:600; margin-top:2px; display:none;" id="data-sus-weighted-mean">Unanswered (0/10 Rating Inputs)</div>
                         </div>
                     </div>
 
                     <div class="researcher-actions">
-                        <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan); padding:7px 14px; font-size:0.76rem; border-radius:8px;" onclick="toggleSUSModal()"><i data-lucide="file-text" style="width:13px; height:13px;"></i> <span>Take SUS Survey</span></button>
+                        <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan); padding:7px 14px; font-size:0.76rem; border-radius:8px;" onclick="toggleSUSModal()"><i data-lucide="file-text" style="width:13px; height:13px;"></i> <span>Take the Survey</span></button>
                         <button class="btn-secondary" id="btn-reset-session" style="border-color:rgba(239,68,68,0.4); color:#ef4444; padding:7px 14px; font-size:0.76rem; border-radius:8px;" title="Reset study session (preserves your profile & Google sign-in). Shift+Click to clear everything including profile."><i data-lucide="rotate-ccw" style="width:13px; height:13px;"></i> <span>Reset Session</span></button>
                     </div>
                 </div>
             </section>
 
-            <!-- AI ASSISTANT CONSOLE SECTION -->
-            <section id="assistant" class="two-col-section">
-                <div class="big-feature-panel" style="display:flex; flex-direction:column; gap:14px; padding:18px;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <div class="badge-pill" style="margin:0;"><div class="dot-glow"></div> <i data-lucide="bot" style="width:14px; height:14px;"></i> AI ASSISTANT ENGINE</div>
-                        <span style="font-size:0.65rem; color:var(--text-muted); font-weight:600;">v2.1</span>
-                    </div>
-                    <h2 class="panel-heading" style="margin:0; font-size:1.1rem; line-height:1.3;">Guidance that feels useful, not noisy.</h2>
-                    <p style="color:var(--text-secondary); line-height:1.55; font-size:0.82rem; font-weight:400; margin:0;">
-                        BYTECODE AI summarizes what changed, why it matters, and what the participant should try next — with confidence and clear privacy controls. It learns from wearable telemetry patterns across HRV recovery, sleep architecture, and movement data to surface actionable guidance without overwhelming the user with raw numbers.
-                    </p>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                        <div style="display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--accent-neon); background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); border-radius:8px; padding:4px 10px; font-weight:600;"><i data-lucide="sparkles" style="width:12px; height:12px;"></i> Auto-Insights</div>
-                        <div style="display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--accent-cyan); background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.15); border-radius:8px; padding:4px 10px; font-weight:600;"><i data-lucide="shield-check" style="width:12px; height:12px;"></i> Privacy First</div>
-                        <div style="display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--accent-purple); background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.15); border-radius:8px; padding:4px 10px; font-weight:600;"><i data-lucide="zap" style="width:12px; height:12px;"></i> Real-time</div>
-                    </div>
-                    <div style="display:flex; gap:8px; align-items:center; margin-top:2px;">
-                        <button class="btn-secondary" style="border-color:var(--accent-cyan); color:var(--accent-cyan); font-size:0.78rem; padding:8px 14px;" onclick="openAIGuidanceConsole()"><i data-lucide="bot"></i> <span>Open Chat</span></button>
-                        <span style="font-size:0.65rem; color:var(--text-muted);">Powered by BYTECODE AI</span>
-                    </div>
-                </div>
-
-                <div class="cmd-box">
-                    <div class="cmd-top-header">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <div class="dot-glow"></div>
-                            <i data-lucide="terminal" style="color:var(--accent-cyan);"></i>
-                            <span class="cmd-title-text">BYTECODE COMMAND CONSOLE</span>
-                        </div>
-                        <div class="cmd-status-tag">STATUS: ONLINE</div>
-                    </div>
-
-                    <div class="msg msg-ai" style="margin-bottom:16px; max-width:100%; border-color:rgba(0,242,254,0.35);" id="cmd-ai-bubble">
-                        Connected to <b>Samsung Galaxy Watch 6</b>. Your HRV is currently <b>68ms</b> (+12% lift), sleep quality reached <b>88/100</b>, and stress remains low (22/100).
-                    </div>
-
-                    <div class="msg msg-user" style="align-self:flex-end; max-width:85%; margin-left:auto;">
-                        What workout should I do today?
-                    </div>
-
-                    <div style="display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;">
-                        <button class="cmd-action-btn" onclick="sendQuickPrompt('Generate Workout Plan')"><i data-lucide="play" style="width:14px; height:14px;"></i> <span>Run AI Diagnostic</span></button>
-                    </div>
-                </div>
-            </section>
+            
 
         </div>
 
@@ -6390,10 +6484,7 @@
         <footer class="footer-section">
             <div class="footer-container">
                 <div class="footer-brand">
-                    <div class="logo-icon-wrap">
-                        <div class="binary-digits">0100<br>0010</div>
-                        <div class="logo-b">B</div>
-                    </div>
+                    <img src="favicon.svg" class="logo-svg" alt="BYTECODE AI Health logo">
                     <div class="logo-text">
                         <span class="logo-brand">BYTECODE <span class="logo-brand-sub-text">AI Health</span></span>
                         <span class="logo-sub">GEN Z AI WEARABLE RESEARCH PLATFORM</span>
@@ -6405,8 +6496,8 @@
                     <a href="#metrics" role="listitem">Metrics</a>
                     <a href="#insights" role="listitem">Insights</a>
                     <a href="#privacy" role="listitem">Privacy</a>
-                    <a href="#usability-logger" role="listitem">Tasks Log</a>
                     <a href="#assistant" role="listitem">Assistant</a>
+                    <a href="#usability-logger" role="listitem">Survey Portal</a>
                 </div>
             </div>
         </footer>
@@ -6436,7 +6527,7 @@
                                 <span class="notif-item-title">HRV Peak & Recovery Signal</span>
                                 <span class="notif-time" id="notif-time-1">11:28 AM PHT</span>
                             </div>
-                            <p class="notif-text">Heart Rate Variability increased +12% after 8h 12m sleep. Peak athletic and cognitive output window predicted.</p>
+                            <p class="notif-text">Heart score up 12% after 8h 12m sleep. Best time for sport and focus is coming.</p>
                         </div>
                     </div>
 
@@ -6462,7 +6553,7 @@
                                 <span class="notif-item-title">Research Protocol Status</span>
                                 <span class="notif-time" id="notif-time-3">11:00 AM PHT</span>
                             </div>
-                            <p class="notif-text">Participant ID registered. System Usability Scale (SUS) survey unlocked for evaluation.</p>
+                            <p class="notif-text">Your ID is saved. The SUS survey is now open.</p>
                         </div>
                     </div>
                 </div>
@@ -6545,7 +6636,7 @@
                             <span class="binary-tag" style="color:var(--accent-cyan); font-weight:700; font-size:0.68rem;">[QUALITATIVE STREAM]</span>
                         </div>
                         <p style="font-size:0.78rem; color:var(--text-secondary); margin-bottom:14px; line-height:1.4;">
-                            Share your subjective diagnostic feedback to formulate evidence-based HCI design guidelines for Gen Z health dashboards.
+                            Share your thoughts to help us make better health dashboards for Gen Z.
                         </p>
 
                         <div class="qualitative-inputs-grid" style="display:flex; flex-direction:column; gap:12px;">
@@ -6605,6 +6696,86 @@
                         <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Likert Weighted Mean (X̄)</div>
                         <div style="font-size:1.02rem; font-weight:800; color:var(--text-heading); margin-top:4px;" id="modal-sus-weighted-mean">Unanswered (0/10)</div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- THANK YOU LETTER MODAL — shown after successful SUS survey submission -->
+            <style>
+                .thankyou-modal-overlay {
+                    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                    background: rgba(4, 7, 13, 0.92); backdrop-filter: blur(18px);
+                    z-index: 28000; display: flex; align-items: center; justify-content: center;
+                    opacity: 0; pointer-events: none; visibility: hidden;
+                    transition: opacity 0.25s ease, visibility 0.25s ease; padding: 16px;
+                }
+                .thankyou-modal-overlay.active { opacity: 1; pointer-events: auto; visibility: visible; }
+                .thankyou-modal-card {
+                    background: #080e18; border: 1px solid rgba(0, 242, 254, 0.25);
+                    border-radius: 16px; width: 580px; max-width: 95vw; max-height: 92vh;
+                    overflow-y: auto; padding: 28px 26px 24px; text-align: center; position: relative;
+                    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 242, 254, 0.12);
+                    transform: scale(0.96); transition: transform 0.2s ease;
+                }
+                .thankyou-modal-card::before {
+                    content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 3px;
+                    background: linear-gradient(90deg, #a855f7, #00f2fe, #00ff88); border-radius: 0 0 4px 4px;
+                }
+                .thankyou-modal-overlay.active .thankyou-modal-card { transform: scale(1); }
+                .thankyou-check-circle {
+                    width: 68px; height: 68px; margin: 0 auto 14px; border-radius: 50%;
+                    background: linear-gradient(135deg, #00f2fe 0%, #10b981 100%);
+                    display: flex; align-items: center; justify-content: center;
+                    box-shadow: 0 0 30px rgba(0, 242, 254, 0.45);
+                }
+                .thankyou-pill {
+                    display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 800;
+                    letter-spacing: 0.08em; color: var(--accent-neon); background: rgba(0, 255, 136, 0.1);
+                    border: 1px solid rgba(0, 255, 136, 0.3); padding: 4px 12px; border-radius: 20px; margin-bottom: 10px;
+                }
+                .thankyou-score-row { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+                .thankyou-score-box {
+                    flex: 1; min-width: 140px; background: rgba(16, 26, 42, 0.85);
+                    border: 1px solid rgba(0, 242, 254, 0.15); border-radius: 10px; padding: 10px 8px;
+                }
+                .thankyou-btn-row { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+                [data-theme="light"] .thankyou-modal-card { background: #ffffff !important; border-color: #e2e8f0 !important; box-shadow: 0 16px 50px rgba(15,23,42,0.12) !important; }
+                [data-theme="light"] .thankyou-score-box { background: #f8fafc !important; border-color: #e2e8f0 !important; }
+                @media (max-width: 520px) { .thankyou-modal-card { padding: 22px 16px 18px; } }
+            </style>
+            <div class="thankyou-modal-overlay" id="thankyou-modal-overlay" role="dialog" aria-modal="true" aria-label="Thank You Letter" onclick="if(event.target===this)closeThankYouModal()">
+            <div class="thankyou-modal-card">
+                <div class="thankyou-check-circle"><i data-lucide="check" style="width:32px; height:32px; color:#04121a;"></i></div>
+                <div class="thankyou-pill"><i data-lucide="party-popper" style="width:13px; height:13px;"></i> SURVEY COMPLETED</div>
+                <h2 style="font-size:1.45rem; font-weight:800; color:var(--text-heading); font-family:'Space Grotesk',sans-serif; margin:0 0 4px;">Thank You, <span id="thankyou-participant-name" style="background:linear-gradient(135deg,#a855f7,#00f2fe,#00ff88); -webkit-background-clip:text; background-clip:text; color:transparent;">Participant</span>!</h2>
+                <div style="font-size:0.8rem; color:var(--text-secondary);">Your responses have been recorded successfully.</div>
+                <div class="thankyou-score-row">
+                    <div class="thankyou-score-box">
+                        <div style="font-size:0.68rem; color:var(--text-secondary); font-weight:700;">SUS SCORE</div>
+                        <div id="thankyou-sus-score" style="font-size:1.2rem; font-weight:800; color:var(--accent-cyan); font-family:'Space Grotesk';">-- / 100</div>
+                    </div>
+                    <div class="thankyou-score-box">
+                        <div style="font-size:0.68rem; color:var(--text-secondary); font-weight:700;">GRADE</div>
+                        <div id="thankyou-sus-grade" style="font-size:0.78rem; font-weight:800; color:var(--accent-neon);">--</div>
+                    </div>
+                    <div class="thankyou-score-box">
+                        <div style="font-size:0.68rem; color:var(--text-secondary); font-weight:700;">SESSION ID</div>
+                        <div id="thankyou-session-id" style="font-size:0.85rem; font-weight:800; color:var(--text-heading); font-family:'Fira Code',monospace;">--</div>
+                    </div>
+                </div>
+                <div style="text-align:left; background:rgba(16,26,42,0.6); border:1px solid rgba(0,242,254,0.12); border-radius:12px; padding:16px 18px; font-size:0.83rem; line-height:1.65; color:var(--text-secondary);">
+                    <p style="margin:0 0 10px; color:var(--text-heading); font-weight:700;">Dear Valued Participant,</p>
+                    <p style="margin:0 0 10px;">On behalf of the <strong style="color:var(--text-heading);">BYTECODE Research Team of Arellano University – Jose Abad Santos Campus</strong>, we sincerely thank you for completing all <strong style="color:var(--text-heading);">5 usability tasks</strong> and the <strong style="color:var(--text-heading);">10-item System Usability Scale (SUS) survey</strong> for our study titled <em>"Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z."</em></p>
+                    <p style="margin:0 0 10px;">Your honest feedback will help us make better health dashboards for Gen Z. Your data will be anonymized and handled strictly in accordance with the <strong style="color:var(--text-heading);">Data Privacy Act of 2012 (R.A. 10173)</strong>.</p>
+                    <p style="margin:0;">We are truly grateful for the time and effort you shared with us. <strong style="color:var(--accent-neon);">Maraming salamat po!</strong></p>
+                    <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(0,242,254,0.12); font-size:0.76rem;">
+                        <div style="font-weight:800; color:var(--text-heading);">Respectfully yours,</div>
+                        <div style="margin-top:4px;">Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue,<br>Jhon Rhed O. Omnes &amp; Prof. Erlito M. Albina<br><span style="color:var(--accent-cyan);">BYTECODE Research Team · Arellano University</span></div>
+                    </div>
+                </div>
+                <div class="thankyou-btn-row">
+                    <button class="btn-ai-action" style="padding:9px 18px; font-size:0.82rem; border-radius:10px;" onclick="closeThankYouModal(); toggleCohortModal();"><i data-lucide="trending-up"></i> <span>View Chapter 4 Results</span></button>
+                    <button class="btn-secondary" style="padding:9px 18px; font-size:0.82rem; border-radius:10px;" onclick="closeThankYouModal()"><i data-lucide="home"></i> <span>Back to Dashboard</span></button>
                 </div>
             </div>
         </div>
@@ -6887,7 +7058,7 @@
             }
 
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeMobileDrawer();
+                if (e.key === 'Escape') { closeMobileDrawer(); if (typeof closeThankYouModal === 'function') closeThankYouModal(); }
             });
 
             function toggleChatWindow() {
@@ -6906,26 +7077,8 @@
             }
 
             function toggleSUSModal() {
-                if (!isDemographicsRegistered) {
-                    const name = document.getElementById('reg-name').value.trim();
-                    const age = document.getElementById('reg-age').value;
-                    const address = document.getElementById('reg-address').value.trim();
-                    const email = document.getElementById('reg-email').value.trim();
-
-                    if (name && age && address && email) {
-                        registerParticipantAndUnlockTasks();
-                    } else {
-                        showToast('Please complete Participant Demographic Registration first to access SUS survey!');
-                        const regSection = document.getElementById('demographics-reg-box');
-                        if (regSection) regSection.scrollIntoView({ behavior: 'smooth' });
-                        document.getElementById('reg-name').focus();
-                        return;
-                    }
-                }
-
-                const modal = document.getElementById('sus-modal-overlay');
-                modal.classList.toggle('active');
-                refreshLucideIcons();
+                /* SUS survey now lives on the dedicated Survey Portal page — redirect there. */
+                window.location.href = 'survey.html';
             }
 
             function toggleCohortModal() {
@@ -7173,8 +7326,8 @@
                             elapsedSessionSeconds: 38,
                             tasks: { Task1: true, Task2: true, Task3: true, Task4: true, Task5: true },
                             susScore: 88.5,
-                            weightedMean: 4.54,
-                            susGrade: "Grade A+ (Excellent Usability)",
+                            weightedMean: 3.54,
+                            susGrade: "Grade A (Excellent Usability)",
                             verbalInterpretation: "Excellent Usability",
                             susItemResponses: mockItems
                         });
@@ -7207,10 +7360,9 @@
                         sumWeightedMeans += weightedMean;
                         totalCohortN = Math.max(totalCohortN, row.N);
 
-                        if (rawMean >= 3.36) verbal = "Strongly Agree";
-                        else if (rawMean >= 2.71) verbal = "Agree";
-                        else if (rawMean >= 2.06) verbal = "Neutral";
-                        else if (rawMean >= 1.41) verbal = "Disagree";
+                        if (rawMean >= 3.26) verbal = "Strongly Agree";
+                        else if (rawMean >= 2.51) verbal = "Agree";
+                        else if (rawMean >= 1.76) verbal = "Disagree";
                         else verbal = "Strongly Disagree";
                     }
 
@@ -7244,20 +7396,19 @@
 
                 if (displayedN > 0) {
                     const overallMean = (sumWeightedMeans / 10).toFixed(2);
-                    const cohortSUS = ((overallMean - 1) * 25).toFixed(1);
+                    const cohortSUS = ((overallMean - 1) * (100/3)).toFixed(1);
 
-                    let grade = 'Grade A+ (Excellent Usability)';
+                    let grade = 'Grade A (Excellent Usability)';
                     if (cohortSUS < 50.9) grade = 'Grade F (Poor Usability)';
                     else if (cohortSUS < 68.0) grade = 'Grade C (Marginal Usability)';
                     else if (cohortSUS < 80.3) grade = 'Grade B (Good Usability)';
-                    else grade = 'Grade A+ (Excellent Usability)';
+                    else grade = 'Grade A (Excellent Usability)';
 
                     let verbal = 'Strongly Agree (Excellent Usability)';
-                    if (overallMean >= 3.36) verbal = 'Strongly Agree (Excellent Usability)';
-                    else if (overallMean >= 2.71) verbal = 'Agree (Good Usability)';
-                    else if (overallMean >= 2.06) verbal = 'Neutral (Fair Usability)';
-                    else if (overallMean >= 1.41) verbal = 'Disagree (Poor Usability)';
-                    else verbal = 'Strongly Disagree (Very Poor Usability)';
+                    if (overallMean >= 3.26) verbal = 'Strongly Agree (Excellent Usability)';
+                    else if (overallMean >= 2.51) verbal = 'Agree (Good Usability)';
+                    else if (overallMean >= 1.76) verbal = 'Disagree (Fair Usability)';
+                    else verbal = 'Strongly Disagree (Poor Usability)';
 
                     if (succEl) succEl.innerText = `${activeAvgSuccessRate}%`;
                     if (timeEl) timeEl.innerText = `${activeMeanTaskTimeSec}s`;
@@ -7308,10 +7459,9 @@
                         sumMeans += weightedMean;
                         totalCohortN = Math.max(totalCohortN, row.N);
 
-                        if (rawMean >= 3.36) verbal = "Strongly Agree";
-                        else if (rawMean >= 2.71) verbal = "Agree";
-                        else if (rawMean >= 2.06) verbal = "Neutral";
-                        else if (rawMean >= 1.41) verbal = "Disagree";
+                        if (rawMean >= 3.26) verbal = "Strongly Agree";
+                        else if (rawMean >= 2.51) verbal = "Agree";
+                        else if (rawMean >= 1.76) verbal = "Disagree";
                         else verbal = "Strongly Disagree";
                     }
 
@@ -7320,7 +7470,7 @@
                 });
 
                 const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
-                const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * 25).toFixed(1) : '0.00';
+                const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * (100/3)).toFixed(1) : '0.00';
 
                 lines.push(``);
                 lines.push(`"OVERALL SUMMARY STATISTICAL METRICS"`);
@@ -7401,7 +7551,7 @@
 
                 // Use DocumentFragment for batch DOM insertion (faster, no reflow per item)
                 const fragment = document.createDocumentFragment();
-                const likertLabels = ['', 'Strongly Disagree', 'Disagree', 'Agree', 'Strongly Agree'];
+                const likertLabels = ['', '1 - Strongly Disagree', '2 - Disagree', '3 - Agree', '4 - Strongly Agree'];
 
                 susQuestions.forEach(q => {
                     const box = document.createElement('div');
@@ -7427,7 +7577,7 @@
                     // Rating options
                     const optionsDiv = document.createElement('div');
                     optionsDiv.className = 'sus-rating-options';
-                    for (let val = 1; val <= 4; val++) {
+                    for (let val = 4; val >= 1; val--) {
                         const label = document.createElement('label');
                         label.className = 'sus-opt-label' + (q.defaultVal === val ? ' selected' : '');
                         label.id = `sus-lbl-${q.id}-${val}`;
@@ -8039,7 +8189,7 @@
                     calculateLiveSUS();
                 } else if (sess.susScore && sess.susScore !== 'PENDING' && !isNaN(parseFloat(sess.susScore))) {
                     studyLog.susScore = parseFloat(sess.susScore);
-                    studyLog.susGrade = sess.susGrade || 'Grade A+ (Excellent Usability)';
+                    studyLog.susGrade = sess.susGrade || 'Grade A (Excellent Usability)';
                     studyLog.weightedMean = parseFloat(sess.weightedMean) || 4.25;
                     studyLog.verbalInterpretation = sess.verbalInterpretation || 'Excellent Usability';
 
@@ -8350,7 +8500,7 @@
                 if (wasAlreadyRegistered) {
                     showToast(`Participant Information for ${name} updated successfully! Synced to database.`);
                 } else {
-                    showToast(`Demographics Registered for ${name}! Usability Tasks & SUS Scale UNLOCKED.`);
+                    showToast(`Demographics Registered for ${name}! Survey UNLOCKED — continue in the Survey Portal.`);
                 }
 
                 refreshLucideIcons();
@@ -8658,25 +8808,23 @@
                 const susScore = (totalContribution * (100/30)).toFixed(1);
                 const weightedMean = (totalEffectiveSum / 10).toFixed(2);
 
-                let grade = 'Grade A+ (Excellent Usability)';
+                let grade = 'Grade A (Excellent Usability)';
                 let verbal = 'Excellent Usability';
 
-                if (weightedMean >= 3.36) {
+                if (weightedMean >= 3.26) {
                     verbal = 'Excellent Usability';
-                } else if (weightedMean >= 2.71) {
+                } else if (weightedMean >= 2.51) {
                     verbal = 'Good Usability';
-                } else if (weightedMean >= 2.06) {
+                } else if (weightedMean >= 1.76) {
                     verbal = 'Fair Usability';
-                } else if (weightedMean >= 1.41) {
-                    verbal = 'Poor Usability';
                 } else {
-                    verbal = 'Very Poor Usability';
+                    verbal = 'Poor Usability';
                 }
 
-                if (susScore < 38.2) { grade = 'Grade F (Poor Usability)'; }
-                else if (susScore < 51.0) { grade = 'Grade C (Marginal Usability)'; }
-                else if (susScore < 60.2) { grade = 'Grade B (Good Usability)'; }
-                else { grade = 'Grade A+ (Excellent Usability)'; }
+                if (susScore < 50.9) { grade = 'Grade F (Poor Usability)'; }
+                else if (susScore < 68.0) { grade = 'Grade C (Marginal Usability)'; }
+                else if (susScore < 80.3) { grade = 'Grade B (Good Usability)'; }
+                else { grade = 'Grade A (Excellent Usability)'; }
 
                 document.getElementById('modal-sus-val').innerText = `${susScore} / 100`;
                 document.getElementById('modal-sus-grade').innerText = grade;
@@ -8761,19 +8909,18 @@
                 const susScore = (totalContribution * (100/30)).toFixed(1);
                 const weightedMean = (totalEffectiveSum / 10).toFixed(2);
 
-                let grade = 'Grade A+ (Excellent Usability)';
+                let grade = 'Grade A (Excellent Usability)';
                 let verbal = 'Excellent Usability';
 
-                if (weightedMean >= 3.36) verbal = 'Excellent Usability';
-                else if (weightedMean >= 2.71) verbal = 'Good Usability';
-                else if (weightedMean >= 2.06) verbal = 'Fair Usability';
-                else if (weightedMean >= 1.41) verbal = 'Poor Usability';
-                else verbal = 'Very Poor Usability';
+                if (weightedMean >= 3.26) verbal = 'Excellent Usability';
+                else if (weightedMean >= 2.51) verbal = 'Good Usability';
+                else if (weightedMean >= 1.76) verbal = 'Fair Usability';
+                else verbal = 'Poor Usability';
 
                 if (susScore < 50.9) grade = 'Grade F (Poor Usability)';
                 else if (susScore < 68.0) grade = 'Grade C (Marginal Usability)';
                 else if (susScore < 80.3) grade = 'Grade B (Good Usability)';
-                else grade = 'Grade A+ (Excellent Usability)';
+                else grade = 'Grade A (Excellent Usability)';
 
                 studyLog.susScore = parseFloat(susScore);
                 studyLog.weightedMean = parseFloat(weightedMean);
@@ -8817,7 +8964,31 @@
                     if (modal && modal.classList.contains('active')) {
                         toggleSUSModal();
                     }
+                    showThankYouModal();
                 }, 650);
+            }
+
+            /* THANK YOU LETTER MODAL — shown after full survey completion */
+            function showThankYouModal() {
+                try {
+                    const nameEl = document.getElementById('thankyou-participant-name');
+                    const scoreEl = document.getElementById('thankyou-sus-score');
+                    const gradeEl = document.getElementById('thankyou-sus-grade');
+                    const sessEl = document.getElementById('thankyou-session-id');
+                    const firstName = (studyLog.participantName || '').trim().split(' ')[0] || 'Participant';
+                    if (nameEl) nameEl.textContent = firstName;
+                    if (scoreEl) scoreEl.textContent = `${studyLog.susScore} / 100`;
+                    if (gradeEl) gradeEl.textContent = studyLog.susGrade || '';
+                    if (sessEl) sessEl.textContent = studyLog.sessionId || '';
+                } catch(e) {}
+                const ty = document.getElementById('thankyou-modal-overlay');
+                if (ty) ty.classList.add('active');
+                refreshLucideIcons();
+            }
+
+            function closeThankYouModal() {
+                const ty = document.getElementById('thankyou-modal-overlay');
+                if (ty) ty.classList.remove('active');
             }
 
             function clearSUSSurvey() {
@@ -9004,7 +9175,7 @@
                 if (totalCompleted === 5) {
                     studyLog.elapsedSessionSeconds = currentTaskElapsed;
                     studyLog.isTasksFinished = true;
-                    showToast(`🎉 All 5 Usability Tasks Completed in ${currentTaskElapsed}s! Proceed to SUS Survey.`);
+                    showToast(`🎉 All 5 Usability Tasks Completed in ${currentTaskElapsed}s! Proceed to the Survey.`);
                 } else {
                     showToast(`Task ${taskNum} Logged: "${taskName}" Completed (${currentTaskElapsed}s)!`);
                 }
@@ -9746,6 +9917,11 @@
                 setText('radar-pill-hrv', `HRV ${hrvVal}%`);
                 setText('radar-pill-sleep', `Sleep ${sleepVal}%`);
                 setText('radar-pill-act', `Activity ${moveVal}%`);
+                setText('radar-tip-1', `Recovery ${recVal}%`);
+                setText('radar-tip-2', `HRV ${hrvVal}%`);
+                setText('radar-tip-3', `Sleep ${sleepVal}%`);
+                setText('radar-tip-4', `Activity ${moveVal}%`);
+                setText('radar-tip-5', `Stress ${stressVal}%`);
 
                 const overall = ((recVal + hrvVal + sleepVal + moveVal + stressVal) / 5).toFixed(1);
                 setText('radar-overall-score', `Optimal ${overall}%`);
@@ -9846,6 +10022,10 @@
 
                 if (lower.includes('energy') || lower.includes('peak')) {
                     return `<b>BYTECODE AI Peak Energy Prediction:</b> Based on sleep score (${sleep}%) and HRV (${hrv}ms), your peak cognitive alertness is predicted between <b>10:45 AM and 1:15 PM</b>.`;
+                }
+
+                if (lower.includes('activity') || lower.includes('steps') || lower.includes('move goal') || lower.includes('progress')) {
+                    return `<b>BYTECODE AI Activity Analysis:</b> Your move goal is at <b>${move}%</b> on ${activeDevName}. A brisk 20-minute walk should push you past 90%. Step tracking is on via your watch motion sensor.`;
                 }
 
                 if (lower.includes('trend') || lower.includes('weekly')) {
