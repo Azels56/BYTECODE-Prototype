@@ -32,7 +32,12 @@
             justify-content: center;
             min-height: 100vh;
             padding: 24px;
-            overflow: hidden;
+            overflow-x: hidden;
+        }
+        /* HCI: respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .code, .dot { animation: none; }
+            .btn { transition: none; }
         }
         .wrap { text-align: center; max-width: 640px; }
         .code {
@@ -117,10 +122,10 @@
     </style>
 </head>
 <body>
-    <div class="wrap">
+    <main class="wrap">
         <div class="tag"><span class="dot"></span> BYTECODE // SIGNAL LOST</div>
         <div class="code">404</div>
-        <div class="binary">01001110 01101111 00100000 01110100 01100101 01101100 01100101 01101101 01100101 01110100 01110010 01111001 00100000 01100110 01101111 01110101 01101110 01100100</div>
+        <div class="binary" aria-hidden="true">01001110 01101111 00100000 01110100 01100101 01101100 01100101 01101101 01100101 01110100 01110010 01111001 00100000 01100110 01101111 01110101 01101110 01100100</div>
         <h1>Telemetry link not found.</h1>
         <p>The page you requested is out of range — it may have been moved, renamed, or is still syncing from the wearable uplink.</p>
         <div class="actions">
@@ -128,6 +133,6 @@
             <a class="btn btn-ghost" href="admin.html">Researcher Admin Portal</a>
         </div>
         <footer>ARELLANO UNIVERSITY • HCI 2 RESEARCH PROTOCOL</footer>
-    </div>
+    </main>
 </body>
 </html>
