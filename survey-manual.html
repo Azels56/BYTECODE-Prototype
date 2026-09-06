@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYTECODE Survey — Manual Edition (Researcher Entry)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyBTARZZSEIU0inIHGFKtnItYXggLhdkJ7g",
+    authDomain: "bytecode-health-db.firebaseapp.com",
+    databaseURL: "https://bytecode-health-db-default-rtdb.firebaseio.com",
+    projectId: "bytecode-health-db",
+    storageBucket: "bytecode-health-db.firebasestorage.app",
+    messagingSenderId: "1074183189774",
+    appId: "1:1074183189774:web:fd63e9b7035975c514935f",
+    measurementId: "G-XEE15ST80C"
+};
+let firebaseDb = null;
+window.firebaseAuth = null;
+try {
+    if (typeof firebase !== 'undefined') { firebase.initializeApp(firebaseConfig); firebaseDb = firebase.database(); try { window.firebaseAuth = firebase.auth(); } catch (ae) {} }
+} catch (err) { console.warn('Firebase init notice:', err); }
+</script>
+<style>
+:root {
+    --bg: #05080e; --card: #0b1220; --card2: #101a2c; --line: rgba(0,242,254,.14);
+    --ink: #fff; --head: #cbd5e1; --sub: #94a3b8;
+    --cyan: #00f2fe; --green: #10b981; --neon: #00ff88; --pink: #ec4899;
+    --btn: linear-gradient(135deg, #00f2fe, #10b981);
+}
+[data-theme="light"] {
+    --bg: #f1f5f9; --card: #ffffff; --card2: #f8fafc; --line: #e2e8f0;
+    --ink: #0f172a; --head: #0f172a; --sub: #475569;
+    --cyan: #0369a1; --green: #059669; --neon: #059669; --pink: #db2777;
+    --btn: linear-gradient(135deg, #0284c7, #059669);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 14px; }
+/* Desktop: the designed dotted-wave backdrop spans the whole page behind the cards.
+   Scoped to wide screens — phones keep the plain dark base (the hero card carries
+   the design there, and fixed-attachment backgrounds repaint poorly on mobile). */
+@media (min-width: 900px) {
+    body {
+        background: linear-gradient(180deg, rgba(4,10,20,.88), rgba(4,10,20,.94)), radial-gradient(900px 480px at 50% -8%, rgba(0,242,254,.10), transparent 62%), url('https://www.cs.princeton.edu/sites/default/files/styles/featured_image_mobile/public/2024-08/hero%20image%207.jpeg?h=b2ec1a2f&itok=_kCHS8TE') center / cover no-repeat fixed, var(--bg);
+    }
+    [data-theme="light"] body {
+        background: linear-gradient(180deg, rgba(241,245,249,.93), rgba(241,245,249,.96)), url('https://www.cs.princeton.edu/sites/default/files/styles/featured_image_mobile/public/2024-08/hero%20image%207.jpeg?h=b2ec1a2f&itok=_kCHS8TE') center / cover no-repeat fixed, #eef2f7;
+    }
+}
+/* sticky progress header */
+.progress-head { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.progress-inner { max-width: 760px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { font-family: 'Space Grotesk'; font-weight: 800; font-size: .95rem; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+.brand small { color: var(--sub); font-weight: 500; }
+.brand-logo { width: 26px; height: 26px; border-radius: 7px; display: block; }
+.pbar { flex: 1; height: 8px; border-radius: 6px; background: var(--card2); border: 1px solid var(--line); overflow: hidden; }
+.pbar > div { height: 100%; width: 0%; background: var(--btn); border-radius: 6px; transition: width .5s cubic-bezier(.22,1,.36,1); }
+.pct { font-family: 'Space Grotesk'; font-weight: 700; font-size: .8rem; color: var(--cyan); min-width: 38px; text-align: right; }
+.icon-btn { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; font-weight: 700; padding: 7px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; text-decoration: none; white-space: nowrap; transition: transform .15s ease, border-color .15s ease; }
+.icon-btn:hover { transform: translateY(-1px); border-color: var(--cyan); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 70px; }
+@media (min-width: 1100px) {
+    /* Desktop: a wider, airier column so the page doesn't read as a strip in a void */
+    .wrap { max-width: 880px; padding-top: 26px; }
+    .study-title { font-size: 1.58rem; }
+}
+/* reveal animation */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; transition: none; } html { scroll-behavior: auto; } }
+.hero { position: relative; overflow: hidden; text-align: center; margin: 6px 0 16px; background: url('https://www.cs.princeton.edu/sites/default/files/styles/featured_image_mobile/public/2024-08/hero%20image%207.jpeg?h=b2ec1a2f&itok=_kCHS8TE') center / cover no-repeat; border: 1px solid var(--line); border-radius: 16px; padding: 30px 22px 26px; }
+.hero-glow { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, rgba(4,10,20,.9), rgba(4,10,20,.74) 50%, rgba(4,10,20,.88)), radial-gradient(420px 200px at 50% -60px, rgba(0,242,254,.22), transparent 70%); }
+.hero-logo { display: block; margin: 0 auto 12px; width: 64px; height: 64px; position: relative; filter: drop-shadow(0 0 18px rgba(0,242,254,.45)); }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .66rem; font-weight: 800; letter-spacing: .06em; color: var(--cyan); background: rgba(2,132,199,.1); border: 1px solid var(--line); padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; position: relative; }
+.hero-badge svg { width: 13px; height: 13px; }
+.hero h1 { position: relative; font-family: 'Space Grotesk'; font-size: 1.5rem; margin: 0 0 8px; color: var(--head); }
+.hero h1 .g { background: linear-gradient(135deg,#a855f7,#00f2fe,#00ff88); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="light"] .hero h1 .g { background: linear-gradient(135deg,#7c3aed,#0369a1,#047857); -webkit-background-clip: text; background-clip: text; }
+/* Inverted-pyramid academic title block (official research title + authors) */
+.kicker { position: relative; display: inline-block; font-size: .7rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--cyan); background: rgba(2,132,199,.1); border: 1px solid var(--line); padding: 4px 14px; border-radius: 16px; margin-bottom: 12px; }
+.paper-block { position: relative; max-width: 620px; margin: 0 auto 14px; }
+.study-title { font-family: 'Space Grotesk'; font-size: clamp(1.1rem, 3.4vw, 1.42rem); font-weight: 800; line-height: 1.4; margin: 0 auto 12px; color: var(--head); letter-spacing: .01em; }
+.study-title .g { background: linear-gradient(135deg,#a855f7,#00f2fe,#00ff88); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="light"] .study-title .g { background: linear-gradient(135deg,#7c3aed,#0369a1,#047857); -webkit-background-clip: text; background-clip: text; }
+.pyr-authors { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 6px 26px; padding: 9px 0 8px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 0 9px; }
+.pyr-name { font-size: .78rem; font-weight: 700; color: var(--head); line-height: 1.4; }
+.pyr-adviser { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.pyr-adviser .pyr-name { font-size: .8rem; }
+.manual-badges { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; margin-bottom: 12px; }
+.manual-flag { font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fbbf24; background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.4); padding: 4px 12px; border-radius: 14px; }
+[data-theme="light"] .manual-flag { color: #b45309; background: rgba(251,191,36,.14); }
+.pyr-role { font-size: .58rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.3); padding: 2px 10px; border-radius: 10px; }
+@media (max-width: 560px) {
+    .pyr-authors { flex-direction: column; align-items: center; gap: 5px; }
+    .kicker { font-size: .62rem; }
+}
+[data-theme="light"] .hero-glow { background: linear-gradient(135deg, rgba(241,245,249,.94), rgba(241,245,249,.86) 50%, rgba(241,245,249,.93)), radial-gradient(420px 200px at 50% -60px, rgba(3,105,161,.14), transparent 70%); }
+.hero p { position: relative; margin: 0 auto; max-width: 580px; font-size: .83rem; color: var(--sub); line-height: 1.6; }
+.hero-pills { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.hpill { display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; font-weight: 700; color: var(--head); background: var(--card2); border: 1px solid var(--line); padding: 6px 13px; border-radius: 20px; }
+.hpill b { font-size: .68rem; font-weight: 800; color: var(--cyan); background: rgba(2,132,199,.12); border-radius: 6px; padding: 1px 6px; }
+.hpill-arrow { color: var(--sub); font-weight: 800; font-size: .75rem; }
+.feat-row { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 12px; }
+.fchip { display: inline-flex; align-items: center; gap: 6px; font-size: .68rem; font-weight: 800; letter-spacing: .06em; padding: 5px 12px; border-radius: 16px; border: 1px solid; white-space: nowrap; }
+.fchip svg { width: 12px; height: 12px; }
+.fchip.c-cyan { color: #00f2fe; border-color: rgba(0,242,254,.4); background: rgba(0,242,254,.08); }
+.fchip.c-purple { color: #c084fc; border-color: rgba(168,85,247,.4); background: rgba(168,85,247,.08); }
+.fchip.c-green { color: #00ff88; border-color: rgba(0,255,136,.35); background: rgba(0,255,136,.07); }
+.fchip.c-pink { color: #fb7185; border-color: rgba(251,113,133,.4); background: rgba(251,113,133,.08); }
+.fchip.c-amber { color: #fbbf24; border-color: rgba(251,191,36,.4); background: rgba(251,191,36,.08); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; position: relative; }
+.card > h2 { font-family: 'Space Grotesk'; font-size: 1rem; margin: 0 0 3px; color: var(--head); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.card .sub { font-size: .75rem; color: var(--sub); margin-bottom: 14px; }
+.step-tag { font-size: .68rem; font-weight: 800; letter-spacing: .06em; padding: 3px 9px; border-radius: 12px; background: rgba(0,242,254,.1); border: 1px solid var(--line); color: var(--cyan); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } }
+.f { margin-bottom: 10px; }
+.f label { display: block; font-size: .74rem; font-weight: 700; color: var(--head); margin-bottom: 5px; }
+.f input, .f select, .f textarea { width: 100%; padding: 10px 12px; border-radius: 9px; font-family: 'Inter'; font-size: .83rem; background: var(--card2); border: 1px solid var(--line); color: var(--ink); transition: border-color .15s ease, box-shadow .15s ease; }
+.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,242,254,.14); }
+.f select option { background: #0b1220; } [data-theme="light"] .f select option { background: #fff; }
+[data-theme="light"] .fchip.c-cyan { color: #0369a1; }
+[data-theme="light"] .fchip.c-purple { color: #7c3aed; }
+[data-theme="light"] .fchip.c-green { color: #047857; }
+[data-theme="light"] .fchip.c-pink { color: #db2777; }
+[data-theme="light"] .fchip.c-amber { color: #b45309; }
+[data-theme="light"] .qtone.neg { color: #b45309; }
+[data-theme="light"] .task .tico { color: #7c3aed; }
+[data-theme="light"] .em { color: #dc2626; }
+.chk { display: flex; flex-direction: column; gap: 6px; background: var(--card2); border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; }
+.chk label { display: flex; gap: 8px; align-items: flex-start; font-size: .78rem; font-weight: 500; color: var(--head); cursor: pointer; margin: 0; }
+.chk input { width: 15px; height: 15px; accent-color: var(--cyan); margin-top: 2px; flex-shrink: 0; }
+.consent { background: rgba(2,132,199,.05); border: 1px solid rgba(2,132,199,.25); border-radius: 11px; padding: 13px 15px; margin-top: 4px; }
+.consent-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: .78rem; font-weight: 800; color: var(--cyan); font-family: 'Space Grotesk'; margin-bottom: 8px; }
+.consent-head .t { display: flex; align-items: center; gap: 8px; }
+.consent-head .t svg { width: 18px; height: 18px; color: var(--neon); }
+.consent-head em { font-style: normal; font-size: .68rem; font-weight: 700; color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.25); padding: 4px 10px; border-radius: 8px; white-space: nowrap; font-family: 'Inter'; }
+.consent p { font-size: .75rem; color: var(--sub); line-height: 1.6; margin: 0 0 10px; }
+.consent label { display: flex; gap: 10px; font-size: .8rem; font-weight: 700; cursor: pointer; color: var(--head); line-height: 1.45; }
+.consent input { width: 18px; height: 18px; accent-color: var(--cyan); margin-top: 1px; flex-shrink: 0; cursor: pointer; }
+.reg-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.reg-row .hint { font-size: .74rem; color: var(--sub); display: flex; align-items: center; gap: 7px; flex: 1; min-width: 200px; }
+.reg-row .hint svg { width: 15px; height: 15px; color: var(--neon); flex-shrink: 0; }
+.reg-btn { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; font-weight: 800; padding: 11px 22px; border-radius: 11px; border: none; background: var(--btn); color: #04121a; cursor: pointer; transition: transform .15s ease, filter .15s ease; }
+[data-theme="light"] .reg-btn { color: #fff; }
+.reg-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.lock-veil { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 24px; font-size: .8rem; font-weight: 700; color: var(--sub); background: color-mix(in srgb, var(--bg) 74%, transparent); backdrop-filter: blur(2px); border-radius: 14px; }
+.lock-veil svg { width: 26px; height: 26px; color: var(--cyan); }
+.card.unlocked .lock-veil { display: none; }
+/* task cards */
+.task { display: flex; align-items: center; gap: 12px; background: var(--card2); border: 1px solid var(--line); border-radius: 11px; padding: 12px 14px; margin-bottom: 9px; transition: border-color .25s ease, background .25s ease, transform .15s ease; animation: taskIn .45s cubic-bezier(.22,1,.36,1) both; animation-delay: calc(var(--d, 0) * 70ms); }
+@keyframes taskIn { from { opacity: 0; transform: translateY(10px); } }
+.task:hover { transform: translateY(-2px); border-color: var(--cyan); }
+.task .n { width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk'; font-weight: 800; font-size: .85rem; background: rgba(0,242,254,.12); border: 1px solid var(--line); color: var(--cyan); transition: all .3s ease; }
+.task .tx { flex: 1; min-width: 0; }
+.task .tx b { display: block; font-size: .84rem; color: var(--head); }
+.task .tx span { font-size: .73rem; color: var(--sub); line-height: 1.45; display: block; }
+.task .tico { width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(168,85,247,.12); border: 1px solid var(--line); color: #a855f7; transition: all .3s ease; }
+.task .tico svg { width: 17px; height: 17px; }
+.task .sys { font-size: .6rem; font-weight: 800; letter-spacing: .04em; color: var(--cyan); opacity: .8; }
+.task .tact { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.task .go { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 700; color: var(--cyan); text-decoration: none; white-space: nowrap; padding: 8px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); transition: border-color .15s ease; }
+.task .go svg { width: 13px; height: 13px; }
+.task .go:hover { border-color: var(--cyan); }
+.task .done-btn { flex-shrink: 0; font-size: .74rem; font-weight: 800; padding: 8px 16px; border-radius: 9px; border: none; background: var(--btn); color: #04121a; cursor: pointer; transition: transform .15s ease, filter .15s ease; }
+[data-theme="light"] .task .done-btn { color: #fff; }
+.task .done-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.task.done { border-color: rgba(0,255,136,.4); background: rgba(0,255,136,.05); }
+.task.done .n { background: var(--btn); color: #04121a; border-color: transparent; }
+[data-theme="light"] .task.done .n { color: #fff; }
+.task.done .tico { background: rgba(0,255,136,.12); color: var(--neon); }
+.task.done .done-btn { background: rgba(0,255,136,.14); color: var(--neon); border: 1px solid rgba(0,255,136,.4); pointer-events: none; }
+.task-count { font-size: .76rem; font-weight: 700; color: var(--neon); }
+.segbar { display: flex; gap: 6px; margin: 4px 0 12px; }
+.segbar i { height: 6px; flex: 1; border-radius: 4px; background: var(--card2); border: 1px solid var(--line); transition: all .3s ease; }
+.segbar i.on { background: var(--btn); border-color: transparent; }
+.unlock-note { font-size: .74rem; font-weight: 700; color: var(--sub); background: var(--card2); border: 1px dashed var(--line); border-radius: 10px; padding: 9px 13px; margin-top: 2px; transition: all .3s ease; display: flex; align-items: center; gap: 7px; }
+.unlock-note svg { width: 14px; height: 14px; flex-shrink: 0; }
+.unlock-note.open { color: var(--neon); border-style: solid; border-color: rgba(0,255,136,.45); background: rgba(0,255,136,.06); }
+.card > h2 .hico { display: inline-flex; color: var(--cyan); }
+.crit { display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .04em; color: var(--cyan); background: rgba(2,132,199,.12); border: 1px solid var(--cyan); padding: 3px 11px; border-radius: 20px; vertical-align: middle; white-space: nowrap; }
+.card > h2 .hico svg { width: 18px; height: 18px; }
+.task .n svg { width: 15px; height: 15px; }
+.task .done-btn { display: inline-flex; align-items: center; gap: 5px; }
+.task .done-btn svg { width: 13px; height: 13px; }
+@media (max-width: 520px) { .task { flex-wrap: wrap; } .task .tact { width: 100%; justify-content: flex-end; } }
+@media (prefers-reduced-motion: reduce) { .task { animation: none; } }
+/* data gathering console */
+.crow { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--card2); border: 1px solid var(--line); border-radius: 10px; padding: 9px 13px; margin-bottom: 8px; font-size: .78rem; }
+.crow span { display: inline-flex; align-items: center; gap: 7px; color: var(--sub); font-weight: 600; }
+.crow span svg { width: 14px; height: 14px; color: var(--cyan); }
+.crow b { color: var(--head); font-weight: 800; white-space: nowrap; }
+.crow b.good { color: var(--neon); }
+.crow.clickable { cursor: pointer; }
+.crow.clickable:hover { border-color: var(--cyan); }
+.crow .rgroup { display: inline-flex; align-items: center; gap: 7px; }
+#c-elapsed-chev { display: inline-flex; }
+#c-elapsed-chev svg { width: 14px; height: 14px; }
+#c-elapsed-row #c-elapsed-chev { transition: transform .25s ease; }
+#c-elapsed-row.open #c-elapsed-chev { transform: rotate(180deg); }
+.csub { font-size: .7rem; color: var(--sub); font-weight: 600; margin: 2px 2px 8px; }
+#console-tasks { margin-top: 2px; }
+/* registration modules */
+.mod { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; margin: 16px 0 2px; }
+.mod .num { width: 26px; height: 26px; border-radius: 8px; background: rgba(2,132,199,.12); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: .68rem; font-weight: 800; color: var(--cyan); flex-shrink: 0; }
+.mod .mt { flex: 1; min-width: 0; display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk'; font-size: .82rem; font-weight: 800; color: var(--head); }
+.mod .mt svg { width: 15px; height: 15px; color: var(--cyan); flex-shrink: 0; }
+.mod .tag { font-size: .62rem; font-weight: 700; color: var(--sub); background: var(--card2); border: 1px solid var(--line); padding: 2px 9px; border-radius: 7px; white-space: nowrap; }
+.other-wrap { display: none; margin-top: 6px; }
+.other-wrap.show { display: block; }
+.other-wrap input { width: 100%; box-sizing: border-box; background: var(--card2); border: 1px solid var(--cyan); border-radius: 9px; padding: 9px 12px; font-size: .8rem; color: var(--ink); }
+.loi-head { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.loi-ico { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, rgba(2,132,199,.2), rgba(168,85,247,.15)); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--cyan); flex-shrink: 0; }
+.loi-ico svg { width: 20px; height: 20px; }
+.loi-tt { flex: 1; min-width: 0; }
+.loi-tt b { font-family: 'Space Grotesk'; font-size: .9rem; color: var(--head); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.loi-tt b em { font-style: normal; font-size: .6rem; font-weight: 700; color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.25); padding: 2px 8px; border-radius: 6px; letter-spacing: .05em; }
+.loi-tt span { font-size: .7rem; color: var(--sub); }
+.loi-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: .7rem; font-weight: 700; color: var(--cyan); background: var(--card2); border: 1px solid var(--line); padding: 5px 12px; border-radius: 8px; white-space: nowrap; }
+#letter-toggle-chev { display: inline-flex; transition: transform .3s ease; transform: rotate(180deg); }
+#letter-toggle-chev svg { width: 14px; height: 14px; }
+#letter-of-intent-body { margin-top: 14px; font-size: .8rem; line-height: 1.7; color: var(--ink); }
+#letter-of-intent-body p { margin: 0 0 12px; text-align: justify; }
+#letter-of-intent-body p.ind { text-indent: 2em; }
+.loi-letterhead { text-align: center; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.loi-logo { width: 46px; height: 46px; margin-bottom: 6px; }
+.loi-letterhead .u { font-weight: 800; font-size: 1rem; color: var(--head); letter-spacing: 1.5px; }
+.loi-letterhead .c { font-size: .74rem; color: var(--sub); }
+.loi-letterhead .s { font-size: .72rem; color: var(--cyan); font-weight: 600; }
+.loi-date { text-align: right; font-size: .74rem; color: var(--sub); margin-bottom: 12px; }
+.loi-titlebox { background: var(--card2); border: 1px solid var(--line); border-left: 4px solid var(--cyan); padding: 12px 16px; border-radius: 0 12px 12px 0; margin: 14px 0; font-weight: 700; color: var(--cyan); font-size: .82rem; line-height: 1.5; }
+.loi-priv { background: rgba(0,255,136,.05); border: 1px solid rgba(0,255,136,.25); border-radius: 10px; padding: 12px 15px; margin: 14px 0; display: flex; gap: 10px; font-size: .76rem; color: var(--sub); text-align: justify; line-height: 1.6; }
+.loi-priv svg { width: 16px; height: 16px; color: var(--neon); flex-shrink: 0; margin-top: 2px; }
+.loi-sig { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; background: var(--card2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 14px; }
+.loi-sig h4 { margin: 0 0 10px; font-size: .64rem; font-weight: 800; letter-spacing: .08em; color: var(--cyan); }
+.loi-sig .who { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.loi-sig .who:last-child { margin-bottom: 0; }
+.loi-sig .num { width: 24px; height: 24px; border-radius: 6px; background: rgba(2,132,199,.1); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 800; color: var(--cyan); flex-shrink: 0; }
+.loi-sig .num svg { width: 13px; height: 13px; }
+#loi-card { scroll-margin-top: 12px; }
+.loi-toggle:hover { border-color: var(--cyan); }
+.loi-sig .who-t { display: block; }
+.loi-sig .who-t b { display: block; font-size: .76rem; color: var(--head); }
+.loi-sig .who-t > span { display: block; font-size: .66rem; color: var(--sub); }
+.loi-foot { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--line); text-align: center; font-size: .68rem; color: var(--sub); font-style: italic; }
+
+/* sus */
+.sus { background: var(--card2); border: 1px solid var(--line); border-radius: 11px; padding: 12px 14px; margin-bottom: 9px; transition: border-color .2s ease; }
+.sus.err { border: 2px solid #ef4444; animation: shake .3s ease; }
+@keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+.sus q { font-size: .83rem; font-weight: 600; color: var(--head); quotes: none; display: block; margin-bottom: 9px; line-height: 1.5; }
+.qhead { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+.qnum { font-family: 'Space Grotesk'; font-size: .7rem; font-weight: 800; color: var(--head); background: var(--card2); border: 1px solid var(--line); padding: 2px 9px; border-radius: 8px; }
+.qtone { display: inline-block; font-size: .6rem; font-weight: 800; letter-spacing: .05em; padding: 2px 9px; border-radius: 12px; vertical-align: middle; white-space: nowrap; }
+.qtone.pos { color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.3); }
+.qtone.neg { color: #fbbf24; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.3); }
+.opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+@media (max-width: 560px) { .opts { grid-template-columns: 1fr 1fr; } }
+/* phone layout: stack console rows + live strip, stop sideways scroll */
+html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+@media (max-width: 520px) {
+    .hero { padding: 22px 14px 20px; background-position: center top; }
+    .hero-logo { width: 48px; height: 48px; margin-bottom: 8px; }
+    .hero h1 { font-size: 1.2rem; }
+    .hero p { font-size: .78rem; }
+    .hero-pills { gap: 6px; margin-top: 12px; }
+    .hpill { font-size: .66rem; padding: 5px 10px; }
+    .hpill-arrow { display: none; }
+    .fchip { font-size: .56rem; padding: 4px 9px; }
+    .crow { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .crow b { white-space: normal; }
+    .live div { min-width: 0; flex: 1 1 100%; }
+    .mod .tag { display: none; }
+    .wrap { padding-left: 12px; padding-right: 12px; }
+}
+.opt { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: .68rem; font-weight: 700; text-align: center; padding: 8px 5px; border-radius: 8px; border: 1px solid var(--line); cursor: pointer; color: var(--sub); transition: all .15s ease; }
+.opt:hover { border-color: var(--cyan); }
+.opt input { accent-color: var(--cyan); margin: 0; }
+.opt.sel { border-color: var(--cyan); color: var(--cyan); background: rgba(0,242,254,.09); transform: scale(1.03); }
+.live { display: flex; gap: 10px; flex-wrap: wrap; background: rgba(0,242,254,.05); border: 1px solid var(--line); border-radius: 11px; padding: 11px 14px; margin: 4px 0 14px; }
+.live div { flex: 1; min-width: 140px; } .live .l { font-size: .64rem; font-weight: 700; color: var(--sub); } .live .v { font-family: 'Space Grotesk'; font-weight: 800; color: var(--cyan); }
+.submit { width: 100%; justify-content: center; padding: 13px; font-size: .92rem; border-radius: 11px; border: none; background: var(--btn); color: #04121a; font-weight: 800; font-family: 'Inter'; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: transform .15s ease, box-shadow .15s ease; }
+[data-theme="light"] .submit { color: #fff; }
+.submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,242,254,.3); }
+.submit:active { transform: translateY(0); }
+#thanks { display: none; text-align: center; }
+.check { width: 66px; height: 66px; margin: 4px auto 12px; border-radius: 50%; background: var(--btn); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 28px rgba(0,242,254,.4); animation: pop .45s cubic-bezier(.22,1.4,.36,1); }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.letter { text-align: left; font-size: .82rem; line-height: 1.7; color: var(--sub); background: var(--card2); border: 1px solid var(--line); border-radius: 11px; padding: 16px; margin: 14px 0; }
+.letter strong { color: var(--head); }
+.row-btns { display: flex; gap: 9px; justify-content: center; flex-wrap: wrap; }
+#toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(16px); background: #0b1626; color: #fff; border: 1px solid rgba(0,242,254,.4); padding: 11px 18px; border-radius: 11px; font-size: .8rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all .25s ease; z-index: 99; max-width: 92vw; text-align: center; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.hide { display: none !important; }
+.em { display: none; font-size: .7rem; color: #ef4444; font-weight: 700; margin-top: 3px; }
+/* HCI: skip link for keyboard users */
+.skip-link { position: fixed; top: -60px; left: 12px; z-index: 999; background: var(--cyan); color: #04121a; font-weight: 700; font-size: .85rem; padding: 10px 16px; border-radius: 0 0 10px 10px; text-decoration: none; transition: top .2s ease; }
+.skip-link:focus { top: 0; }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="progress-head">
+    <div class="progress-inner">
+        <div class="brand"><img src="favicon.svg" class="brand-logo" alt="BYTECODE logo"><span>Survey Manual</span></div>
+        <div class="pbar" id="pbar" role="progressbar" aria-label="Survey completion progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="pfill"></div></div>
+        <div class="pct" id="ppct">0%</div>
+        <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle light or dark theme"><i data-lucide="moon" style="width:13px;height:13px;"></i></button>
+        <a class="icon-btn" href="index.html"><i data-lucide="home" style="width:13px;height:13px;"></i><span>Dashboard</span></a>
+    </div>
+</div>
+
+<main class="wrap" id="main-content">
+<div id="form-view">
+    <div class="hero rv">
+        <div class="hero-glow"></div>
+        <img src="favicon.svg" class="hero-logo" alt="BYTECODE logo">
+        <div class="manual-badges"><span class="kicker">Participant Survey &mdash; Register, Test &amp; Rate</span><span class="manual-flag">RESEARCHER MANUAL ENTRY &bull; NO GOOGLE SIGN-IN</span></div>
+        <div class="paper-block">
+            <h1 class="study-title">Interactive Design and Usability Testing of <span class="g">AI-Enhanced Wearable Health Dashboards for Gen&nbsp;Z</span></h1>
+            <div class="pyr-authors" aria-label="Researchers">
+                <span class="pyr-name">Emmanuel Jr D. Misola</span>
+                <span class="pyr-name">Jemani Sean Gabrielle H. Prendingue</span>
+                <span class="pyr-name">Jhon Rhed O. Omnes</span>
+            </div>
+            <div class="pyr-adviser">
+                <span class="pyr-name">Prof. Erlito M. Albina</span>
+                <span class="pyr-role">Research Adviser</span>
+            </div>
+        </div>
+        <p>Manual edition: fill this form in <b>on behalf of the participant</b> (paper survey or assisted entry). Type their Gmail directly &mdash; no Google sign-in required. Entries sync to the same research database (R.A. 10173 compliant).</p>
+        <div class="hero-pills">
+            <span class="hpill"><b>01</b> Register</span>
+            <span class="hpill-arrow">→</span>
+            <span class="hpill"><b>02</b> Test 5 Tasks</span>
+            <span class="hpill-arrow">→</span>
+            <span class="hpill"><b>03</b> Rate & Submit</span>
+        </div>
+        <div class="feat-row">
+            <span class="fchip c-cyan"><i data-lucide="activity"></i>BIOMETRIC DASHBOARD</span>
+            <span class="fchip c-purple"><i data-lucide="sparkles"></i>EXPLANATORY UI</span>
+            <span class="fchip c-green"><i data-lucide="accessibility"></i>ACCESSIBILITY ENGINE</span>
+            <span class="fchip c-pink"><i data-lucide="shield-check"></i>PRIVACY CONTROLS</span>
+            <span class="fchip c-amber"><i data-lucide="bot"></i>AI ASSISTANT</span>
+        </div>
+    </div>
+
+    <!-- LETTER OF INTENT TO THE RESPONDENTS -->
+    <div class="card rv" id="loi-card">
+        <div class="loi-head" role="button" tabindex="0" aria-expanded="true" aria-controls="letter-of-intent-body" id="letter-of-intent-toggle" onclick="toggleLetterOfIntent()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleLetterOfIntent();}">
+            <span class="loi-ico"><i data-lucide="file-text"></i></span>
+            <span class="loi-tt"><b>Letter of Intent to the Respondents <em>OFFICIAL</em></b><span>Arellano University • HCI 2 Research Protocol</span></span>
+            <span class="loi-toggle"><span id="letter-toggle-text">Hide</span><span id="letter-toggle-chev"><i data-lucide="chevron-down"></i></span></span>
+        </div>
+        <div id="letter-of-intent-body">
+            <div class="loi-letterhead">
+                <img src="favicon.svg" class="loi-logo" alt="BYTECODE logo">
+                <div class="u">ARELLANO UNIVERSITY</div>
+                <div class="c">Jose Abad Santos Campus — Pasay City, Metro Manila, Philippines</div>
+                <div class="s">School of Computer Studies • Bachelor of Science in Information Technology</div>
+            </div>
+            <div class="loi-date">August 30, 2026</div>
+            <p><strong>Dear Valued Gen Z Participant / Respondent,</strong></p>
+            <p>Warm greetings of peace and good day!</p>
+            <p class="ind">We, the undersigned 3rd-year Bachelor of Science in Information Technology (BSIT) students of <strong>Arellano University – Jose Abad Santos Campus (Pasay City)</strong>, are currently conducting our <strong>Human-Computer Interaction 2 (HCI 2)</strong> research entitled:</p>
+            <div class="loi-titlebox">“Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z”</div>
+            <p class="ind">This study tests how easy, comfy, and clear our web health dashboard is for Gen Z (ages 12 to 27).</p>
+            <p class="ind">With this, you will try our dashboard and answer a short survey using the <strong>System Usability Scale (SUS)</strong>. Your honest answers as a Gen Z student will help decide if this study works.</p>
+            <div class="loi-priv"><i data-lucide="shield-check"></i><span>Your info and answers will stay private and follow the rules of <strong>Republic Act No. 10173 (Philippine Data Privacy Act of 2012)</strong>. Joining is voluntary, and your answers will be used only for school research.</span></div>
+            <p class="ind">Thank you for your time and help with our school study.</p>
+            <p>Respectfully yours,</p>
+            <div class="loi-sig">
+                <div>
+                    <h4>THE RESEARCHERS</h4>
+                    <div class="who"><span class="num">1</span><span class="who-t"><b>Emmanuel Jr D. Misola</b><span>24-00454 • BSIT 3rd Year</span></span></div>
+                    <div class="who"><span class="num">2</span><span class="who-t"><b>Jemani Sean Gabrielle H. Prendingue</b><span>24-00424 • BSIT 3rd Year</span></span></div>
+                    <div class="who"><span class="num">3</span><span class="who-t"><b>Jhon Rhed O. Omnes</b><span>24-00425 • BSIT 3rd Year</span></span></div>
+                </div>
+                <div>
+                    <h4>RESEARCH ADVISER</h4>
+                    <div class="who"><span class="num"><i data-lucide="star"></i></span><span class="who-t"><b>Prof. Erlito M. Albina</b><span>Faculty, School of Computer Studies</span><span>Arellano University – JACS Campus</span></span></div>
+                </div>
+            </div>
+            <div class="loi-foot">This letter is part of the research protocol for HCI 2 — Arellano University, School of Computer Studies, Pasay City, Philippines.</div>
+        </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="card rv">
+        <h2><span class="step-tag">STEP 1</span> <span class="hico"><i data-lucide="clipboard-list"></i></span> About You</h2>
+        <div class="sub">Questions with * must be answered.</div>
+        <div class="mod"><span class="num">01</span><span class="mt"><i data-lucide="user-check"></i>Your Profile</span><span class="tag">Basic Identity</span></div>
+        <div class="grid2">
+            <div class="f"><label for="reg-name">Full Name *</label><input type="text" id="reg-name" placeholder="e.g. Juan D. Cruz"></div>
+            <div class="f"><label for="reg-age">Age (12 – 27) *</label><input type="number" id="reg-age" placeholder="12 - 27" min="12" max="27"></div>
+            <div class="f"><label for="reg-gender">Gender</label><select id="reg-gender" onchange="toggleSelOther('reg-gender','reg-gender-other-wrap')"><option value="" selected>Select Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-gender-other-wrap"><input type="text" id="reg-gender-other" placeholder="Specify gender..."></div></div>
+            <div class="f"><label for="reg-address">City / Municipality *</label><select id="reg-address" onchange="toggleSelOther('reg-address','reg-address-other-wrap')"><option value="" disabled selected>Select</option><option>Pasay City</option><option>Manila</option><option>Quezon City</option><option>Makati / Taguig</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-address-other-wrap"><input type="text" id="reg-address-other" placeholder="Specify city / municipality..."></div></div>
+            <div class="f"><label for="reg-occupation">Who You Are *</label><select id="reg-occupation" onchange="toggleSelOther('reg-occupation','reg-occupation-other-wrap')"><option value="" disabled selected>Select</option><option>Student</option><option>Developer / IT Professional</option><option>General Gen Z User</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-occupation-other-wrap"><input type="text" id="reg-occupation-other" placeholder="Specify respondent identity..."></div></div>
+            <div class="f"><label for="reg-email">Email Address *</label><input type="email" id="reg-email" placeholder="e.g. juancruz@gmail.com" aria-describedby="email-err"><div class="em" id="email-err">Enter a valid email format.</div>
+                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                </div>
+                <div id="auth-status" style="display:none; margin-top:8px; font-size:.75rem; color:var(--neon); background:rgba(0,255,136,.06); border:1px solid rgba(0,255,136,.25); border-radius:9px; padding:8px 11px; align-items:center; gap:6px;"></div>
+            </div>
+        </div>
+        <div class="mod"><span class="num">02</span><span class="mt"><i data-lucide="layers"></i>Your Device and Use</span><span class="tag">Hardware & Rhythm</span></div>
+        <div class="grid2">
+            <div class="f"><label id="lbl-reg-device-type">Health Tracker / Device *</label><div class="chk" id="reg-device-type" role="group" aria-labelledby="lbl-reg-device-type">
+                <label><input type="checkbox" value="Smartwatch (Apple Watch, Galaxy Watch, etc.)"> Smartwatch</label>
+                <label><input type="checkbox" value="Fitness Band (Xiaomi Band, Huawei Band, etc.)"> Fitness Band</label>
+                <label><input type="checkbox" value="Smartphone Health Apps (Apple Health, Fit, etc.)"> Smartphone Health Apps</label>
+                <label><input type="checkbox" value="None / Non-wearable user"> None / Non-user</label>
+                <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-device-type-other-wrap')"> Other</label>
+            </div><div class="other-wrap" id="reg-device-type-other-wrap"><input type="text" id="reg-device-type-other" placeholder="Specify health tracker / device..."></div></div>
+            <div class="f"><label id="lbl-reg-platform-ecosystem">Health Platform *</label><div class="chk" id="reg-platform-ecosystem" role="group" aria-labelledby="lbl-reg-platform-ecosystem">
+                <label><input type="checkbox" value="Apple Health / watchOS"> Apple Health / watchOS</label>
+                <label><input type="checkbox" value="Google Fit / Samsung Health / Wear OS"> Google Fit / Samsung / Wear OS</label>
+                <label><input type="checkbox" value="Proprietary Fitness App (Xiaomi, Huawei, Garmin, Fitbit)"> Proprietary App (Xiaomi, Garmin, Fitbit)</label>
+                <label><input type="checkbox" value="Third-party Apps (Strava, Nike Training, MyFitnessPal)"> Third-party Apps (Strava, Nike, MFP)</label>
+                <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-platform-ecosystem-other-wrap')"> Other</label>
+            </div><div class="other-wrap" id="reg-platform-ecosystem-other-wrap"><input type="text" id="reg-platform-ecosystem-other" placeholder="Specify health platform..."></div></div>
+            <div class="f"><label for="reg-smartphone-os">Phone Type *</label><select id="reg-smartphone-os" onchange="toggleSelOther('reg-smartphone-os','reg-smartphone-os-other-wrap')"><option value="" disabled selected>Select OS</option><option>Compatible with iOS (watchOS, Fitbit, etc.)</option><option>Compatible with Android (Wear OS, Samsung, etc.)</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-smartphone-os-other-wrap"><input type="text" id="reg-smartphone-os-other" placeholder="Specify device OS..."></div></div>
+            <div class="f"><label for="reg-usage-freq">How Often You Check *</label><select id="reg-usage-freq"><option value="" disabled selected>Select</option><option>Multiple times a day</option><option>Once daily (morning / night)</option><option>A few times a week</option><option>Rarely / Only when unwell</option></select></div>
+        <div class="mod"><span class="num">03</span><span class="mt"><i data-lucide="sparkles"></i>Tech Use and AI Help</span><span class="tag">AI Experience</span></div>
+            <div class="f"><label for="reg-wearable-exp">Wearable Familiarity *</label><select id="reg-wearable-exp"><option value="" disabled selected>Select</option><option>Beginner (New to wearable/trackers)</option><option>Middle (Use wearables often)</option><option>Expert (Use wearables a lot)</option></select></div>
+            <div class="f"><label for="reg-ai-familiarity">AI Help Use *</label><select id="reg-ai-familiarity"><option value="" disabled selected>Select</option><option>Beginner (Rarely / never use AI health advice)</option><option>Intermediate (Occasionally consult AI tools)</option><option>Advanced (Frequently rely on AI insights regularly)</option></select></div>
+            <div class="f"><label id="lbl-reg-ai-priority">What You Want From AI Help *</label><div class="chk" id="reg-ai-priority" role="group" aria-labelledby="lbl-reg-ai-priority">
+                <label><input type="checkbox" value="Clear explanations of health scores"> Clear explanations of health scores</label>
+                <label><input type="checkbox" value="Practical recovery and wellness steps"> Practical recovery & wellness steps</label>
+                <label><input type="checkbox" value="Strict biometric privacy (R.A. 10173)"> Strict biometric privacy (R.A. 10173)</label>
+                <label><input type="checkbox" value="Simple language without medical jargon"> Simple language, no jargon</label>
+                <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-ai-priority-other-wrap')"> Other</label>
+            </div><div class="other-wrap" id="reg-ai-priority-other-wrap"><input type="text" id="reg-ai-priority-other" placeholder="Specify AI health advice priority..."></div></div>
+        <div class="mod"><span class="num">04</span><span class="mt"><i data-lucide="activity"></i>Use History and Reasons</span><span class="tag">Motivations</span></div>
+            <div class="f"><label id="lbl-reg-tracking-purpose">Why You Track *</label><div class="chk" id="reg-tracking-purpose" role="group" aria-labelledby="lbl-reg-tracking-purpose">
+                <label><input type="checkbox" value="Daily Steps & Activity Rings"> Daily Steps & Activity Rings</label>
+                <label><input type="checkbox" value="Heart Rate (PPG) & Cardio Health"> Heart Rate & Cardio Health</label>
+                <label><input type="checkbox" value="Sleep Stages & Recovery Time"> Sleep Stages & Recovery</label>
+                <label><input type="checkbox" value="Stress Index & Mental Wellbeing"> Stress Index & Wellbeing</label>
+                <label><input type="checkbox" value="Caloric Burn & Workout Tracking"> Caloric Burn & Workouts</label>
+                <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-tracking-purpose-other-wrap')"> Other</label>
+            </div><div class="other-wrap" id="reg-tracking-purpose-other-wrap"><input type="text" id="reg-tracking-purpose-other" placeholder="Specify primary tracking purpose..."></div></div>
+        </div>
+        <div class="f"><label for="reg-usage-history">How Long You Track *</label><select id="reg-usage-history"><option value="" disabled selected>Select</option><option>Less than 6 months (Recent adopter)</option><option>6 months to 2 years (Established user)</option><option>More than 2 years (Long-term power user)</option><option>First-time / Non-user</option></select></div>
+        <div id="update-banner" class="unlock-note open hide" style="margin-bottom:12px;"><i data-lucide="history"></i><span><strong>Update mode</strong> — we found your saved response. Review your details, change anything, then tap <strong>Update &amp; Resubmit</strong>.</span></div>
+        <div class="consent">
+            <div class="consent-head"><span class="t"><i data-lucide="shield-check"></i> DATA PRIVACY ACT OF 2012 (REPUBLIC ACT NO. 10173) CONSENT NOTICE</span><em>R.A. 10173 COMPLIANT</em></div>
+            <p>This feasibility study research survey aims to ensure the rights of all, and we are committed to protecting the privacy and accuracy of confidential information, in accordance with the provisions of the <strong>Data Privacy Act of 2012 (R.A. 10173)</strong> and its implementing rules and regulations. By agreeing to answer this form, you are consenting to the collection, storage, anonymization, and management of your data for the intended purpose of acquiring information regarding Gen Z habits, experiences, preferences, and perceptions of wearable health technology.</p>
+            <label><input type="checkbox" id="reg-consent-checkbox"><span>I have read, understood, and agree to the Data Privacy Act of 2012 (R.A. 10173) terms and grant consent for my research data *</span></label>
+        </div>
+        <div class="reg-row">
+            <div class="hint"><i data-lucide="shield-check"></i><span>Registration &amp; R.A. 10173 consent unlock the 5 usability tasks, the 10-item SUS survey &amp; the console.</span></div>
+            <button type="button" class="reg-btn" id="btn-reg-unlock" onclick="registerAndUnlock()"><i data-lucide="lock" style="width:15px;height:15px;"></i><span>Register Participant (Manual Entry)</span></button>
+        </div>
+    </div>
+
+    <!-- STEP 2: TASKS -->
+    <div class="card rv" id="step2-card">
+        <div class="lock-veil"><i data-lucide="lock"></i><span>Finish Step 1 registration above to unlock the usability tasks.</span></div>
+        <h2><span class="step-tag">STEP 2</span> <span class="hico"><i data-lucide="list-checks"></i></span> Try-Out Tasks <span class="crit">Effectiveness & Efficiency</span> <span class="task-count" id="task-count">0 / 5 done</span></h2>
+        <div class="segbar" id="segbar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="sub">Try each task on the <a href="index.html" style="color:var(--cyan); font-weight:700;">main dashboard</a>, then tap <strong>Done</strong>. All 5 required before submitting.</div>
+        <div id="task-list"></div>
+        <div class="unlock-note" id="unlock-note"><i data-lucide="lock"></i><span>5 tasks left to unlock the SUS survey below.</span></div>
+    </div>
+
+    <!-- STEP 3: SUS -->
+    <div class="card rv" id="step3-card">
+        <div class="lock-veil"><i data-lucide="lock"></i><span>Finish Step 1 registration above to unlock the SUS survey.</span></div>
+        <h2><span class="step-tag">STEP 3</span> <span class="hico"><i data-lucide="star"></i></span> 10-Item SUS Survey Questionnaire <span class="crit">Satisfaction</span></h2>
+        <div class="sub">Brooke (1996). Rate 4 – Strongly Agree to 1 – Strongly Disagree. Odd items are positively worded, even items negatively worded. All required.</div>
+        <div id="sus-box"></div>
+        <h2 style="margin-top:16px; font-size:.9rem;"><span class="hico"><i data-lucide="message-circle" style="width:16px;height:16px;"></i></span> Section B: Quick Feedback <span style="font-size:.68rem; color:var(--sub); font-weight:600;">(required)</span></h2>
+        <div class="sub">One or two sentences each is enough.</div>
+        <div class="f"><label for="qual-ai">1. AI Help and Clear Answers *</label><textarea id="qual-ai" rows="2" placeholder="Were the AI explanations clear and trustworthy?"></textarea></div>
+        <div class="f"><label for="qual-ui">2. Visual Design & Themes *</label><textarea id="qual-ui" rows="2" placeholder="Dark vs light mode, layout, readability..."></textarea></div>
+        <div class="f"><label for="qual-privacy">3. Privacy and Control (R.A. 10173) *</label><textarea id="qual-privacy" rows="2" placeholder="Did the privacy controls make you feel secure?"></textarea></div>
+        <div class="f"><label for="qual-general">4. Suggestions & Feature Ideas *</label><textarea id="qual-general" rows="2" placeholder="What should we add or improve?"></textarea></div>
+        <div class="live">
+            <div><div class="l">LIVE SUS SCORE</div><div class="v" id="live-score">Pending (0/10)</div></div>
+            <div><div class="l">AVERAGE SCORE (X̄)</div><div class="v" id="live-mean" style="font-size:.82rem;">Answer all 10</div></div>
+            <div><div class="l">RATING</div><div class="v" id="live-grade" style="font-size:.82rem;">Answer all 10</div></div>
+        </div>
+        <button class="submit" id="submit-btn" onclick="submitSurvey()"><i data-lucide="check-circle-2" style="width:18px;height:18px;"></i> Submit Survey</button>
+    </div>
+
+    <!-- DATA GATHERING CONSOLE -->
+    <div class="card rv" id="console-card">
+        <div class="lock-veil"><i data-lucide="lock"></i><span>Finish Step 1 registration above to unlock the console.</span></div>
+        <h2><span class="step-tag">CONSOLE</span> <span class="hico"><i data-lucide="database"></i></span> Study Results Box</h2>
+        <div class="sub">Live study numbers — they update on their own as you answer.</div>
+        <div class="crow"><span><i data-lucide="check-circle-2"></i> Task Completion (Effectiveness)</span><b id="c-completion">0% · 0 of 5 tasks</b></div>
+        <div class="crow"><span><i data-lucide="zap"></i> Task Success Rate (Efficiency)</span><b id="c-success">No task started yet</b></div>
+        <div class="crow clickable" id="c-elapsed-row" onclick="toggleTaskTimes()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTaskTimes();}" role="button" tabindex="0" aria-expanded="false" title="Tap to see time per task"><span><i data-lucide="timer"></i> Elapsed Study Time (Satisfaction)</span><span class="rgroup"><b id="c-elapsed">0:00</b><span id="c-elapsed-chev"><i data-lucide="chevron-down"></i></span></span></div>
+        <div id="console-tasks" class="hide"><div class="csub">Time per task, counted from registration.</div></div>
+        <div class="crow"><span><i data-lucide="gauge"></i> Calculated SUS Score (Satisfaction)</span><b id="c-sus">Answer all 10 to see it</b></div>
+
+    </div>
+</div>
+
+<!-- THANKS -->
+<div class="card" id="thanks">
+    <div class="check"><i data-lucide="check" style="width:32px;height:32px;color:#04121a;"></i></div>
+    <h2 style="justify-content:center; font-size:1.3rem;">Thank You, <span id="ty-name" style="background:linear-gradient(135deg,#a855f7,#00f2fe,#00ff88);-webkit-background-clip:text;background-clip:text;color:transparent;">Participant</span>!</h2>
+    <div class="sub" style="text-align:center;">Your answers are saved.</div>
+    <div class="live">
+        <div><div class="l">SUS SCORE</div><div class="v" id="ty-score">-- / 100</div></div>
+        <div><div class="l">GRADE</div><div class="v" id="ty-grade" style="font-size:.82rem;">--</div></div>
+        <div><div class="l">SESSION</div><div class="v" id="ty-session" style="font-size:.82rem;">--</div></div>
+    </div>
+    <div class="letter">
+        <p style="margin-top:0;"><strong>Dear Valued Participant,</strong></p>
+        <p>On behalf of the <strong>BYTECODE Research Team of Arellano University – Jose Abad Santos Campus</strong>, we sincerely thank you for completing all <strong>5 usability tasks</strong> and the <strong>10-item System Usability Scale (SUS) survey</strong> for our study titled <em>"Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z."</em></p>
+        <p>Your honest feedback will help us make better health dashboards for Gen Z. Your data will be anonymized and handled strictly in accordance with the <strong>Data Privacy Act of 2012 (R.A. 10173)</strong>.</p>
+        <p>We are truly grateful for the time and effort you shared with us. <strong>Maraming salamat po!</strong></p>
+        <div style="margin-top:12px; padding-top:10px; border-top:1px solid var(--line); font-size:.76rem;">
+            <div><strong>Respectfully yours,</strong></div>
+            <div style="margin-top:4px;">Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue,<br>Jhon Rhed O. Omnes &amp; Prof. Erlito M. Albina<br><span style="color:var(--cyan);">BYTECODE Research Team · Arellano University</span></div>
+        </div>
+    </div>
+    <div class="row-btns">
+        <a class="icon-btn" href="index.html" style="padding:10px 18px;"><i data-lucide="home" style="width:14px;height:14px;"></i><span>Back to Dashboard</span></a>
+        <button class="icon-btn" onclick="location.reload()" style="padding:10px 18px;"><i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i><span>New Response</span></button>
+    </div>
+</div>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const TASKS = [
+    { id: 1, name: "View metrics", desc: "Review the HRV, sleep, activity, and stress cards.", sys: "Biometric Dashboard", link: "index.html?from=survey#metrics", icon: "activity" },
+    { id: 2, name: "Read tooltips", desc: "Read sensor definitions and AI confidence labels.", sys: "Explanatory UI", link: "index.html?from=survey#metrics", icon: "help-circle" },
+    { id: 3, name: "Toggle theme", desc: "Switch light / dark mode and check legibility.", sys: "Accessibility Engine", link: "index.html?from=survey", icon: "sun-medium" },
+    { id: 4, name: "Set privacy", desc: "Review consent, explanations, and data-sharing toggles.", sys: "Privacy Controls", link: "index.html?from=survey#privacy", icon: "shield-check" },
+    { id: 5, name: "Ask assistant", desc: "Ask BYTECODE AI for one plain-language recommendation.", sys: "AI Assistant", link: "index.html?from=survey#assistant", icon: "bot" }
+];
+const SUS = [
+    "I think that I would like to use this AI health dashboard frequently.",
+    "I found the system unnecessarily complex.",
+    "I thought the system was easy to use.",
+    "I think that I would need technical support to use this system.",
+    "I found the various functions in this system were well integrated.",
+    "I thought there was too much inconsistency in this system.",
+    "I imagine that most people would learn to use this system very quickly.",
+    "I found the system very cumbersome to use.",
+    "I felt very confident using the system.",
+    "I needed to learn a lot of things before I could get going with this system."
+];
+const LIKERT = { 4: '4 - Strongly Agree', 3: '3 - Agree', 2: '2 - Disagree', 1: '1 - Strongly Disagree' };
+const sessionId = 'GENZ-S-' + Math.floor(100 + Math.random() * 900);
+let startTime = Date.now();
+const doneTasks = {};
+const startedTasks = new Set();
+function markStarted(id) {
+    if (!isRegistered || doneTasks[id]) return;
+    startedTasks.add(id);
+    consoleUI();
+}
+let studyStart = null; let studyEnd = null;
+function elapsedMs() { if (!studyStart) return 0; return Math.max(0, (studyEnd || Date.now()) - studyStart); }
+let lastTaskRender = -1;
+function toggleTaskTimes() {
+    const l = document.getElementById('console-tasks');
+    const r = document.getElementById('c-elapsed-row');
+    if (!l || !r) return;
+    const opening = l.classList.contains('hide');
+    l.classList.toggle('hide');
+    r.classList.toggle('open', opening);
+    r.setAttribute('aria-expanded', opening ? 'true' : 'false');
+}
+function toggleLetterOfIntent() {
+    const body = document.getElementById('letter-of-intent-body');
+    const txt = document.getElementById('letter-toggle-text');
+    const chev = document.getElementById('letter-toggle-chev');
+    const toggle = document.getElementById('letter-of-intent-toggle');
+    if (!body) return;
+    const isHidden = body.style.display === 'none';
+    body.style.display = isHidden ? 'block' : 'none';
+    if (txt) txt.textContent = isHidden ? 'Hide' : 'View Full Letter';
+    if (chev) chev.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+    if (toggle) toggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+}
+/* module "Other -> specify" helpers (mirror main site behavior) */
+function toggleSelOther(selId, wrapId) {
+    const sel = document.getElementById(selId), w = document.getElementById(wrapId);
+    if (!sel || !w) return;
+    w.classList.toggle('show', sel.value === 'Other');
+    if (sel.value === 'Other') { const inp = w.querySelector('input'); if (inp) inp.focus(); }
+}
+function toggleChkOther(cb, wrapId) {
+    const w = document.getElementById(wrapId);
+    if (!w) return;
+    w.classList.toggle('show', !!(cb && cb.checked));
+    if (cb && cb.checked) { const inp = w.querySelector('input'); if (inp) inp.focus(); }
+}
+function selVal(selId, otherId) {
+    const sel = document.getElementById(selId);
+    const v = sel ? sel.value : '';
+    if (v !== 'Other') return v;
+    const t = document.getElementById(otherId);
+    const custom = t ? t.value.trim() : '';
+    return custom ? 'Other: ' + custom : 'Other';
+}
+function chkVal(groupId, otherId) {
+    const arr = chk(groupId);
+    const t = document.getElementById(otherId);
+    const custom = t ? t.value.trim() : '';
+    if (custom && arr.includes('Other')) arr.push('Other: ' + custom);
+    return arr.join('; ');
+}
+function restoreSel(selId, wrapId, otherId, saved) {
+    if (!saved) return;
+    const v = String(saved);
+    if (v.indexOf('Other:') !== 0) return;
+    const sel = document.getElementById(selId); if (sel) sel.value = 'Other';
+    const w = document.getElementById(wrapId); if (w) w.classList.add('show');
+    const o = document.getElementById(otherId); if (o) o.value = v.slice(6).trim();
+}
+function restoreChk(groupId, wrapId, otherId, saved) {
+    if (!saved) return;
+    const m = String(saved).split(';').map(s => s.trim()).find(s => s.indexOf('Other:') === 0);
+    if (!m) return;
+    const cb = document.querySelector(`#${groupId} input[value="Other"]`); if (cb) cb.checked = true;
+    const w = document.getElementById(wrapId); if (w) w.classList.add('show');
+    const o = document.getElementById(otherId); if (o) o.value = m.slice(6).trim();
+}
+
+function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3200); }
+function toggleTheme() { const h = document.documentElement; h.setAttribute('data-theme', h.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); try { localStorage.setItem('bytecode_theme', h.getAttribute('data-theme')); } catch(e) {} icons(); }
+try { if (localStorage.getItem('bytecode_theme') === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch(e) {}
+function icons() { if (window.lucide) lucide.createIcons(); }
+let activeSessionId = sessionId;
+
+/* ---- Google Auth + retrieve / update existing user ---- */
+function setAuthStatus(html) {
+    const el = document.getElementById('auth-status');
+    if (!el) return;
+    el.style.display = html ? 'flex' : 'none';
+    if (html) el.innerHTML = html;
+}
+function signInWithGoogle() {
+    if (!window.firebaseAuth) { toast('Google sign-in needs hosting + internet. Type your email and tap Retrieve instead.'); return; }
+    toast('Opening Google sign-in...');
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('email'); provider.addScope('profile');
+    window.firebaseAuth.signInWithPopup(provider)
+        .then(res => {
+            const email = res && res.user && res.user.email ? res.user.email : '';
+            if (!email) { toast('No email returned from Google.'); return; }
+            document.getElementById('reg-email').value = email;
+            const gb = document.getElementById('google-btn'); if (gb) gb.classList.add('hide');
+            setAuthStatus(`<span>Signed in as <b>${email}</b> · <a href="#" onclick="signOutGoogle();return false;" style="color:var(--cyan);">Sign out</a></span>`);
+            lookupSession(email);
+        })
+        .catch(err => {
+            const code = err && err.code ? err.code : 'unknown';
+            const msg = err && err.message ? err.message : String(err);
+            let hint = '';
+            if (code === 'auth/popup-blocked') hint = 'Allow popups for this site, then try again.';
+            else if (code === 'auth/popup-closed-by-user') hint = 'Sign-in window was closed.';
+            else if (code === 'auth/operation-not-allowed') hint = 'Google provider is OFF in Firebase Console → Authentication → Sign-in method → Google → Enable.';
+            else if (code === 'auth/unauthorized-domain') hint = 'This domain is not allowed. Firebase Console → Authentication → Settings → Authorized domains → add "' + window.location.hostname + '".';
+            else if (code === 'auth/network-request-failed') hint = 'Network/CORS issue — check internet connection.';
+            else if (code === 'auth/api-key-not-valid') hint = 'API key rejected — check Firebase config / API key restrictions in Google Cloud Console.';
+            setAuthStatus(`<span>⚠️ Sign-in failed [${code}]. ${hint}<br><small style="opacity:.75">${msg}</small></span>`);
+            toast(`Sign-in failed [${code}]. ${hint || 'Use email + Retrieve instead.'}`);
+        });
+}
+function signOutGoogle() {
+    if (!confirm('Sign out and clear everything?\n\nThis erases your form answers, task progress, survey responses, and saved session data on this device. This cannot be undone.')) return;
+    if (window.firebaseAuth) window.firebaseAuth.signOut().catch(() => {});
+    const b = document.getElementById('google-btn'); if (b) b.classList.remove('hide');
+    setAuthStatus('');
+    /* clear everything: form, tasks, survey answers, saved logs, session */
+    document.querySelectorAll('#form-view input[type="text"], #form-view input[type="number"], #form-view input[type="email"], #form-view textarea').forEach(el => { el.value = ''; });
+    document.querySelectorAll('#form-view select').forEach(el => { el.selectedIndex = 0; });
+    document.querySelectorAll('#form-view input[type="checkbox"]').forEach(el => { el.checked = false; });
+    document.querySelectorAll('.other-wrap').forEach(el => el.classList.remove('show'));
+    Object.keys(doneTasks).forEach(k => delete doneTasks[k]);
+    startedTasks.clear(); startTime = Date.now(); studyStart = null; studyEnd = null; lastTaskRender = -1;
+    document.querySelectorAll('.task').forEach((card, i) => {
+        card.classList.remove('done');
+        const n = card.querySelector('.n'); if (n) n.textContent = i + 1;
+        const btn = card.querySelector('.done-btn'); if (btn) btn.textContent = 'Done';
+    });
+    document.querySelectorAll('#sus-box input[type="radio"]').forEach(r => { r.checked = false; });
+    document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+    document.querySelectorAll('.sus').forEach(s => s.classList.remove('err'));
+    taskUI();
+    lockAll();
+    const ls = document.getElementById('live-score'); if (ls) ls.textContent = 'Pending (0/10)';
+    const lm = document.getElementById('live-mean'); if (lm) lm.textContent = 'Answer all 10';
+    const lg = document.getElementById('live-grade'); if (lg) lg.textContent = 'Answer all 10';
+    const pf = document.getElementById('pfill'); if (pf) pf.style.width = '0%';
+    const pp = document.getElementById('ppct'); if (pp) pp.textContent = '0%';
+    const pb0 = document.getElementById('pbar'); if (pb0) pb0.setAttribute('aria-valuenow', '0');
+    Object.keys(localStorage).filter(k => k.indexOf('bytecode_survey_log_') === 0).forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+    activeSessionId = 'GENZ-S-' + Math.floor(100 + Math.random() * 900);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('Signed out. All information cleared.');
+}
+function retrieveByEmailInput() {
+    const email = document.getElementById('reg-email').value.trim();
+    if (!okEmail(email)) { document.getElementById('email-err').style.display = 'block'; toast('Type a valid email first.'); return; }
+    document.getElementById('email-err').style.display = 'none';
+    lookupSession(email);
+}
+function lookupSession(email) {
+    const key = String(email).toLowerCase().trim();
+    const useLocal = () => {
+        const hit = Object.keys(localStorage).find(k => k.indexOf('bytecode_survey_log_') === 0);
+        if (!hit) { toast('No existing record for ' + email + ' — please fill out the form.'); return; }
+        try { restoreSession(JSON.parse(localStorage.getItem(hit))); }
+        catch (e) { toast('No existing record found.'); }
+    };
+    if (!firebaseDb) { useLocal(); return; }
+    toast('Looking up existing record for ' + email + '...');
+    firebaseDb.ref('usability_sessions').once('value')
+        .then(snap => {
+            const data = snap.val();
+            let found = null;
+            if (data) Object.values(data).forEach(s => {
+                if (s && s.participantEmail && String(s.participantEmail).toLowerCase().trim() === key) found = s;
+            });
+            if (found) restoreSession(found);
+            else useLocal();
+        })
+        .catch(() => useLocal());
+}
+function checkVals(groupId, joined) {
+    if (!joined) return;
+    const vals = String(joined).split(';').map(s => s.trim()).filter(Boolean);
+    document.querySelectorAll(`#${groupId} input[type="checkbox"]`).forEach(cb => { cb.checked = vals.includes(cb.value); });
+}
+function restoreSession(s) {
+    if (!s) return;
+    activeSessionId = s.sessionId || activeSessionId;
+    const set = (id, v) => { const el = document.getElementById(id); if (el && v !== undefined && v !== null && v !== '') el.value = v; };
+    set('reg-name', s.participantName); set('reg-age', s.participantAge); set('reg-gender', s.participantGender);
+    set('reg-address', s.participantAddress); set('reg-occupation', s.participantOccupation); set('reg-email', s.participantEmail);
+    set('reg-smartphone-os', s.participantSmartphoneOs); set('reg-usage-freq', s.participantUsageFreq);
+    set('reg-wearable-exp', s.participantWearableExp); set('reg-ai-familiarity', s.participantAiFamiliarity);
+    set('reg-usage-history', s.participantUsageHistory);
+    checkVals('reg-device-type', s.participantDeviceType); checkVals('reg-platform-ecosystem', s.participantPlatform);
+    checkVals('reg-ai-priority', s.participantAiPriority); checkVals('reg-tracking-purpose', s.participantTrackingPurpose);
+    restoreSel('reg-gender','reg-gender-other-wrap','reg-gender-other',s.participantGender);
+    restoreSel('reg-address','reg-address-other-wrap','reg-address-other',s.participantAddress);
+    restoreSel('reg-occupation','reg-occupation-other-wrap','reg-occupation-other',s.participantOccupation);
+    restoreSel('reg-smartphone-os','reg-smartphone-os-other-wrap','reg-smartphone-os-other',s.participantSmartphoneOs);
+    restoreChk('reg-device-type','reg-device-type-other-wrap','reg-device-type-other',s.participantDeviceType);
+    restoreChk('reg-platform-ecosystem','reg-platform-ecosystem-other-wrap','reg-platform-ecosystem-other',s.participantPlatform);
+    restoreChk('reg-ai-priority','reg-ai-priority-other-wrap','reg-ai-priority-other',s.participantAiPriority);
+    restoreChk('reg-tracking-purpose','reg-tracking-purpose-other-wrap','reg-tracking-purpose-other',s.participantTrackingPurpose);
+    const cb = document.getElementById('reg-consent-checkbox'); if (cb) cb.checked = true;
+    unlockAll();
+    const ub = document.getElementById('update-banner'); if (ub) ub.classList.remove('hide');
+    const sb = document.getElementById('submit-btn');
+    if (sb) sb.innerHTML = '<i data-lucide="refresh-cw" style="width:18px;height:18px;"></i> Update & Resubmit';
+    let savedSec = 0;
+    if (s.tasks) Object.values(s.tasks).forEach(t => { if (t && t.elapsedSeconds > savedSec) savedSec = t.elapsedSeconds; });
+    if (!savedSec && typeof s.elapsedSessionSeconds === 'number' && s.elapsedSessionSeconds > 0) savedSec = s.elapsedSessionSeconds;
+    studyStart = Date.now() - savedSec * 1000;
+    const restoredDone = s.tasks ? Object.keys(s.tasks).length : 0;
+    studyEnd = restoredDone >= 5 ? studyStart + savedSec * 1000 : null;
+    if (s.tasks) Object.values(s.tasks).forEach(t => {
+        if (t && t.taskId && !doneTasks[t.taskId]) {
+            doneTasks[t.taskId] = { taskId: t.taskId, name: t.name, subsystem: t.subsystem, description: t.description, completedAt: t.completedAt || new Date().toISOString(), elapsedSeconds: t.elapsedSeconds || 0, status: 'COMPLETED' };
+            startedTasks.add(t.taskId);
+            const card = document.getElementById('task-' + t.taskId);
+            if (card) { card.classList.add('done'); card.querySelector('.n').innerHTML = '<i data-lucide="check"></i>'; card.querySelector('.done-btn').innerHTML = 'Done <i data-lucide="check"></i>'; }
+        }
+    });
+    if (s.susItemResponses) s.susItemResponses.forEach(it => {
+        const r = document.querySelector(`input[name="q${it.questionId}"][value="${it.rawRating}"]`);
+        if (r) { r.checked = true; pick(it.questionId, it.rawRating); }
+    });
+    if (s.qualitativeFeedback) {
+        const q = s.qualitativeFeedback;
+        if (q.ai) document.getElementById('qual-ai').value = q.ai;
+        if (q.ui) document.getElementById('qual-ui').value = q.ui;
+        if (q.privacy) document.getElementById('qual-privacy').value = q.privacy;
+        if (q.general) document.getElementById('qual-general').value = q.general;
+    }
+    taskUI();
+    live(); progress();
+    toast(`Welcome back, ${(s.participantName || '').split(' ')[0] || 'participant'}! Info retrieved — review, update, and resubmit.`);
+    icons();
+}
+
+/* reveal on scroll */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* tasks */
+function renderTasks() {
+    const list = document.getElementById('task-list');
+    list.innerHTML = '';
+    TASKS.forEach((t, i) => {
+        const d = document.createElement('div');
+        d.className = 'task'; d.id = 'task-' + t.id;
+        d.style.setProperty('--d', i);
+        d.innerHTML = `<div class="n">${i + 1}</div>
+            <div class="tico"><i data-lucide="${t.icon}"></i></div>
+            <div class="tx"><b>${t.name}</b><span>${t.desc}</span><span class="sys">${t.sys.toUpperCase()}</span></div>
+            <div class="tact">
+                <a class="go" href="${t.link}" target="_blank" rel="noopener" title="Open this on the dashboard" onclick="markStarted(${t.id})"><i data-lucide="external-link"></i><span>Open</span></a>
+                <button class="done-btn" onclick="doTask(${t.id})" aria-label="Mark task ${i + 1} (${t.name}) done">Done</button>
+            </div>`;
+        list.appendChild(d);
+    });
+    taskUI();
+    icons();
+}
+function taskUI() {
+    const n = Object.keys(doneTasks).length;
+    const tc = document.getElementById('task-count');
+    if (tc) tc.textContent = `${n} / 5 done`;
+    document.querySelectorAll('#segbar i').forEach((s, i) => s.classList.toggle('on', i < n));
+    const un = document.getElementById('unlock-note');
+    if (un) {
+        if (n === 5) { un.classList.add('open'); un.innerHTML = '<i data-lucide="check-circle-2"></i><span>Protocol complete — SUS survey unlocked below.</span>'; }
+        else { un.classList.remove('open'); un.innerHTML = `<i data-lucide="lock"></i><span>${5 - n} task${n === 4 ? '' : 's'} left to unlock the SUS survey below.</span>`; }
+        icons();
+    }
+}
+function doTask(id) {
+    if (doneTasks[id]) { toast(`Task ${id} already completed ✓`); return; }
+    const nowMs = Date.now();
+    const t = TASKS.find(x => x.id === id);
+    const el = Math.max(3, Math.floor((nowMs - (studyStart || nowMs)) / 1000));
+    doneTasks[id] = { taskId: id, name: t.name, subsystem: t.sys, description: t.desc, completedAt: new Date(nowMs).toISOString(), elapsedSeconds: el, status: 'COMPLETED' };
+    startedTasks.add(id);
+    if (Object.keys(doneTasks).length >= 5 && !studyEnd) studyEnd = nowMs;
+    const card = document.getElementById('task-' + id);
+    card.classList.add('done');
+    card.querySelector('.n').innerHTML = '<i data-lucide="check"></i>';
+    card.querySelector('.done-btn').innerHTML = 'Done <i data-lucide="check"></i>';
+    icons();
+    const n = Object.keys(doneTasks).length;
+    taskUI();
+    toast(n === 5 ? '🎉 All 5 tasks done! Now answer the SUS survey.' : `Task ${id} logged (${el}s) ✓`);
+    progress();
+    if (n === 5) setTimeout(() => document.getElementById('step3-card').scrollIntoView({ behavior: 'smooth', block: 'start' }), 700);
+}
+
+/* sus */
+function renderSUS() {
+    const c = document.getElementById('sus-box');
+    c.innerHTML = '';
+    SUS.forEach((text, i) => {
+        const id = i + 1;
+        const isOdd = id % 2 === 1;
+        const tone = isOdd ? 'pos' : 'neg';
+        const toneTxt = isOdd ? 'Odd · Positive' : 'Even · Negative';
+        const box = document.createElement('div');
+        box.className = 'sus'; box.id = 'sus-' + id;
+        let opts = '';
+        for (let v = 4; v >= 1; v--) opts += `<label class="opt" id="lbl-${id}-${v}"><input type="radio" name="q${id}" value="${v}" onchange="pick(${id},${v})">${LIKERT[v]}</label>`;
+        box.innerHTML = `<div class="qhead"><span class="qnum">Q${id}</span><span class="qtone ${tone}">${toneTxt}</span></div><q id="susq-${id}">${text}</q><div class="opts" role="radiogroup" aria-labelledby="susq-${id}">${opts}</div>`;
+        c.appendChild(box);
+    });
+}
+function pick(id, v) {
+    for (let k = 1; k <= 4; k++) document.getElementById(`lbl-${id}-${k}`).classList.toggle('sel', k === v);
+    document.getElementById('sus-' + id).classList.remove('err');
+    live();
+}
+function susItems() {
+    const out = [];
+    for (let i = 1; i <= 10; i++) {
+        const r = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!r) return null;
+        const v = parseInt(r.value);
+        out.push({ questionId: i, statement: SUS[i - 1], type: i % 2 ? "Odd (Positive)" : "Even (Negative)", rawRating: v, scoreContribution: i % 2 ? v - 1 : 4 - v, effectiveUsabilityRating: i % 2 ? v : 5 - v });
+    }
+    return out;
+}
+function scoreOf(items) {
+    let c = 0, e = 0;
+    items.forEach(it => { c += it.scoreContribution; e += it.effectiveUsabilityRating; });
+    const sus = parseFloat((c * (100 / 30)).toFixed(1)), mean = parseFloat((e / 10).toFixed(2));
+    let grade = 'Grade A (Excellent Usability)';
+    if (sus < 50.9) grade = 'Grade F (Poor Usability)';
+    else if (sus < 68.0) grade = 'Grade C (Marginal Usability)';
+    else if (sus < 80.3) grade = 'Grade B (Good Usability)';
+    const verbal = mean >= 3.26 ? 'Excellent Usability' : mean >= 2.51 ? 'Good Usability' : mean >= 1.76 ? 'Fair Usability' : 'Poor Usability';
+    return { sus, mean, grade, verbal };
+}
+function live() {
+    const items = susItems();
+    const n = document.querySelectorAll('#sus-box input:checked').length;
+    if (!items) { document.getElementById('live-score').textContent = `Pending (${n}/10)`; document.getElementById('live-grade').textContent = 'Answer all 10'; document.getElementById('live-mean').textContent = 'Answer all 10'; return; }
+    const s = scoreOf(items);
+    document.getElementById('live-score').textContent = `${s.sus} / 100`;
+    document.getElementById('live-mean').textContent = `${s.mean.toFixed(2)} / 4.00 · ${s.verbal}`;
+    document.getElementById('live-grade').textContent = s.grade;
+    progress();
+}
+function chk(id) { return Array.from(document.querySelectorAll(`#${id} input:checked`)).map(x => x.value); }
+function okEmail(e) { return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(String(e).trim().toLowerCase()); }
+
+function progress() {
+    const reg = ['reg-name','reg-age','reg-address','reg-email'].every(id => document.getElementById(id).value.trim()) ? 1 : 0;
+    const t = Object.keys(doneTasks).length / 5;
+    const q = document.querySelectorAll('#sus-box input:checked').length / 10;
+    const pct = Math.round((reg * 0.25 + t * 0.35 + q * 0.4) * 100);
+    document.getElementById('pfill').style.width = pct + '%';
+    document.getElementById('ppct').textContent = pct + '%';
+    const pb = document.getElementById('pbar'); if (pb) pb.setAttribute('aria-valuenow', String(pct));
+    consoleUI();
+}
+['reg-name','reg-age','reg-address','reg-email'].forEach(id => document.getElementById(id).addEventListener('input', progress));
+
+/* ---- registration gate: Step 1 unlocks Steps 2, 3 + console (like main site) ---- */
+let isRegistered = false;
+function unlockAll() {
+    isRegistered = true;
+    if (!studyStart) studyStart = Date.now();
+    ['step2-card', 'step3-card', 'console-card'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('unlocked'); });
+    const b = document.getElementById('btn-reg-unlock');
+    if (b) b.innerHTML = '<i data-lucide="check" style="width:15px;height:15px;"></i><span>Registered — Next Steps Unlocked</span>';
+    icons();
+}
+function lockAll() {
+    isRegistered = false;
+    ['step2-card', 'step3-card', 'console-card'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('unlocked'); });
+    const b = document.getElementById('btn-reg-unlock');
+    if (b) b.innerHTML = '<i data-lucide="lock" style="width:15px;height:15px;"></i><span>Register Participant (Manual Entry)</span>';
+    const ub = document.getElementById('update-banner'); if (ub) ub.classList.add('hide');
+    const sb = document.getElementById('submit-btn');
+    if (sb) sb.innerHTML = '<i data-lucide="check-circle-2" style="width:18px;height:18px;"></i> Submit Survey';
+    icons();
+}
+function registerAndUnlock() {
+    const g = id => document.getElementById(id).value.trim();
+    const name = g('reg-name'), ageV = g('reg-age'), age = parseInt(ageV);
+    const address = document.getElementById('reg-address').value, email = g('reg-email');
+    if (!name) { toast('Please enter your full name first.'); document.getElementById('reg-name').focus(); return; }
+    if (!ageV || isNaN(age) || age < 12 || age > 27) { toast('Age must be between 12 and 27.'); document.getElementById('reg-age').focus(); return; }
+    if (!address) { toast('Please choose your city / municipality.'); document.getElementById('reg-address').focus(); return; }
+    if (!okEmail(email)) { toast('Please enter a valid email address.'); document.getElementById('reg-email').focus(); return; }
+    if (!document.getElementById('reg-consent-checkbox').checked) { toast('Please read and agree to the R.A. 10173 consent first.'); return; }
+    unlockAll();
+    toast(`Thanks ${name.split(' ')[0]}! Steps 2, 3 and the console are now unlocked.`);
+    document.getElementById('step2-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function submitSurvey() {
+    if (!isRegistered) { toast('Please tap "Register and Start Next Steps" in Step 1 first.'); document.getElementById('step2-card').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    const g = id => document.getElementById(id).value.trim();
+    const name = g('reg-name'), ageV = g('reg-age'), age = parseInt(ageV);
+    const address = selVal('reg-address','reg-address-other'), email = g('reg-email');
+    const occ = selVal('reg-occupation','reg-occupation-other'), gender = selVal('reg-gender','reg-gender-other') || 'Prefer not to say';
+    const dev = chkVal('reg-device-type','reg-device-type-other'), plat = chkVal('reg-platform-ecosystem','reg-platform-ecosystem-other');
+    const os = selVal('reg-smartphone-os','reg-smartphone-os-other'), freq = document.getElementById('reg-usage-freq').value;
+    const exp = document.getElementById('reg-wearable-exp').value, aif = document.getElementById('reg-ai-familiarity').value;
+    const aip = chkVal('reg-ai-priority','reg-ai-priority-other'), purp = chkVal('reg-tracking-purpose','reg-tracking-purpose-other');
+    const hist = document.getElementById('reg-usage-history').value, consent = document.getElementById('reg-consent-checkbox').checked;
+    const miss = [];
+    if (!name) miss.push('Full Name');
+    if (!ageV || isNaN(age) || age < 12 || age > 27) miss.push('Age (12-27)');
+    if (!address) miss.push('City'); if (!email) miss.push('Email'); if (!occ) miss.push('Identity');
+    if (!dev) miss.push('Device'); if (!plat) miss.push('Platform'); if (!os) miss.push('OS');
+    if (!freq) miss.push('Frequency'); if (!exp) miss.push('Wearable Exp.'); if (!aif) miss.push('AI Familiarity');
+    if (!aip) miss.push('AI Priority'); if (!purp) miss.push('Purpose'); if (!hist) miss.push('Duration');
+    if (!consent) miss.push('R.A. 10173 Consent');
+    if (!okEmail(email) && email) { document.getElementById('email-err').style.display = 'block'; toast('Invalid email format.'); return; }
+    if (miss.length) { toast('Missing: ' + miss.join(', ')); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (Object.keys(doneTasks).length < 5) { toast(`Complete all 5 tasks first (${Object.keys(doneTasks).length}/5 done).`); document.getElementById('task-count').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    const items = susItems();
+    if (!items) {
+        for (let i = 1; i <= 10; i++) if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+            const b = document.getElementById('sus-' + i); b.classList.add('err'); b.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            toast(`Please answer Q${i}.`); return;
+        }
+    }
+    const qual = { ai: g('qual-ai'), ui: g('qual-ui'), privacy: g('qual-privacy'), general: g('qual-general') };
+    if (Object.values(qual).some(v => !v)) { toast('Please complete all Section B fields.'); return; }
+
+    const s = scoreOf(items);
+    const el = Math.floor(elapsedMs() / 1000);
+    const tasks = {};
+    Object.values(doneTasks).forEach(t => tasks['Task_' + t.taskId] = t);
+    const payload = {
+        studyTitle: "Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z",
+            entryMode: "manual-researcher",
+        authors: "Emmanuel Jr D. Misola, Jemani Sean Gabrielle H. Prendingue, Jhon Rhed O. Omnes, Prof. Erlito M. Albina (Arellano University)",
+        sessionId: activeSessionId, participantCohort: "Gen Z (12-27 years)",
+        participantName: name, participantAge: age,
+        participantAgeGroup: age < 18 ? 'Below 18 (12-17 years)' : age <= 21 ? '18-21 (College / Young Adult)' : age <= 24 ? '22-24 (Fresh Graduate / Early Career)' : '25-27 (Working Gen Z Adult)',
+        participantGender: gender, participantAddress: address, participantEmail: email, participantOccupation: occ,
+        participantDeviceType: dev, participantPlatform: plat, participantSmartphoneOs: os, participantUsageFreq: freq,
+        participantWearableExp: exp, participantAiFamiliarity: aif, participantAiPriority: aip,
+        participantTrackingPurpose: purp, participantUsageHistory: hist,
+        dataPrivacyConsentGiven: true, dataPrivacyConsentTimestamp: new Date().toISOString(),
+        deviceUsed: 'Survey Portal (survey.html)', startTime, elapsedSessionSeconds: el,
+        tasks, isTasksFinished: true,
+        susScore: s.sus, weightedMean: s.mean, susGrade: s.grade, verbalInterpretation: s.verbal,
+        susItemResponses: items, qualitativeFeedback: qual,
+        completedAt: new Date().toISOString(), submissionTimestamp: new Date().toISOString(),
+        isProtocolCompleted: true, source: 'survey.html'
+    };
+    try { localStorage.setItem('bytecode_survey_log_' + activeSessionId, JSON.stringify(payload)); } catch (e) {}
+    if (firebaseDb) firebaseDb.ref('usability_sessions/' + activeSessionId).set(payload)
+        .then(() => toast('Synced to research database!'))
+        .catch(() => toast('Saved locally (sync retries via dashboard).'));
+    document.getElementById('ty-name').textContent = name.split(' ')[0];
+    document.getElementById('ty-score').textContent = `${s.sus} / 100`;
+    document.getElementById('ty-grade').textContent = s.grade;
+    document.getElementById('ty-session').textContent = activeSessionId;
+    document.getElementById('form-view').classList.add('hide');
+    document.querySelector('.progress-head').classList.add('hide');
+    const th = document.getElementById('thanks');
+    th.style.display = 'block'; th.classList.add('rv', 'in');
+    document.getElementById('pfill').style.width = '100%';
+    window.scrollTo({ top: 0 });
+    toast(`Submitted! Score: ${s.sus}/100 (${s.grade})`);
+    icons();
+}
+
+/* data gathering console — plain live summary */
+function fmtElapsed(ms) { const s = Math.max(0, Math.floor(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; }
+function consoleUI() {
+    const tn = Object.keys(doneTasks).length;
+    const c = document.getElementById('c-completion');
+    if (c) { c.textContent = `${Math.round(tn / 5 * 100)}% · ${tn} of 5 tasks`; c.classList.toggle('good', tn === 5); }
+    const st = startedTasks.size;
+    const s = document.getElementById('c-success');
+    if (s) {
+        if (!st) { s.textContent = 'No task started yet'; s.classList.remove('good'); }
+        else { const rate = Math.round(tn / st * 100); s.textContent = `${rate}% · ${tn} of ${st} started`; s.classList.toggle('good', rate === 100 && tn === 5); }
+    }
+    const e = document.getElementById('c-elapsed');
+    if (e) e.textContent = fmtElapsed(elapsedMs());
+    const qn = document.querySelectorAll('#sus-box input:checked').length;
+    const sc = document.getElementById('c-sus');
+    if (sc) {
+        const items = (typeof susItems === 'function') ? susItems() : null;
+        if (items && qn === 10) { const r = scoreOf(items); sc.textContent = `${r.sus} / 100 · ${r.grade}`; sc.classList.add('good'); }
+        else { sc.textContent = `Answer ${10 - qn} more to see it`; sc.classList.remove('good'); }
+    }
+    /* per-task breakdown retrieved from the finished protocol tasks */
+    const tn2 = Object.keys(doneTasks).length;
+    if (tn2 !== lastTaskRender) {
+        lastTaskRender = tn2;
+        const ct = document.getElementById('console-tasks');
+        if (ct) {
+            ct.innerHTML = '<div class="csub">Time per task, counted from registration.</div>' + TASKS.map(t => {
+                const d = doneTasks[t.id];
+                return `<div class="crow"><span><i data-lucide="${t.icon}"></i> ${t.name}</span><b class="${d ? 'good' : ''}">${d ? fmtElapsed((d.elapsedSeconds || 0) * 1000) : 'Not done yet'}</b></div>`;
+            }).join('');
+            icons();
+        }
+    }
+}
+renderTasks();
+renderSUS();
+progress();
+icons();
+setInterval(() => { const e = document.getElementById('c-elapsed'); if (e) e.textContent = fmtElapsed(elapsedMs()); }, 1000);
+if (window.location.protocol === 'file:') {
+    setAuthStatus('<span>⚠️ You opened this file directly (file://) — Google sign-in is blocked here. Run via localhost instead: <b>http://localhost:8080/survey.html</b>. Email + Retrieve still works.</span>');
+}
+if (window.firebaseAuth) {
+    window.firebaseAuth.onAuthStateChanged(u => {
+        if (u && u.email && !document.getElementById('reg-name').value.trim()) {
+            document.getElementById('reg-email').value = u.email;
+            const b = document.getElementById('google-btn'); if (b) b.classList.add('hide');
+            setAuthStatus(`<span>Signed in as <b>${u.email}</b> · <a href="#" onclick="signOutGoogle();return false;" style="color:var(--cyan);">Sign out</a></span>`);
+            lookupSession(u.email);
+        }
+    });
+}
+</script>
+</body>
+</html>
