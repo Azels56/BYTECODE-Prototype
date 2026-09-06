@@ -434,6 +434,55 @@
             line-height: 1.55;
         }
 
+        /* MANUAL GMAIL LOOKUP BAR (no Google sign-in) */
+        .manual-lookup-bar {
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+            background: rgba(11, 18, 30, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 14px;
+            padding: 12px 16px; margin-bottom: 16px;
+        }
+        .mlb-icon {
+            width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.45);
+            background: radial-gradient(circle at 50% 38%, rgba(0, 242, 254, 0.16), rgba(0, 242, 254, 0.04));
+        }
+        .mlb-icon svg { width: 17px; height: 17px; }
+        .mlb-copy { flex: 1; min-width: 200px; }
+        .mlb-title { font-size: .84rem; font-weight: 800; color: var(--text-heading); }
+        .mlb-sub { font-size: .68rem; color: var(--text-muted); margin-top: 2px; }
+        .manual-lookup-bar input {
+            flex: 1 1 220px; min-width: 0; padding: 10px 14px; font-size: .8rem;
+            border-radius: 11px; background: rgba(6, 12, 20, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.3); color: var(--text-primary); outline: none;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+        .manual-lookup-bar input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.12); }
+        .mlb-btn {
+            display: inline-flex; align-items: center; gap: 7px; padding: 10px 18px;
+            font-size: .78rem; font-weight: 800; border-radius: 11px; border: none; cursor: pointer;
+            color: #04121a; background: linear-gradient(135deg, #00f2fe, #10b981);
+            font-family: inherit; white-space: nowrap;
+        }
+        [data-theme="light"] .manual-lookup-bar { background: #ffffff; border-color: #cbd5e1; }
+        [data-theme="light"] .manual-lookup-bar input { background: #f8fafc; border-color: #cbd5e1; color: #0f172a; }
+        [data-theme="light"] .mlb-title { color: #0f172a; }
+        [data-theme="light"] .mlb-sub { color: #475569; }
+        [data-theme="light"] .mlb-btn { color: #ffffff; background: linear-gradient(135deg, #0369a1, #047857); }
+        .mlb-secondary {
+            display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px;
+            font-size: .78rem; font-weight: 800; border-radius: 11px; cursor: pointer;
+            color: var(--accent-purple); background: rgba(168, 85, 247, 0.08);
+            border: 1px solid rgba(168, 85, 247, 0.45); text-decoration: none; white-space: nowrap;
+            font-family: inherit; transition: background .15s ease;
+        }
+        .mlb-secondary:hover { background: rgba(168, 85, 247, 0.16); }
+        [data-theme="light"] .mlb-secondary { color: #7c3aed; background: rgba(124, 58, 237, 0.08); border-color: rgba(124, 58, 237, 0.45); }
+        @media (max-width: 640px) {
+            .manual-lookup-bar input { flex-basis: 100%; }
+            .mlb-btn { flex: 1 1 100%; justify-content: center; }
+        }
+
         /* 7 STAT CARDS GRID - ULTRA SLEEK GLASSMORPHIC CARDS */
         .stats-6grid {
             display: grid;
@@ -1114,6 +1163,18 @@
             </p>
         </div>
 
+        <!-- MANUAL GMAIL LOOKUP (NO GOOGLE SIGN-IN NEEDED) -->
+        <div class="manual-lookup-bar">
+            <div class="mlb-icon"><i data-lucide="mail"></i></div>
+            <div class="mlb-copy">
+                <div class="mlb-title">Find participant by Gmail</div>
+                <div class="mlb-sub">No Google sign-in needed &mdash; type the participant's Gmail to pull up their record.</div>
+            </div>
+            <input type="email" id="admin-manual-email" placeholder="e.g. participant1@gmail.com" aria-label="Participant Gmail address" onkeydown="if(event.key==='Enter'){event.preventDefault();findParticipantByEmail();}">
+            <button type="button" class="mlb-btn" onclick="findParticipantByEmail()"><i data-lucide="search" style="width:14px; height:14px;"></i> <span>Find record</span></button>
+            <a type="button" class="mlb-secondary" href="survey-manual.html" target="_blank" rel="noopener" title="Open the Manual Edition survey page — encode a participant's answers by hand"><i data-lucide="edit-3" style="width:14px; height:14px;"></i> <span>Manual survey entry</span></a>
+        </div>
+
         <!-- 7 METRIC CARDS SUMMARY GRID (INCLUDES ISO 9241-11 EFFICIENCY MEAN COMPLETION TIME) -->
         <div class="stats-6grid" style="grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));">
             <div class="stat-card card-sample">
@@ -1584,6 +1645,48 @@
         function onSearchInputChange(val) {
             participantSearchQuery = (val || '').toLowerCase().trim();
             renderAllAdminTables();
+        }
+
+        /* MANUAL GMAIL LOOKUP — same idea as the Survey Portal's "Find my info":
+           type a participant's Gmail and pull up their record, no Google sign-in. */
+        function findParticipantByEmail() {
+            const input = document.getElementById('admin-manual-email');
+            const email = ((input && input.value) || '').trim().toLowerCase();
+            const statusEl = document.getElementById('admin-db-status');
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Please type a valid Gmail / email address first.');
+                if (input) input.focus();
+                return;
+            }
+
+            const session = (rawParticipantSessions || []).find(s =>
+                String(s.participantEmail || '').trim().toLowerCase() === email);
+
+            if (!session) {
+                showToast('No record found for ' + email);
+                if (statusEl) {
+                    statusEl.innerHTML = '<i data-lucide="mail-x" style="width:14px; height:14px; color:#ef4444;"></i> <span>No record found for ' + email + '</span>';
+                    refreshLucideIcons();
+                }
+                return;
+            }
+
+            // Filter the participant table down to this record, like the search box does
+            const searchInput = document.getElementById('participant-search-input');
+            if (searchInput) searchInput.value = email;
+            onSearchInputChange(email);
+
+            const name = session.participantName || 'Participant';
+            const sus = (session.susScore !== undefined && session.susScore !== null && session.susScore !== '') ? session.susScore : '—';
+            if (statusEl) {
+                statusEl.innerHTML = '<i data-lucide="user-check" style="width:14px; height:14px; color:var(--accent-neon);"></i> <span>Found: ' + name + ' • Session ' + (session.sessionId || '—') + ' • SUS ' + sus + '</span>';
+                refreshLucideIcons();
+            }
+            showToast('Found: ' + name + ' (SUS ' + sus + ')');
+
+            const table = document.querySelector('.table-wrapper');
+            if (table) table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function copyParticipantEmail(email) {
