@@ -45,6 +45,17 @@ try {
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 14px; }
+/* Desktop: the designed dotted-wave backdrop spans the whole page behind the cards.
+   Scoped to wide screens — phones keep the plain dark base (the hero card carries
+   the design there, and fixed-attachment backgrounds repaint poorly on mobile). */
+@media (min-width: 900px) {
+    body {
+        background: linear-gradient(180deg, rgba(4,10,20,.88), rgba(4,10,20,.94)), radial-gradient(900px 480px at 50% -8%, rgba(0,242,254,.10), transparent 62%), url('https://www.cs.princeton.edu/sites/default/files/styles/featured_image_mobile/public/2024-08/hero%20image%207.jpeg?h=b2ec1a2f&itok=_kCHS8TE') center / cover no-repeat fixed, var(--bg);
+    }
+    [data-theme="light"] body {
+        background: linear-gradient(180deg, rgba(241,245,249,.93), rgba(241,245,249,.96)), url('https://www.cs.princeton.edu/sites/default/files/styles/featured_image_mobile/public/2024-08/hero%20image%207.jpeg?h=b2ec1a2f&itok=_kCHS8TE') center / cover no-repeat fixed, #eef2f7;
+    }
+}
 /* sticky progress header */
 .progress-head { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 .progress-inner { max-width: 760px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
@@ -57,26 +68,46 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter'
 .icon-btn { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; font-weight: 700; padding: 7px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; text-decoration: none; white-space: nowrap; transition: transform .15s ease, border-color .15s ease; }
 .icon-btn:hover { transform: translateY(-1px); border-color: var(--cyan); }
 .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 70px; }
+@media (min-width: 1100px) {
+    /* Desktop: a wider, airier column so the page doesn't read as a strip in a void */
+    .wrap { max-width: 880px; padding-top: 26px; }
+    .study-title { font-size: 1.58rem; }
+}
 /* reveal animation */
 .rv { opacity: 0; transform: translateY(22px); transition: opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1); }
 .rv.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; transition: none; } html { scroll-behavior: auto; } }
 .hero { position: relative; overflow: hidden; text-align: center; margin: 6px 0 16px; background: url('https://www.cs.princeton.edu/sites/default/files/styles/featured_image_mobile/public/2024-08/hero%20image%207.jpeg?h=b2ec1a2f&itok=_kCHS8TE') center / cover no-repeat; border: 1px solid var(--line); border-radius: 16px; padding: 30px 22px 26px; }
 .hero-glow { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, rgba(4,10,20,.9), rgba(4,10,20,.74) 50%, rgba(4,10,20,.88)), radial-gradient(420px 200px at 50% -60px, rgba(0,242,254,.22), transparent 70%); }
-.hero-logo { width: 64px; height: 64px; position: relative; filter: drop-shadow(0 0 18px rgba(0,242,254,.45)); margin-bottom: 10px; }
+.hero-logo { display: block; margin: 0 auto 12px; width: 64px; height: 64px; position: relative; filter: drop-shadow(0 0 18px rgba(0,242,254,.45)); }
 .hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .66rem; font-weight: 800; letter-spacing: .06em; color: var(--cyan); background: rgba(2,132,199,.1); border: 1px solid var(--line); padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; position: relative; }
 .hero-badge svg { width: 13px; height: 13px; }
 .hero h1 { position: relative; font-family: 'Space Grotesk'; font-size: 1.5rem; margin: 0 0 8px; color: var(--head); }
 .hero h1 .g { background: linear-gradient(135deg,#a855f7,#00f2fe,#00ff88); -webkit-background-clip: text; background-clip: text; color: transparent; }
 [data-theme="light"] .hero h1 .g { background: linear-gradient(135deg,#7c3aed,#0369a1,#047857); -webkit-background-clip: text; background-clip: text; }
+/* Inverted-pyramid academic title block (official research title + authors) */
+.kicker { position: relative; display: inline-block; font-size: .7rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--cyan); background: rgba(2,132,199,.1); border: 1px solid var(--line); padding: 4px 14px; border-radius: 16px; margin-bottom: 12px; }
+.paper-block { position: relative; max-width: 620px; margin: 0 auto 14px; }
+.study-title { font-family: 'Space Grotesk'; font-size: clamp(1.1rem, 3.4vw, 1.42rem); font-weight: 800; line-height: 1.4; margin: 0 auto 12px; color: var(--head); letter-spacing: .01em; }
+.study-title .g { background: linear-gradient(135deg,#a855f7,#00f2fe,#00ff88); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="light"] .study-title .g { background: linear-gradient(135deg,#7c3aed,#0369a1,#047857); -webkit-background-clip: text; background-clip: text; }
+.pyr-authors { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 6px 26px; padding: 9px 0 8px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 0 9px; }
+.pyr-name { font-size: .78rem; font-weight: 700; color: var(--head); line-height: 1.4; }
+.pyr-adviser { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.pyr-adviser .pyr-name { font-size: .8rem; }
+.pyr-role { font-size: .58rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.3); padding: 2px 10px; border-radius: 10px; }
+@media (max-width: 560px) {
+    .pyr-authors { flex-direction: column; align-items: center; gap: 5px; }
+    .kicker { font-size: .62rem; }
+}
 [data-theme="light"] .hero-glow { background: linear-gradient(135deg, rgba(241,245,249,.94), rgba(241,245,249,.86) 50%, rgba(241,245,249,.93)), radial-gradient(420px 200px at 50% -60px, rgba(3,105,161,.14), transparent 70%); }
 .hero p { position: relative; margin: 0 auto; max-width: 580px; font-size: .83rem; color: var(--sub); line-height: 1.6; }
 .hero-pills { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 .hpill { display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; font-weight: 700; color: var(--head); background: var(--card2); border: 1px solid var(--line); padding: 6px 13px; border-radius: 20px; }
-.hpill b { font-size: .64rem; font-weight: 800; color: var(--cyan); background: rgba(2,132,199,.12); border-radius: 6px; padding: 1px 6px; }
+.hpill b { font-size: .68rem; font-weight: 800; color: var(--cyan); background: rgba(2,132,199,.12); border-radius: 6px; padding: 1px 6px; }
 .hpill-arrow { color: var(--sub); font-weight: 800; font-size: .75rem; }
 .feat-row { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 12px; }
-.fchip { display: inline-flex; align-items: center; gap: 6px; font-size: .62rem; font-weight: 800; letter-spacing: .06em; padding: 5px 12px; border-radius: 16px; border: 1px solid; white-space: nowrap; }
+.fchip { display: inline-flex; align-items: center; gap: 6px; font-size: .68rem; font-weight: 800; letter-spacing: .06em; padding: 5px 12px; border-radius: 16px; border: 1px solid; white-space: nowrap; }
 .fchip svg { width: 12px; height: 12px; }
 .fchip.c-cyan { color: #00f2fe; border-color: rgba(0,242,254,.4); background: rgba(0,242,254,.08); }
 .fchip.c-purple { color: #c084fc; border-color: rgba(168,85,247,.4); background: rgba(168,85,247,.08); }
@@ -86,7 +117,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter'
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; position: relative; }
 .card > h2 { font-family: 'Space Grotesk'; font-size: 1rem; margin: 0 0 3px; color: var(--head); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
 .card .sub { font-size: .75rem; color: var(--sub); margin-bottom: 14px; }
-.step-tag { font-size: .62rem; font-weight: 800; letter-spacing: .06em; padding: 3px 9px; border-radius: 12px; background: rgba(0,242,254,.1); border: 1px solid var(--line); color: var(--cyan); }
+.step-tag { font-size: .68rem; font-weight: 800; letter-spacing: .06em; padding: 3px 9px; border-radius: 12px; background: rgba(0,242,254,.1); border: 1px solid var(--line); color: var(--cyan); }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } }
 .f { margin-bottom: 10px; }
@@ -109,7 +140,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter'
 .consent-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: .78rem; font-weight: 800; color: var(--cyan); font-family: 'Space Grotesk'; margin-bottom: 8px; }
 .consent-head .t { display: flex; align-items: center; gap: 8px; }
 .consent-head .t svg { width: 18px; height: 18px; color: var(--neon); }
-.consent-head em { font-style: normal; font-size: .64rem; font-weight: 700; color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.25); padding: 4px 10px; border-radius: 8px; white-space: nowrap; font-family: 'Inter'; }
+.consent-head em { font-style: normal; font-size: .68rem; font-weight: 700; color: var(--neon); background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.25); padding: 4px 10px; border-radius: 8px; white-space: nowrap; font-family: 'Inter'; }
 .consent p { font-size: .75rem; color: var(--sub); line-height: 1.6; margin: 0 0 10px; }
 .consent label { display: flex; gap: 10px; font-size: .8rem; font-weight: 700; cursor: pointer; color: var(--head); line-height: 1.45; }
 .consent input { width: 18px; height: 18px; accent-color: var(--cyan); margin-top: 1px; flex-shrink: 0; cursor: pointer; }
@@ -268,27 +299,43 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .hide { display: none !important; }
 .em { display: none; font-size: .7rem; color: #ef4444; font-weight: 700; margin-top: 3px; }
+/* HCI: skip link for keyboard users */
+.skip-link { position: fixed; top: -60px; left: 12px; z-index: 999; background: var(--cyan); color: #04121a; font-weight: 700; font-size: .85rem; padding: 10px 16px; border-radius: 0 0 10px 10px; text-decoration: none; transition: top .2s ease; }
+.skip-link:focus { top: 0; }
 </style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="progress-head">
     <div class="progress-inner">
         <div class="brand"><img src="favicon.svg" class="brand-logo" alt="BYTECODE logo"><span>Survey Portal</span></div>
-        <div class="pbar"><div id="pfill"></div></div>
+        <div class="pbar" id="pbar" role="progressbar" aria-label="Survey completion progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="pfill"></div></div>
         <div class="pct" id="ppct">0%</div>
-        <button class="icon-btn" onclick="toggleTheme()"><i data-lucide="moon" style="width:13px;height:13px;"></i></button>
+        <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle light or dark theme"><i data-lucide="moon" style="width:13px;height:13px;"></i></button>
         <a class="icon-btn" href="index.html"><i data-lucide="home" style="width:13px;height:13px;"></i><span>Dashboard</span></a>
     </div>
 </div>
 
-<div class="wrap">
+<main class="wrap" id="main-content">
 <div id="form-view">
     <div class="hero rv">
         <div class="hero-glow"></div>
         <img src="favicon.svg" class="hero-logo" alt="BYTECODE logo">
-        <h1>Participant Survey — <span class="g">Register, Test & Rate</span></h1>
-        <p>"AI-Enhanced Wearable Health Dashboards for Gen Z." Please read the official letter below first, then three quick steps. Responses sync to the same research database as the main dashboard (R.A. 10173 compliant).</p>
+        <span class="kicker">Participant Survey &mdash; Register, Test &amp; Rate</span>
+        <div class="paper-block">
+            <h1 class="study-title">Interactive Design and Usability Testing of <span class="g">AI-Enhanced Wearable Health Dashboards for Gen&nbsp;Z</span></h1>
+            <div class="pyr-authors" aria-label="Researchers">
+                <span class="pyr-name">Emmanuel Jr D. Misola</span>
+                <span class="pyr-name">Jemani Sean Gabrielle H. Prendingue</span>
+                <span class="pyr-name">Jhon Rhed O. Omnes</span>
+            </div>
+            <div class="pyr-adviser">
+                <span class="pyr-name">Prof. Erlito M. Albina</span>
+                <span class="pyr-role">Research Adviser</span>
+            </div>
+        </div>
+        <p>Please read the official letter below first, then three quick steps. Responses sync to the same research database as the main dashboard (R.A. 10173 compliant).</p>
         <div class="hero-pills">
             <span class="hpill"><b>01</b> Register</span>
             <span class="hpill-arrow">→</span>
@@ -351,12 +398,12 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
         <div class="sub">Questions with * must be answered.</div>
         <div class="mod"><span class="num">01</span><span class="mt"><i data-lucide="user-check"></i>Your Profile</span><span class="tag">Basic Identity</span></div>
         <div class="grid2">
-            <div class="f"><label>Full Name *</label><input type="text" id="reg-name" placeholder="e.g. Juan D. Cruz"></div>
-            <div class="f"><label>Age (12 – 27) *</label><input type="number" id="reg-age" placeholder="12 - 27" min="12" max="27"></div>
-            <div class="f"><label>Gender</label><select id="reg-gender" onchange="toggleSelOther('reg-gender','reg-gender-other-wrap')"><option value="" selected>Select Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-gender-other-wrap"><input type="text" id="reg-gender-other" placeholder="Specify gender..."></div></div>
-            <div class="f"><label>City / Municipality *</label><select id="reg-address" onchange="toggleSelOther('reg-address','reg-address-other-wrap')"><option value="" disabled selected>Select</option><option>Pasay City</option><option>Manila</option><option>Quezon City</option><option>Makati / Taguig</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-address-other-wrap"><input type="text" id="reg-address-other" placeholder="Specify city / municipality..."></div></div>
-            <div class="f"><label>Who You Are *</label><select id="reg-occupation" onchange="toggleSelOther('reg-occupation','reg-occupation-other-wrap')"><option value="" disabled selected>Select</option><option>Student</option><option>Developer / IT Professional</option><option>General Gen Z User</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-occupation-other-wrap"><input type="text" id="reg-occupation-other" placeholder="Specify respondent identity..."></div></div>
-            <div class="f"><label>Email Address *</label><input type="email" id="reg-email" placeholder="e.g. juancruz@gmail.com"><div class="em" id="email-err">Enter a valid email format.</div>
+            <div class="f"><label for="reg-name">Full Name *</label><input type="text" id="reg-name" placeholder="e.g. Juan D. Cruz"></div>
+            <div class="f"><label for="reg-age">Age (12 – 27) *</label><input type="number" id="reg-age" placeholder="12 - 27" min="12" max="27"></div>
+            <div class="f"><label for="reg-gender">Gender</label><select id="reg-gender" onchange="toggleSelOther('reg-gender','reg-gender-other-wrap')"><option value="" selected>Select Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-gender-other-wrap"><input type="text" id="reg-gender-other" placeholder="Specify gender..."></div></div>
+            <div class="f"><label for="reg-address">City / Municipality *</label><select id="reg-address" onchange="toggleSelOther('reg-address','reg-address-other-wrap')"><option value="" disabled selected>Select</option><option>Pasay City</option><option>Manila</option><option>Quezon City</option><option>Makati / Taguig</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-address-other-wrap"><input type="text" id="reg-address-other" placeholder="Specify city / municipality..."></div></div>
+            <div class="f"><label for="reg-occupation">Who You Are *</label><select id="reg-occupation" onchange="toggleSelOther('reg-occupation','reg-occupation-other-wrap')"><option value="" disabled selected>Select</option><option>Student</option><option>Developer / IT Professional</option><option>General Gen Z User</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-occupation-other-wrap"><input type="text" id="reg-occupation-other" placeholder="Specify respondent identity..."></div></div>
+            <div class="f"><label for="reg-email">Email Address *</label><input type="email" id="reg-email" placeholder="e.g. juancruz@gmail.com" aria-describedby="email-err"><div class="em" id="email-err">Enter a valid email format.</div>
                 <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
                     <button type="button" class="icon-btn" id="google-btn" onclick="signInWithGoogle()" style="border-color:rgba(234,67,53,.5);">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 3.36 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
@@ -369,26 +416,26 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
         </div>
         <div class="mod"><span class="num">02</span><span class="mt"><i data-lucide="layers"></i>Your Device and Use</span><span class="tag">Hardware & Rhythm</span></div>
         <div class="grid2">
-            <div class="f"><label>Health Tracker / Device *</label><div class="chk" id="reg-device-type">
+            <div class="f"><label id="lbl-reg-device-type">Health Tracker / Device *</label><div class="chk" id="reg-device-type" role="group" aria-labelledby="lbl-reg-device-type">
                 <label><input type="checkbox" value="Smartwatch (Apple Watch, Galaxy Watch, etc.)"> Smartwatch</label>
                 <label><input type="checkbox" value="Fitness Band (Xiaomi Band, Huawei Band, etc.)"> Fitness Band</label>
                 <label><input type="checkbox" value="Smartphone Health Apps (Apple Health, Fit, etc.)"> Smartphone Health Apps</label>
                 <label><input type="checkbox" value="None / Non-wearable user"> None / Non-user</label>
                 <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-device-type-other-wrap')"> Other</label>
             </div><div class="other-wrap" id="reg-device-type-other-wrap"><input type="text" id="reg-device-type-other" placeholder="Specify health tracker / device..."></div></div>
-            <div class="f"><label>Health Platform *</label><div class="chk" id="reg-platform-ecosystem">
+            <div class="f"><label id="lbl-reg-platform-ecosystem">Health Platform *</label><div class="chk" id="reg-platform-ecosystem" role="group" aria-labelledby="lbl-reg-platform-ecosystem">
                 <label><input type="checkbox" value="Apple Health / watchOS"> Apple Health / watchOS</label>
                 <label><input type="checkbox" value="Google Fit / Samsung Health / Wear OS"> Google Fit / Samsung / Wear OS</label>
                 <label><input type="checkbox" value="Proprietary Fitness App (Xiaomi, Huawei, Garmin, Fitbit)"> Proprietary App (Xiaomi, Garmin, Fitbit)</label>
                 <label><input type="checkbox" value="Third-party Apps (Strava, Nike Training, MyFitnessPal)"> Third-party Apps (Strava, Nike, MFP)</label>
                 <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-platform-ecosystem-other-wrap')"> Other</label>
             </div><div class="other-wrap" id="reg-platform-ecosystem-other-wrap"><input type="text" id="reg-platform-ecosystem-other" placeholder="Specify health platform..."></div></div>
-            <div class="f"><label>Phone Type *</label><select id="reg-smartphone-os" onchange="toggleSelOther('reg-smartphone-os','reg-smartphone-os-other-wrap')"><option value="" disabled selected>Select OS</option><option>Compatible with iOS (watchOS, Fitbit, etc.)</option><option>Compatible with Android (Wear OS, Samsung, etc.)</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-smartphone-os-other-wrap"><input type="text" id="reg-smartphone-os-other" placeholder="Specify device OS..."></div></div>
-            <div class="f"><label>How Often You Check *</label><select id="reg-usage-freq"><option value="" disabled selected>Select</option><option>Multiple times a day</option><option>Once daily (morning / night)</option><option>A few times a week</option><option>Rarely / Only when unwell</option></select></div>
+            <div class="f"><label for="reg-smartphone-os">Phone Type *</label><select id="reg-smartphone-os" onchange="toggleSelOther('reg-smartphone-os','reg-smartphone-os-other-wrap')"><option value="" disabled selected>Select OS</option><option>Compatible with iOS (watchOS, Fitbit, etc.)</option><option>Compatible with Android (Wear OS, Samsung, etc.)</option><option value="Other">Other</option></select><div class="other-wrap" id="reg-smartphone-os-other-wrap"><input type="text" id="reg-smartphone-os-other" placeholder="Specify device OS..."></div></div>
+            <div class="f"><label for="reg-usage-freq">How Often You Check *</label><select id="reg-usage-freq"><option value="" disabled selected>Select</option><option>Multiple times a day</option><option>Once daily (morning / night)</option><option>A few times a week</option><option>Rarely / Only when unwell</option></select></div>
         <div class="mod"><span class="num">03</span><span class="mt"><i data-lucide="sparkles"></i>Tech Use and AI Help</span><span class="tag">AI Experience</span></div>
-            <div class="f"><label>Wearable Familiarity *</label><select id="reg-wearable-exp"><option value="" disabled selected>Select</option><option>Beginner (New to wearable/trackers)</option><option>Middle (Use wearables often)</option><option>Expert (Use wearables a lot)</option></select></div>
-            <div class="f"><label>AI Help Use *</label><select id="reg-ai-familiarity"><option value="" disabled selected>Select</option><option>Beginner (Rarely / never use AI health advice)</option><option>Intermediate (Occasionally consult AI tools)</option><option>Advanced (Frequently rely on AI insights regularly)</option></select></div>
-            <div class="f"><label>What You Want From AI Help *</label><div class="chk" id="reg-ai-priority">
+            <div class="f"><label for="reg-wearable-exp">Wearable Familiarity *</label><select id="reg-wearable-exp"><option value="" disabled selected>Select</option><option>Beginner (New to wearable/trackers)</option><option>Middle (Use wearables often)</option><option>Expert (Use wearables a lot)</option></select></div>
+            <div class="f"><label for="reg-ai-familiarity">AI Help Use *</label><select id="reg-ai-familiarity"><option value="" disabled selected>Select</option><option>Beginner (Rarely / never use AI health advice)</option><option>Intermediate (Occasionally consult AI tools)</option><option>Advanced (Frequently rely on AI insights regularly)</option></select></div>
+            <div class="f"><label id="lbl-reg-ai-priority">What You Want From AI Help *</label><div class="chk" id="reg-ai-priority" role="group" aria-labelledby="lbl-reg-ai-priority">
                 <label><input type="checkbox" value="Clear explanations of health scores"> Clear explanations of health scores</label>
                 <label><input type="checkbox" value="Practical recovery and wellness steps"> Practical recovery & wellness steps</label>
                 <label><input type="checkbox" value="Strict biometric privacy (R.A. 10173)"> Strict biometric privacy (R.A. 10173)</label>
@@ -396,7 +443,7 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
                 <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-ai-priority-other-wrap')"> Other</label>
             </div><div class="other-wrap" id="reg-ai-priority-other-wrap"><input type="text" id="reg-ai-priority-other" placeholder="Specify AI health advice priority..."></div></div>
         <div class="mod"><span class="num">04</span><span class="mt"><i data-lucide="activity"></i>Use History and Reasons</span><span class="tag">Motivations</span></div>
-            <div class="f"><label>Why You Track *</label><div class="chk" id="reg-tracking-purpose">
+            <div class="f"><label id="lbl-reg-tracking-purpose">Why You Track *</label><div class="chk" id="reg-tracking-purpose" role="group" aria-labelledby="lbl-reg-tracking-purpose">
                 <label><input type="checkbox" value="Daily Steps & Activity Rings"> Daily Steps & Activity Rings</label>
                 <label><input type="checkbox" value="Heart Rate (PPG) & Cardio Health"> Heart Rate & Cardio Health</label>
                 <label><input type="checkbox" value="Sleep Stages & Recovery Time"> Sleep Stages & Recovery</label>
@@ -405,7 +452,7 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
                 <label><input type="checkbox" value="Other" onchange="toggleChkOther(this,'reg-tracking-purpose-other-wrap')"> Other</label>
             </div><div class="other-wrap" id="reg-tracking-purpose-other-wrap"><input type="text" id="reg-tracking-purpose-other" placeholder="Specify primary tracking purpose..."></div></div>
         </div>
-        <div class="f"><label>How Long You Track *</label><select id="reg-usage-history"><option value="" disabled selected>Select</option><option>Less than 6 months (Recent adopter)</option><option>6 months to 2 years (Established user)</option><option>More than 2 years (Long-term power user)</option><option>First-time / Non-user</option></select></div>
+        <div class="f"><label for="reg-usage-history">How Long You Track *</label><select id="reg-usage-history"><option value="" disabled selected>Select</option><option>Less than 6 months (Recent adopter)</option><option>6 months to 2 years (Established user)</option><option>More than 2 years (Long-term power user)</option><option>First-time / Non-user</option></select></div>
         <div id="update-banner" class="unlock-note open hide" style="margin-bottom:12px;"><i data-lucide="history"></i><span><strong>Update mode</strong> — we found your saved response. Review your details, change anything, then tap <strong>Update &amp; Resubmit</strong>.</span></div>
         <div class="consent">
             <div class="consent-head"><span class="t"><i data-lucide="shield-check"></i> DATA PRIVACY ACT OF 2012 (REPUBLIC ACT NO. 10173) CONSENT NOTICE</span><em>R.A. 10173 COMPLIANT</em></div>
@@ -436,10 +483,10 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
         <div id="sus-box"></div>
         <h2 style="margin-top:16px; font-size:.9rem;"><span class="hico"><i data-lucide="message-circle" style="width:16px;height:16px;"></i></span> Section B: Quick Feedback <span style="font-size:.68rem; color:var(--sub); font-weight:600;">(required)</span></h2>
         <div class="sub">One or two sentences each is enough.</div>
-        <div class="f"><label>1. AI Help and Clear Answers *</label><textarea id="qual-ai" rows="2" placeholder="Were the AI explanations clear and trustworthy?"></textarea></div>
-        <div class="f"><label>2. Visual Design & Themes *</label><textarea id="qual-ui" rows="2" placeholder="Dark vs light mode, layout, readability..."></textarea></div>
-        <div class="f"><label>3. Privacy and Control (R.A. 10173) *</label><textarea id="qual-privacy" rows="2" placeholder="Did the privacy controls make you feel secure?"></textarea></div>
-        <div class="f"><label>4. Suggestions & Feature Ideas *</label><textarea id="qual-general" rows="2" placeholder="What should we add or improve?"></textarea></div>
+        <div class="f"><label for="qual-ai">1. AI Help and Clear Answers *</label><textarea id="qual-ai" rows="2" placeholder="Were the AI explanations clear and trustworthy?"></textarea></div>
+        <div class="f"><label for="qual-ui">2. Visual Design & Themes *</label><textarea id="qual-ui" rows="2" placeholder="Dark vs light mode, layout, readability..."></textarea></div>
+        <div class="f"><label for="qual-privacy">3. Privacy and Control (R.A. 10173) *</label><textarea id="qual-privacy" rows="2" placeholder="Did the privacy controls make you feel secure?"></textarea></div>
+        <div class="f"><label for="qual-general">4. Suggestions & Feature Ideas *</label><textarea id="qual-general" rows="2" placeholder="What should we add or improve?"></textarea></div>
         <div class="live">
             <div><div class="l">LIVE SUS SCORE</div><div class="v" id="live-score">Pending (0/10)</div></div>
             <div><div class="l">AVERAGE SCORE (X̄)</div><div class="v" id="live-mean" style="font-size:.82rem;">Answer all 10</div></div>
@@ -487,8 +534,8 @@ html, body { overflow-x: hidden; overflow-x: clip; -webkit-text-size-adjust: 100
         <button class="icon-btn" onclick="location.reload()" style="padding:10px 18px;"><i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i><span>New Response</span></button>
     </div>
 </div>
-</div>
-<div id="toast"></div>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const TASKS = [
@@ -631,6 +678,7 @@ function signInWithGoogle() {
         });
 }
 function signOutGoogle() {
+    if (!confirm('Sign out and clear everything?\n\nThis erases your form answers, task progress, survey responses, and saved session data on this device. This cannot be undone.')) return;
     if (window.firebaseAuth) window.firebaseAuth.signOut().catch(() => {});
     const b = document.getElementById('google-btn'); if (b) b.classList.remove('hide');
     setAuthStatus('');
@@ -656,6 +704,7 @@ function signOutGoogle() {
     const lg = document.getElementById('live-grade'); if (lg) lg.textContent = 'Answer all 10';
     const pf = document.getElementById('pfill'); if (pf) pf.style.width = '0%';
     const pp = document.getElementById('ppct'); if (pp) pp.textContent = '0%';
+    const pb0 = document.getElementById('pbar'); if (pb0) pb0.setAttribute('aria-valuenow', '0');
     Object.keys(localStorage).filter(k => k.indexOf('bytecode_survey_log_') === 0).forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
     activeSessionId = 'GENZ-S-' + Math.floor(100 + Math.random() * 900);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -818,7 +867,7 @@ function renderSUS() {
         box.className = 'sus'; box.id = 'sus-' + id;
         let opts = '';
         for (let v = 4; v >= 1; v--) opts += `<label class="opt" id="lbl-${id}-${v}"><input type="radio" name="q${id}" value="${v}" onchange="pick(${id},${v})">${LIKERT[v]}</label>`;
-        box.innerHTML = `<div class="qhead"><span class="qnum">Q${id}</span><span class="qtone ${tone}">${toneTxt}</span></div><q>${text}</q><div class="opts">${opts}</div>`;
+        box.innerHTML = `<div class="qhead"><span class="qnum">Q${id}</span><span class="qtone ${tone}">${toneTxt}</span></div><q id="susq-${id}">${text}</q><div class="opts" role="radiogroup" aria-labelledby="susq-${id}">${opts}</div>`;
         c.appendChild(box);
     });
 }
@@ -868,6 +917,7 @@ function progress() {
     const pct = Math.round((reg * 0.25 + t * 0.35 + q * 0.4) * 100);
     document.getElementById('pfill').style.width = pct + '%';
     document.getElementById('ppct').textContent = pct + '%';
+    const pb = document.getElementById('pbar'); if (pb) pb.setAttribute('aria-valuenow', String(pct));
     consoleUI();
 }
 ['reg-name','reg-age','reg-address','reg-email'].forEach(id => document.getElementById(id).addEventListener('input', progress));
