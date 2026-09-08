@@ -5444,6 +5444,84 @@
             }
             [data-theme="light"] .footer-credit { border-top-color: #e2e8f0; color: #475569; }
 
+            /* Research presentation card — Overview (hero) column */
+            .footer-presentation {
+                max-width: 1400px; margin: 14px auto 0; padding: 18px 24px 16px;
+                border: 1px solid rgba(0, 242, 254, 0.14); border-radius: 14px;
+                background: rgba(11, 18, 30, 0.55); text-align: center;
+            }
+            .hero-presentation {
+                position: relative; overflow: hidden; text-align: left;
+                max-width: none; margin: 18px 0 0; padding: 16px 18px 14px;
+                border: 1px solid rgba(0, 242, 254, 0.22); border-radius: 16px;
+                background:
+                    radial-gradient(420px 130px at 100% 0%, rgba(168, 85, 247, 0.10), transparent 65%),
+                    radial-gradient(420px 150px at 0% 100%, rgba(0, 242, 254, 0.08), transparent 65%),
+                    rgba(11, 18, 30, 0.72);
+                box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.6);
+            }
+            .hero-presentation::before {
+                content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px;
+                border-radius: 3px; background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple), var(--accent-neon));
+            }
+            .fp-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+            .fp-eyebrow {
+                display: inline-flex; align-items: center; gap: 7px;
+                font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+                color: var(--accent-cyan); background: rgba(0, 242, 254, 0.08);
+                border: 1px solid rgba(0, 242, 254, 0.3); padding: 4px 12px; border-radius: 14px;
+            }
+            .fp-uni { font-size: .6rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); }
+            .fp-study-title {
+                font-family: 'Space Grotesk', 'Inter', sans-serif;
+                font-size: clamp(.95rem, 1.7vw, 1.18rem); font-weight: 800; line-height: 1.45;
+                color: var(--text-heading); margin: 0 0 12px;
+            }
+            .fp-grad {
+                background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple) 55%, var(--accent-neon));
+                -webkit-background-clip: text; background-clip: text; color: transparent;
+            }
+            .fp-members { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-bottom: 11px; }
+            .fp-member {
+                display: inline-flex; align-items: center; gap: 6px;
+                font-size: .72rem; font-weight: 700; color: var(--text-primary);
+                background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.22);
+                padding: 5px 11px; border-radius: 16px; line-height: 1.2;
+            }
+            .fp-member svg { width: 11px; height: 11px; color: var(--accent-cyan); flex-shrink: 0; }
+            .fp-adviser-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding-top: 10px; border-top: 1px dashed rgba(0, 242, 254, 0.18); }
+            .fp-adviser-chip {
+                display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; font-weight: 600; color: var(--text-secondary);
+            }
+            .fp-adviser-chip svg { width: 14px; height: 14px; color: var(--accent-neon); flex-shrink: 0; }
+            .fp-adviser-chip b { color: var(--accent-neon); font-weight: 800; }
+            .fp-protocol {
+                font-size: .58rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+                color: var(--accent-purple); background: rgba(168, 85, 247, 0.08);
+                border: 1px solid rgba(168, 85, 247, 0.35); padding: 3px 10px; border-radius: 12px; white-space: nowrap;
+            }
+            [data-theme="light"] .footer-presentation { background: #ffffff; border-color: #e2e8f0; }
+            [data-theme="light"] .hero-presentation {
+                background:
+                    radial-gradient(420px 130px at 100% 0%, rgba(124, 58, 237, 0.06), transparent 65%),
+                    radial-gradient(420px 150px at 0% 100%, rgba(2, 132, 199, 0.05), transparent 65%),
+                    #ffffff;
+                border-color: #cbd5e1;
+            }
+            [data-theme="light"] .hero-presentation::before { background: linear-gradient(180deg, #0284c7, #7c3aed, #059669); }
+            [data-theme="light"] .fp-study-title { color: #0f172a; }
+            [data-theme="light"] .fp-member { background: rgba(2, 132, 199, 0.05); border-color: rgba(2, 132, 199, 0.25); color: #0f172a; }
+            [data-theme="light"] .fp-uni { color: #64748b; }
+            [data-theme="light"] .fp-adviser-row { border-top-color: rgba(2, 132, 199, 0.2); }
+            [data-theme="light"] .fp-adviser-chip { color: #475569; }
+            [data-theme="light"] .fp-adviser-chip b { color: #047857; }
+            @media (max-width: 640px) {
+                .hero-presentation { padding: 13px 12px 12px; }
+                .fp-card-top { flex-direction: column; align-items: flex-start; gap: 6px; }
+                .fp-members { gap: 5px 6px; }
+                .fp-adviser-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+            }
+
             /* --- Progressive disclosure: collapsible registration modules --- */
             .demo-module-header[role="button"] { cursor: pointer; user-select: none; border-radius: 8px; transition: background 0.15s ease; }
             .demo-module-header[role="button"]:hover { background: rgba(0, 242, 254, 0.04); }
@@ -5969,9 +6047,9 @@
             <section id="overview" class="hero-section">
                 <div>
                     <div style="width:60px; height:3px; background:linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); border-radius:3px; margin-bottom:10px;"></div>
-                    <div class="hero-subtitle">Research Project — HCI Study on Easy-to-Use Watch Apps</div>
+                    <div class="hero-subtitle">Welcome to Your Health Dashboard</div>
                     <h1 class="hero-title">
-                                            Interactive Design and Usability Testing of <span class="gradient-text">AI-Enhanced Wearable Health Dashboards for Gen Z</span>
+                                            Your Health, <span class="gradient-text">Beautifully in Sync</span>
                                         </h1>
                                         <p class="hero-desc">
                                             A test dashboard for our HCI study. It brings heart rate, sleep, movement, and stress into one calm view—with simple explanations and privacy controls you can understand.
@@ -6011,6 +6089,24 @@
                             <div style="margin-top:6px; height:4px; background:rgba(244,63,94,0.1); border-radius:4px; overflow:hidden;"><div style="width:76%; height:100%; background:linear-gradient(90deg, var(--accent-pink), #fb923c); border-radius:4px;"></div></div>
                             <div style="font-size:0.65rem; color:var(--text-secondary); margin-top:4px;">540 kcal · Active 42 min</div>
                             <span class="binary-tag">1101</span>
+                        </div>
+                    </div>
+
+                    <!-- HCI RESEARCH STUDY PRESENTATION (title + group members + adviser) -->
+                    <div class="footer-presentation hero-presentation">
+                        <div class="fp-card-top">
+                            <span class="fp-eyebrow"><span class="dot-glow"></span> HCI RESEARCH STUDY</span>
+                            <span class="fp-uni">Arellano University &ndash; JAS Campus</span>
+                        </div>
+                        <h2 class="fp-study-title">Interactive Design and Usability Testing of <span class="fp-grad">AI-Enhanced Wearable Health Dashboards for Gen&nbsp;Z</span></h2>
+                        <div class="fp-members" aria-label="Group members">
+                            <span class="fp-member"><i data-lucide="user" aria-hidden="true"></i> Emmanuel Jr D. Misola</span>
+                            <span class="fp-member"><i data-lucide="user" aria-hidden="true"></i> Jemani Sean Gabrielle H. Prendingue</span>
+                            <span class="fp-member"><i data-lucide="user" aria-hidden="true"></i> Jhon Rhed O. Omnes</span>
+                        </div>
+                        <div class="fp-adviser-row">
+                            <span class="fp-adviser-chip"><i data-lucide="graduation-cap" aria-hidden="true"></i> Presented to <b>Dr. Earl Marquez Albina</b> &mdash; Research Adviser</span>
+                            <span class="fp-protocol">HCI 2 Research Protocol</span>
                         </div>
                     </div>
                 </div>
@@ -7557,7 +7653,6 @@
                     <a href="#usability-logger">Survey Portal</a>
                 </nav>
             </div>
-            <p class="footer-credit">Research Study: &ldquo;Interactive Design and Usability Testing of AI-Enhanced Wearable Health Dashboards for Gen Z&rdquo; &bull; Arellano University &bull; HCI 2 Research Protocol</p>
         </footer>
 
             <!-- INBOX NOTIFICATIONS MODAL OVERLAY -->
