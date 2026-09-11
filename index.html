@@ -5569,6 +5569,17 @@
                 .nqm-chip { padding: 8px 10px; font-size: .7rem; }
             }
 
+            /* --- Readability floors for micro-labels (G1) --- */
+            .binary-tag { font-size: 0.6rem !important; }
+            .bio-chip-badge { font-size: 0.62rem !important; }
+            .bio-chip-status { font-size: 0.7rem !important; }
+            .watch-face-label { font-size: 0.62rem !important; }
+            .fp-uni { font-size: 0.62rem !important; }
+            .fp-protocol { font-size: 0.6rem !important; }
+
+            /* --- Hero preview guard: decorative overflow stays clipped (G3) --- */
+            .hero-card-preview { overflow: hidden; }
+
             /* Button-form reset for converted switch toggles */
             button.mini-toggle-btn { padding: 0; appearance: none; -webkit-appearance: none; font: inherit; }
 
@@ -5969,7 +5980,7 @@
                         </button>
                         <div class="user-profile" id="sidebar-user-profile" title="Gen Z Research Participant" onclick="signOutGoogle()" style="cursor:pointer; display:none;" role="button" tabindex="0" aria-label="Signed in participant. Activate to sign out." onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();signOutGoogle();}">
                             <div class="avatar" id="sidebar-avatar">
-                                <img id="sidebar-avatar-img" src="" alt="Profile" style="width:100%; height:100%; border-radius:50%; object-fit:cover; display:none;" onerror="this.style.display='none'; document.getElementById('sidebar-avatar-icon').style.display='block';">
+                                <img id="sidebar-avatar-img" alt="Profile" style="width:100%; height:100%; border-radius:50%; object-fit:cover; display:none;" onerror="this.style.display='none'; document.getElementById('sidebar-avatar-icon').style.display='block';">
                                 <i data-lucide="user" id="sidebar-avatar-icon" style="width:14px; height:14px; color:var(--text-muted);"></i>
                             </div>
                         </div>
@@ -8549,7 +8560,7 @@
 
                 if (displayedN > 0) {
                     const overallMean = (sumWeightedMeans / 10).toFixed(2);
-                    const cohortSUS = ((overallMean - 1) * (100/3)).toFixed(1);
+                    const cohortSUS = ((sumWeightedMeans / 10 - 1) * (100/3)).toFixed(1);
 
                     let grade = 'Grade A (Excellent Usability)';
                     if (cohortSUS < 50.9) grade = 'Grade F (Poor Usability)';
@@ -8623,7 +8634,7 @@
                 });
 
                 const overallMean = totalCohortN > 0 ? (sumMeans / 10).toFixed(2) : '0.00';
-                const cohortSUS = totalCohortN > 0 ? ((overallMean - 1) * (100/3)).toFixed(1) : '0.00';
+                const cohortSUS = totalCohortN > 0 ? ((sumMeans / 10 - 1) * (100/3)).toFixed(1) : '0.00';
 
                 lines.push(``);
                 lines.push(`"OVERALL SUMMARY STATISTICAL METRICS"`);
