@@ -3009,7 +3009,8 @@
              ["04 Chapter4 Summary", "Table 3.4 framework: goal vs result vs status"],
              ["05 Formula Audit", "Every equation, paper reference, code location, and hand-checked test vectors"],
              ["06 Demographics", "Who took part: occupation, age group, gender, location — live COUNTIF + percentage formulas"],
-             ["07 Feedback Summary", "Written qualitative feedback, verbatim, grouped by the 4 guide questions"]].forEach((pair, i) => {
+             ["07 Feedback Summary", "Written qualitative feedback, verbatim, grouped by the 4 guide questions"],
+             ["Participants Calculations", "Per-participant math: odd/even sums, live SUS score, average score (Xbar), rating and grade"]].forEach((pair, i) => {
                 const row = wsCover.getRow(14 + i);
                 row.height = 18;
                 const a = wsCover.getCell('A' + row.number); a.value = pair[0]; a.font = { bold: true, size: 10 }; a.border = gridBox;
@@ -3406,6 +3407,75 @@
                 });
                 wsF.addRow([]);
             });
+
+            // ---------- PARTICIPANTS CALCULATIONS ----------
+            const wsP = wb.addWorksheet('Participants Calculations', { views: [{ state: 'frozen', ySplit: 3, showGridLines: false }], properties: { tabColor: { argb: 'FF8B5CF6' } } });
+            wsP.columns = [{ width: 5 }, { width: 15 }, { width: 26 }, { width: 14 }, { width: 14 }, { width: 15 }, { width: 16 }, { width: 36 }, { width: 28 }];
+            wsP.mergeCells('A1:I1');
+            const pTitle = wsP.getCell('A1');
+            pTitle.value = 'PARTICIPANTS CALCULATIONS — per-participant SUS score, average score (X̄) and rating';
+            pTitle.font = { bold: true, size: 12, color: { argb: ACCENT } };
+            pTitle.alignment = { vertical: 'middle' };
+            wsP.getRow(1).height = 26;
+            wsP.mergeCells('A2:I2');
+            const pNote = wsP.getCell('A2');
+            pNote.value = 'LIVE formulas from the Q1-Q10 answers in 01 Respondents. SUS points: odd items = answer − 1, even items = 4 − answer, total × 100/30. Average score (X̄): odd = raw, even = 5 − raw, ÷ 10. Rating bands per Table 3.3.';
+            pNote.font = { size: 9, italic: true, color: { argb: MUTED } };
+            pNote.alignment = { wrapText: true };
+            wsP.getRow(2).height = 28;
+            const pHead = ["#", "SessionID", "Name", "Odd Sum (Q1+Q3+Q5+Q7+Q9)", "Even Sum (Q2+Q4+Q6+Q8+Q10)", "LIVE SUS Score (/100)", "Average Score (X̄ /4.00)", "Rating (Table 3.3)", "SUS Grade"];
+            wsP.addRow(pHead);
+            styleHeader(wsP, 3, pHead.length, 42);
+            const pR1 = N + 1;
+            const oddRef = rr => "SUM('01 Respondents'!T" + rr + ",'01 Respondents'!V" + rr + ",'01 Respondents'!X" + rr + ",'01 Respondents'!Z" + rr + ",'01 Respondents'!AB" + rr + ")";
+            const evenRef = rr => "SUM('01 Respondents'!U" + rr + ",'01 Respondents'!W" + rr + ",'01 Respondents'!Y" + rr + ",'01 Respondents'!AA" + rr + ",'01 Respondents'!AC" + rr + ")";
+            rawParticipantSessions.forEach((s, i) => {
+                const rr = i + 2;
+                const row = wsP.addRow([i + 1, s.sessionId || "", s.participantName || "", "", "", "", "", "", ""]);
+                const items = {};
+                (s.susItemResponses || []).forEach(it => { items[it.questionId] = it.rawRating; });
+                let oddSum = 0, evenSum = 0, ok = true;
+                for (let q = 1; q <= 10; q++) { if (typeof items[q] !== 'number') ok = false; else if (q % 2) oddSum += items[q]; else evenSum += items[q]; }
+                const sus = ok ? +(((oddSum - 5) + (20 - evenSum)) * (100 / 30)).toFixed(1) : "";
+                const mean = ok ? +((oddSum + 25 - evenSum) / 10).toFixed(2) : "";
+                const rating = !ok ? "Unanswered" : mean >= 3.26 ? "Strongly Agree (Excellent Usability)" : mean >= 2.51 ? "Agree (Good Usability)" : mean >= 1.76 ? "Disagree (Fair Usability)" : "Strongly Disagree (Poor Usability)";
+                const grade = !ok ? "No data" : sus < 50.9 ? "Grade F (Poor Usability)" : sus < 68 ? "Grade C (Marginal Usability)" : sus < 80.3 ? "Grade B (Good Usability)" : "Grade A (Excellent Usability)";
+                row.getCell(4).value = { formula: oddRef(rr), result: ok ? oddSum : null };
+                row.getCell(5).value = { formula: evenRef(rr), result: ok ? evenSum : null };
+                row.getCell(6).value = { formula: "((D" + row.number + "-5)+(20-E" + row.number + "))*(100/30)", result: sus === "" ? null : sus };
+                row.getCell(7).value = { formula: "(D" + row.number + "+25-E" + row.number + ")/10", result: mean === "" ? null : mean };
+                row.getCell(8).value = { formula: "IF(G" + row.number + ">=3.26,\"Strongly Agree (Excellent Usability)\",IF(G" + row.number + ">=2.51,\"Agree (Good Usability)\",IF(G" + row.number + ">=1.76,\"Disagree (Fair Usability)\",\"Strongly Disagree (Poor Usability)\")))", result: rating };
+                row.getCell(9).value = { formula: "IF(F" + row.number + "<50.9,\"Grade F (Poor Usability)\",IF(F" + row.number + "<68,\"Grade C (Marginal Usability)\",IF(F" + row.number + "<80.3,\"Grade B (Good Usability)\",\"Grade A (Excellent Usability)\")))", result: grade };
+            });
+            zebra(wsP, 4, N + 3, 9, [1, 4, 5, 6, 7]);
+            for (let r = 4; r <= N + 3; r++) {
+                wsP.getCell('F' + r).numFmt = '0.0';
+                wsP.getCell('G' + r).numFmt = '0.00';
+                wsP.getCell('F' + r).font = { size: 10, bold: true, color: { argb: ACCENT } };
+                wsP.getCell('G' + r).font = { size: 10, bold: true, color: { argb: NEON } };
+                wsP.getCell('A' + r).font = { size: 10, color: { argb: MUTED } };
+                wsP.getCell('B' + r).font = { size: 10, bold: true, color: { argb: 'FF475569' } };
+            }
+            const pTot = N + 5;
+            wsP.mergeCells('A' + pTot + ':C' + pTot);
+            const pc1 = labelCell(wsP, 'A' + pTot, 'COHORT CHECK — average of per-participant LIVE SUS scores (must equal 02 J16)');
+            pc1.alignment = { vertical: 'middle', indent: 1 };
+            const pc1v = wsP.getCell('D' + pTot);
+            pc1v.value = { formula: 'ROUND(AVERAGE(F4:F' + (N + 3) + '),1)', result: mSUS };
+            pc1v.font = { bold: true, size: 11, color: { argb: GREEN } };
+            pc1v.numFmt = '0.0';
+            pc1v.alignment = { horizontal: 'center', vertical: 'middle' };
+            wsP.getRow(pTot).height = 20;
+            const pTot2 = pTot + 1;
+            wsP.mergeCells('A' + pTot2 + ':C' + pTot2);
+            const pc2 = labelCell(wsP, 'A' + pTot2, 'COHORT CHECK — average of per-participant X̄ (must equal 02 J15)');
+            pc2.alignment = { vertical: 'middle', indent: 1 };
+            const pc2v = wsP.getCell('D' + pTot2);
+            pc2v.value = { formula: 'ROUND(AVERAGE(G4:G' + (N + 3) + '),2)', result: mMean };
+            pc2v.font = { bold: true, size: 11, color: { argb: GREEN } };
+            pc2v.numFmt = '0.00';
+            pc2v.alignment = { horizontal: 'center', vertical: 'middle' };
+            wsP.getRow(pTot2).height = 20;
 
             return Promise.resolve(wb);
         }
